@@ -15,23 +15,55 @@ import model.Tile;
 import java.io.IOException;
 
 public class TerminalGame {
+    private static final int INFO_BOX_WIDTH = 24;
+    private static final int INFO_BOX_HEIGHT = 1;
     private Game game;
     private Screen screen;
     private Terminal terminal;
     private int tick;
+    private int gameSizeX;
+    private int gameSizeY;
+    private int windowSizeX;
+    private int windowSizeY;
 
-    public TerminalGame() {
+    private GameFrame gameFrame;
+    private InfoFrame infoFrame;
+    private HudFrame hudFrame;
+
+    public TerminalGame(int sizeX, int sizeY) {
+        gameSizeX = sizeX;
+        gameSizeY = sizeY;
+        windowSizeX = gameSizeX + INFO_BOX_WIDTH + 4;
+        windowSizeY = gameSizeY + INFO_BOX_HEIGHT + 4;
+
         // Setup and initialize game object
-        game = new Game(32, 32);
+        game = new Game(gameSizeX, gameSizeY);
 
         // Start the Terminal UI Rendering
         try {
             // Setup and create terminal
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-            terminalFactory.setInitialTerminalSize(new TerminalSize(40, 40));
+            terminalFactory.setInitialTerminalSize(new TerminalSize(windowSizeX, windowSizeY));
             terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
             screen.startScreen();
+
+            // Set up UI Frames
+            gameFrame = new GameFrame(
+                    0, 0,
+                    gameSizeX + 1, gameSizeY + 1,
+                    screen, game
+            );
+            infoFrame = new InfoFrame(
+                    gameSizeX + 2, 0,
+                    windowSizeX - 1, gameSizeY + 1,
+                    screen
+            );
+            hudFrame = new HudFrame(
+                    0, gameSizeY + 2,
+                    windowSizeX - 1, windowSizeY - 1,
+                    screen
+            );
 
             // Start The Game Loop
             startGameLoop();
@@ -51,36 +83,22 @@ public class TerminalGame {
         tick = 0;
         while (true) {
             tick++;
-            // Draw all tiles, entities, and items on the map
-            renderGame();
+            render();
             Thread.sleep(1000L / Game.TPS);
         }
     }
 
-    private void renderGame() throws IOException {
+    private void render() throws IOException {
         // Initialize the screen
         screen.setCursorPosition(new TerminalPosition(0, 0));
         screen.clear();
 
         // Render all elements
-        renderTiles();
-
-        drawSprite(1, 1, Integer.toString(tick).charAt(0), TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
+        gameFrame.drawFrame();
+        gameFrame.drawGame();
+        infoFrame.drawFrame();
+        hudFrame.drawFrame();
 
         screen.refresh();
-    }
-
-    private void renderTiles() {
-        for (Tile t: game.getLevel().getTiles()) {
-            drawSprite(t.getPosX(), t.getPosY(), t.getTextSprite(), t.getTextColor(), TextColor.ANSI.DEFAULT);
-        }
-    }
-
-    private void drawSprite(int posX, int posY, char c, TextColor foregroundColor, TextColor backgroundColor) {
-        // Initialize the sprite
-        TextGraphics sprite = screen.newTextGraphics();
-        sprite.setForegroundColor(foregroundColor);
-        sprite.setBackgroundColor(backgroundColor);
-        sprite.putString(posX, posY, String.valueOf(c));
     }
 }
