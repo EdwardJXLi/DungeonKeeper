@@ -3,7 +3,8 @@ package model.enemies;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
-import model.items.SuspiciousPotion;
+import model.Item;
+import model.items.*;
 
 public class Guard extends Enemy {
     private static final int INITIAL_HEALTH = 50;
@@ -24,7 +25,27 @@ public class Guard extends Enemy {
     // EFFECTS: Drops loop on death
     @Override
     public void onDeath() {
-        getGame().getLevel().dropItem(getPosX(), getPosY(), new SuspiciousPotion());
+        // Chance of dropping either Armor, Weapon, or Potion
+        Item droppedItem = new HealingPotion();
+        switch (getGame().getRandom().nextInt(5)) {
+            case 0:
+                droppedItem = new GuardArmor(getGame().getRandom().nextInt(25));
+                break;
+            case 1:
+                droppedItem = new GuardSword(getGame().getRandom().nextInt(25));
+                break;
+            case 2:
+                droppedItem = new StrengthPotion();
+                break;
+            case 3:
+                droppedItem = new DefensePotion();
+                break;
+            case 4:
+                droppedItem = new HealingPotion();
+                break;
+        }
+        // Drop item
+        getGame().getLevel().dropItem(getPosX(), getPosY(), droppedItem);
     }
 
     // MODIFIES: this

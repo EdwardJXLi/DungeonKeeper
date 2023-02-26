@@ -19,7 +19,7 @@ public class TerminalGame {
     private static final int INFO_BOX_WIDTH = 24;
     private static final int CHAT_BOX_HEIGHT = 5;
     private static final int PLAYER_INFO_BOX_HEIGHT = 5;
-    private static final int INV_PREVIEW_BOX_HEIGHT = 6;
+    private static final int INV_PREVIEW_BOX_HEIGHT = 4;
     private static final int INV_INSTRUCTION_BOX_HEIGHT = 5;
 
     // Game and Screen Variables
@@ -98,13 +98,18 @@ public class TerminalGame {
                     gameSizeX + 1, gameSizeY + 1,
                     screen, game
             );
-            inventoryPreviewFrame = new InvPreviewFrame(
+            playerInfoFrame = new PlayerInfoFrame(
                     gameSizeX + 2, 0,
-                    windowSizeX - 1, INV_PREVIEW_BOX_HEIGHT + 1,
+                    windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + 1,
+                    screen, game
+            );
+            inventoryPreviewFrame = new InvPreviewFrame(
+                    gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
+                    windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + INV_PREVIEW_BOX_HEIGHT + 3,
                     screen, game
             );
             equipmentFrame = new EquipmentFrame(
-                    gameSizeX + 2, INV_PREVIEW_BOX_HEIGHT + 2,
+                    gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + INV_PREVIEW_BOX_HEIGHT + 4,
                     windowSizeX - 1, gameSizeY + 1,
                     screen, game
             );
@@ -241,8 +246,10 @@ public class TerminalGame {
         inventoryFrame.renderInventory(inventory, from, to, selected);
         inventoryInstructionsFrame.drawFrame();
         inventoryInstructionsFrame.renderInstructions();
+        playerInfoFrame.drawFrame();
+        playerInfoFrame.drawPlayerInfo();
         inventoryPreviewFrame.drawFrame();
-        inventoryPreviewFrame.renderPreview();
+        inventoryPreviewFrame.renderPreview(inventory, selected);
         equipmentFrame.drawFrame();
         equipmentFrame.renderEquipment();
         messageFrame.drawFrame();

@@ -20,7 +20,7 @@ public class Juggernaut extends Enemy {
     }
 
     // MODIFIES: this
-    // EFFECTS: Drops loop on death
+    // EFFECTS: Drops loot on death
     @Override
     public void onDeath() {
         // TODO

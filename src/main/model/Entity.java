@@ -15,14 +15,14 @@ public abstract class Entity implements ScreenElement {
     private final Game game;
     private int maxHealth;
     private int health;
-    private int defense;
-    private int attack;
+    private int baseDefense;
+    private int baseAttack;
 
     // EFFECTS: Creates a generic entity with health, defence, and attack
     public Entity(
             Game game, int posX, int posY, char textSprite,
             TextColor textColor, TextColor backgroundColor,
-            String name, int health, int defence, int attack
+            String name, int health, int baseDefence, int baseAttack
     ) {
         this.game = game;
         this.posX = posX;
@@ -33,8 +33,8 @@ public abstract class Entity implements ScreenElement {
         this.name = name;
         this.maxHealth = health;
         this.health = health;
-        this.defense = defence;
-        this.attack = attack;
+        this.baseDefense = baseDefence;
+        this.baseAttack = baseAttack;
     }
 
     // MODIFIES: this
@@ -104,8 +104,11 @@ public abstract class Entity implements ScreenElement {
     // MODIFIES: this
     // EFFECTS: Applies Damage to Entity
     public void damage(int amount) {
+        // Calculate damage amount based on defense
+        // Ensure damage does not go into the negatives
+        int damage = Math.max(0, amount - getDefense());
         // Ensure health does not go into the negatives
-        health = Math.max(health - amount, 0);
+        health = Math.max(health - damage, 0);
     }
 
     // REQUIRES: amount > 0
@@ -182,31 +185,23 @@ public abstract class Entity implements ScreenElement {
         return maxHealth;
     }
 
-    protected void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
-
     public int getHealth() {
         return health;
     }
 
-    protected void setHealth(int health) {
-        this.health = health;
-    }
-
     public int getDefense() {
-        return defense;
+        return baseDefense;
     }
 
-    protected void setDefense(int defense) {
-        this.defense = defense;
+    public void addDefense(int amount) {
+        this.baseDefense += amount;
     }
 
     public int getAttack() {
-        return attack;
+        return baseAttack;
     }
 
-    protected void setAttack(int attack) {
-        this.attack = attack;
+    public void addAttack(int amount) {
+        this.baseAttack += amount;
     }
 }

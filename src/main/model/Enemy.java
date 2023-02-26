@@ -9,9 +9,9 @@ public abstract class Enemy extends Entity {
     public Enemy(
             Game game,
             char textSprite, TextColor textColor, TextColor backgroundColor,
-            String name, int health, int defence, int attack) {
+            String name, int health, int baseDefence, int baseAttack) {
         super(
-                game, 0, 0, textSprite, textColor, backgroundColor, name, health, defence, attack
+                game, 0, 0, textSprite, textColor, backgroundColor, name, health, baseDefence, baseAttack
         );
 
         this.stunned = false;

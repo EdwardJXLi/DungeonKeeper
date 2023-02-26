@@ -1,19 +1,22 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.items.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity {
     private static final int INITIAL_HEALTH = 200;
-    private static final int INITIAL_DEFENSE = 10;
+    private static final int INITIAL_DEFENSE = 0;
     private static final int INITIAL_ATTACK = 20;
 
     // Player Information
     private int kills;
     private Enemy lastEnemy;
     private List<Item> inventory;
+    private Armor equippedArmor;
+    private Weapon equippedWeapon;
 
     // EFFECTS: Creates a generic player
     public Player(Game game) {
@@ -25,6 +28,17 @@ public class Player extends Entity {
         // Initialize Variables
         kills = 0;
         inventory = new ArrayList<>();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Adds initial items to player
+    public void initPlayer() {
+        // Add three healing potions and one defense and strength potion
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new HealingPotion());
+        addItem(new DefensePotion());
+        addItem(new StrengthPotion());
     }
 
     // MODIFIES: this
@@ -72,10 +86,10 @@ public class Player extends Entity {
         // Enemy Always Attacks First
         getGame().sendMessage(String.format("⚔ You got into a fight with %s!", enemy.getName()));
         getGame().sendMessage(String.format("⚔ %s attacks first for %d", enemy.getName(), enemy.getAttack()));
-        this.damage(Math.max(0, enemy.getAttack() - this.getDefense()));
+        this.damage(enemy.getAttack());
         getGame().sendMessage(String.format("⚔ You fight back for %d damage!", this.getAttack()));
         getGame().sendMessage(String.format("⚔ Enemy is now stunned and at %d health.", enemy.getHealth()));
-        enemy.damage(Math.max(0, this.getAttack() - enemy.getDefense()));
+        enemy.damage(this.getAttack());
         enemy.stun();
 
         if (enemy.isDead()) {
@@ -125,8 +139,66 @@ public class Player extends Entity {
         removeItem(item);
     }
 
+    // EFFECTS: Gets currently equipped armor
+    public Armor getArmor() {
+        return equippedArmor;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Sets currently equipped armor and places current armor in inventory
+    public void equipArmor(Armor armor) {
+        if (equippedArmor == null) {
+            equippedArmor = armor;
+            removeItem(armor);
+        } else {
+            Armor previousArmor = equippedArmor;
+            equippedArmor = armor;
+            removeItem(armor);
+            addItem(previousArmor);
+        }
+    }
+
+    // EFFECTS: Gets currently equipped weapon
+    public Weapon getWeapon() {
+        return equippedWeapon;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Sets currently equipped armor and places current armor in inventory
+    public void equipWeapon(Weapon weapon) {
+        if (equippedWeapon == null) {
+            equippedWeapon = weapon;
+            removeItem(weapon);
+        } else {
+            Weapon previousWeapon = equippedWeapon;
+            equippedWeapon = weapon;
+            removeItem(weapon);
+            addItem(previousWeapon);
+        }
+    }
+
     // EFFECTS: Returns the number of enemies killed
     public int getKills() {
         return kills;
+    }
+
+    // EFFECTS: Override existing get defence to add armor defence
+    @Override
+    public int getDefense() {
+        if (equippedArmor != null) {
+            return super.getDefense() + equippedArmor.getAdditionalDefense();
+        } else {
+            return super.getDefense();
+        }
+    }
+
+    // EFFECTS: Override existing get attack to add weapon attack
+    @Override
+    public int getAttack() {
+        if (equippedWeapon != null) {
+            return super.getAttack() + equippedWeapon.getAdditionalAttack();
+        } else {
+            return super.getAttack();
+        }
     }
 }

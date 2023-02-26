@@ -1,6 +1,5 @@
 package model;
 
-import model.items.RandomPotion;
 import model.items.SuspiciousPotion;
 
 import java.util.ArrayList;
@@ -42,15 +41,8 @@ public class Game {
         // Spawn Player
         gameLevel.spawnPlayer(player);
 
-        // TODO: give bunch of test items
-        player.addItem(new SuspiciousPotion());
-        for (int i = 0; i < 10; i++) {
-            player.addItem(new RandomPotion());
-            player.addItem(new SuspiciousPotion());
-        }
-        player.addItem(new RandomPotion());
-        player.addItem(new RandomPotion());
-        player.addItem(new RandomPotion());
+        // Add initial items to player
+        player.initPlayer();
 
         // Initialize Enemies in level
         gameLevel.initLevel();

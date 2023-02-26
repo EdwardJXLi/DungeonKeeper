@@ -49,7 +49,6 @@ public class InfoFrame extends Frame {
     // EFFECTS: Helper function to render information about dropped item
     private void renderDroppedItemInformation(DroppedItem droppedItem) {
         Item item = droppedItem.getItem();
-        List<String> description = item.getDescription();
 
         // Print information about tile
         drawText(2, INFO_OFFSET, "[Dropped Item]", TextColor.ANSI.GREEN, TextColor.ANSI.WHITE);
@@ -67,10 +66,10 @@ public class InfoFrame extends Frame {
                 5, INFO_OFFSET + 4,
                 item.getName(), TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
 
-        if (description != null) {
+        if (item.getDescription() != null) {
             // Render tile information
-            for (int i = 0; i < description.size(); i++) {
-                drawText(2, INFO_OFFSET + 5 + i, description.get(i));
+            for (int i = 0; i < item.getDescription().size(); i++) {
+                drawText(2, INFO_OFFSET + 5 + i, item.getDescription().get(i));
             }
         }
     }

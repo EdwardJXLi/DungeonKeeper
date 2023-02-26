@@ -7,14 +7,11 @@ import java.util.Arrays;
 
 public class SuspiciousPotion extends Potion {
     public SuspiciousPotion() {
-        super(
-                null, "Suspicious Potion",
-                Arrays.asList("A Suspicious", "Looking Potion"),
-                TextColor.ANSI.MAGENTA
-        );
+        super("Suspicious Potion", Arrays.asList("A Suspicious", "Looking Potion"), TextColor.ANSI.MAGENTA);
     }
 
     @Override
     // EFFECTS: does nothing
-    public void useItem(Player p) {}
+    public void useItem(Player p) {
+    }
 }
