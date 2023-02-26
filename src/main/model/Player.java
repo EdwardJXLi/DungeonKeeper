@@ -2,6 +2,9 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player extends Entity {
     private static final int INITIAL_HEALTH = 200;
     private static final int INITIAL_DEFENSE = 10;
@@ -10,6 +13,7 @@ public class Player extends Entity {
     // Player Information
     private int kills;
     private Enemy lastEnemy;
+    private List<Item> inventory;
 
     // EFFECTS: Creates a generic player
     public Player(Game game) {
@@ -19,6 +23,7 @@ public class Player extends Entity {
                 "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
         kills = 0;
+        inventory = new ArrayList<>();
     }
 
     // MODIFIES: this
@@ -87,10 +92,19 @@ public class Player extends Entity {
         return lastEnemy;
     }
 
-    //
-    // Getters and Setters
-    //
+    // EFFECTS: Returns the items in inventory
+    public List<Item> getInventory() {
+        return inventory;
+    }
 
+    // MODIFIES: this
+    // EFFECTS: Adds item to inventory
+    public void addItemToInventory(Item item) {
+        getGame().sendMessage(String.format("★ Added Item %s to inventory", item.getName()));
+        inventory.add(item);
+    }
+
+    // EFFECTS: Returns the number of enemies killed
     public int getKills() {
         return kills;
     }

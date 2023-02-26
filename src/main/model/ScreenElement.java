@@ -2,19 +2,8 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 
-public interface ScreenElement {
-
-    //
-    // Getters
-    //
-
+public interface ScreenElement extends Renderable {
     int getPosX();
 
     int getPosY();
-
-    char getTextSprite();
-
-    TextColor getTextColor();
-
-    TextColor getBackgroundColor();
 }

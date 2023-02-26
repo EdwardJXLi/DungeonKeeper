@@ -16,6 +16,7 @@ public class GameFrame extends Frame {
         // Draw all tiles, entities, and items on the map
         renderScreenElements();
 
+
         // Draw Player
         Player player = game.getPlayer();
         drawSprite(
@@ -26,13 +27,17 @@ public class GameFrame extends Frame {
 
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements() {
-        // Render Tiles
         for (ScreenElement e : game.getLevel().getTiles()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
 
         // Render Enemies
         for (ScreenElement e : game.getLevel().getEnemies()) {
+            drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
+        }
+
+        // Render Dropped Items
+        for (ScreenElement e : game.getLevel().getDroppedItems()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
     }

@@ -33,7 +33,7 @@ public class PlayerInfoFrame extends Frame {
                 TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT
         );
         drawText(0, 4,
-                String.format("INVENTORY ITEMS: %d", -1),
+                String.format("INVENTORY ITEMS: %d", player.getInventory().size()),
                 TextColor.ANSI.WHITE, TextColor.ANSI.DEFAULT
         );
     }

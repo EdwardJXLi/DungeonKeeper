@@ -3,6 +3,7 @@ package model.enemies;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
+import model.items.SuspiciousPotion;
 
 public class Guard extends Enemy {
     private static final int INITIAL_HEALTH = 50;
@@ -17,6 +18,13 @@ public class Guard extends Enemy {
                 '%', TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT,
                 "Guard", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Drops loop on death
+    @Override
+    public void onDeath() {
+        getGame().getLevel().dropItem(getPosX(), getPosY(), new SuspiciousPotion());
     }
 
     // MODIFIES: this

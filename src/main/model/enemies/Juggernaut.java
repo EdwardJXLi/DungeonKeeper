@@ -20,6 +20,13 @@ public class Juggernaut extends Enemy {
     }
 
     // MODIFIES: this
+    // EFFECTS: Drops loop on death
+    @Override
+    public void onDeath() {
+        // TODO
+    }
+
+    // MODIFIES: this
     // EFFECTS: Check if enemy should move on each tick
     @Override
     public void handleNextTick(int tick) {

@@ -17,6 +17,9 @@ public abstract class Enemy extends Entity {
         this.stunned = false;
     }
 
+    // EFFECTS: Abstract function when an enemy dies
+    public abstract void onDeath();
+
     // MODIFIES: this
     // EFFECTS: Stuns enemy - next turn is skipped
     public void stun() {

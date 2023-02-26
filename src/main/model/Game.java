@@ -55,14 +55,19 @@ public class Game {
     //          Chance of randomly spawning items
     public void handleNextTick(int tick) {
         // Next tick for all enemies
-        for (Entity e: getLevel().getEnemies()) {
+        for (Enemy e: getLevel().getEnemies()) {
             e.handleNextTick(tick);
         }
 
         // Next tick for player
         getPlayer().handleNextTick(tick);
 
-        // Remove Dead Enemies
+        // Handle and Remove Dead Enemies
+        for (Enemy e: getLevel().getEnemies()) {
+            if (e.isDead()) {
+                e.onDeath();
+            }
+        }
         getLevel().getEnemies().removeIf(e -> e.isDead());
     }
 

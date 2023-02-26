@@ -21,6 +21,7 @@ public class Level {
     // Level Data
     private final ArrayList<Tile> tiles;
     private final ArrayList<Enemy> enemies;
+    private final ArrayList<DroppedItem> droppedItems;
 
     // EFFECTS: Creates a level with size X and Y
     public Level(int levelNum, Game game, int sizeX, int sizeY, int spawnX, int spawnY) {
@@ -32,6 +33,7 @@ public class Level {
         this.levelNum = levelNum;
         this.tiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
+        this.droppedItems = new ArrayList<>();
 
         initializeWalls();
         generateRandomMap();
@@ -120,6 +122,12 @@ public class Level {
         }
     }
 
+    // MODIFIES: this
+    public void dropItem(int posX, int posY, Item item) {
+        game.sendMessage(String.format("%s was dropped!", item.getName()));
+        droppedItems.add(new DroppedItem(posX, posY, item));
+    }
+
     // EFFECTS: Returns if there is a solid tile at position
     public boolean isSolidTileAtLocation(int posX, int posY) {
         for (Tile t : tiles) {
@@ -150,6 +158,16 @@ public class Level {
         return null;
     }
 
+    // EFFECTS: Returns dropped items at location, null otherwise
+    public DroppedItem getDroppedItemAtLocation(int posX, int posY) {
+        for (DroppedItem i : droppedItems) {
+            if (i.getPosX() == posX && i.getPosY() == posY) {
+                return i;
+            }
+        }
+        return null;
+    }
+
     //
     // Getters
     //
@@ -160,6 +178,10 @@ public class Level {
 
     public ArrayList<Enemy> getEnemies() {
         return enemies;
+    }
+
+    public ArrayList<DroppedItem> getDroppedItems() {
+        return droppedItems;
     }
 
     public int getSizeX() {

@@ -2,10 +2,7 @@ package ui;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
-import model.Enemy;
-import model.Game;
-import model.Player;
-import model.Tile;
+import model.*;
 
 import java.util.List;
 
@@ -24,12 +21,16 @@ public class InfoFrame extends Frame {
         drawText(2, 2, "[E] to open inventory");
         drawText(2, 3, "[SPACE] to interact");
 
-        // If player is standing on a tile, print its information
+        // If a dropped item is at the location, print its information
+        // else, if player standing on a tile, print its information
         // else, if last fought an enemy, print its information
         Player player = game.getPlayer();
+        DroppedItem droppedItem = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
         Tile standingTile = game.getLevel().getTileAtLocation(player.getPosX(), player.getPosY());
         Enemy lastEnemy = player.getLastEnemyFought();
-        if (standingTile != null && standingTile.getDescription() != null) {
+        if (droppedItem != null) {
+            renderDroppedItemInformation(droppedItem);
+        } else if (standingTile != null && standingTile.getDescription() != null) {
             renderTileInformation(standingTile);
         } else if (lastEnemy != null) {
             renderEnemyInformation(lastEnemy);
@@ -40,6 +41,35 @@ public class InfoFrame extends Frame {
                 0, bottomBound - topBound - 2,
                 String.format("[Coords] X: %d, Y: %d", game.getPlayer().getPosX(), game.getPlayer().getPosY()),
                 TextColor.ANSI.WHITE, TextColor.ANSI.DEFAULT);
+    }
+
+    // EFFECTS: Helper function to render information about dropped item
+    private void renderDroppedItemInformation(DroppedItem droppedItem) {
+        Item item = droppedItem.getItem();
+        List<String> description = item.getDescription();
+
+        // Print information about tile
+        drawText(2, INFO_OFFSET, "[Dropped Item]", TextColor.ANSI.GREEN, TextColor.ANSI.WHITE);
+
+        // Give instructions on picking up item
+        drawText(2, INFO_OFFSET + 1, "[SPACE] to pick up", TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
+        drawText(2, INFO_OFFSET + 2, "[X] to discard", TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
+
+        // Render item & description
+        drawSprite(
+                3, INFO_OFFSET + 4,
+                item.getTextSprite(), item.getTextColor(), item.getBackgroundColor()
+        );
+        drawText(
+                5, INFO_OFFSET + 4,
+                item.getName(), TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
+
+        if (description != null) {
+            // Render tile information
+            for (int i = 0; i < description.size(); i++) {
+                drawText(2, INFO_OFFSET + 5 + i, description.get(i));
+            }
+        }
     }
 
     // EFFECTS: Helper function to render information about tile
@@ -57,7 +87,7 @@ public class InfoFrame extends Frame {
         );
         drawText(
                 5, INFO_OFFSET + 1,
-                tile.getName());
+                tile.getName(), TextColor.ANSI.BLUE, TextColor.ANSI.DEFAULT);
 
         // Render tile information
         for (int i = 0; i < description.size(); i++) {
@@ -75,7 +105,7 @@ public class InfoFrame extends Frame {
         );
         drawText(
                 5, INFO_OFFSET + 1,
-                enemy.getName());
+                enemy.getName(), TextColor.ANSI.RED, TextColor.ANSI.DEFAULT);
 
         // Show enemy information
         drawText(2, INFO_OFFSET + 3,
