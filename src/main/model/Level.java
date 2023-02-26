@@ -2,6 +2,7 @@ package model;
 
 import model.enemies.Guard;
 import model.enemies.Juggernaut;
+import model.tiles.Trap;
 import model.tiles.Wall;
 
 import java.util.ArrayList;
@@ -89,10 +90,34 @@ public class Level {
         }
     }
 
+    // EFFECTS: Generates Random X Coordinate Within Bounds of Walls
+    public int getRandomXCoord() {
+        return game.getRandom().nextInt(sizeX - 2) + 1;
+    }
+
+    // EFFECTS: Generates Random X Coordinate Within Bounds of Walls
+    public int getRandomYCoord() {
+        return game.getRandom().nextInt(sizeY - 2) + 1;
+    }
+
     // MODIFIES: this
     // EFFECTS: Places random walls and traps to decorate map
     private void generateRandomMap() {
-
+        for (int y = 1; y < sizeY - 1; y++) {
+            for (int x = 1; x < sizeX - 1; x++) {
+                // 1 in 40 chance of solid wall,
+                // 2 in 40 chance of spikes
+                switch (game.getRandom().nextInt(40)) {
+                    case 0:
+                        tiles.add(new Wall(x, y));
+                        break;
+                    case 1:
+                    case 2:
+                        tiles.add(new Trap(x, y));
+                        break;
+                }
+            }
+        }
     }
 
     // EFFECTS: Returns if there is a solid tile at position

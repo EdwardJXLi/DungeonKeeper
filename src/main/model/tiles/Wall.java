@@ -7,7 +7,7 @@ import model.Tile;
 public class Wall extends Tile {
     // EFFECTS: Creates a generic wall object
     public Wall(int posX, int posY) {
-        super(posX, posY, '#', TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT);
+        super(posX, posY, '#', TextColor.ANSI.BLACK, TextColor.ANSI.WHITE);
     }
 
     @Override

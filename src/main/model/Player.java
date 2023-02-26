@@ -17,6 +17,7 @@ public class Player extends Entity {
                 '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
                 "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
+        kills = 0;
     }
 
     // MODIFIES: this
@@ -34,6 +35,17 @@ public class Player extends Entity {
         return super.handleMovement(posX, posY);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Once damaged, check if dead. If so, end game.
+    @Override
+    public void damage(int amount) {
+        super.damage(amount);
+        if (this.isDead()) {
+            // TODO: HANDLE DEATH
+            System.out.println("dead");
+        }
+    }
+
     // MODIFIES: this, enemy
     // EFFECTS: Attacks enemy
     private void attackEnemy(Enemy enemy) {
@@ -43,7 +55,7 @@ public class Player extends Entity {
         enemy.stun();
     }
 
-    // EFFECTS: Do nothing on new tick
+    // EFFECTS: Nothing Happens
     @Override
     public void handleNextTick(int tick) {}
 

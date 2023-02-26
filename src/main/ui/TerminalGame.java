@@ -99,7 +99,7 @@ public class TerminalGame {
             tick++;
             render();
             handlePlayerInput();
-            handleTick();
+            game.handleNextTick(tick);
             Thread.sleep(1000L / Game.TPS);
         }
     }
@@ -146,13 +146,6 @@ public class TerminalGame {
                         break;
                 }
             }
-        }
-    }
-
-    // EFFECTS: Handles next tick for all entities
-    private void handleTick() {
-        for (Entity e: game.getLevel().getEnemies()) {
-            e.handleNextTick(tick);
         }
     }
 }

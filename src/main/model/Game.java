@@ -38,6 +38,20 @@ public class Game {
         gameLevel.initLevel();
     }
 
+    // MODIFIES: this
+    // EFFECTS: For each tick:
+    //          Handles next tick for player and enemies
+    //          Chance of randomly spawning items
+    public void handleNextTick(int tick) {
+        // Next tick for all enemies
+        for (Entity e: getLevel().getEnemies()) {
+            e.handleNextTick(tick);
+        }
+
+        // Next tick for player
+        getPlayer().handleNextTick(tick);
+    }
+
     // EFFECTS: Prints the end game screen
     public void quit() {
         // TODO: STUB

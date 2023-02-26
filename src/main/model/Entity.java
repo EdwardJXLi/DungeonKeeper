@@ -107,6 +107,19 @@ public abstract class Entity implements ScreenElement {
         health = Math.max(health - amount, 0);
     }
 
+    // REQUIRES: amount > 0
+    // MODIFIES: this
+    // EFFECTS: Applies Healing to Entity
+    public void heal(int amount) {
+        // Ensure health does not go over max health
+        health = Math.min(maxHealth, health + amount);
+    }
+
+    // EFFECTS: returns if entity is dead
+    public boolean isDead() {
+        return health == 0;
+    }
+
     // MODIFIES: this
     // EFFECTS: Handles what happens when next tick occurs
     public abstract void handleNextTick(int tick);

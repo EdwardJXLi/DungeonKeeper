@@ -14,7 +14,7 @@ public class Guard extends Enemy {
     public Guard(Game game) {
         super(
                 game,
-                '%', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT,
+                '%', TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT,
                 "Guard", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
     }
