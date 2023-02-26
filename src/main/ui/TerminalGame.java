@@ -9,6 +9,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.*;
+import ui.frames.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -161,16 +162,16 @@ public class TerminalGame {
         // Get the inventory content
         List<Item> inventory = game.getPlayer().getInventory();
 
-        // Get number of pages
-        int itemsPerPage = inventoryFrame.maxItemsInPage();
-        int numPages = ((inventory.size() - 1) / itemsPerPage) + 1;
-        int currentPage = 0;
-        int currentSelection = 0;
+        // Get the range of the inventory
+        int maxItemsPerPage = inventoryFrame.maxItemsInPage();
+        int selected = 0;
+        int from = 0;
+        int to = Math.min(inventory.size(), maxItemsPerPage);
 
         // Wait for user input
         while (true) {
             // Render the current inventory
-            renderInventory(inventory);
+            renderInventory(inventory, from, to, selected);
 
             // Launch a thread blocking read
             KeyStroke stroke = screen.readInput();
@@ -179,17 +180,48 @@ public class TerminalGame {
                 if (stroke.getCharacter() != null) {
                     if (stroke.getCharacter().equals('e')) {
                         break;
+                    } else if (stroke.getCharacter().equals('q')) {
+                        if (inventory.size() > 0) {
+                            game.getPlayer().dropItem(inventory.get(selected));
+                            selected = 0;
+                            from = 0;
+                            to = Math.min(inventory.size(), maxItemsPerPage);
+                        }
+                    } else if (stroke.getCharacter().equals('x')) {
+                        if (inventory.size() > 0) {
+                            game.getPlayer().removeItem(inventory.get(selected));
+                            selected = 0;
+                            from = 0;
+                            to = Math.min(inventory.size(), maxItemsPerPage);
+                        }
                     }
                 }
                 if (stroke.getKeyType() != null) {
                     if (stroke.getKeyType() == KeyType.ArrowUp) {
-                        if (currentSelection > 0) {
-                            currentSelection--;
+                        if (selected > 0) {
+                            selected--;
+                            if (selected < from) {
+                                from--;
+                                to--;
+                            }
                         }
                     } else if (stroke.getKeyType() == KeyType.ArrowDown) {
-                        if (currentSelection < inventory.size()) {
-                            currentSelection++;
+                        if (selected < inventory.size() - 1) {
+                            selected++;
+                            if (selected >= to) {
+                                from++;
+                                to++;
+                            }
                         }
+                    } else if (stroke.getKeyType() == KeyType.Enter) {
+                        if (inventory.size() > 0) {
+                            inventory.get(selected).useItem(game.getPlayer());
+                            selected = 0;
+                            from = 0;
+                            to = Math.min(inventory.size(), maxItemsPerPage);
+                        }
+                    } else if (stroke.getKeyType() == KeyType.Escape) {
+                        break;
                     }
                 }
             }
@@ -198,7 +230,7 @@ public class TerminalGame {
 
     // EFFECTS: Renders the inventory UI with inventory elements
     private void renderInventory(
-            List<Item> inventory
+            List<Item> inventory, int from, int to, int selected
     ) throws IOException {
         // Initialize the screen
         screen.setCursorPosition(new TerminalPosition(0, 0));
@@ -206,7 +238,7 @@ public class TerminalGame {
 
         // Render all elements
         inventoryFrame.drawFrame();
-        inventoryFrame.renderInventory(inventory, 0, inventory.size(), 0);
+        inventoryFrame.renderInventory(inventory, from, to, selected);
         inventoryInstructionsFrame.drawFrame();
         inventoryInstructionsFrame.renderInstructions();
         inventoryPreviewFrame.drawFrame();
@@ -256,7 +288,7 @@ public class TerminalGame {
                     case 'x':
                         // Check if there is a dropped item at location
                         if (di != null) {
-                            game.getLevel().removeItem(di);
+                            game.getLevel().removeDroppedItem(di);
                         }
                         break;
                     default:

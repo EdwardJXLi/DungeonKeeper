@@ -1,8 +1,9 @@
-package ui;
+package ui.frames;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.*;
+import ui.Frame;
 
 import java.util.List;
 
@@ -23,9 +24,9 @@ public class InfoFrame extends Frame {
         // If a dropped item is at the location, print its information
         // else, if player standing on a tile, print its information
         // else, if last fought an enemy, print its information
-        Player player = game.getPlayer();
-        DroppedItem droppedItem = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
-        Tile standingTile = game.getLevel().getTileAtLocation(player.getPosX(), player.getPosY());
+        Player player = getGame().getPlayer();
+        DroppedItem droppedItem = getGame().getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
+        Tile standingTile = getGame().getLevel().getTileAtLocation(player.getPosX(), player.getPosY());
         Enemy lastEnemy = player.getLastEnemyFought();
         if (droppedItem != null) {
             renderDroppedItemInformation(droppedItem);
@@ -37,8 +38,11 @@ public class InfoFrame extends Frame {
 
         // Draw player coordinates
         drawText(
-                0, bottomBound - topBound - 2,
-                String.format("[Coords] X: %d, Y: %d", game.getPlayer().getPosX(), game.getPlayer().getPosY()),
+                0, getHeight() - 1,
+                String.format(
+                        "[Coords] X: %d, Y: %d",
+                        getGame().getPlayer().getPosX(), getGame().getPlayer().getPosY()
+                ),
                 TextColor.ANSI.WHITE, TextColor.ANSI.DEFAULT);
     }
 

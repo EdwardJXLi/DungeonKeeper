@@ -1,7 +1,7 @@
 package model;
 
-import model.enemies.Guard;
-import model.enemies.Juggernaut;
+import model.items.RandomPotion;
+import model.items.SuspiciousPotion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +41,16 @@ public class Game {
 
         // Spawn Player
         gameLevel.spawnPlayer(player);
+
+        // TODO: give bunch of test items
+        player.addItem(new SuspiciousPotion());
+        for (int i = 0; i < 10; i++) {
+            player.addItem(new RandomPotion());
+            player.addItem(new SuspiciousPotion());
+        }
+        player.addItem(new RandomPotion());
+        player.addItem(new RandomPotion());
+        player.addItem(new RandomPotion());
 
         // Initialize Enemies in level
         gameLevel.initLevel();

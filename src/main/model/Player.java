@@ -22,6 +22,7 @@ public class Player extends Entity {
                 '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
                 "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
+        // Initialize Variables
         kills = 0;
         inventory = new ArrayList<>();
     }
@@ -99,16 +100,29 @@ public class Player extends Entity {
 
     // MODIFIES: this
     // EFFECTS: Adds item to inventory
-    public void addItemToInventory(Item item) {
+    public void addItem(Item item) {
         getGame().sendMessage(String.format("★ Added Item %s to inventory", item.getName()));
         inventory.add(item);
     }
 
     // MODIFIES: this
+    // EFFECTS: Removes item from inventory
+    public void removeItem(Item item) {
+        inventory.removeIf(i -> i == item);
+    }
+
+    // MODIFIES: this
     // EFFECTS: Picks up dropped item and add to inventory
     public void pickupItem(DroppedItem di) {
-        addItemToInventory(di.getItem());
-        getGame().getLevel().removeItem(di);
+        addItem(di.getItem());
+        getGame().getLevel().removeDroppedItem(di);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Drops item onto ground
+    public void dropItem(Item item) {
+        getGame().getLevel().dropItem(getPosX(), getPosY(), item);
+        removeItem(item);
     }
 
     // EFFECTS: Returns the number of enemies killed

@@ -1,9 +1,10 @@
-package ui;
+package ui.frames;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import model.Player;
+import ui.Frame;
 
 public class PlayerInfoFrame extends Frame {
     private final Player player;

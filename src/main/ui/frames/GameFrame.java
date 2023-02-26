@@ -1,9 +1,10 @@
-package ui;
+package ui.frames;
 
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import model.Player;
 import model.ScreenElement;
+import ui.Frame;
 
 public class GameFrame extends Frame {
     // EFFECTS: Initializes a player info frame that draws primary game map
@@ -18,7 +19,7 @@ public class GameFrame extends Frame {
 
 
         // Draw Player
-        Player player = game.getPlayer();
+        Player player = getGame().getPlayer();
         drawSprite(
                 player.getPosX(), player.getPosY(),
                 player.getTextSprite(), player.getTextColor(), player.getBackgroundColor()
@@ -27,17 +28,17 @@ public class GameFrame extends Frame {
 
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements() {
-        for (ScreenElement e : game.getLevel().getTiles()) {
+        for (ScreenElement e : getGame().getLevel().getTiles()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
 
         // Render Enemies
-        for (ScreenElement e : game.getLevel().getEnemies()) {
+        for (ScreenElement e : getGame().getLevel().getEnemies()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
 
         // Render Dropped Items
-        for (ScreenElement e : game.getLevel().getDroppedItems()) {
+        for (ScreenElement e : getGame().getLevel().getDroppedItems()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
     }

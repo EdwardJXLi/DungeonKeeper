@@ -132,7 +132,7 @@ public class Level {
     // REQUIRES: there must actually be a dropped item at the location
     // MODIFIES: this
     // EFFECTS: Removes dropped item at location
-    public void removeItem(DroppedItem item) {
+    public void removeDroppedItem(DroppedItem item) {
         droppedItems.removeIf(i -> i == item);
     }
 

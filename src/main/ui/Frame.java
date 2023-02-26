@@ -6,15 +6,15 @@ import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 
 public abstract class Frame {
-    int leftBound;
-    int topBound;
-    int rightBound;
-    int bottomBound;
-    int height;
-    int width;
-    String frameName;
-    Screen screen;
-    Game game;
+    private int leftBound;
+    private int topBound;
+    private int rightBound;
+    private int bottomBound;
+    private int height;
+    private int width;
+    private String frameName;
+    private Screen screen;
+    private Game game;
 
     // EFFECTS: Initializes a generic frame that fits within bounds
     public Frame(
@@ -92,5 +92,29 @@ public abstract class Frame {
         sprite.setForegroundColor(fgColor);
         sprite.setBackgroundColor(bgColor);
         sprite.putString(posX, posY, text);
+    }
+
+    //
+    // GETTERS
+    //
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public String getFrameName() {
+        return frameName;
+    }
+
+    public Screen getScreen() {
+        return screen;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

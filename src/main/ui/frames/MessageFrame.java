@@ -1,8 +1,9 @@
-package ui;
+package ui.frames;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
+import ui.Frame;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class MessageFrame extends Frame {
 
     // EFFECTS: Renders the last few messages
     public void renderMessages() {
-        List<String> lastMessages = game.getLastMessages(height);
+        List<String> lastMessages = getGame().getLastMessages(getHeight());
         for (int i = 0; i < lastMessages.size(); i++) {
             drawText(0, i, lastMessages.get(i));
         }
