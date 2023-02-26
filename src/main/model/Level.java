@@ -1,11 +1,16 @@
 package model;
 
+import model.enemies.Guard;
+import model.enemies.Juggernaut;
 import model.tiles.Wall;
 
 import java.util.ArrayList;
 
 public class Level {
+    private static final int INITIAL_GUARDS_SPAWN = 10;
+
     // Information on level
+    private final Game game;
     private final int sizeX;
     private final int sizeY;
     private final int spawnX;
@@ -17,7 +22,8 @@ public class Level {
     private final ArrayList<Enemy> enemies;
 
     // EFFECTS: Creates a level with size X and Y
-    public Level(int levelNum, int sizeX, int sizeY, int spawnX, int spawnY) {
+    public Level(int levelNum, Game game, int sizeX, int sizeY, int spawnX, int spawnY) {
+        this.game = game;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.spawnX = spawnX;
@@ -27,6 +33,22 @@ public class Level {
         this.enemies = new ArrayList<>();
 
         initializeWalls();
+        generateRandomMap();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Spawns Initial Batch of Enemies
+    public void initLevel() {
+        // Spawn Boss Enemy (juggernaut)
+        this.spawnEnemy(new Juggernaut(game), sizeX - 2, sizeY - 2);
+
+        // Spawn random guards around the map
+        for (int i = 0; i < INITIAL_GUARDS_SPAWN; i++) {
+            this.spawnEnemy(new Guard(game),
+                    game.getRandom().nextInt(sizeX - 2) + 1,
+                    game.getRandom().nextInt(sizeY - 2) + 1
+            );
+        }
     }
 
     // MODIFIES: this, p
@@ -65,6 +87,12 @@ public class Level {
             // Add the right wall
             tiles.add(new Wall(sizeX - 1, y));
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Places random walls and traps to decorate map
+    private void generateRandomMap() {
+
     }
 
     // EFFECTS: Returns if there is a solid tile at position

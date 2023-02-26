@@ -1,6 +1,7 @@
 package model;
 
 import model.enemies.Guard;
+import model.enemies.Juggernaut;
 
 import java.util.Random;
 
@@ -25,7 +26,7 @@ public class Game {
         random = new Random();
 
         // Initialize First Level
-        gameLevel = new Level(1, sizeX, sizeY, 2, 2);
+        gameLevel = new Level(1, this, sizeX, sizeY, 2, 2);
 
         // Initialize Player
         player = new Player(this);
@@ -33,11 +34,8 @@ public class Game {
         // Spawn Player
         gameLevel.spawnPlayer(player);
 
-        // Initialize Test Enemy
-        Enemy testEnemy = new Guard(this);
-
-        // Spawn Guard
-        gameLevel.spawnEnemy(testEnemy, 10, 10);
+        // Initialize Enemies in level
+        gameLevel.initLevel();
     }
 
     // EFFECTS: Prints the end game screen

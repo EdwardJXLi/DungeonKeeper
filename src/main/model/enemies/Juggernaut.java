@@ -4,18 +4,18 @@ import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
 
-public class Guard extends Enemy {
-    private static final int INITIAL_HEALTH = 50;
-    private static final int INITIAL_DEFENSE = 5;
-    private static final int INITIAL_ATTACK = 10;
-    private static final int TICKS_UNTIL_MOVEMENT = 20;
+public class Juggernaut extends Enemy {
+    private static final int INITIAL_HEALTH = 5000;
+    private static final int INITIAL_DEFENSE = 25;
+    private static final int INITIAL_ATTACK = 50;
+    private static final int TICKS_UNTIL_MOVEMENT = 50;
 
     // EFFECTS: Creates a basic guard enemy
-    public Guard(Game game) {
+    public Juggernaut(Game game) {
         super(
                 game,
-                '%', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT,
-                "Guard", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
+                'X', TextColor.ANSI.YELLOW, TextColor.ANSI.BLUE,
+                "Juggernaut", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
     }
 

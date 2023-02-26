@@ -20,6 +20,7 @@ public class Player extends Entity {
     }
 
     // EFFECTS: Do nothing on new tick
+    @Override
     public void handleNextTick(int tick) {}
 
     //
