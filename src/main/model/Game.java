@@ -4,11 +4,12 @@ public class Game {
     public static final int TPS = 32;
 
     // Information on level
-    private int sizeX;
-    private int sizeY;
-    private Player player;
-    private Level gameLevel;
+    private final int sizeX;
+    private final int sizeY;
+    private final Player player;
+    private final Level gameLevel;
 
+    // EFFECTS: Creates a game object with levels and player
     public Game(int sizeX, int sizeY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -27,6 +28,10 @@ public class Game {
     public void quit() {
         // TODO: STUB
     }
+
+    //
+    // Getters
+    //
 
     public int getSizeX() {
         return sizeX;

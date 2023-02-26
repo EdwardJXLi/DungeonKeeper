@@ -6,15 +6,16 @@ import java.util.ArrayList;
 
 public class Level {
     // Information on level
-    private int sizeX;
-    private int sizeY;
-    private int spawnX;
-    private int spawnY;
-    private int levelNum;
+    private final int sizeX;
+    private final int sizeY;
+    private final int spawnX;
+    private final int spawnY;
+    private final int levelNum;
 
     // Level Data
-    private ArrayList<Tile> tiles;
+    private final ArrayList<Tile> tiles;
 
+    // EFFECTS: Creates a level with size X and Y
     public Level(int levelNum, int sizeX, int sizeY, int spawnX, int spawnY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
@@ -26,11 +27,15 @@ public class Level {
         initializeWalls();
     }
 
+    // MODIFIES: this, p
+    // EFFECTS: Sets player location to spawn location
     public void spawnPlayer(Player p) {
         p.setPosX(this.spawnX);
         p.setPosY(this.spawnY);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Sets up the bounding walls around the map
     private void initializeWalls() {
         // Set the top and bottom walls
         for (int x = 0; x < sizeX; x++) {
@@ -52,8 +57,9 @@ public class Level {
         }
     }
 
+    // EFFECTS: Returns if there is a solid tile at position
     public boolean solidTileAt(int posX, int posY) {
-        for (Tile t: tiles) {
+        for (Tile t : tiles) {
             if (t.getPosX() == posX && t.getPosY() == posY && t.isSolid()) {
                 return true;
             }
@@ -61,9 +67,14 @@ public class Level {
         return false;
     }
 
+    // EFFECTS: Returns list of all tiles
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
+
+    //
+    // Getters
+    //
 
     public int getSizeX() {
         return sizeX;

@@ -1,15 +1,15 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
-import org.w3c.dom.Text;
 
-public abstract class Tile implements ScreenElement{
-    private int posX;
-    private int posY;
-    private char textSprite;
-    private TextColor textColor;
-    private TextColor backgroundColor;
+public abstract class Tile implements ScreenElement {
+    private final int posX;
+    private final int posY;
+    private final char textSprite;
+    private final TextColor textColor;
+    private final TextColor backgroundColor;
 
+    // EFFECTS: Creates a generic map tile
     public Tile(int posX, int posY, char textSprite, TextColor textColor, TextColor backgroundColor) {
         this.posX = posX;
         this.posY = posY;
@@ -17,6 +17,16 @@ public abstract class Tile implements ScreenElement{
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
     }
+
+    // EFFECTS: Returns if the object could be stood on
+    public abstract boolean isSolid();
+
+    // EFFECTS: Handles what happens when an entity steps on tile
+    public abstract void onStep();
+
+    //
+    // GETTERS
+    //
 
     @Override
     public int getPosX() {
@@ -42,10 +52,4 @@ public abstract class Tile implements ScreenElement{
     public TextColor getBackgroundColor() {
         return backgroundColor;
     }
-
-    public abstract boolean isSolid();
-
-    public abstract void onStep();
-
-    public abstract void onInteract();
 }

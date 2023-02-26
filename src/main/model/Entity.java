@@ -3,16 +3,19 @@ package model;
 import com.googlecode.lanterna.TextColor;
 
 public abstract class Entity implements ScreenElement {
+    // Entity Information
     private int posX;
     private int posY;
-    private int maxHealth;
+    private final int maxHealth;
     private int health;
     private int defence;
     private int attack;
 
-    private char textSprite;
-    private TextColor textColor;
+    // Screen Element Info
+    private final char textSprite;
+    private final TextColor textColor;
 
+    // EFFECTS: Creates a generic entity with health, defence, and attack
     public Entity(int posX, int posY, char textSprite, TextColor textColor, int maxHealth, int defence, int attack) {
         this.posX = posX;
         this.posY = posY;
@@ -28,14 +31,40 @@ public abstract class Entity implements ScreenElement {
         this.attack = attack;
     }
 
+    // EFFECTS: Checks if entity can move to locaiton
+    public boolean canBeAtLocation(Level level, int posX, int posY) {
+        // Check if it is within bounds
+        if (!(posX >= 0 && posX < level.getSizeX())) {
+            return false;
+        }
+        if (!(posY >= 0 && posY < level.getSizeY())) {
+            return false;
+        }
+
+        // Check if there is a solid tile there
+        return !level.solidTileAt(posX, posY);
+    }
+
+    //
+    // Getters
+    //
+
     @Override
     public int getPosX() {
         return posX;
     }
 
+    protected void setPosX(int posX) {
+        this.posX = posX;
+    }
+
     @Override
     public int getPosY() {
         return posY;
+    }
+
+    protected void setPosY(int posY) {
+        this.posY = posY;
     }
 
     @Override
@@ -53,30 +82,9 @@ public abstract class Entity implements ScreenElement {
         return TextColor.ANSI.DEFAULT;
     }
 
-    public boolean canBeAtLocation(Level level, int posX, int posY) {
-        // Check if it is within bounds
-        if (!(posX >= 0 && posX < level.getSizeX())) {
-            return false;
-        }
-        if (!(posY >= 0 && posY < level.getSizeY())) {
-            return false;
-        }
-
-        // Check if there is a solid tile there
-        if (level.solidTileAt(posX, posY)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    protected void setPosX(int posX) {
-        this.posX = posX;
-    }
-
-    protected void setPosY(int posY) {
-        this.posY = posY;
-    }
+    //
+    // Getters and Setters
+    //
 
     public int getMaxHealth() {
         return maxHealth;
