@@ -6,4 +6,6 @@ public interface Item extends Renderable {
     String getName();
 
     List<String> getDescription();
+
+    void useItem(Player p);
 }

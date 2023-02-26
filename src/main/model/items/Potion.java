@@ -20,9 +20,6 @@ public abstract class Potion implements Item {
         this.potionColor = potionColor;
     }
 
-    // EFFECTS: Handles Drinking Potion
-    public abstract void drink(Player p);
-
     @Override
     public char getTextSprite() {
         return '▲';

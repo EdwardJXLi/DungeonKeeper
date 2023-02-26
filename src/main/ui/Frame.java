@@ -10,6 +10,8 @@ public abstract class Frame {
     int topBound;
     int rightBound;
     int bottomBound;
+    int height;
+    int width;
     String frameName;
     Screen screen;
     Game game;
@@ -22,6 +24,8 @@ public abstract class Frame {
         this.rightBound = rightBound;
         this.topBound = topBound;
         this.bottomBound = bottomBound;
+        this.height = bottomBound - topBound - 1;
+        this.width = rightBound - leftBound - 1;
         this.frameName = frameName;
         this.screen = screen;
         this.game = game;

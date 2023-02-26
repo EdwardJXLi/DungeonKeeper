@@ -123,9 +123,17 @@ public class Level {
     }
 
     // MODIFIES: this
+    // EFFECTS: Drops item at location
     public void dropItem(int posX, int posY, Item item) {
         game.sendMessage(String.format("%s was dropped!", item.getName()));
         droppedItems.add(new DroppedItem(posX, posY, item));
+    }
+
+    // REQUIRES: there must actually be a dropped item at the location
+    // MODIFIES: this
+    // EFFECTS: Removes dropped item at location
+    public void removeItem(DroppedItem item) {
+        droppedItems.removeIf(i -> i == item);
     }
 
     // EFFECTS: Returns if there is a solid tile at position

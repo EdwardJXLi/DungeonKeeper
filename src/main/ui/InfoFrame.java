@@ -7,7 +7,7 @@ import model.*;
 import java.util.List;
 
 public class InfoFrame extends Frame {
-    private static final int INFO_OFFSET = 6;
+    private static final int INFO_OFFSET = 5;
 
     // EFFECTS: Initializes a player info frame that shows information stats
     public InfoFrame(int leftBound, int topBound, int rightBound, int bottomBound, Screen screen, Game game) {
@@ -19,7 +19,6 @@ public class InfoFrame extends Frame {
         drawText(0, 0, "Controls:");
         drawText(2, 1, "[W][A][S][D] to move");
         drawText(2, 2, "[E] to open inventory");
-        drawText(2, 3, "[SPACE] to interact");
 
         // If a dropped item is at the location, print its information
         // else, if player standing on a tile, print its information
@@ -52,7 +51,7 @@ public class InfoFrame extends Frame {
         drawText(2, INFO_OFFSET, "[Dropped Item]", TextColor.ANSI.GREEN, TextColor.ANSI.WHITE);
 
         // Give instructions on picking up item
-        drawText(2, INFO_OFFSET + 1, "[SPACE] to pick up", TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
+        drawText(2, INFO_OFFSET + 1, "[Q] to pick up", TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
         drawText(2, INFO_OFFSET + 2, "[X] to discard", TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT);
 
         // Render item & description

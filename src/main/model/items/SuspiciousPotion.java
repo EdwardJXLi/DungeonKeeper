@@ -16,5 +16,5 @@ public class SuspiciousPotion extends Potion {
 
     @Override
     // EFFECTS: does nothing
-    public void drink(Player p) {}
+    public void useItem(Player p) {}
 }

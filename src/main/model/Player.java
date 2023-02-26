@@ -104,6 +104,13 @@ public class Player extends Entity {
         inventory.add(item);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Picks up dropped item and add to inventory
+    public void pickupItem(DroppedItem di) {
+        addItemToInventory(di.getItem());
+        getGame().getLevel().removeItem(di);
+    }
+
     // EFFECTS: Returns the number of enemies killed
     public int getKills() {
         return kills;
