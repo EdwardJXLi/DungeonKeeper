@@ -48,12 +48,12 @@ public abstract class Frame {
 
     public void drawSprite(int posX, int posY, char c, TextColor foregroundColor, TextColor backgroundColor) {
         // use internal drawing with offset of frame window
-        internalDrawSprite(posX + 1, posY + 1, c, foregroundColor, backgroundColor);
+        internalDrawSprite(posX + leftBound + 1, posY + topBound + 1, c, foregroundColor, backgroundColor);
     }
 
     public void drawText(int posX, int posY, String text, TextColor foregroundColor, TextColor backgroundColor) {
         // use internal drawing with offset of frame window
-        internalDrawText(posX + 1, posY + 1, text, foregroundColor, backgroundColor);
+        internalDrawText(posX + leftBound + 1, posY + topBound + 1, text, foregroundColor, backgroundColor);
     }
 
     private void internalDrawSprite(int posX, int posY, char c, TextColor foregroundColor, TextColor backgroundColor) {

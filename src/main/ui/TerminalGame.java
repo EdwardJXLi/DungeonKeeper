@@ -17,7 +17,8 @@ import java.io.IOException;
 
 public class TerminalGame {
     private static final int INFO_BOX_WIDTH = 24;
-    private static final int INFO_BOX_HEIGHT = 1;
+    private static final int CHAT_BOX_HEIGHT = 5;
+    private static final int PLAYER_INFO_BOX_HEIGHT = 3;
     private Game game;
     private Screen screen;
     private Terminal terminal;
@@ -28,14 +29,15 @@ public class TerminalGame {
     private int windowSizeY;
 
     private GameFrame gameFrame;
+    private PlayerInfoFrame playerInfoFrame;
     private InfoFrame infoFrame;
-    private HudFrame hudFrame;
+    private ChatFrame chatFrame;
 
     public TerminalGame(int sizeX, int sizeY) {
         gameSizeX = sizeX;
         gameSizeY = sizeY;
         windowSizeX = gameSizeX + INFO_BOX_WIDTH + 4;
-        windowSizeY = gameSizeY + INFO_BOX_HEIGHT + 4;
+        windowSizeY = gameSizeY + CHAT_BOX_HEIGHT + 4;
 
         // Setup and initialize game object
         game = new Game(gameSizeX, gameSizeY);
@@ -55,12 +57,17 @@ public class TerminalGame {
                     gameSizeX + 1, gameSizeY + 1,
                     screen, game
             );
-            infoFrame = new InfoFrame(
+            playerInfoFrame = new PlayerInfoFrame(
                     gameSizeX + 2, 0,
+                    windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + 1,
+                    screen, game
+            );
+            infoFrame = new InfoFrame(
+                    gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
                     windowSizeX - 1, gameSizeY + 1,
                     screen
             );
-            hudFrame = new HudFrame(
+            chatFrame = new ChatFrame(
                     0, gameSizeY + 2,
                     windowSizeX - 1, windowSizeY - 1,
                     screen
@@ -98,8 +105,10 @@ public class TerminalGame {
         // Render all elements
         gameFrame.drawFrame();
         gameFrame.drawGame();
+        playerInfoFrame.drawFrame();
+        playerInfoFrame.drawPlayerInfo();
         infoFrame.drawFrame();
-        hudFrame.drawFrame();
+        chatFrame.drawFrame();
 
         screen.refresh();
     }
