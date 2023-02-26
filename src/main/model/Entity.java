@@ -42,7 +42,7 @@ public abstract class Entity implements ScreenElement {
     //               Moves the player up and returns true
     //          Else:
     //               Returns False
-    private boolean handleMovement(int posX, int posY) {
+    protected boolean handleMovement(int posX, int posY) {
         // Check if entity can go to location
         if (!canBeAtLocation(game.getLevel(), posX, posY)) {
             return false;
@@ -97,6 +97,14 @@ public abstract class Entity implements ScreenElement {
 
         // Check if there is a solid tile there
         return !level.isSolidTileAtLocation(posX, posY);
+    }
+
+    // REQUIRES: amount > 0
+    // MODIFIES: this
+    // EFFECTS: Applies Damage to Entity
+    public void damage(int amount) {
+        // Ensure health does not go into the negatives
+        health = Math.max(health - amount, 0);
     }
 
     // MODIFIES: this

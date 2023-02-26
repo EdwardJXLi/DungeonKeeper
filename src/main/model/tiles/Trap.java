@@ -19,5 +19,6 @@ public class Trap extends Tile {
     // MODIFIES: e
     // EFFECTS: Damages entity when stepped on
     public void onStep(Entity e) {
+        e.damage(5);
     }
 }

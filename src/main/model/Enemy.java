@@ -3,6 +3,7 @@ package model;
 import com.googlecode.lanterna.TextColor;
 
 public abstract class Enemy extends Entity {
+    protected boolean stunned;
 
     // EFFECTS: Creates a generic enemy
     public Enemy(
@@ -12,5 +13,13 @@ public abstract class Enemy extends Entity {
         super(
                 game, 0, 0, textSprite, textColor, backgroundColor, name, health, defence, attack
         );
+
+        this.stunned = false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Stuns enemy - next turn is skipped
+    public void stun() {
+        stunned = true;
     }
 }

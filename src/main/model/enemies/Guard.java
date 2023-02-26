@@ -7,7 +7,7 @@ import model.Game;
 public class Guard extends Enemy {
     private static final int INITIAL_HEALTH = 50;
     private static final int INITIAL_DEFENSE = 5;
-    private static final int INITIAL_ATTACK = 10;
+    private static final int INITIAL_ATTACK = 20;
     private static final int TICKS_UNTIL_MOVEMENT = 20;
 
     // EFFECTS: Creates a basic guard enemy
@@ -24,6 +24,11 @@ public class Guard extends Enemy {
     @Override
     public void handleNextTick(int tick) {
         if (tick % TICKS_UNTIL_MOVEMENT == 0) {
+            if (stunned) {
+                stunned = false;
+                return;
+            }
+
             switch (getGame().getRandom().nextInt(4)) {
                 case 0:
                     moveUp();

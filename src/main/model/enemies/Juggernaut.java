@@ -24,6 +24,11 @@ public class Juggernaut extends Enemy {
     @Override
     public void handleNextTick(int tick) {
         if (tick % TICKS_UNTIL_MOVEMENT == 0) {
+            if (stunned) {
+                stunned = false;
+                return;
+            }
+
             switch (getGame().getRandom().nextInt(4)) {
                 case 0:
                     moveUp();
