@@ -8,6 +8,7 @@ public class Guard extends Enemy {
     private static final int INITIAL_HEALTH = 50;
     private static final int INITIAL_DEFENSE = 5;
     private static final int INITIAL_ATTACK = 10;
+    private static final int TICKS_UNTIL_MOVEMENT = 25;
 
     // EFFECTS: Creates a basic guard enemy
     public Guard(Game game) {
@@ -16,5 +17,26 @@ public class Guard extends Enemy {
                 '%', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT,
                 "Guard", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Check if enemy should move on each tick
+    public void handleNextTick(int tick) {
+        if (tick % TICKS_UNTIL_MOVEMENT == 0) {
+            switch (getGame().getRandom().nextInt(4)) {
+                case 0:
+                    moveUp();
+                    break;
+                case 1:
+                    moveDown();
+                    break;
+                case 2:
+                    moveLeft();
+                    break;
+                case 3:
+                    moveRight();
+                    break;
+            }
+        }
     }
 }

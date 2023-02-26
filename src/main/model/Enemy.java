@@ -3,6 +3,7 @@ package model;
 import com.googlecode.lanterna.TextColor;
 
 public abstract class Enemy extends Entity {
+
     // EFFECTS: Creates a generic enemy
     public Enemy(
             Game game,
@@ -12,8 +13,4 @@ public abstract class Enemy extends Entity {
                 game, 0, 0, textSprite, textColor, backgroundColor, name, health, defence, attack
         );
     }
-
-    //
-    // Getters and Setters
-    //
 }

@@ -19,6 +19,9 @@ public class Player extends Entity {
         );
     }
 
+    // EFFECTS: Do nothing on new tick
+    public void handleNextTick(int tick) {}
+
     //
     // Getters and Setters
     //

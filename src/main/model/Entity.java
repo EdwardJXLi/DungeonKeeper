@@ -114,6 +114,10 @@ public abstract class Entity implements ScreenElement {
         return !level.solidTileAt(posX, posY);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Handles what happens when next tick occurs
+    public abstract void handleNextTick(int tick);
+
     //
     // Getters
     //

@@ -7,6 +7,7 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
+import model.Entity;
 import model.Game;
 
 import java.io.IOException;
@@ -98,6 +99,7 @@ public class TerminalGame {
             tick++;
             render();
             handlePlayerInput();
+            handleTick();
             Thread.sleep(1000L / Game.TPS);
         }
     }
@@ -144,6 +146,13 @@ public class TerminalGame {
                         break;
                 }
             }
+        }
+    }
+
+    // EFFECTS: Handles next tick for all entities
+    private void handleTick() {
+        for (Entity e: game.getLevel().getEnemies()) {
+            e.handleNextTick(tick);
         }
     }
 }
