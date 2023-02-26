@@ -3,6 +3,7 @@ package ui;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
+import model.Game;
 
 public abstract class Frame {
     int leftBound;
@@ -11,15 +12,19 @@ public abstract class Frame {
     int bottomBound;
     String frameName;
     Screen screen;
+    Game game;
 
     // EFFECTS: Initializes a generic frame that fits within bounds
-    public Frame(int leftBound, int topBound, int rightBound, int bottomBound, String frameName, Screen screen) {
+    public Frame(
+            int leftBound, int topBound, int rightBound, int bottomBound, String frameName, Screen screen, Game game
+    ) {
         this.leftBound = leftBound;
         this.rightBound = rightBound;
         this.topBound = topBound;
         this.bottomBound = bottomBound;
         this.frameName = frameName;
         this.screen = screen;
+        this.game = game;
     }
 
     // EFFECTS: Draws the border of the frame

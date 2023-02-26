@@ -3,6 +3,8 @@ package model;
 import model.enemies.Guard;
 import model.enemies.Juggernaut;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -15,7 +17,10 @@ public class Game {
     private final Level gameLevel;
 
     // Random Number Generator
-    protected Random random;
+    private Random random;
+
+    // Game Messages
+    private ArrayList<String> gameMessages;
 
     // EFFECTS: Creates a game object with levels and player
     public Game(int sizeX, int sizeY) {
@@ -24,6 +29,9 @@ public class Game {
 
         // Initialize Random
         random = new Random();
+
+        // Initialize Messages
+        gameMessages = new ArrayList<>();
 
         // Initialize First Level
         gameLevel = new Level(1, this, sizeX, sizeY, 2, 2);
@@ -36,6 +44,9 @@ public class Game {
 
         // Initialize Enemies in level
         gameLevel.initLevel();
+
+        // Send Welcome Message
+        sendMessage("Welcome to Yet Unnamed Dungeon Crawler!");
     }
 
     // MODIFIES: this
@@ -50,6 +61,9 @@ public class Game {
 
         // Next tick for player
         getPlayer().handleNextTick(tick);
+
+        // Remove Dead Enemies
+        getLevel().getEnemies().removeIf(e -> e.isDead());
     }
 
     // EFFECTS: Prints the end game screen
@@ -79,5 +93,25 @@ public class Game {
 
     public Random getRandom() {
         return random;
+    }
+
+    public void sendMessage(String message) {
+        gameMessages.add(message);
+    }
+
+    public List<String> getMessages() {
+        return gameMessages;
+    }
+
+    // EFFECTS: Returns the last n messages from game messages
+    public List<String> getLastMessages(int n) {
+        ArrayList<String> lastMessages = new ArrayList<>();
+
+        // Iterate backwards through list of messages, and add them to a new list
+        for (int i = gameMessages.size() - 1; i >= Math.max(gameMessages.size() - n, 0); i--) {
+            lastMessages.add(0, gameMessages.get(i));
+        }
+
+        return lastMessages;
     }
 }

@@ -9,6 +9,7 @@ public class Player extends Entity {
 
     // Player Information
     private int kills;
+    private Enemy lastEnemy;
 
     // EFFECTS: Creates a generic player
     public Player(Game game) {
@@ -32,14 +33,26 @@ public class Player extends Entity {
         }
 
         // Else, just jet the superclass method handle movement
-        return super.handleMovement(posX, posY);
+        boolean didMove = super.handleMovement(posX, posY);
+        if (!didMove) {
+            getGame().sendMessage("Sorry! You Cant Go There!");
+        }
+        return didMove;
     }
 
     // MODIFIES: this
     // EFFECTS: Once damaged, check if dead. If so, end game.
     @Override
     public void damage(int amount) {
+        // Handle Damage
         super.damage(amount);
+
+        // Print Message
+        getGame().sendMessage(String.format(
+                "OUCH! You Took %d Damage! Your Health Is Now At %d!", amount, getHealth()
+        ));
+
+        // Check if player is dead
         if (this.isDead()) {
             // TODO: HANDLE DEATH
             System.out.println("dead");
@@ -49,15 +62,30 @@ public class Player extends Entity {
     // MODIFIES: this, enemy
     // EFFECTS: Attacks enemy
     private void attackEnemy(Enemy enemy) {
+        lastEnemy = enemy;
         // Enemy Always Attacks First
-        this.damage(enemy.getAttack() - this.getDefense());
-        enemy.damage(this.getAttack() - enemy.getDefense());
+        getGame().sendMessage(String.format("⚔ You got into a fight with %s!", enemy.getName()));
+        getGame().sendMessage(String.format("⚔ %s attacks first for %d", enemy.getName(), enemy.getAttack()));
+        this.damage(Math.max(0, enemy.getAttack() - this.getDefense()));
+        getGame().sendMessage(String.format("⚔ You fight back for %d damage!", this.getAttack()));
+        getGame().sendMessage(String.format("⚔ Enemy is now stunned and at %d health.", enemy.getHealth()));
+        enemy.damage(Math.max(0, this.getAttack() - enemy.getDefense()));
         enemy.stun();
+
+        if (enemy.isDead()) {
+            this.kills++;
+            getGame().sendMessage(String.format("Congrats! You Killed The %s", enemy.getName()));
+        }
     }
 
     // EFFECTS: Nothing Happens
     @Override
     public void handleNextTick(int tick) {}
+
+    // EFFECTS: Returns the last enemy fought, null otherwise
+    public Enemy getLastEnemyFought() {
+        return lastEnemy;
+    }
 
     //
     // Getters and Setters

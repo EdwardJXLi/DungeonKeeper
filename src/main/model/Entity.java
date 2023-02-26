@@ -30,6 +30,7 @@ public abstract class Entity implements ScreenElement {
         this.textSprite = textSprite;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
+        this.name = name;
         this.maxHealth = health;
         this.health = health;
         this.defense = defence;

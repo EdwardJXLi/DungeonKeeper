@@ -10,7 +10,7 @@ public class PlayerInfoFrame extends Frame {
 
     // EFFECTS: Initializes a player info frame that shows player stats
     public PlayerInfoFrame(int leftBound, int topBound, int rightBound, int bottomBound, Screen screen, Game game) {
-        super(leftBound, topBound, rightBound, bottomBound, "Player", screen);
+        super(leftBound, topBound, rightBound, bottomBound, "Player", screen, game);
         this.player = game.getPlayer();
     }
 
@@ -27,6 +27,14 @@ public class PlayerInfoFrame extends Frame {
         drawText(0, 2,
                 String.format("DEFENCE: %d", player.getDefense()),
                 TextColor.ANSI.BLUE, TextColor.ANSI.DEFAULT
+        );
+        drawText(0, 3,
+                String.format("KILLS: %d", player.getKills()),
+                TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT
+        );
+        drawText(0, 4,
+                String.format("INVENTORY ITEMS: %d", -1),
+                TextColor.ANSI.WHITE, TextColor.ANSI.DEFAULT
         );
     }
 }

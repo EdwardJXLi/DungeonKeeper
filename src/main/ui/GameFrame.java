@@ -6,12 +6,9 @@ import model.Player;
 import model.ScreenElement;
 
 public class GameFrame extends Frame {
-    Game game;
-
     // EFFECTS: Initializes a player info frame that draws primary game map
     public GameFrame(int leftBound, int topBound, int rightBound, int bottomBound, Screen screen, Game game) {
-        super(leftBound, topBound, rightBound, bottomBound, "Game Level", screen);
-        this.game = game;
+        super(leftBound, topBound, rightBound, bottomBound, "Game Level", screen, game);
     }
 
     // EFFECTS: Draws entire game board

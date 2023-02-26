@@ -16,7 +16,7 @@ public class TerminalGame {
     // Constants
     private static final int INFO_BOX_WIDTH = 24;
     private static final int CHAT_BOX_HEIGHT = 5;
-    private static final int PLAYER_INFO_BOX_HEIGHT = 3;
+    private static final int PLAYER_INFO_BOX_HEIGHT = 5;
 
     // Game and Screen Variables
     private final Game game;
@@ -69,12 +69,12 @@ public class TerminalGame {
             infoFrame = new InfoFrame(
                     gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
                     windowSizeX - 1, gameSizeY + 1,
-                    screen
+                    screen, game
             );
             messageFrame = new MessageFrame(
                     0, gameSizeY + 2,
                     windowSizeX - 1, windowSizeY - 1,
-                    screen
+                    screen, game, CHAT_BOX_HEIGHT
             );
 
             // Start The Game Loop
@@ -116,7 +116,9 @@ public class TerminalGame {
         playerInfoFrame.drawFrame();
         playerInfoFrame.drawPlayerInfo();
         infoFrame.drawFrame();
+        infoFrame.renderInfo();
         messageFrame.drawFrame();
+        messageFrame.renderMessages();
 
         screen.refresh();
     }
