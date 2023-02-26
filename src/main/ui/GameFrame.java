@@ -3,6 +3,8 @@ package ui;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
+import model.Player;
+import model.ScreenElement;
 import model.Tile;
 
 public class GameFrame extends Frame {
@@ -15,12 +17,17 @@ public class GameFrame extends Frame {
 
     public void drawGame() {
         // Draw all tiles, entities, and items on the map
-        renderTiles();
+        renderScreenElements();
+
+        // Draw Player
+        Player player = game.getPlayer();
+        drawSprite(player.getPosX(), player.getPosY(), player.getTextSprite(), player.getTextColor(), player.getBackgroundColor());
     }
 
-    private void renderTiles() {
-        for (Tile t: game.getLevel().getTiles()) {
-            drawSprite(t.getPosX(), t.getPosY(), t.getTextSprite(), t.getTextColor(), TextColor.ANSI.DEFAULT);
+    private void renderScreenElements() {
+        // Render Tiles
+        for (ScreenElement e: game.getLevel().getTiles()) {
+            drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
     }
 }

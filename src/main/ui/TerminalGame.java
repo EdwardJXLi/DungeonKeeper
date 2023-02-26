@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
+import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -84,6 +85,7 @@ public class TerminalGame {
         while (true) {
             tick++;
             render();
+            handlePlayerInput();
             Thread.sleep(1000L / Game.TPS);
         }
     }
@@ -100,5 +102,31 @@ public class TerminalGame {
         hudFrame.drawFrame();
 
         screen.refresh();
+    }
+
+    private void handlePlayerInput() throws IOException {
+        KeyStroke stroke = screen.pollInput();
+
+        // Check if keystroke is valid
+        if (stroke != null) {
+            if (stroke.getCharacter() != null) {
+                switch (stroke.getCharacter()) {
+                    case 'w':
+                        game.getPlayer().moveUp();
+                        break;
+                    case 's':
+                        game.getPlayer().moveDown();
+                        break;
+                    case 'a':
+                        game.getPlayer().moveLeft();
+                        break;
+                    case 'd':
+                        game.getPlayer().moveRight();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }

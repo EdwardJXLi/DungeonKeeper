@@ -1,21 +1,48 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import org.w3c.dom.Text;
 
-public interface Tile {
-    int getPosX();
+public abstract class Tile implements ScreenElement{
+    private int posX;
+    private int posY;
+    private char textSprite;
+    private TextColor textColor;
+    private TextColor backgroundColor;
 
-    int getPosY();
+    public Tile(int posX, int posY, char textSprite, TextColor textColor, TextColor backgroundColor) {
+        this.posX = posX;
+        this.posY = posY;
+    }
 
-    char getTextSprite();
+    @Override
+    public int getPosX() {
+        return posX;
+    }
 
-    TextColor getTextColor();
+    @Override
+    public int getPosY() {
+        return posY;
+    }
 
-    TextColor getBackgroundColor();
+    @Override
+    public char getTextSprite() {
+        return textSprite;
+    }
 
-    boolean isSolid();
+    @Override
+    public TextColor getTextColor() {
+        return textColor;
+    }
 
-    void onStep();
+    @Override
+    public TextColor getBackgroundColor() {
+        return backgroundColor;
+    }
 
-    void onInteract();
+    public abstract boolean isSolid();
+
+    public abstract void onStep();
+
+    public abstract void onInteract();
 }

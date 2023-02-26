@@ -8,18 +8,27 @@ public class Level {
     // Information on level
     private int sizeX;
     private int sizeY;
+    private int spawnX;
+    private int spawnY;
     private int levelNum;
 
     // Level Data
     private ArrayList<Tile> tiles;
 
-    public Level(int levelNum, int sizeX, int sizeY) {
+    public Level(int levelNum, int sizeX, int sizeY, int spawnX, int spawnY) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
+        this.spawnX = spawnX;
+        this.spawnY = spawnY;
         this.levelNum = levelNum;
         this.tiles = new ArrayList<>();
 
-        initializeWalls();
+//        initializeWalls();
+    }
+
+    public void spawnPlayer(Player p) {
+        p.setPosX(this.spawnX);
+        p.setPosY(this.spawnY);
     }
 
     private void initializeWalls() {
@@ -43,7 +52,28 @@ public class Level {
         }
     }
 
+    public boolean solidTileAt(int posX, int posY) {
+        for (Tile t: tiles) {
+            if (t.getPosX() == posX && t.getPosY() == posY && t.isSolid()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ArrayList<Tile> getTiles() {
         return tiles;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    public int getLevelNum() {
+        return levelNum;
     }
 }
