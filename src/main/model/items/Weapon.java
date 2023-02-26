@@ -15,21 +15,22 @@ public abstract class Weapon extends Item {
         this.additionalAttack = additionalAttack;
     }
 
+    // EFFECTS: Overrides previous get description and adds attack value to the end
     @Override
     public List<String> getDescription() {
         // Create a new description with the attack amount added
-        List<String> newDescription = new ArrayList<String>();
-        for (String s: super.getDescription()) {
-            newDescription.add(s);
-        }
+        // Copy all of previous description into new description
+        List<String> newDescription = new ArrayList<>(super.getDescription());
         newDescription.add(String.format("+%d Attack", getAdditionalAttack()));
         return newDescription;
     }
 
+    // EFFECTS: Returns the amount of additional attack added by weapon
     public int getAdditionalAttack() {
         return additionalAttack;
     }
 
+    // EFFECTS: When used, player equips weapon
     @Override
     public void useItem(Player p) {
         p.equipWeapon(this);

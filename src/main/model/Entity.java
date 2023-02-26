@@ -97,7 +97,10 @@ public abstract class Entity implements ScreenElement {
         }
 
         // Check if there is a solid tile there
-        return !level.isSolidTileAtLocation(posX, posY);
+        if (!level.isSolidTileAtLocation(posX, posY)) {
+            return false;
+        }
+        return true;
     }
 
     // REQUIRES: amount > 0

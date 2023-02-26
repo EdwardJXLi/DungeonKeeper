@@ -6,8 +6,10 @@ import model.Player;
 import java.util.Arrays;
 
 public class DefensePotion extends Potion {
+    // Defense Potion Constants
     private static final int DEFENSE_AMOUNT = 5;
 
+    // EFFECTS: Creates a simple potion that permanently increases defense
     public DefensePotion() {
         super(
                 "Defense Potion",
@@ -15,8 +17,8 @@ public class DefensePotion extends Potion {
                 TextColor.ANSI.BLUE);
     }
 
+    // EFFECTS: Adds additional defense to player when used
     @Override
-    // EFFECTS: Adds additional defense to player
     public void useItem(Player p) {
         p.addDefense(DEFENSE_AMOUNT);
         // Remove potion after use

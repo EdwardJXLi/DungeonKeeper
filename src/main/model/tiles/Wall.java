@@ -10,12 +10,13 @@ public class Wall extends Tile {
         super(posX, posY, '#', TextColor.ANSI.BLACK, TextColor.ANSI.WHITE, "Wall", null);
     }
 
+    // EFFECTS: Since you cannot walk through a wall, it is solid.
     @Override
     public boolean isSolid() {
         return true;
     }
 
+    // EFFECTS: Nothing happens
     @Override
-    // EFFECTS: Nothing
     public void onStep(Entity e) {}
 }

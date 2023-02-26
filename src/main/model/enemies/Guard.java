@@ -7,6 +7,8 @@ import model.Item;
 import model.items.*;
 
 public class Guard extends Enemy {
+    // Enemy Constants
+    // Public so that tests can access them
     public static final int INITIAL_HEALTH = 50;
     public static final int INITIAL_DEFENSE = 5;
     public static final int INITIAL_ATTACK = 20;
@@ -22,7 +24,7 @@ public class Guard extends Enemy {
     }
 
     // MODIFIES: this
-    // EFFECTS: Drops loop on death
+    // EFFECTS: Drops random loop on death
     @Override
     public void onDeath() {
         // Chance of dropping either Armor, Weapon, or Potion
@@ -53,11 +55,14 @@ public class Guard extends Enemy {
     @Override
     public void handleNextTick(int tick) {
         if (tick % TICKS_UNTIL_MOVEMENT == 0) {
+            // If enemy is stunned, skip movement
             if (stunned) {
                 stunned = false;
-                return;  // Skip movement
+                return;
             }
 
+            // Try to move in a random direction
+            // If this fails, nothing will happen. This is intended behavior!
             switch (getGame().getRandom().nextInt(4)) {
                 case 0:
                     moveUp();

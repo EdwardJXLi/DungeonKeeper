@@ -7,7 +7,7 @@ import model.Tile;
 import java.util.Arrays;
 
 public class Trap extends Tile {
-    // EFFECTS: Creates a generic wall object
+    // EFFECTS: Creates a trap tile that damages player when stepped
     public Trap(int posX, int posY) {
         super(
                 posX, posY, '"', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT, "Spike Trap",
@@ -15,14 +15,15 @@ public class Trap extends Tile {
         );
     }
 
+    // EFFECTS: Since you can step on a trap, it is not solid
     @Override
     public boolean isSolid() {
         return false;
     }
 
-    @Override
     // MODIFIES: e
     // EFFECTS: Damages entity when stepped on
+    @Override
     public void onStep(Entity e) {
         e.damage(5);
     }

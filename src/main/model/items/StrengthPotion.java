@@ -6,8 +6,10 @@ import model.Player;
 import java.util.Arrays;
 
 public class StrengthPotion extends Potion {
+    // Strength Potion Constants
     private static final int ATTACK_AMOUNT = 10;
 
+    // EFFECTS: Creates a simple potion that permanently increases strength
     public StrengthPotion() {
         super(
                 "Strength Potion",
@@ -15,8 +17,8 @@ public class StrengthPotion extends Potion {
                 TextColor.ANSI.MAGENTA);
     }
 
+    // EFFECTS: Adds additional attack to player once used
     @Override
-    // EFFECTS: Adds additional attack to player
     public void useItem(Player p) {
         p.addAttack(ATTACK_AMOUNT);
         // Remove potion after use

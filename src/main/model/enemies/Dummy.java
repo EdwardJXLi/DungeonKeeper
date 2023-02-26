@@ -3,9 +3,6 @@ package model.enemies;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
-import model.Item;
-import model.Player;
-import model.items.*;
 
 public class Dummy extends Enemy {
     public static final int INITIAL_HEALTH = 100;
