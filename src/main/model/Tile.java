@@ -13,6 +13,9 @@ public abstract class Tile implements ScreenElement{
     public Tile(int posX, int posY, char textSprite, TextColor textColor, TextColor backgroundColor) {
         this.posX = posX;
         this.posY = posY;
+        this.textSprite = textSprite;
+        this.textColor = textColor;
+        this.backgroundColor = backgroundColor;
     }
 
     @Override

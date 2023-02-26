@@ -2,16 +2,12 @@ package ui;
 
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import com.googlecode.lanterna.terminal.TerminalFactory;
 import model.Game;
-import model.Tile;
 
 import java.io.IOException;
 
@@ -31,7 +27,7 @@ public class TerminalGame {
     private GameFrame gameFrame;
     private PlayerInfoFrame playerInfoFrame;
     private InfoFrame infoFrame;
-    private ChatFrame chatFrame;
+    private MessageFrame messageFrame;
 
     public TerminalGame(int sizeX, int sizeY) {
         gameSizeX = sizeX;
@@ -67,7 +63,7 @@ public class TerminalGame {
                     windowSizeX - 1, gameSizeY + 1,
                     screen
             );
-            chatFrame = new ChatFrame(
+            messageFrame = new MessageFrame(
                     0, gameSizeY + 2,
                     windowSizeX - 1, windowSizeY - 1,
                     screen
@@ -108,7 +104,7 @@ public class TerminalGame {
         playerInfoFrame.drawFrame();
         playerInfoFrame.drawPlayerInfo();
         infoFrame.drawFrame();
-        chatFrame.drawFrame();
+        messageFrame.drawFrame();
 
         screen.refresh();
     }

@@ -23,7 +23,7 @@ public class Level {
         this.levelNum = levelNum;
         this.tiles = new ArrayList<>();
 
-//        initializeWalls();
+        initializeWalls();
     }
 
     public void spawnPlayer(Player p) {
