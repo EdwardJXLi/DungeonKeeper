@@ -7,75 +7,23 @@ public class Player extends Entity {
     private static final int INITIAL_DEFENSE = 10;
     private static final int INITIAL_ATTACK = 10;
 
-    private final Game game;
+    // Player Information
+    private int kills;
 
-    // EFFECTS: Creates a player with initial X Y coords
-    public Player(int initialX, int initialY, Game game) {
-        super(initialX, initialY, '@', TextColor.ANSI.YELLOW, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK);
-        this.game = game;
+    // EFFECTS: Creates a generic player
+    public Player(Game game) {
+        super(
+                game, 0, 0,
+                '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+                "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
+        );
     }
 
-    // MODIFIES: this
-    // EFFECTS: Tries to move player up.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
-    public boolean moveUp() {
-        if (!canBeAtLocation(game.getLevel(), getPosX(), getPosY() - 1)) {
-            return false;
-        }
+    //
+    // Getters and Setters
+    //
 
-        // Move to new location
-        setPosY(getPosY() - 1);
-        return true;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Tries to move player down.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
-    public boolean moveDown() {
-        if (!canBeAtLocation(game.getLevel(), getPosX(), getPosY() + 1)) {
-            return false;
-        }
-
-        // Move to new location
-        setPosY(getPosY() + 1);
-        return true;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Tries to move player left.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
-    public boolean moveLeft() {
-        if (!canBeAtLocation(game.getLevel(), getPosX() - 1, getPosY())) {
-            return false;
-        }
-
-        // Move to new location
-        setPosX(getPosX() - 1);
-        return true;
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Tries to move player right.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
-    public boolean moveRight() {
-        if (!canBeAtLocation(game.getLevel(), getPosX() + 1, getPosY())) {
-            return false;
-        }
-
-        // Move to new location
-        setPosX(getPosX() + 1);
-        return true;
+    public int getKills() {
+        return kills;
     }
 }

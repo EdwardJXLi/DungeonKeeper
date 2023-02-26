@@ -25,7 +25,7 @@ public class PlayerInfoFrame extends Frame {
                 TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT
         );
         drawText(0, 2,
-                String.format("DEFENCE: %d", player.getDefence()),
+                String.format("DEFENCE: %d", player.getDefense()),
                 TextColor.ANSI.BLUE, TextColor.ANSI.DEFAULT
         );
     }

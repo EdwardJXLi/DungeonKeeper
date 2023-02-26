@@ -3,32 +3,101 @@ package model;
 import com.googlecode.lanterna.TextColor;
 
 public abstract class Entity implements ScreenElement {
-    // Entity Information
-    private int posX;
-    private int posY;
-    private final int maxHealth;
-    private int health;
-    private int defence;
-    private int attack;
-
     // Screen Element Info
     private final char textSprite;
     private final TextColor textColor;
+    private final TextColor backgroundColor;
+
+    // Entity Information
+    private int posX;
+    private int posY;
+    private String name;
+    private final Game game;
+    private int maxHealth;
+    private int health;
+    private int defense;
+    private int attack;
 
     // EFFECTS: Creates a generic entity with health, defence, and attack
-    public Entity(int posX, int posY, char textSprite, TextColor textColor, int maxHealth, int defence, int attack) {
+    public Entity(
+            Game game, int posX, int posY, char textSprite,
+            TextColor textColor, TextColor backgroundColor,
+            String name, int health, int defence, int attack
+    ) {
+        this.game = game;
         this.posX = posX;
         this.posY = posY;
         this.textSprite = textSprite;
         this.textColor = textColor;
-
-        // Set max health and initial health to both maxHealth
-        this.maxHealth = maxHealth;
-        this.health = maxHealth;
-
-        // Set rest of entity values
-        this.defence = defence;
+        this.backgroundColor = backgroundColor;
+        this.maxHealth = health;
+        this.health = health;
+        this.defense = defence;
         this.attack = attack;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Tries to move player up.
+    //          If allowed (within bounds and no walls):
+    //               Moves the player up and returns true
+    //          Else:
+    //               Returns False
+    public boolean moveUp() {
+        if (!canBeAtLocation(game.getLevel(), getPosX(), getPosY() - 1)) {
+            return false;
+        }
+
+        // Move to new location
+        setPosY(getPosY() - 1);
+        return true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Tries to move player down.
+    //          If allowed (within bounds and no walls):
+    //               Moves the player up and returns true
+    //          Else:
+    //               Returns False
+    public boolean moveDown() {
+        if (!canBeAtLocation(game.getLevel(), getPosX(), getPosY() + 1)) {
+            return false;
+        }
+
+        // Move to new location
+        setPosY(getPosY() + 1);
+        return true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Tries to move player left.
+    //          If allowed (within bounds and no walls):
+    //               Moves the player up and returns true
+    //          Else:
+    //               Returns False
+    public boolean moveLeft() {
+        if (!canBeAtLocation(game.getLevel(), getPosX() - 1, getPosY())) {
+            return false;
+        }
+
+        // Move to new location
+        setPosX(getPosX() - 1);
+        return true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Tries to move player right.
+    //          If allowed (within bounds and no walls):
+    //               Moves the player up and returns true
+    //          Else:
+    //               Returns False
+    public boolean moveRight() {
+        if (!canBeAtLocation(game.getLevel(), getPosX() + 1, getPosY())) {
+            return false;
+        }
+
+        // Move to new location
+        setPosX(getPosX() + 1);
+        return true;
     }
 
     // EFFECTS: Checks if entity can move to locaiton
@@ -79,15 +148,31 @@ public abstract class Entity implements ScreenElement {
 
     @Override
     public TextColor getBackgroundColor() {
-        return TextColor.ANSI.DEFAULT;
+        return backgroundColor;
     }
 
     //
     // Getters and Setters
     //
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
     public int getMaxHealth() {
         return maxHealth;
+    }
+
+    protected void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
 
     public int getHealth() {
@@ -98,12 +183,12 @@ public abstract class Entity implements ScreenElement {
         this.health = health;
     }
 
-    public int getDefence() {
-        return defence;
+    public int getDefense() {
+        return defense;
     }
 
-    protected void setDefence(int defence) {
-        this.defence = defence;
+    protected void setDefense(int defense) {
+        this.defense = defense;
     }
 
     public int getAttack() {

@@ -1,5 +1,7 @@
 package model;
 
+import model.enemies.Guard;
+
 public class Game {
     public static final int TPS = 32;
 
@@ -18,10 +20,16 @@ public class Game {
         gameLevel = new Level(1, sizeX, sizeY, 2, 2);
 
         // Initialize Player
-        player = new Player(0, 0, this);
+        player = new Player(this);
 
         // Spawn Player
         gameLevel.spawnPlayer(player);
+
+        // Initialize Test Enemy
+        Enemy testEnemy = new Guard(this);
+
+        // Spawn Guard
+        gameLevel.spawnEnemy(testEnemy, 10, 10);
     }
 
     // EFFECTS: Prints the end game screen

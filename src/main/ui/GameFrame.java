@@ -33,5 +33,10 @@ public class GameFrame extends Frame {
         for (ScreenElement e : game.getLevel().getTiles()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }
+
+        // Render Enemies
+        for (ScreenElement e : game.getLevel().getEnemies()) {
+            drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
+        }
     }
 }

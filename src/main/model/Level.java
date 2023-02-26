@@ -14,6 +14,7 @@ public class Level {
 
     // Level Data
     private final ArrayList<Tile> tiles;
+    private final ArrayList<Enemy> enemies;
 
     // EFFECTS: Creates a level with size X and Y
     public Level(int levelNum, int sizeX, int sizeY, int spawnX, int spawnY) {
@@ -23,6 +24,7 @@ public class Level {
         this.spawnY = spawnY;
         this.levelNum = levelNum;
         this.tiles = new ArrayList<>();
+        this.enemies = new ArrayList<>();
 
         initializeWalls();
     }
@@ -32,6 +34,14 @@ public class Level {
     public void spawnPlayer(Player p) {
         p.setPosX(this.spawnX);
         p.setPosY(this.spawnY);
+    }
+
+    // MODIFIES: this, enemy
+    // EFFECTS: Spawns enemy at position
+    public void spawnEnemy(Enemy e, int posX, int posY) {
+        enemies.add(e);
+        e.setPosX(posX);
+        e.setPosY(posY);
     }
 
     // MODIFIES: this
@@ -67,14 +77,17 @@ public class Level {
         return false;
     }
 
-    // EFFECTS: Returns list of all tiles
+    //
+    // Getters
+    //
+
     public ArrayList<Tile> getTiles() {
         return tiles;
     }
 
-    //
-    // Getters
-    //
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
 
     public int getSizeX() {
         return sizeX;
