@@ -37,67 +37,52 @@ public abstract class Entity implements ScreenElement {
     }
 
     // MODIFIES: this
-    // EFFECTS: Tries to move player up.
+    // EFFECTS: Tries to move player to new location
     //          If allowed (within bounds and no walls):
     //               Moves the player up and returns true
     //          Else:
     //               Returns False
-    public boolean moveUp() {
-        if (!canBeAtLocation(game.getLevel(), getPosX(), getPosY() - 1)) {
+    private boolean handleMovement(int posX, int posY) {
+        // Check if entity can go to location
+        if (!canBeAtLocation(game.getLevel(), posX, posY)) {
             return false;
         }
 
         // Move to new location
-        setPosY(getPosY() - 1);
+        setPosX(posX);
+        setPosY(posY);
+
+        // Check if new location is a tile. If so, run onStep
+        Tile steppedTile = game.getLevel().getTileAtLocation(getPosX(), getPosY());
+        if (steppedTile != null) {
+            steppedTile.onStep(this);
+        }
+
         return true;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Tries to move player up.
+    public boolean moveUp() {
+        return handleMovement(getPosX(), getPosY() - 1);
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player down.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
     public boolean moveDown() {
-        if (!canBeAtLocation(game.getLevel(), getPosX(), getPosY() + 1)) {
-            return false;
-        }
-
-        // Move to new location
-        setPosY(getPosY() + 1);
-        return true;
+        return handleMovement(getPosX(), getPosY() + 1);
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player left.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
     public boolean moveLeft() {
-        if (!canBeAtLocation(game.getLevel(), getPosX() - 1, getPosY())) {
-            return false;
-        }
-
-        // Move to new location
-        setPosX(getPosX() - 1);
-        return true;
+        return handleMovement(getPosX() - 1, getPosY());
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player right.
-    //          If allowed (within bounds and no walls):
-    //               Moves the player up and returns true
-    //          Else:
-    //               Returns False
     public boolean moveRight() {
-        if (!canBeAtLocation(game.getLevel(), getPosX() + 1, getPosY())) {
-            return false;
-        }
-
-        // Move to new location
-        setPosX(getPosX() + 1);
-        return true;
+        return handleMovement(getPosX() + 1, getPosY());
     }
 
     // EFFECTS: Checks if entity can move to locaiton
@@ -111,7 +96,7 @@ public abstract class Entity implements ScreenElement {
         }
 
         // Check if there is a solid tile there
-        return !level.solidTileAt(posX, posY);
+        return !level.isSolidTileAtLocation(posX, posY);
     }
 
     // MODIFIES: this

@@ -1,6 +1,7 @@
 package model.tiles;
 
 import com.googlecode.lanterna.TextColor;
+import model.Entity;
 import model.Tile;
 
 public class Trap extends Tile {
@@ -15,6 +16,8 @@ public class Trap extends Tile {
     }
 
     @Override
-    public void onStep() {
+    // MODIFIES: e
+    // EFFECTS: Damages entity when stepped on
+    public void onStep(Entity e) {
     }
 }

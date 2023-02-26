@@ -21,8 +21,9 @@ public abstract class Tile implements ScreenElement {
     // EFFECTS: Returns if the object could be stood on
     public abstract boolean isSolid();
 
+    // MODIFIES: this, e
     // EFFECTS: Handles what happens when an entity steps on tile
-    public abstract void onStep();
+    public abstract void onStep(Entity e);
 
     //
     // GETTERS

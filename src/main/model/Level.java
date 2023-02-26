@@ -96,13 +96,33 @@ public class Level {
     }
 
     // EFFECTS: Returns if there is a solid tile at position
-    public boolean solidTileAt(int posX, int posY) {
+    public boolean isSolidTileAtLocation(int posX, int posY) {
         for (Tile t : tiles) {
             if (t.getPosX() == posX && t.getPosY() == posY && t.isSolid()) {
                 return true;
             }
         }
         return false;
+    }
+
+    // EFFECTS: Returns tile at location, null otherwise
+    public Tile getTileAtLocation(int posX, int posY) {
+        for (Tile t : tiles) {
+            if (t.getPosX() == posX && t.getPosY() == posY) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    // EFFECTS: Returns enemy at location, null otherwise
+    public Enemy getEnemyAtLocation(int posX, int posY) {
+        for (Enemy e : enemies) {
+            if (e.getPosX() == posX && e.getPosY() == posY) {
+                return e;
+            }
+        }
+        return null;
     }
 
     //
