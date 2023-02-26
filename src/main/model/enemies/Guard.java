@@ -7,10 +7,10 @@ import model.Item;
 import model.items.*;
 
 public class Guard extends Enemy {
-    private static final int INITIAL_HEALTH = 50;
-    private static final int INITIAL_DEFENSE = 5;
-    private static final int INITIAL_ATTACK = 20;
-    private static final int TICKS_UNTIL_MOVEMENT = 20;
+    public static final int INITIAL_HEALTH = 50;
+    public static final int INITIAL_DEFENSE = 5;
+    public static final int INITIAL_ATTACK = 20;
+    public static final int TICKS_UNTIL_MOVEMENT = 20;
 
     // EFFECTS: Creates a basic guard enemy
     public Guard(Game game) {
@@ -55,7 +55,7 @@ public class Guard extends Enemy {
         if (tick % TICKS_UNTIL_MOVEMENT == 0) {
             if (stunned) {
                 stunned = false;
-                return;
+                return;  // Skip movement
             }
 
             switch (getGame().getRandom().nextInt(4)) {

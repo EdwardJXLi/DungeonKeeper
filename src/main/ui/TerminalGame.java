@@ -55,6 +55,7 @@ public class TerminalGame {
 
         // Setup and initialize game object
         game = new Game(gameSizeX, gameSizeY);
+        game.initGame();
 
         // Start the Terminal UI Rendering
         try {

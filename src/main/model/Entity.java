@@ -13,7 +13,7 @@ public abstract class Entity implements ScreenElement {
     private int posY;
     private String name;
     private final Game game;
-    private int maxHealth;
+    private final int maxHealth;
     private int health;
     private int baseDefense;
     private int baseAttack;

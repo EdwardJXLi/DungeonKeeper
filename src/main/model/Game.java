@@ -1,28 +1,32 @@
 package model;
 
-import model.items.SuspiciousPotion;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Game {
-    public static final int TPS = 32;
+    // Game Constants
+    public static final int TPS = 20;
+    public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
+    private static final int SPAWN_X = 2;
+    private static final int SPAWN_Y = 2;
 
     // Information on level
     private final int sizeX;
     private final int sizeY;
-    private final Player player;
-    private final Level gameLevel;
-
     // Random Number Generator
-    private Random random;
-
+    private final Random random;
     // Game Messages
-    private ArrayList<String> gameMessages;
+    private final List<String> gameMessages;
+    private Player player;
+    private Level gameLevel;
 
+    // REQUIRES: sizeX > 32 and sizeY > 24
     // EFFECTS: Creates a game object with levels and player
     public Game(int sizeX, int sizeY) {
+        // Assert requires
+        assert sizeX >= 32;
+        assert sizeY >= 24;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
 
@@ -31,33 +35,35 @@ public class Game {
 
         // Initialize Messages
         gameMessages = new ArrayList<>();
+    }
 
+    // MODIFIES: this
+    // EFFECTS: Starts up game by generating map, spawning enemies, and initializing player
+    public void initGame() {
         // Initialize First Level
-        gameLevel = new Level(1, this, sizeX, sizeY, 2, 2);
+        gameLevel = new Level(1, this, sizeX, sizeY, SPAWN_X, SPAWN_Y);
+        gameLevel.initLevel();
 
         // Initialize Player
         player = new Player(this);
+        player.initPlayer();
 
         // Spawn Player
         gameLevel.spawnPlayer(player);
 
-        // Add initial items to player
-        player.initPlayer();
-
-        // Initialize Enemies in level
-        gameLevel.initLevel();
-
         // Send Welcome Message
-        sendMessage("Welcome to Yet Unnamed Dungeon Crawler!");
+        sendMessage(WELCOME_MESSAGE);
     }
 
+    // REQUIRES: Next tick is 1 greater than previous tick
     // MODIFIES: this
     // EFFECTS: For each tick:
-    //          Handles next tick for player and enemies
-    //          Chance of randomly spawning items
+    //          - Handles next tick for player and enemies
+    //          - Removes dead enemies from map
+    //          - Occasionally spawns new items and enemies
     public void handleNextTick(int tick) {
         // Next tick for all enemies
-        for (Enemy e: getLevel().getEnemies()) {
+        for (Enemy e : getLevel().getEnemies()) {
             e.handleNextTick(tick);
         }
 
@@ -65,12 +71,12 @@ public class Game {
         getPlayer().handleNextTick(tick);
 
         // Handle and Remove Dead Enemies
-        for (Enemy e: getLevel().getEnemies()) {
+        for (Enemy e : getLevel().getEnemies()) {
             if (e.isDead()) {
                 e.onDeath();
             }
         }
-        getLevel().getEnemies().removeIf(e -> e.isDead());
+        getLevel().getEnemies().removeIf(Entity::isDead);
     }
 
     // EFFECTS: Prints the end game screen
@@ -81,14 +87,6 @@ public class Game {
     //
     // Getters
     //
-
-    public int getSizeX() {
-        return sizeX;
-    }
-
-    public int getSizeY() {
-        return sizeY;
-    }
 
     public Player getPlayer() {
         return player;
@@ -110,8 +108,12 @@ public class Game {
         return gameMessages;
     }
 
+    // REQUIRES: n > 0
     // EFFECTS: Returns the last n messages from game messages
     public List<String> getLastMessages(int n) {
+        assert n > 0;
+
+        // Create new array list of last messages
         ArrayList<String> lastMessages = new ArrayList<>();
 
         // Iterate backwards through list of messages, and add them to a new list
