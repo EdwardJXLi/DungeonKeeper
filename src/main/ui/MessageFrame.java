@@ -21,7 +21,7 @@ public class MessageFrame extends Frame {
     public void renderMessages() {
         List<String> lastMessages = game.getLastMessages(numMessages);
         for (int i = 0; i < lastMessages.size(); i++) {
-            drawText(0, i, lastMessages.get(i), TextColor.ANSI.WHITE, TextColor.ANSI.DEFAULT);
+            drawText(0, i, lastMessages.get(i));
         }
     }
 }

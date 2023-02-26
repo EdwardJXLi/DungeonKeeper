@@ -57,6 +57,15 @@ public abstract class Frame {
         internalDrawSprite(posX + leftBound + 1, posY + topBound + 1, c, foregroundColor, backgroundColor);
     }
 
+    // EFFECTS: Draws text with default white on black coloring
+    public void drawText(int posX, int posY, String text) {
+        // use internal drawing with offset of frame window
+        internalDrawText(
+                posX + leftBound + 1, posY + topBound + 1, text,
+                TextColor.ANSI.WHITE, TextColor.ANSI.DEFAULT
+        );
+    }
+
     // EFFECTS: Draws text with X and Y positions inside the frame
     public void drawText(int posX, int posY, String text, TextColor foregroundColor, TextColor backgroundColor) {
         // use internal drawing with offset of frame window
