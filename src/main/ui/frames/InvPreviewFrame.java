@@ -8,6 +8,10 @@ import ui.Frame;
 
 import java.util.List;
 
+/*
+ * text-based ui frame to render the item previews in the inventory
+ */
+
 public class InvPreviewFrame extends Frame {
     // EFFECTS: Initializes an inventory frame that shows inventory contents
     public InvPreviewFrame(

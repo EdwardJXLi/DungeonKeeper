@@ -14,6 +14,11 @@ import ui.frames.*;
 import java.io.IOException;
 import java.util.List;
 
+/*
+ * Main class for the terminal rendering of the game
+ * Code inspired by: https://github.students.cs.ubc.ca/CPSC210/SnakeConsole-Lanterna
+ */
+
 public class TerminalGame {
     // Constants
     private static final int INFO_BOX_WIDTH = 24;

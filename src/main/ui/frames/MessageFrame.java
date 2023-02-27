@@ -6,6 +6,10 @@ import ui.Frame;
 
 import java.util.List;
 
+/*
+ * text-based ui frame to render game messages
+ */
+
 public class MessageFrame extends Frame {
     // EFFECTS: Initializes a message info frame that shows game messages
     public MessageFrame(

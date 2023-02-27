@@ -7,6 +7,10 @@ import ui.Frame;
 
 import java.util.List;
 
+/*
+ * text-based ui frame to render live game information and tooltips
+ */
+
 public class InfoFrame extends Frame {
     private static final int INFO_OFFSET = 5;
 

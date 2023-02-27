@@ -4,6 +4,10 @@ import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import ui.Frame;
 
+/*
+ * text-based ui frame to render the inventory instructions
+ */
+
 public class InvInstructionsFrame extends Frame {
     // EFFECTS: Initializes an inventory frame that shows inventory contents
     public InvInstructionsFrame(

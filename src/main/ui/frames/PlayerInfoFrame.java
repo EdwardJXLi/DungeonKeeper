@@ -6,6 +6,10 @@ import model.Game;
 import model.Player;
 import ui.Frame;
 
+/*
+ * text-based ui frame to render info about the player
+ */
+
 public class PlayerInfoFrame extends Frame {
     private final Player player;
 

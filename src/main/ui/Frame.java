@@ -5,6 +5,10 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 
+/*
+ * Abstract class for text-based ui frames
+ */
+
 public abstract class Frame {
     private final int leftBound;
     private final int topBound;

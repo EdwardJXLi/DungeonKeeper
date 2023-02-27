@@ -8,6 +8,10 @@ import model.items.Armor;
 import model.items.Weapon;
 import ui.Frame;
 
+/*
+ * text-based ui frame to render equipped armors and swords
+ */
+
 public class EquipmentFrame extends Frame {
     private static final int ARMOR_BOX_OFFSET = 6;
 

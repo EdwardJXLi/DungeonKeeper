@@ -8,6 +8,10 @@ import ui.Frame;
 
 import java.util.List;
 
+/*
+ * text-based ui frame to render the inventory
+ */
+
 public class InventoryFrame extends Frame {
     // Base Helper Variables
     int selected;
