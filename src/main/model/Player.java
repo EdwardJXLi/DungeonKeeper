@@ -75,14 +75,13 @@ public class Player extends Entity {
 
         // Check if player is dead
         if (this.isDead()) {
-            // TODO: HANDLE DEATH
-            System.out.println("dead");
+            getGame().gameOver();
         }
     }
 
     // MODIFIES: this, enemy
     // EFFECTS: Attacks enemy
-    private void attackEnemy(Enemy enemy) {
+    public void attackEnemy(Enemy enemy) {
         lastEnemy = enemy;
         // Enemy Always Attacks First
         getGame().sendMessage(String.format("⚔ You got into a fight with %s!", enemy.getName()));
@@ -177,6 +176,12 @@ public class Player extends Entity {
             removeItem(weapon);
             addItem(previousWeapon);
         }
+    }
+
+    // EFFECTS: Helper function to run movement tests
+    public void setCoordinate(int posX, int posY) {
+        setPosX(posX);
+        setPosY(posY);
     }
 
     // EFFECTS: Returns the number of enemies killed

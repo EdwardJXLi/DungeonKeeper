@@ -4,6 +4,7 @@ import model.Game;
 import model.Player;
 import model.enemies.Dummy;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class PlayerTest {
     Game game;

@@ -18,6 +18,7 @@ public class GameTest {
     public void testConstructor() {
         assertEquals(32, game.getSizeX());
         assertEquals(24, game.getSizeY());
+        assertTrue(game.isGameRunning());
     }
 
     @Test
@@ -34,6 +35,15 @@ public class GameTest {
     public void testNextTick() {
         game.initGame();
         // Kill one enemy, and check if next tick removes enemy
+        assertEquals(10, game.getLevel().getEnemies().size());
+        game.getLevel().getEnemies().get(0).damage(9999);
+        game.handleNextTick(0);
+        assertEquals(9, game.getLevel().getEnemies().size());
+    }
 
+    @Test
+    public void gameOverTest() {
+        game.gameOver();
+        assertFalse(game.isGameRunning());
     }
 }

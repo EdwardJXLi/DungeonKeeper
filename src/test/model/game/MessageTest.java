@@ -80,6 +80,4 @@ public class MessageTest {
         // Check if last message is welcome message
         assertEquals(Game.WELCOME_MESSAGE, game.getMessages().get(game.getMessages().size() - 1));
     }
-
-    // TODO: Add messages from actions
 }

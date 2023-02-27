@@ -8,8 +8,8 @@ public class Game {
     // Game Constants
     public static final int TPS = 20;
     public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
-    private static final int SPAWN_X = 2;
-    private static final int SPAWN_Y = 2;
+    public static final int SPAWN_X = 2;
+    public static final int SPAWN_Y = 2;
 
     // Information on level
     private final int sizeX;
@@ -20,6 +20,8 @@ public class Game {
     private final List<String> gameMessages;
     private Player player;
     private Level gameLevel;
+    // Game Status
+    private boolean gameRunning;
 
     // REQUIRES: sizeX > 32 and sizeY > 24
     // EFFECTS: Creates a game object with levels and player
@@ -35,6 +37,9 @@ public class Game {
 
         // Initialize Messages
         gameMessages = new ArrayList<>();
+
+        // Start Game
+        gameRunning = true;
     }
 
     // MODIFIES: this
@@ -85,6 +90,12 @@ public class Game {
         getLevel().getEnemies().removeIf(Entity::isDead);
     }
 
+    // EFFECTS: Ends game
+    public void gameOver() {
+        this.gameRunning = false;
+    }
+
+
     // REQUIRES: n > 0
     // EFFECTS: Returns the last n messages from game messages
     public List<String> getLastMessages(int n) {
@@ -131,5 +142,9 @@ public class Game {
 
     public int getSizeY() {
         return sizeY;
+    }
+
+    public boolean isGameRunning() {
+        return gameRunning;
     }
 }

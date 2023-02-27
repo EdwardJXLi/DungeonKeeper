@@ -112,9 +112,12 @@ public class Level {
 
     // MODIFIES: this
     // EFFECTS: Drops item at location
-    public void dropItem(int posX, int posY, Item item) {
+    public DroppedItem dropItem(int posX, int posY, Item item) {
         game.sendMessage(String.format("%s was dropped!", item.getName()));
-        droppedItems.add(new DroppedItem(posX, posY, item));
+        DroppedItem di = new DroppedItem(posX, posY, item);
+        // Adding at zero to ensure items are like a stack
+        droppedItems.add(0, di);
+        return di;
     }
 
     // REQUIRES: there must actually be a dropped item at the location
