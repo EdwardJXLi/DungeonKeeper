@@ -9,11 +9,21 @@ import ui.Frame;
 import java.util.List;
 
 public class InventoryFrame extends Frame {
+    // Base Helper Variables
+    int selected;
+    int from;
+    int to;
+
     // EFFECTS: Initializes an inventory frame that shows inventory contents
     public InventoryFrame(
             int leftBound, int topBound, int rightBound, int bottomBound,
             Screen screen, Game game) {
         super(leftBound, topBound, rightBound, bottomBound, "Inventory", screen, game);
+
+        // Set helper variables
+        selected = 0;
+        from = 0;
+        to = 0;
     }
 
     // EFFECTS: Returns the numbers of items that fit within a page
@@ -22,7 +32,7 @@ public class InventoryFrame extends Frame {
     }
 
     // EFFECTS: Renders the Inventory
-    public void renderInventory(List<Item> inventory, int from, int to, int selected) {
+    public void renderInventory(List<Item> inventory) {
         // Render header and footer
         for (int x = 0; x < getWidth(); x++) {
             drawSprite(x, 0, ' ', TextColor.ANSI.GREEN, TextColor.ANSI.GREEN);
@@ -57,5 +67,32 @@ public class InventoryFrame extends Frame {
                 drawText(3, pos, item.getName());
             }
         }
+    }
+
+    // Getters and Setters
+
+
+    public int getSelected() {
+        return selected;
+    }
+
+    public void setSelected(int selected) {
+        this.selected = selected;
+    }
+
+    public int getFrom() {
+        return from;
+    }
+
+    public void setFrom(int from) {
+        this.from = from;
+    }
+
+    public int getTo() {
+        return to;
+    }
+
+    public void setTo(int to) {
+        this.to = to;
     }
 }

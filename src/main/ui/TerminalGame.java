@@ -11,7 +11,6 @@ import com.googlecode.lanterna.terminal.Terminal;
 import model.*;
 import ui.frames.*;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class TerminalGame {
     // Game and Screen Variables
     private final Game game;
     private Screen screen;
-    private int tick;
     private final int gameSizeX;
     private final int gameSizeY;
     private final int windowSizeX;
@@ -147,7 +145,7 @@ public class TerminalGame {
     // MODIFIES: this
     // EFFECTS: Renders Game and Handles Input for each tick
     private void startGameLoop() throws IOException, InterruptedException {
-        tick = 0;
+        int tick = 0;
         while (game.isGameRunning()) {
             tick++;
             renderGame();
@@ -179,80 +177,89 @@ public class TerminalGame {
 
     // MODIFIES: this
     // EFFECTS: Renders and handles the inventory screen
-    @SuppressWarnings("methodlength")
     private void handleInventory() throws IOException {
         // Get the inventory content
         List<Item> inventory = game.getPlayer().getInventory();
 
         // Get the range of the inventory
-        int maxItemsPerPage = inventoryFrame.maxItemsInPage();
-        int selected = 0;
-        int from = 0;
-        int to = Math.min(inventory.size(), maxItemsPerPage);
+        inventoryFrame.setSelected(0);
+        inventoryFrame.setFrom(0);
+        inventoryFrame.setTo(Math.min(inventory.size(), inventoryFrame.maxItemsInPage()));
 
         // Wait for user input
         while (true) {
             // Render the current inventory
-            renderInventory(inventory, from, to, selected);
+            renderInventory(inventory);
+
+            // Keep track of whether to leave inventory
+            boolean exitInventory = false;
 
             // Launch a thread blocking read
             KeyStroke stroke = screen.readInput();
 
             if (stroke != null) {
                 if (stroke.getCharacter() != null) {
-                    if (stroke.getCharacter().equals('e')) {
-                        return;
-                    } else if (stroke.getCharacter().equals('q')) {
-                        if (inventory.size() > 0) {
-                            game.getPlayer().dropItem(inventory.get(selected));
-                            selected = 0;
-                            from = 0;
-                            to = Math.min(inventory.size(), maxItemsPerPage);
-                        }
-                    } else if (stroke.getCharacter().equals('x')) {
-                        if (inventory.size() > 0) {
-                            game.getPlayer().removeItem(inventory.get(selected));
-                            selected = 0;
-                            from = 0;
-                            to = Math.min(inventory.size(), maxItemsPerPage);
-                        }
-                    }
+                    exitInventory = handlePlayerInventoryCharacterInput(stroke, inventory);
                 }
                 if (stroke.getKeyType() != null) {
-                    if (stroke.getKeyType() == KeyType.ArrowUp) {
-                        if (selected > 0) {
-                            selected--;
-                            if (selected < from) {
-                                from--;
-                                to--;
-                            }
-                        }
-                    } else if (stroke.getKeyType() == KeyType.ArrowDown) {
-                        if (selected < inventory.size() - 1) {
-                            selected++;
-                            if (selected >= to) {
-                                from++;
-                                to++;
-                            }
-                        }
-                    } else if (stroke.getKeyType() == KeyType.Enter) {
-                        if (inventory.size() > 0) {
-                            inventory.get(selected).useItem(game.getPlayer());
-                            selected = 0;
-                            from = 0;
-                            to = Math.min(inventory.size(), maxItemsPerPage);
-                        }
-                    } else if (stroke.getKeyType() == KeyType.Escape) {
-                        return;
-                    }
+                    exitInventory = handlePlayerInventoryKeyInput(stroke, inventory);
                 }
+            }
+
+            if (exitInventory) {
+                break;
             }
         }
     }
 
+    private boolean handlePlayerInventoryCharacterInput(KeyStroke stroke, List<Item> inventory) {
+        if (stroke.getCharacter().equals('e')) {
+            return true;
+        } else if (stroke.getCharacter().equals('q')) {
+            if (inventory.size() > 0) {
+                game.getPlayer().dropItem(inventory.get(inventoryFrame.getSelected()));
+                inventoryFrame.setSelected(0);
+                inventoryFrame.setFrom(0);
+                inventoryFrame.setTo(Math.min(inventory.size(), inventoryFrame.maxItemsInPage()));
+            }
+        } else if (stroke.getCharacter().equals('x')) {
+            if (inventory.size() > 0) {
+                game.getPlayer().removeItem(inventory.get(inventoryFrame.getSelected()));
+                inventoryFrame.setSelected(0);
+                inventoryFrame.setFrom(0);
+                inventoryFrame.setTo(Math.min(inventory.size(), inventoryFrame.maxItemsInPage()));
+            }
+        }
+        return false;
+    }
+
+    private boolean handlePlayerInventoryKeyInput(KeyStroke stroke, List<Item> inventory) {
+        if (stroke.getKeyType() == KeyType.ArrowUp && inventoryFrame.getSelected() > 0) {
+            inventoryFrame.setSelected(inventoryFrame.getSelected() - 1);
+            if (inventoryFrame.getSelected() < inventoryFrame.getFrom()) {
+                inventoryFrame.setFrom(inventoryFrame.getFrom() - 1);
+                inventoryFrame.setTo(inventoryFrame.getTo() - 1);
+            }
+        } else if (stroke.getKeyType() == KeyType.ArrowDown && inventoryFrame.getSelected() < inventory.size() - 1) {
+            inventoryFrame.setSelected(inventoryFrame.getSelected() + 1);
+            if (inventoryFrame.getSelected() >= inventoryFrame.getTo()) {
+                inventoryFrame.setFrom(inventoryFrame.getFrom() + 1);
+                inventoryFrame.setTo(inventoryFrame.getTo() + 1);
+            }
+        } else if (stroke.getKeyType() == KeyType.Enter && inventory.size() > 0) {
+            inventory.get(inventoryFrame.getSelected()).useItem(game.getPlayer());
+            inventoryFrame.setSelected(0);
+            inventoryFrame.setFrom(0);
+            inventoryFrame.setTo(Math.min(inventory.size(), inventoryFrame.maxItemsInPage()));
+        } else if (stroke.getKeyType() == KeyType.Escape) {
+            return true;
+        }
+        return false;
+    }
+
     // EFFECTS: Renders the inventory UI with inventory elements
     private void renderInventory(
-            List<Item> inventory, int from, int to, int selected
+            List<Item> inventory
     ) throws IOException {
         // Initialize the screen
         screen.setCursorPosition(new TerminalPosition(0, 0));
@@ -260,13 +267,13 @@ public class TerminalGame {
 
         // Render all inventory elements
         inventoryFrame.drawFrame();
-        inventoryFrame.renderInventory(inventory, from, to, selected);
+        inventoryFrame.renderInventory(inventory);
         inventoryInstructionsFrame.drawFrame();
         inventoryInstructionsFrame.renderInstructions();
         playerInfoFrame.drawFrame();
         playerInfoFrame.drawPlayerInfo();
         inventoryPreviewFrame.drawFrame();
-        inventoryPreviewFrame.renderPreview(inventory, selected);
+        inventoryPreviewFrame.renderPreview(inventory, inventoryFrame.getSelected());
         equipmentFrame.drawFrame();
         equipmentFrame.renderEquipment();
         messageFrame.drawFrame();
