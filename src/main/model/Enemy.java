@@ -2,6 +2,12 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 
+/*
+ * Abstract class for all Enemies.
+ * Enemies can be stunned when attacked.
+ * Examples: Dummy, Guard
+ */
+
 public abstract class Enemy extends Entity {
     // When enemy is stunned, it will not make the next move
     private boolean stunned;
@@ -17,7 +23,7 @@ public abstract class Enemy extends Entity {
                 name, health, baseDefence, baseAttack
         );
 
-        // Enemy is initally not stunned
+        // Enemy is initially not stunned
         this.stunned = false;
     }
 

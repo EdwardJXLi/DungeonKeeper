@@ -6,6 +6,11 @@ import model.Game;
 import model.Item;
 import model.items.*;
 
+/*
+ * A basic Guard enemy that has basic attack, defense, and movement.
+ * First enemy that player sees when entering the game
+ */
+
 public class Guard extends Enemy {
     // Enemy Constants
     // Public so that tests can access them

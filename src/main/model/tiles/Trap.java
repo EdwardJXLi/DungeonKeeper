@@ -6,6 +6,10 @@ import model.Tile;
 
 import java.util.Arrays;
 
+/*
+ * Map tile that deals damage when stepped upon
+ */
+
 public class Trap extends Tile {
     // Trap Constants
     public static final int TRAP_DAMAGE = 5;

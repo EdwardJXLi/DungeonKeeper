@@ -5,6 +5,11 @@ import model.Item;
 
 import java.util.List;
 
+/*
+ * Abstract class for all drinkable potions
+ * Example: Healing Potion, Defense Potion, Strength Potion
+ */
+
 public abstract class Potion extends Item {
     // EFFECTS: Creates a generic abstract class of a potion
     public Potion(String name, List<String> description, TextColor potionColor) {

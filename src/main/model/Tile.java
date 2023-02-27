@@ -38,7 +38,8 @@ public abstract class Tile implements ScreenElement {
 
     // EFFECTS: Handles what happens when an entity steps on tile
     //          By default, nothing happens, but should be overwritten
-    public void onStep(Entity e) {}
+    public void onStep(Entity e) {
+    }
 
     //
     // Getters and Setters

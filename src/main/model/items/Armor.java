@@ -7,6 +7,11 @@ import model.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Abstract class for all equip-able armors.
+ * Example: Guard's Armor
+ */
+
 public abstract class Armor extends Item {
     private final int additionalDefense;
 

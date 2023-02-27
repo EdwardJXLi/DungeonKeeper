@@ -2,11 +2,15 @@ package model.items;
 
 import com.googlecode.lanterna.TextColor;
 
-import java.util.List;
+import java.util.Arrays;
+
+/*
+ * Basic weapon dropped by guards when killed
+ */
 
 public class GuardSword extends Weapon {
     // EFFECTS: Creates a simple sword dropped by guards
     public GuardSword(int swordDamage) {
-        super("Guard's Sword", List.of("Sharp Looking Sword"), TextColor.ANSI.YELLOW, swordDamage);
+        super("Guard's Sword", Arrays.asList("Sharp Looking Sword"), TextColor.ANSI.YELLOW, swordDamage);
     }
 }

@@ -5,6 +5,10 @@ import model.Player;
 
 import java.util.Arrays;
 
+/*
+ * Basic defense potion that permanently increases defense
+ */
+
 public class DefensePotion extends Potion {
     // Defense Potion Constants
     public static final int DEFENSE_AMOUNT = 5;

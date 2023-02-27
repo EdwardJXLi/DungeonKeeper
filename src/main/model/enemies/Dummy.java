@@ -4,6 +4,11 @@ import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
 
+/*
+ * A Dummy enemy that has no attack and no defense.
+ * Used to test out the fighting and movement system.
+ */
+
 public class Dummy extends Enemy {
     public static final int INITIAL_HEALTH = 100;
     public static final int INITIAL_DEFENSE = 0;

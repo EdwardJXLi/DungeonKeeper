@@ -7,6 +7,11 @@ import model.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Abstract class for all equip-able weapons.
+ * Example: Guard's Sword
+ */
+
 public abstract class Weapon extends Item {
     private final int additionalAttack;
 

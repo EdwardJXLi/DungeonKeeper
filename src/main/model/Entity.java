@@ -2,6 +2,11 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 
+/*
+ * Abstract class for all Entities.
+ * Entities
+ */
+
 public abstract class Entity implements ScreenElement {
     // Screen Element Info
     private final char textSprite;
@@ -128,10 +133,12 @@ public abstract class Entity implements ScreenElement {
     }
 
     // EFFECTS: Do nothing on death
-    public void onDeath() {}
+    public void onDeath() {
+    }
 
     // EFFECTS: Do nothing on each tick
-    public void handleNextTick(int tick) {}
+    public void handleNextTick(int tick) {
+    }
 
     // Getters and Setters
 

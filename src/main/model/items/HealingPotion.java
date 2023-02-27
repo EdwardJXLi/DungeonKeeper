@@ -3,7 +3,11 @@ package model.items;
 import com.googlecode.lanterna.TextColor;
 import model.Player;
 
-import java.util.List;
+import java.util.Arrays;
+
+/*
+ * Basic defense potion that increases the player health (up to max)
+ */
 
 public class HealingPotion extends Potion {
     // Health Potion Constants
@@ -11,7 +15,7 @@ public class HealingPotion extends Potion {
 
     // EFFECTS: Creates a simple potion that increases health
     public HealingPotion() {
-        super("Healing Potion", List.of("Heals 20 Hearts"), TextColor.ANSI.RED);
+        super("Healing Potion", Arrays.asList("Heals 20 Hearts"), TextColor.ANSI.RED);
     }
 
     // EFFECTS: heals player once used

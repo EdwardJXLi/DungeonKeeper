@@ -2,6 +2,10 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 
+/*
+ * Screen element that represents a dropped item on ground.
+ */
+
 public class DroppedItem implements ScreenElement {
     // Basic information about dropped item
     private final int posX;

@@ -5,6 +5,10 @@ import model.Player;
 
 import java.util.Arrays;
 
+/*
+ * Basic strength potion that permanently increases attack
+ */
+
 public class StrengthPotion extends Potion {
     // Strength Potion Constants
     public static final int ATTACK_AMOUNT = 10;
