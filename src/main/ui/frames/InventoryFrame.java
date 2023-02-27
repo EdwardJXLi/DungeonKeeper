@@ -32,14 +32,21 @@ public class InventoryFrame extends Frame {
                 1, 0,
                 String.format("%d Items In Inventory", inventory.size()),
                 TextColor.ANSI.BLACK, TextColor.ANSI.GREEN
-        );drawText(
+        );
+        drawText(
                 1, getHeight() - 1,
                 String.format("f: %d, t: %d, s: %d", from, to, selected),
                 TextColor.ANSI.BLACK, TextColor.ANSI.GREEN
         );
 
-        // Render Inventory Items
+        renderInventoryItems(inventory, from, to, selected);
+    }
+
+    // EFFECTS: Renders Inventory Items
+    private void renderInventoryItems(List<Item> inventory, int from, int to, int selected) {
         int pos = 0;
+
+        // Render Inventory Items
         for (int i = from; i < to; i++) {
             pos++;
             Item item = inventory.get(i);

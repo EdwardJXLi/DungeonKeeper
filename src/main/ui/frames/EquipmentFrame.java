@@ -25,6 +25,13 @@ public class EquipmentFrame extends Frame {
         Armor armor = player.getArmor();
         Weapon weapon = player.getWeapon();
 
+        // Render armor and weapons
+        renderArmor(armor);
+        renderWeapon(weapon);
+    }
+
+    // EFFECTS: Renders the armor tooltip
+    private void renderArmor(Armor armor) {
         // Print information about Armor
         drawText(2, 0, "[Equipped Armor]", TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT);
 
@@ -48,7 +55,10 @@ public class EquipmentFrame extends Frame {
         } else {
             drawText(3, 1, "No Armor Equipped");
         }
+    }
 
+    // EFFECTS: Renders the weapon tooltip
+    private void renderWeapon(Weapon weapon) {
         // Print information about Weapon
         drawText(2, ARMOR_BOX_OFFSET + 0, "[Equipped Weapon]", TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT);
 
@@ -72,6 +82,5 @@ public class EquipmentFrame extends Frame {
         } else {
             drawText(3, ARMOR_BOX_OFFSET + 1, "No Weapon Equipped");
         }
-
     }
 }

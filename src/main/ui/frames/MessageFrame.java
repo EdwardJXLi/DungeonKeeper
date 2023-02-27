@@ -1,6 +1,5 @@
 package ui.frames;
 
-import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import ui.Frame;

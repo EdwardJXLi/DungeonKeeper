@@ -11,6 +11,7 @@ import com.googlecode.lanterna.terminal.Terminal;
 import model.*;
 import ui.frames.*;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -25,7 +26,6 @@ public class TerminalGame {
     // Game and Screen Variables
     private final Game game;
     private Screen screen;
-    private Terminal terminal;
     private int tick;
     private final int gameSizeX;
     private final int gameSizeY;
@@ -58,78 +58,97 @@ public class TerminalGame {
         game.initGame();
 
         // Start the Terminal UI Rendering
+        beginTerminalRendering();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Begins Terminal Rendering for game
+    private void beginTerminalRendering() {
+        // Catch any terminal errors
         try {
             // Setup and create terminal
             DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
             terminalFactory.setInitialTerminalSize(new TerminalSize(windowSizeX, windowSizeY));
-            terminal = terminalFactory.createTerminal();
+            Terminal terminal = terminalFactory.createTerminal();
             screen = new TerminalScreen(terminal);
             screen.startScreen();
 
             // Set up main UI Frames
-            gameFrame = new GameFrame(
-                    0, 0,
-                    gameSizeX + 1, gameSizeY + 1,
-                    screen, game
-            );
-            playerInfoFrame = new PlayerInfoFrame(
-                    gameSizeX + 2, 0,
-                    windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + 1,
-                    screen, game
-            );
-            infoFrame = new InfoFrame(
-                    gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
-                    windowSizeX - 1, gameSizeY + 1,
-                    screen, game
-            );
-            messageFrame = new MessageFrame(
-                    0, gameSizeY + 2,
-                    windowSizeX - 1, windowSizeY - 1,
-                    screen, game
-            );
+            initUIFrames();
 
             // Setup Inventory Frames
-            inventoryFrame = new InventoryFrame(
-                    0, 0,
-                    gameSizeX + 1, gameSizeY - INV_INSTRUCTION_BOX_HEIGHT - 1,
-                    screen, game
-            );
-            inventoryInstructionsFrame = new InvInstructionsFrame(
-                    0, gameSizeY - INV_INSTRUCTION_BOX_HEIGHT,
-                    gameSizeX + 1, gameSizeY + 1,
-                    screen, game
-            );
-            playerInfoFrame = new PlayerInfoFrame(
-                    gameSizeX + 2, 0,
-                    windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + 1,
-                    screen, game
-            );
-            inventoryPreviewFrame = new InvPreviewFrame(
-                    gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
-                    windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + INV_PREVIEW_BOX_HEIGHT + 3,
-                    screen, game
-            );
-            equipmentFrame = new EquipmentFrame(
-                    gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + INV_PREVIEW_BOX_HEIGHT + 4,
-                    windowSizeX - 1, gameSizeY + 1,
-                    screen, game
-            );
+            initInventoryFrames();
 
             // Start The Game Loop
             startGameLoop();
         } catch (IOException e) {
             System.out.println("Game Unexpectedly Closed");
         } catch (InterruptedException e) {
+            System.out.println("Game Interrupted");
         }
 
+        // Print out goodbye message
+        System.out.println("You Died!");
+        System.out.println("Thank you for playing!");
+
         System.exit(0);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Initializes Main UI Terminal Frames
+    private void initUIFrames() {
+        gameFrame = new GameFrame(
+                0, 0,
+                gameSizeX + 1, gameSizeY + 1,
+                screen, game
+        );
+        playerInfoFrame = new PlayerInfoFrame(
+                gameSizeX + 2, 0,
+                windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + 1,
+                screen, game
+        );
+        infoFrame = new InfoFrame(
+                gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
+                windowSizeX - 1, gameSizeY + 1,
+                screen, game
+        );
+        messageFrame = new MessageFrame(
+                0, gameSizeY + 2,
+                windowSizeX - 1, windowSizeY - 1,
+                screen, game
+        );
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Initializes Inventory Terminal Frames
+    private void initInventoryFrames() {
+        inventoryFrame = new InventoryFrame(
+                0, 0,
+                gameSizeX + 1, gameSizeY - INV_INSTRUCTION_BOX_HEIGHT - 1,
+                screen, game
+        );
+        inventoryInstructionsFrame = new InvInstructionsFrame(
+                0, gameSizeY - INV_INSTRUCTION_BOX_HEIGHT,
+                gameSizeX + 1, gameSizeY + 1,
+                screen, game
+        );
+        inventoryPreviewFrame = new InvPreviewFrame(
+                gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + 2,
+                windowSizeX - 1, PLAYER_INFO_BOX_HEIGHT + INV_PREVIEW_BOX_HEIGHT + 3,
+                screen, game
+        );
+        equipmentFrame = new EquipmentFrame(
+                gameSizeX + 2, PLAYER_INFO_BOX_HEIGHT + INV_PREVIEW_BOX_HEIGHT + 4,
+                windowSizeX - 1, gameSizeY + 1,
+                screen, game
+        );
     }
 
     // MODIFIES: this
     // EFFECTS: Renders Game and Handles Input for each tick
     private void startGameLoop() throws IOException, InterruptedException {
         tick = 0;
-        while (true) {
+        while (game.isGameRunning()) {
             tick++;
             renderGame();
             handlePlayerInput();
@@ -144,8 +163,7 @@ public class TerminalGame {
         screen.setCursorPosition(new TerminalPosition(0, 0));
         screen.clear();
 
-        // TODO: clean this up
-        // Render all elements
+        // Render all UI elements
         gameFrame.drawFrame();
         gameFrame.drawGame();
         playerInfoFrame.drawFrame();
@@ -155,11 +173,13 @@ public class TerminalGame {
         messageFrame.drawFrame();
         messageFrame.renderMessages();
 
+        // Refresh Screen
         screen.refresh();
     }
 
     // MODIFIES: this
     // EFFECTS: Renders and handles the inventory screen
+    @SuppressWarnings("methodlength")
     private void handleInventory() throws IOException {
         // Get the inventory content
         List<Item> inventory = game.getPlayer().getInventory();
@@ -181,7 +201,7 @@ public class TerminalGame {
             if (stroke != null) {
                 if (stroke.getCharacter() != null) {
                     if (stroke.getCharacter().equals('e')) {
-                        break;
+                        return;
                     } else if (stroke.getCharacter().equals('q')) {
                         if (inventory.size() > 0) {
                             game.getPlayer().dropItem(inventory.get(selected));
@@ -223,7 +243,7 @@ public class TerminalGame {
                             to = Math.min(inventory.size(), maxItemsPerPage);
                         }
                     } else if (stroke.getKeyType() == KeyType.Escape) {
-                        break;
+                        return;
                     }
                 }
             }
@@ -238,7 +258,7 @@ public class TerminalGame {
         screen.setCursorPosition(new TerminalPosition(0, 0));
         screen.clear();
 
-        // Render all elements
+        // Render all inventory elements
         inventoryFrame.drawFrame();
         inventoryFrame.renderInventory(inventory, from, to, selected);
         inventoryInstructionsFrame.drawFrame();
@@ -252,6 +272,7 @@ public class TerminalGame {
         messageFrame.drawFrame();
         messageFrame.renderMessages();
 
+        // Refresh Screen
         screen.refresh();
     }
 
@@ -260,43 +281,27 @@ public class TerminalGame {
     private void handlePlayerInput() throws IOException {
         KeyStroke stroke = screen.pollInput();
 
-        DroppedItem di = game.getLevel().getDroppedItemAtLocation(
-                game.getPlayer().getPosX(), game.getPlayer().getPosY()
-        );
+        Player player = game.getPlayer();
+        DroppedItem di = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
 
         // Check if keystroke is valid
         if (stroke != null) {
             if (stroke.getCharacter() != null) {
-                switch (stroke.getCharacter()) {
-                    case 'w':
-                        game.getPlayer().moveUp();
-                        break;
-                    case 's':
-                        game.getPlayer().moveDown();
-                        break;
-                    case 'a':
-                        game.getPlayer().moveLeft();
-                        break;
-                    case 'd':
-                        game.getPlayer().moveRight();
-                        break;
-                    case 'e':
-                        handleInventory();
-                        break;
-                    case 'q':
-                        // Check if there is a dropped item at location
-                        if (di != null) {
-                            game.getPlayer().pickupItem(di);
-                        }
-                        break;
-                    case 'x':
-                        // Check if there is a dropped item at location
-                        if (di != null) {
-                            game.getLevel().removeDroppedItem(di);
-                        }
-                        break;
-                    default:
-                        break;
+                Character character = stroke.getCharacter();
+                if (character == 'w') {
+                    player.moveUp();
+                } else if (character == 's') {
+                    player.moveDown();
+                } else if (character == 'a') {
+                    player.moveLeft();
+                } else if (character == 'd') {
+                    player.moveRight();
+                } else if (character == 'e') {
+                    handleInventory();
+                } else if (character == 'q' && di != null) {
+                    player.pickupItem(di);
+                } else if (character == 'x' && di != null) {
+                    game.getLevel().removeDroppedItem(di);
                 }
             }
         }
