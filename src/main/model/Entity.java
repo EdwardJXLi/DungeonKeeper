@@ -63,26 +63,26 @@ public abstract class Entity implements ScreenElement {
 
     // MODIFIES: this
     // EFFECTS: Tries to move player up.
-    public void moveUp() {
-        handleMovement(getPosX(), getPosY() - 1);
+    public boolean moveUp() {
+        return handleMovement(getPosX(), getPosY() - 1);
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player down.
-    public void moveDown() {
-        handleMovement(getPosX(), getPosY() + 1);
+    public boolean moveDown() {
+        return handleMovement(getPosX(), getPosY() + 1);
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player left.
-    public void moveLeft() {
-        handleMovement(getPosX() - 1, getPosY());
+    public boolean moveLeft() {
+        return handleMovement(getPosX() - 1, getPosY());
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player right.
-    public void moveRight() {
-        handleMovement(getPosX() + 1, getPosY());
+    public boolean moveRight() {
+        return handleMovement(getPosX() + 1, getPosY());
     }
 
     // EFFECTS: Checks if entity can move to location
@@ -127,9 +127,11 @@ public abstract class Entity implements ScreenElement {
         return health == 0;
     }
 
-    // MODIFIES: this
-    // EFFECTS: Handles what happens when next tick occurs in the game
-    public abstract void handleNextTick(int tick);
+    // EFFECTS: Do nothing on death
+    public void onDeath() {}
+
+    // EFFECTS: Do nothing on each tick
+    public void handleNextTick(int tick) {}
 
     // Getters and Setters
 

@@ -18,11 +18,9 @@ public class Dummy extends Enemy {
         );
     }
 
-    // EFFECTS: Do nothing on death
-    @Override
-    public void onDeath() {}
-
-    // EFFECTS: Do nothing on each tick
-    @Override
-    public void handleNextTick(int tick) {}
+    // EFFECTS: Helper function to run movement tests
+    public void setCoordinate(int posX, int posY) {
+        setPosX(posX);
+        setPosY(posY);
+    }
 }

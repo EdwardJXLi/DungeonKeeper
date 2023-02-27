@@ -24,6 +24,8 @@ public class Juggernaut extends Enemy {
     @Override
     public void onDeath() {
         // TODO
+        // Handle super
+        super.onDeath();
     }
 
     // MODIFIES: this
@@ -51,5 +53,8 @@ public class Juggernaut extends Enemy {
                     break;
             }
         }
+
+        // Handle super
+        super.handleNextTick(tick);
     }
 }

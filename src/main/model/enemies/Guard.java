@@ -48,6 +48,9 @@ public class Guard extends Enemy {
         }
         // Drop item
         getGame().getLevel().dropItem(getPosX(), getPosY(), droppedItem);
+
+        // Handle super
+        super.onDeath();
     }
 
     // MODIFIES: this
@@ -78,5 +81,8 @@ public class Guard extends Enemy {
                     break;
             }
         }
+
+        // Handle super
+        super.handleNextTick(tick);
     }
 }

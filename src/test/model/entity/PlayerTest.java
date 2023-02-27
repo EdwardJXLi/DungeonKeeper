@@ -1,19 +1,18 @@
 package model.entity;
 
-import model.Entity;
 import model.Game;
+import model.Player;
 import model.enemies.Dummy;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
-public class EntityMovementTest {
+public class PlayerTest {
     Game game;
-    Entity entity;
+    Player player;
 
     @BeforeEach
     public void setup() {
         game = new Game(32, 24);
         game.initEmptyGame();
-        entity = new Dummy(game);
+        player = new Player(game);
     }
 }
