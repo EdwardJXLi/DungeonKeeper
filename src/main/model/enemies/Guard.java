@@ -43,7 +43,7 @@ public class Guard extends Enemy {
             droppedItem = new StrengthPotion();
         } else if (i == 3) {
             droppedItem = new DefensePotion();
-        } else if (i == 4) {
+        } else {
             droppedItem = new HealingPotion();
         }
         // Drop item
@@ -73,10 +73,8 @@ public class Guard extends Enemy {
                 moveDown();
             } else if (i == 2) {
                 moveLeft();
-            } else if (i == 3) {
-                moveRight();
             } else {
-                throw new IllegalStateException("Unexpected value: " + getGame().getRandom().nextInt(4));
+                moveRight();
             }
         }
 
