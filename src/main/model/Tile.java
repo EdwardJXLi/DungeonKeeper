@@ -8,6 +8,7 @@ public abstract class Tile implements ScreenElement {
     // Generic Tile Elements
     private final int posX;
     private final int posY;
+    private final boolean isSolid;
     private final char textSprite;
     private final TextColor textColor;
     private final TextColor backgroundColor;
@@ -16,12 +17,13 @@ public abstract class Tile implements ScreenElement {
 
     // EFFECTS: Creates a generic map tile
     public Tile(
-            int posX, int posY, char textSprite,
+            int posX, int posY, boolean isSolid, char textSprite,
             TextColor textColor, TextColor backgroundColor,
             String name, List<String> description
     ) {
         this.posX = posX;
         this.posY = posY;
+        this.isSolid = isSolid;
         this.textSprite = textSprite;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
@@ -30,10 +32,13 @@ public abstract class Tile implements ScreenElement {
     }
 
     // EFFECTS: Returns if the object could be stood on
-    public abstract boolean isSolid();
+    public boolean isSolid() {
+        return isSolid;
+    }
 
     // EFFECTS: Handles what happens when an entity steps on tile
-    public abstract void onStep(Entity e);
+    //          By default, nothing happens, but should be overwritten
+    public void onStep(Entity e) {}
 
     //
     // Getters and Setters

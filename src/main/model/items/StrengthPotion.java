@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class StrengthPotion extends Potion {
     // Strength Potion Constants
-    private static final int ATTACK_AMOUNT = 10;
+    public static final int ATTACK_AMOUNT = 10;
 
     // EFFECTS: Creates a simple potion that permanently increases strength
     public StrengthPotion() {

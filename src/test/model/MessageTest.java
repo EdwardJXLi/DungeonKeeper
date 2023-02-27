@@ -43,9 +43,9 @@ public class MessageTest {
         game.sendMessage("Message 2");
         game.sendMessage("Message 3");
         assertEquals(3, game.getLastMessages(3).size());
-        assertEquals("Message 1", game.getMessages().get(0));
-        assertEquals("Message 2", game.getMessages().get(1));
-        assertEquals("Message 3", game.getMessages().get(2));
+        assertEquals("Message 1", game.getLastMessages(3).get(0));
+        assertEquals("Message 2", game.getLastMessages(3).get(1));
+        assertEquals("Message 3", game.getLastMessages(3).get(2));
     }
 
     @Test
@@ -54,9 +54,9 @@ public class MessageTest {
         game.sendMessage("Message 2");
         game.sendMessage("Message 3");
         assertEquals(3, game.getLastMessages(5).size());
-        assertEquals("Message 1", game.getMessages().get(0));
-        assertEquals("Message 2", game.getMessages().get(1));
-        assertEquals("Message 3", game.getMessages().get(2));
+        assertEquals("Message 1", game.getLastMessages(5).get(0));
+        assertEquals("Message 2", game.getLastMessages(5).get(1));
+        assertEquals("Message 3", game.getLastMessages(5).get(2));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class MessageTest {
         game.sendMessage("Message 2");
         game.sendMessage("Message 3");
         assertEquals(2, game.getLastMessages(2).size());
-        assertEquals("Message 2", game.getMessages().get(0));
-        assertEquals("Message 3", game.getMessages().get(1));
+        assertEquals("Message 2", game.getLastMessages(2).get(0));
+        assertEquals("Message 3", game.getLastMessages(2).get(1));
     }
 
     @Test

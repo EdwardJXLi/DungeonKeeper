@@ -55,6 +55,12 @@ public class Game {
         sendMessage(WELCOME_MESSAGE);
     }
 
+    // MODIFIES: this
+    // Creates a completely empty map
+    public void initEmptyGame() {
+        gameLevel = new Level(1, this, sizeX, sizeY, SPAWN_X, SPAWN_Y);
+    }
+
     // REQUIRES: Next tick is 1 greater than previous tick
     // MODIFIES: this
     // EFFECTS: For each tick:

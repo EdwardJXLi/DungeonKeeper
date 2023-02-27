@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class DefensePotion extends Potion {
     // Defense Potion Constants
-    private static final int DEFENSE_AMOUNT = 5;
+    public static final int DEFENSE_AMOUNT = 5;
 
     // EFFECTS: Creates a simple potion that permanently increases defense
     public DefensePotion() {

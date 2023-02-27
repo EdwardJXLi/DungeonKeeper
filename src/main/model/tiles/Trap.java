@@ -10,15 +10,10 @@ public class Trap extends Tile {
     // EFFECTS: Creates a trap tile that damages player when stepped
     public Trap(int posX, int posY) {
         super(
-                posX, posY, '"', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT, "Spike Trap",
+                posX, posY, false, '"',
+                TextColor.ANSI.RED, TextColor.ANSI.DEFAULT, "Spike Trap",
                 Arrays.asList("Ouch! That Hurts!", "Standing on Spike Traps", "deals 5 damage!")
         );
-    }
-
-    // EFFECTS: Since you can step on a trap, it is not solid
-    @Override
-    public boolean isSolid() {
-        return false;
     }
 
     // MODIFIES: e
