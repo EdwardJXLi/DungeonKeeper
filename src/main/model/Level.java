@@ -1,7 +1,6 @@
 package model;
 
 import model.enemies.Guard;
-import model.enemies.Juggernaut;
 import model.tiles.Trap;
 import model.tiles.Wall;
 
@@ -43,9 +42,6 @@ public class Level {
         // Populate the level
         initializeWalls();
         generateRandomMap();
-
-        // Spawn Boss Enemy (juggernaut)
-        this.spawnEnemy(new Juggernaut(game), sizeX - 2, sizeY - 2);
 
         // Spawn random guards around the map
         for (int i = 0; i < INITIAL_GUARDS_SPAWN; i++) {

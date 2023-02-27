@@ -119,11 +119,7 @@ public class TerminalGame {
             startGameLoop();
         } catch (IOException e) {
             System.out.println("Game Unexpectedly Closed");
-            // End the game and print out credits
-            game.quit();
         } catch (InterruptedException e) {
-            // End the game and print out credits
-            game.quit();
         }
 
         System.exit(0);
