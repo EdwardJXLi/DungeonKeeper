@@ -5,6 +5,7 @@ import com.googlecode.lanterna.TextColor;
 import java.util.List;
 
 public abstract class Tile implements ScreenElement {
+    // Generic Tile Elements
     private final int posX;
     private final int posY;
     private final char textSprite;
@@ -31,12 +32,11 @@ public abstract class Tile implements ScreenElement {
     // EFFECTS: Returns if the object could be stood on
     public abstract boolean isSolid();
 
-    // MODIFIES: this, e
     // EFFECTS: Handles what happens when an entity steps on tile
     public abstract void onStep(Entity e);
 
     //
-    // GETTERS
+    // Getters and Setters
     //
 
     @Override

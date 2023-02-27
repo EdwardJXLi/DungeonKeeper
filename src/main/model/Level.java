@@ -8,6 +8,7 @@ import model.tiles.Wall;
 import java.util.ArrayList;
 
 public class Level {
+    // Level Constants
     private static final int INITIAL_GUARDS_SPAWN = 10;
 
     // Information on level
@@ -34,14 +35,15 @@ public class Level {
         this.tiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.droppedItems = new ArrayList<>();
-
-        initializeWalls();
-        generateRandomMap();
     }
 
     // MODIFIES: this
-    // EFFECTS: Spawns Initial Batch of Enemies
+    // EFFECTS: Generates map and spawns initial batch of enemies
     public void initLevel() {
+        // Populate the level
+        initializeWalls();
+        generateRandomMap();
+
         // Spawn Boss Enemy (juggernaut)
         this.spawnEnemy(new Juggernaut(game), sizeX - 2, sizeY - 2);
 
@@ -90,16 +92,6 @@ public class Level {
             // Add the right wall
             tiles.add(new Wall(sizeX - 1, y));
         }
-    }
-
-    // EFFECTS: Generates Random X Coordinate Within Bounds of Walls
-    public int getRandomXCoord() {
-        return game.getRandom().nextInt(sizeX - 2) + 1;
-    }
-
-    // EFFECTS: Generates Random X Coordinate Within Bounds of Walls
-    public int getRandomYCoord() {
-        return game.getRandom().nextInt(sizeY - 2) + 1;
     }
 
     // MODIFIES: this

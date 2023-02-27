@@ -7,18 +7,17 @@ public abstract class Entity implements ScreenElement {
     private final char textSprite;
     private final TextColor textColor;
     private final TextColor backgroundColor;
-
+    private final Game game;
+    private final int maxHealth;
     // Entity Information
     private int posX;
     private int posY;
     private String name;
-    private final Game game;
-    private final int maxHealth;
     private int health;
     private int baseDefense;
     private int baseAttack;
 
-    // EFFECTS: Creates a generic entity with health, defence, and attack
+    // EFFECTS: Creates a generic entity with sprites, health, defence, and attack
     public Entity(
             Game game, int posX, int posY, char textSprite,
             TextColor textColor, TextColor backgroundColor,
@@ -64,29 +63,29 @@ public abstract class Entity implements ScreenElement {
 
     // MODIFIES: this
     // EFFECTS: Tries to move player up.
-    public boolean moveUp() {
-        return handleMovement(getPosX(), getPosY() - 1);
+    public void moveUp() {
+        handleMovement(getPosX(), getPosY() - 1);
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player down.
-    public boolean moveDown() {
-        return handleMovement(getPosX(), getPosY() + 1);
+    public void moveDown() {
+        handleMovement(getPosX(), getPosY() + 1);
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player left.
-    public boolean moveLeft() {
-        return handleMovement(getPosX() - 1, getPosY());
+    public void moveLeft() {
+        handleMovement(getPosX() - 1, getPosY());
     }
 
     // MODIFIES: this
     // EFFECTS: Tries to move player right.
-    public boolean moveRight() {
-        return handleMovement(getPosX() + 1, getPosY());
+    public void moveRight() {
+        handleMovement(getPosX() + 1, getPosY());
     }
 
-    // EFFECTS: Checks if entity can move to locaiton
+    // EFFECTS: Checks if entity can move to location
     public boolean canBeAtLocation(Level level, int posX, int posY) {
         // Check if it is within bounds
         if (!(posX >= 0 && posX < level.getSizeX())) {
@@ -97,16 +96,15 @@ public abstract class Entity implements ScreenElement {
         }
 
         // Check if there is a solid tile there
-        if (!level.isSolidTileAtLocation(posX, posY)) {
-            return false;
-        }
-        return true;
+        return !level.isSolidTileAtLocation(posX, posY);
     }
 
     // REQUIRES: amount > 0
     // MODIFIES: this
     // EFFECTS: Applies Damage to Entity
     public void damage(int amount) {
+        assert amount > 0;
+
         // Calculate damage amount based on defense
         // Ensure damage does not go into the negatives
         int damage = Math.max(0, amount - getDefense());
@@ -118,22 +116,22 @@ public abstract class Entity implements ScreenElement {
     // MODIFIES: this
     // EFFECTS: Applies Healing to Entity
     public void heal(int amount) {
+        assert amount > 0;
+
         // Ensure health does not go over max health
         health = Math.min(maxHealth, health + amount);
     }
 
-    // EFFECTS: returns if entity is dead
+    // EFFECTS: returns whether entity is dead
     public boolean isDead() {
         return health == 0;
     }
 
     // MODIFIES: this
-    // EFFECTS: Handles what happens when next tick occurs
+    // EFFECTS: Handles what happens when next tick occurs in the game
     public abstract void handleNextTick(int tick);
 
-    //
-    // Getters
-    //
+    // Getters and Setters
 
     @Override
     public int getPosX() {
@@ -167,10 +165,6 @@ public abstract class Entity implements ScreenElement {
     public TextColor getBackgroundColor() {
         return backgroundColor;
     }
-
-    //
-    // Getters and Setters
-    //
 
     public String getName() {
         return name;

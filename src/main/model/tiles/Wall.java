@@ -18,5 +18,6 @@ public class Wall extends Tile {
 
     // EFFECTS: Nothing happens
     @Override
-    public void onStep(Entity e) {}
+    public void onStep(Entity e) {
+    }
 }

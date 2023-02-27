@@ -84,8 +84,24 @@ public class Game {
         // TODO: STUB
     }
 
+    // REQUIRES: n > 0
+    // EFFECTS: Returns the last n messages from game messages
+    public List<String> getLastMessages(int n) {
+        assert n > 0;
+
+        // Create new array list of last messages
+        ArrayList<String> lastMessages = new ArrayList<>();
+
+        // Iterate backwards through list of messages, and add them to a new list
+        for (int i = gameMessages.size() - 1; i >= Math.max(gameMessages.size() - n, 0); i--) {
+            lastMessages.add(0, gameMessages.get(i));
+        }
+
+        return lastMessages;
+    }
+
     //
-    // Getters
+    // Getters and Setters
     //
 
     public Player getPlayer() {
@@ -106,21 +122,5 @@ public class Game {
 
     public List<String> getMessages() {
         return gameMessages;
-    }
-
-    // REQUIRES: n > 0
-    // EFFECTS: Returns the last n messages from game messages
-    public List<String> getLastMessages(int n) {
-        assert n > 0;
-
-        // Create new array list of last messages
-        ArrayList<String> lastMessages = new ArrayList<>();
-
-        // Iterate backwards through list of messages, and add them to a new list
-        for (int i = gameMessages.size() - 1; i >= Math.max(gameMessages.size() - n, 0); i--) {
-            lastMessages.add(0, gameMessages.get(i));
-        }
-
-        return lastMessages;
     }
 }

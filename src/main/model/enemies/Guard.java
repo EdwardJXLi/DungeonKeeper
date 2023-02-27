@@ -56,8 +56,8 @@ public class Guard extends Enemy {
     public void handleNextTick(int tick) {
         if (tick % TICKS_UNTIL_MOVEMENT == 0) {
             // If enemy is stunned, skip movement
-            if (stunned) {
-                stunned = false;
+            if (isStunned()) {
+                resetStunned();
                 return;
             }
 

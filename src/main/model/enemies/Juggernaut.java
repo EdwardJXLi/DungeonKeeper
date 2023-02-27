@@ -31,8 +31,8 @@ public class Juggernaut extends Enemy {
     @Override
     public void handleNextTick(int tick) {
         if (tick % TICKS_UNTIL_MOVEMENT == 0) {
-            if (stunned) {
-                stunned = false;
+            if (isStunned()) {
+                resetStunned();
                 return;
             }
 

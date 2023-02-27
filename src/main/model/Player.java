@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends Entity {
+    // Player Constants
     private static final int INITIAL_HEALTH = 200;
     private static final int INITIAL_DEFENSE = 0;
     private static final int INITIAL_ATTACK = 20;
@@ -14,7 +15,7 @@ public class Player extends Entity {
     // Player Information
     private int kills;
     private Enemy lastEnemy;
-    private List<Item> inventory;
+    private final List<Item> inventory;
     private Armor equippedArmor;
     private Weapon equippedWeapon;
 
@@ -100,7 +101,8 @@ public class Player extends Entity {
 
     // EFFECTS: Nothing Happens
     @Override
-    public void handleNextTick(int tick) {}
+    public void handleNextTick(int tick) {
+    }
 
     // EFFECTS: Returns the last enemy fought, null otherwise
     public Enemy getLastEnemyFought() {

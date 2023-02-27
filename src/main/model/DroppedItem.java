@@ -3,9 +3,11 @@ package model;
 import com.googlecode.lanterna.TextColor;
 
 public class DroppedItem implements ScreenElement {
-    private int posX;
-    private int posY;
-    private Item item;
+    // Basic information about dropped item
+    private final int posX;
+    private final int posY;
+    // Reference to item that is dropped, so player knows what to pick up
+    private final Item item;
 
     // EFFECTS: Creates a generic dropped item icon on screen
     public DroppedItem(int posX, int posY, Item item) {
@@ -14,30 +16,34 @@ public class DroppedItem implements ScreenElement {
         this.item = item;
     }
 
-    //
-    // Getters and Setters
-    //
+    // Getters
 
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
+    // EFFECTS: Returns the item represented by the dropped item tile
     public Item getItem() {
         return item;
     }
 
+    @Override
+    public int getPosX() {
+        return posX;
+    }
+
+    @Override
+    public int getPosY() {
+        return posY;
+    }
+
+    @Override
     public char getTextSprite() {
         return '★';
     }
 
+    @Override
     public TextColor getTextColor() {
         return TextColor.ANSI.WHITE;
     }
 
+    @Override
     public TextColor getBackgroundColor() {
         return TextColor.ANSI.YELLOW;
     }
