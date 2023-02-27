@@ -85,11 +85,6 @@ public class Game {
         getLevel().getEnemies().removeIf(Entity::isDead);
     }
 
-    // EFFECTS: Prints the end game screen
-    public void quit() {
-        // TODO: STUB
-    }
-
     // REQUIRES: n > 0
     // EFFECTS: Returns the last n messages from game messages
     public List<String> getLastMessages(int n) {
@@ -128,5 +123,13 @@ public class Game {
 
     public List<String> getMessages() {
         return gameMessages;
+    }
+
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    public int getSizeY() {
+        return sizeY;
     }
 }
