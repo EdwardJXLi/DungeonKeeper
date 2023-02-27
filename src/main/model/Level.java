@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Level {
     // Level Constants
-    private static final int INITIAL_GUARDS_SPAWN = 10;
+    public static final int INITIAL_GUARDS_SPAWN = 10;
 
     // Information on level
     private final Game game;

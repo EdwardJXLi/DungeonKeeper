@@ -50,6 +50,11 @@ public class DroppedItemTest {
         assertEquals(di, game.getLevel().getDroppedItemAtLocation(5, 5));
         assertEquals(testItem1, game.getLevel().getDroppedItemAtLocation(5, 5).getItem());
         assertEquals(testItem1, di.getItem());
+    }
+
+    @Test
+    public void testRemoveDroppedItem() {
+        DroppedItem di = game.getLevel().dropItem(5, 5, testItem1);
         game.getLevel().removeDroppedItem(di);
         assertNull(game.getLevel().getDroppedItemAtLocation(5, 5));
     }

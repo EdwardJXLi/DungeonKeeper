@@ -98,11 +98,6 @@ public class Player extends Entity {
         }
     }
 
-    // EFFECTS: Nothing Happens
-    @Override
-    public void handleNextTick(int tick) {
-    }
-
     // EFFECTS: Returns the last enemy fought, null otherwise
     public Enemy getLastEnemyFought() {
         return lastEnemy;

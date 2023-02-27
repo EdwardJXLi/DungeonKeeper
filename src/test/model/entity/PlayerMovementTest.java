@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.Game;
+import model.Player;
 import model.enemies.Dummy;
 import model.tiles.Trap;
 import model.tiles.Wall;
@@ -11,13 +12,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerMovementTest {
     Game game;
-    Dummy player;
+    Player player;
 
     @BeforeEach
     public void setup() {
         game = new Game(32, 24);
         game.initEmptyGame();
-        player = new Dummy(game);
+        player = new Player(game);
     }
 
     @Test
