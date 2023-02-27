@@ -217,6 +217,8 @@ public class TerminalGame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Handles player character input in the inventory
     private boolean handlePlayerInventoryCharacterInput(KeyStroke stroke, List<Item> inventory) {
         if (stroke.getCharacter().equals('e')) {
             return true;
@@ -238,6 +240,9 @@ public class TerminalGame {
         return false;
     }
 
+
+    // MODIFIES: this
+    // EFFECTS: Handles player key input in the inventory, when character input fails
     private boolean handlePlayerInventoryKeyInput(KeyStroke stroke, List<Item> inventory) {
         if (stroke.getKeyType() == KeyType.ArrowUp && inventoryFrame.getSelected() > 0) {
             inventoryFrame.setSelected(inventoryFrame.getSelected() - 1);

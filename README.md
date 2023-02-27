@@ -18,7 +18,7 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
 
 ## User Stories
 - I want to be able to see and move my own player.
+- I want to be able to pick up and drop items on the ground.
 - I want to be able to pick up multiple items and add them to my inventory.
 - I want to be able to see and fight enemies
-- I want to be able to drop and pick up items off the ground
 - I want to be able to use and equip items.
