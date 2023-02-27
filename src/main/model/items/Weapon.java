@@ -38,6 +38,7 @@ public abstract class Weapon extends Item {
     // EFFECTS: When used, player equips weapon
     @Override
     public void useItem(Player p) {
+        p.getGame().sendMessage("You Equipped " + getName());
         p.equipWeapon(this);
     }
 }

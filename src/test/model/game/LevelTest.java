@@ -91,7 +91,7 @@ public class LevelTest {
             }
         }
 
-        // Check if enemies are generated correcty
+        // Check if enemies are generated correctly
         int numEnemiesSpawned = 0;
         for (int y = 0; y < 32; y++) {
             for (int x = 0; x < 32; x++) {

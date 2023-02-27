@@ -61,7 +61,7 @@ public class Player extends Entity {
         // Else, just jet the superclass method handle movement
         boolean didMove = super.handleMovement(posX, posY);
         if (!didMove) {
-            getGame().sendMessage("Sorry! You Cant Go There!");
+            getGame().sendMessage("X Sorry! You Cant Go There!");
         }
         return didMove;
     }
@@ -99,7 +99,7 @@ public class Player extends Entity {
 
         if (enemy.isDead()) {
             this.kills++;
-            getGame().sendMessage(String.format("Congrats! You Killed The %s", enemy.getName()));
+            getGame().sendMessage(String.format("⚔ Congrats! You Killed The %s", enemy.getName()));
         }
     }
 

@@ -21,6 +21,7 @@ public class HealingPotion extends Potion {
     // EFFECTS: heals player once used
     @Override
     public void useItem(Player p) {
+        p.getGame().sendMessage("You used " + getName());
         p.heal(HEAL_AMOUNT);
         // Remove potion after use
         p.removeItem(this);

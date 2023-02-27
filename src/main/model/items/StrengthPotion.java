@@ -24,6 +24,7 @@ public class StrengthPotion extends Potion {
     // EFFECTS: Adds additional attack to player once used
     @Override
     public void useItem(Player p) {
+        p.getGame().sendMessage("You used " + getName());
         p.addAttack(ATTACK_AMOUNT);
         // Remove potion after use
         p.removeItem(this);

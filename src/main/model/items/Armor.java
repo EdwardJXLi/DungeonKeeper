@@ -39,6 +39,7 @@ public abstract class Armor extends Item {
     // EFFECTS: When used, player equips armor
     @Override
     public void useItem(Player p) {
+        p.getGame().sendMessage("You Equipped " + getName());
         p.equipArmor(this);
     }
 }

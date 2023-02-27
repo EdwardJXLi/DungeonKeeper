@@ -24,6 +24,7 @@ public class DefensePotion extends Potion {
     // EFFECTS: Adds additional defense to player when used
     @Override
     public void useItem(Player p) {
+        p.getGame().sendMessage("You used " + getName());
         p.addDefense(DEFENSE_AMOUNT);
         // Remove potion after use
         p.removeItem(this);
