@@ -4,7 +4,9 @@ import com.googlecode.lanterna.TextColor;
 
 /*
  * Abstract class for all Entities.
- * Entities
+ * Entities have health, defense, and attack values.
+ * Entities can also move and die.
+ * Example: Player, Enemy (Guard)
  */
 
 public abstract class Entity implements ScreenElement {

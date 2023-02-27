@@ -4,6 +4,13 @@ import com.googlecode.lanterna.TextColor;
 
 import java.util.List;
 
+/*
+ * Abstract class for all Tiles.
+ * Tiles can either be solid or non-solid.
+ * Tiles can also have custom actions when stepped on.
+ * Examples: Wall, Spike
+ */
+
 public abstract class Tile implements ScreenElement {
     // Generic Tile Elements
     private final int posX;

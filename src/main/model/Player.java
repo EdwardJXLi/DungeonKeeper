@@ -6,6 +6,11 @@ import model.items.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Main class for Players
+ * Players and attack enemies.
+ */
+
 public class Player extends Entity {
     // Player Constants
     public static final int INITIAL_HEALTH = 200;

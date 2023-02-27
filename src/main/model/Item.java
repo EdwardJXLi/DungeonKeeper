@@ -4,6 +4,14 @@ import com.googlecode.lanterna.TextColor;
 
 import java.util.List;
 
+/*
+ * Abstract class for all items.
+ * Items have a name and a description.
+ * Items can also be stored in a player inventory
+ * Examples: Potions, Armors, Weapons
+ */
+
+
 public abstract class Item implements Renderable {
     // Item Constants
     private final String name;

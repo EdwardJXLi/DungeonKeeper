@@ -6,6 +6,10 @@ import model.tiles.Wall;
 
 import java.util.ArrayList;
 
+/*
+ * Main class for all components relating to a game level
+ */
+
 public class Level {
     // Level Constants
     public static final int INITIAL_GUARDS_SPAWN = 10;

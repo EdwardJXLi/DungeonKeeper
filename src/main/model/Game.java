@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/*
+ * Main class for all game components
+ */
+
 public class Game {
     // Game Constants
     public static final int TPS = 20;
