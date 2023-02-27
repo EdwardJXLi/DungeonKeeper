@@ -1,6 +1,8 @@
-package model;
+package model.entity;
 
 import com.googlecode.lanterna.TextColor;
+import model.Entity;
+import model.Game;
 import model.enemies.Dummy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

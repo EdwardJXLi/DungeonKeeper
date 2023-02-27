@@ -1,5 +1,6 @@
-package model;
+package model.game;
 
+import model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -77,6 +78,8 @@ public class MessageTest {
         assertEquals(6, game.getMessages().size());
 
         // Check if last message is welcome message
-        assertEquals(game.WELCOME_MESSAGE, game.getMessages().get(game.getMessages().size() - 1));
+        assertEquals(Game.WELCOME_MESSAGE, game.getMessages().get(game.getMessages().size() - 1));
     }
+
+    // TODO: Add messages from actions
 }

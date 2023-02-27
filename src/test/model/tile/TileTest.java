@@ -1,6 +1,7 @@
-package model;
+package model.tile;
 
 import com.googlecode.lanterna.TextColor;
+import model.Tile;
 import model.tiles.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

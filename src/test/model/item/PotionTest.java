@@ -1,6 +1,8 @@
-package model;
+package model.item;
 
 import com.googlecode.lanterna.TextColor;
+import model.Game;
+import model.Player;
 import model.items.DefensePotion;
 import model.items.HealingPotion;
 import model.items.StrengthPotion;
@@ -56,10 +58,22 @@ public class PotionTest {
 
     @Test
     public void testHealingPotion() {
-        player.damage(50);
+        player.damage(100);
         player.addItem(healingPot);
         healingPot.useItem(player);
-        assertEquals(Player.INITIAL_HEALTH - 50 + HealingPotion.HEAL_AMOUNT, player.getHealth());
+        assertEquals(Player.INITIAL_HEALTH - 100 + HealingPotion.HEAL_AMOUNT, player.getHealth());
+    }
+
+    @Test
+    public void testMultipleHealingPotion() {
+        player.damage(100);
+        player.addItem(healingPot);
+        player.addItem(healingPot);
+        player.addItem(healingPot);
+        healingPot.useItem(player);
+        healingPot.useItem(player);
+        healingPot.useItem(player);
+        assertEquals(Player.INITIAL_HEALTH - 100 + HealingPotion.HEAL_AMOUNT * 3, player.getHealth());
     }
 
     @Test
@@ -70,9 +84,31 @@ public class PotionTest {
     }
 
     @Test
+    public void testMultipleDefensePotion() {
+        player.addItem(defensePot);
+        player.addItem(defensePot);
+        player.addItem(defensePot);
+        defensePot.useItem(player);
+        defensePot.useItem(player);
+        defensePot.useItem(player);
+        assertEquals(Player.INITIAL_DEFENSE + DefensePotion.DEFENSE_AMOUNT * 3, player.getDefense());
+    }
+
+    @Test
     public void testStrengthPotion() {
         player.addItem(strengthPot);
         strengthPot.useItem(player);
         assertEquals(Player.INITIAL_ATTACK + StrengthPotion.ATTACK_AMOUNT, player.getAttack());
+    }
+
+    @Test
+    public void testMultipleStrengthPotion() {
+        player.addItem(strengthPot);
+        player.addItem(strengthPot);
+        player.addItem(strengthPot);
+        strengthPot.useItem(player);
+        strengthPot.useItem(player);
+        strengthPot.useItem(player);
+        assertEquals(Player.INITIAL_ATTACK + StrengthPotion.ATTACK_AMOUNT * 3, player.getAttack());
     }
 }

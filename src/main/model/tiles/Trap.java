@@ -7,6 +7,9 @@ import model.Tile;
 import java.util.Arrays;
 
 public class Trap extends Tile {
+    // Trap Constants
+    public static final int TRAP_DAMAGE = 5;
+
     // EFFECTS: Creates a trap tile that damages player when stepped
     public Trap(int posX, int posY) {
         super(
@@ -20,6 +23,7 @@ public class Trap extends Tile {
     // EFFECTS: Damages entity when stepped on
     @Override
     public void onStep(Entity e) {
-        e.damage(5);
+        e.damage(TRAP_DAMAGE);
+        super.onStep(e);
     }
 }
