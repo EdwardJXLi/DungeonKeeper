@@ -30,9 +30,6 @@ public class Game {
     // REQUIRES: sizeX > 32 and sizeY > 24
     // EFFECTS: Creates a game object with levels and player
     public Game(int sizeX, int sizeY) {
-        // Assert requires
-        assert sizeX >= 32;
-        assert sizeY >= 24;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
 
@@ -103,8 +100,6 @@ public class Game {
     // REQUIRES: n > 0
     // EFFECTS: Returns the last n messages from game messages
     public List<String> getLastMessages(int n) {
-        assert n > 0;
-
         // Create new array list of last messages
         ArrayList<String> lastMessages = new ArrayList<>();
 

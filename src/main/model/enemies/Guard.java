@@ -34,22 +34,17 @@ public class Guard extends Enemy {
     public void onDeath() {
         // Chance of dropping either Armor, Weapon, or Potion
         Item droppedItem = new HealingPotion();
-        switch (getGame().getRandom().nextInt(5)) {
-            case 0:
-                droppedItem = new GuardArmor(getGame().getRandom().nextInt(25));
-                break;
-            case 1:
-                droppedItem = new GuardSword(getGame().getRandom().nextInt(25));
-                break;
-            case 2:
-                droppedItem = new StrengthPotion();
-                break;
-            case 3:
-                droppedItem = new DefensePotion();
-                break;
-            case 4:
-                droppedItem = new HealingPotion();
-                break;
+        int i = getGame().getRandom().nextInt(5);
+        if (i == 0) {
+            droppedItem = new GuardArmor(getGame().getRandom().nextInt(25));
+        } else if (i == 1) {
+            droppedItem = new GuardSword(getGame().getRandom().nextInt(25));
+        } else if (i == 2) {
+            droppedItem = new StrengthPotion();
+        } else if (i == 3) {
+            droppedItem = new DefensePotion();
+        } else if (i == 4) {
+            droppedItem = new HealingPotion();
         }
         // Drop item
         getGame().getLevel().dropItem(getPosX(), getPosY(), droppedItem);
@@ -71,19 +66,17 @@ public class Guard extends Enemy {
 
             // Try to move in a random direction
             // If this fails, nothing will happen. This is intended behavior!
-            switch (getGame().getRandom().nextInt(4)) {
-                case 0:
-                    moveUp();
-                    break;
-                case 1:
-                    moveDown();
-                    break;
-                case 2:
-                    moveLeft();
-                    break;
-                case 3:
-                    moveRight();
-                    break;
+            int i = getGame().getRandom().nextInt(4);
+            if (i == 0) {
+                moveUp();
+            } else if (i == 1) {
+                moveDown();
+            } else if (i == 2) {
+                moveLeft();
+            } else if (i == 3) {
+                moveRight();
+            } else {
+                throw new IllegalStateException("Unexpected value: " + getGame().getRandom().nextInt(4));
             }
         }
 

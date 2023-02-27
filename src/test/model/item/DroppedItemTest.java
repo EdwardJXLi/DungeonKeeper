@@ -48,6 +48,8 @@ public class DroppedItemTest {
     public void testDroppedItem() {
         DroppedItem di = game.getLevel().dropItem(5, 5, testItem1);
         assertEquals(di, game.getLevel().getDroppedItemAtLocation(5, 5));
+        assertNull(game.getLevel().getDroppedItemAtLocation(4, 5));
+        assertNull(game.getLevel().getDroppedItemAtLocation(5, 4));
         assertEquals(testItem1, game.getLevel().getDroppedItemAtLocation(5, 5).getItem());
         assertEquals(testItem1, di.getItem());
     }
@@ -65,7 +67,7 @@ public class DroppedItemTest {
         DroppedItem di1 = game.getLevel().dropItem(5, 5, testItem1);
         DroppedItem di2 = game.getLevel().dropItem(2, 8, testItem2);
         DroppedItem di3 = game.getLevel().dropItem(4, 22, testItem3);
-        // Check if the item matches the locaiton
+        // Check if the item matches the location
         assertEquals(di1, game.getLevel().getDroppedItemAtLocation(5, 5));
         assertEquals(testItem1, game.getLevel().getDroppedItemAtLocation(5, 5).getItem());
         assertEquals(di2, game.getLevel().getDroppedItemAtLocation(2, 8));

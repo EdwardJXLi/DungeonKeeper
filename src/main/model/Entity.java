@@ -110,8 +110,6 @@ public abstract class Entity implements ScreenElement {
     // MODIFIES: this
     // EFFECTS: Applies Damage to Entity
     public void damage(int amount) {
-        assert amount > 0;
-
         // Calculate damage amount based on defense
         // Ensure damage does not go into the negatives
         int damage = Math.max(0, amount - getDefense());
@@ -123,8 +121,6 @@ public abstract class Entity implements ScreenElement {
     // MODIFIES: this
     // EFFECTS: Applies Healing to Entity
     public void heal(int amount) {
-        assert amount > 0;
-
         // Ensure health does not go over max health
         health = Math.min(maxHealth, health + amount);
     }
