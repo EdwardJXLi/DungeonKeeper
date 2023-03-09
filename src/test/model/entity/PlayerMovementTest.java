@@ -126,7 +126,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitSolidTileFromUnder() {
-        game.getLevel().getTiles().add(new Wall(10, 20));
+        game.getLevel().addTile(new Wall(10, 20));
         player.setCoordinate(10, 21);
         assertFalse(player.moveUp());
         assertEquals(10, player.getPosX());
@@ -135,7 +135,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitSolidTileFromAbove() {
-        game.getLevel().getTiles().add(new Wall(10, 20));
+        game.getLevel().addTile(new Wall(10, 20));
         player.setCoordinate(10, 19);
         assertFalse(player.moveDown());
         assertEquals(10, player.getPosX());
@@ -144,7 +144,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitSolidTileFromRight() {
-        game.getLevel().getTiles().add(new Wall(10, 20));
+        game.getLevel().addTile(new Wall(10, 20));
         player.setCoordinate(11, 20);
         assertFalse(player.moveLeft());
         assertEquals(11, player.getPosX());
@@ -153,7 +153,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitSolidTileFromLeft() {
-        game.getLevel().getTiles().add(new Wall(10, 20));
+        game.getLevel().addTile(new Wall(10, 20));
         player.setCoordinate(9, 20);
         assertFalse(player.moveRight());
         assertEquals(9, player.getPosX());
@@ -162,7 +162,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitNonSolidTileFromUnder() {
-        game.getLevel().getTiles().add(new Trap(10, 20));
+        game.getLevel().addTile(new Trap(10, 20));
         player.setCoordinate(10, 21);
         assertTrue(player.moveUp());
         assertEquals(10, player.getPosX());
@@ -171,7 +171,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitNonSolidTileFromAbove() {
-        game.getLevel().getTiles().add(new Trap(10, 20));
+        game.getLevel().addTile(new Trap(10, 20));
         player.setCoordinate(10, 19);
         assertTrue(player.moveDown());
         assertEquals(10, player.getPosX());
@@ -180,7 +180,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitNonSolidTileFromRight() {
-        game.getLevel().getTiles().add(new Trap(10, 20));
+        game.getLevel().addTile(new Trap(10, 20));
         player.setCoordinate(11, 20);
         assertTrue(player.moveLeft());
         assertEquals(10, player.getPosX());
@@ -189,7 +189,7 @@ public class PlayerMovementTest {
 
     @Test
     public void testHitNonSolidTileFromLeft() {
-        game.getLevel().getTiles().add(new Trap(10, 20));
+        game.getLevel().addTile(new Trap(10, 20));
         player.setCoordinate(9, 20);
         assertTrue(player.moveRight());
         assertEquals(10, player.getPosX());

@@ -68,13 +68,13 @@ public class LevelTest {
 
     @Test
     public void testSolidTileAtLocation() {
-        level.getTiles().add(new Wall(10, 20));
+        level.addTile(new Wall(10, 20));
         assertTrue(level.isSolidTileAtLocation(10, 20));
     }
 
     @Test
     public void testNonSolidTileAtLocation() {
-        level.getTiles().add(new Trap(10, 20));
+        level.addTile(new Trap(10, 20));
         assertFalse(level.isSolidTileAtLocation(10, 20));
     }
 

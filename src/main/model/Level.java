@@ -56,6 +56,12 @@ public class Level {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: Adds tile to level
+    public void addTile(Tile tile) {
+        tiles.add(tile);
+    }
+
     // MODIFIES: this, p
     // EFFECTS: Sets player location to spawn location
     public void spawnPlayer(Player p) {
@@ -77,20 +83,20 @@ public class Level {
         // Set the top and bottom walls
         for (int x = 0; x < sizeX; x++) {
             // Add the top wall
-            tiles.add(new Wall(x, 0));
+            addTile(new Wall(x, 0));
 
             // Add the bottom wall
-            tiles.add(new Wall(x, sizeY - 1));
+            addTile(new Wall(x, sizeY - 1));
         }
 
         // Set the left and right walls.
         // Starting from 1 to sizeY-1 to avoid duplication
         for (int y = 1; y < sizeY - 1; y++) {
             // Add the left wall
-            tiles.add(new Wall(0, y));
+            addTile(new Wall(0, y));
 
             // Add the right wall
-            tiles.add(new Wall(sizeX - 1, y));
+            addTile(new Wall(sizeX - 1, y));
         }
     }
 
@@ -103,11 +109,11 @@ public class Level {
                 // 2 in 40 chance of spikes
                 switch (game.getRandom().nextInt(40)) {
                     case 0:
-                        tiles.add(new Wall(x, y));
+                        addTile(new Wall(x, y));
                         break;
                     case 1:
                     case 2:
-                        tiles.add(new Trap(x, y));
+                        addTile(new Trap(x, y));
                         break;
                 }
             }
@@ -172,7 +178,7 @@ public class Level {
     }
 
     //
-    // Getters
+    // Getters, Setters and Adders
     //
 
     public ArrayList<Tile> getTiles() {
