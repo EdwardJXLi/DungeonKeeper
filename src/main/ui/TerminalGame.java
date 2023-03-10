@@ -184,7 +184,7 @@ public class TerminalGame {
     // EFFECTS: Renders and handles the inventory screen
     private void handleInventory() throws IOException {
         // Get the inventory content
-        List<Item> inventory = game.getPlayer().getInventory();
+        List<Item> inventory = game.getPlayer().getInventory().getInventoryItems();
 
         // Get the range of the inventory
         inventoryFrame.setSelected(0);

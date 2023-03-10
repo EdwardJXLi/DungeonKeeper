@@ -1,79 +1,146 @@
 package model.game;
 
-import model.Game;
+import model.Inventory;
 import model.Item;
-import model.Player;
-import model.items.HealingPotion;
+import model.items.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class InventoryTest {
-    Game game;
-    Player player;
+    Inventory inventory;
 
     @BeforeEach
     public void setup() {
-        game = new Game(32, 24);
-        game.initEmptyGame();
-        player = new Player(game);
-        game.getLevel().spawnPlayer(player);
+        inventory = new Inventory();
     }
 
     @Test
-    public void emptyInventoryTest() {
-        assertTrue(player.getInventory().isEmpty());
-        assertEquals(0, player.getInventory().size());
+    public void testNoItemsInInventory() {
+        assertTrue(inventory.isEmpty());
+        assertEquals(0, inventory.numItems());
+        assertEquals(0, inventory.getInventoryItems().size());
     }
 
     @Test
-    public void testAddItemToInventory() {
-        Item item = new HealingPotion();
-        assertTrue(player.getInventory().isEmpty());
-        player.addItem(item);
-        assertFalse(player.getInventory().isEmpty());
-        assertEquals(1, player.getInventory().size());
-        assertEquals(item, player.getInventory().get(0));
+    public void testSingleItemInInventory() {
+        Item testItem = new HealingPotion();
+        inventory.addItem(testItem);
+        assertFalse(inventory.isEmpty());
+        assertEquals(1, inventory.numItems());
+        assertEquals(testItem, inventory.getInventoryItems().get(0));
+        assertEquals(testItem, inventory.getItemAtIndex(0));
     }
 
     @Test
-    public void testAddMultipleItemsToInventory() {
-        Item item1 = new HealingPotion();
-        Item item2 = new HealingPotion();
-        Item item3 = new HealingPotion();
-        assertTrue(player.getInventory().isEmpty());
-        player.addItem(item1);
-        player.addItem(item2);
-        player.addItem(item3);
-        assertFalse(player.getInventory().isEmpty());
-        assertEquals(3, player.getInventory().size());
-        assertEquals(item1, player.getInventory().get(0));
-        assertEquals(item2, player.getInventory().get(1));
-        assertEquals(item3, player.getInventory().get(2));
+    public void testMultipleItemsInInventory() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        assertFalse(inventory.isEmpty());
+        assertEquals(3, inventory.numItems());
+        assertEquals(testItem2, inventory.getInventoryItems().get(1));
+        assertEquals(testItem1, inventory.getItemAtIndex(0));
+        assertEquals(testItem2, inventory.getItemAtIndex(1));
+        assertEquals(testItem3, inventory.getItemAtIndex(2));
     }
 
     @Test
-    public void testRemoveItemFromInventory() {
-        Item item = new HealingPotion();
-        player.addItem(item);
-        assertFalse(player.getInventory().isEmpty());
-        player.removeItem(item);
-        assertTrue(player.getInventory().isEmpty());
+    public void testRemoveFirstItem() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        inventory.removeItem(testItem1);
+        assertEquals(testItem2, inventory.getItemAtIndex(0));
+        assertEquals(testItem3, inventory.getItemAtIndex(1));
     }
 
     @Test
-    public void testRemoveMultipleItemsFromInventory() {
-        Item item1 = new HealingPotion();
-        Item item2 = new HealingPotion();
-        Item item3 = new HealingPotion();
-        player.addItem(item1);
-        player.addItem(item2);
-        player.addItem(item3);
-        assertEquals(3, player.getInventory().size());
-        player.removeItem(item1);
-        player.removeItem(item3);
-        assertEquals(1, player.getInventory().size());
-        assertEquals(item2, player.getInventory().get(0));
+    public void testRemoveMiddleItem() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        inventory.removeItem(testItem2);
+        assertEquals(testItem1, inventory.getItemAtIndex(0));
+        assertEquals(testItem3, inventory.getItemAtIndex(1));
+    }
+
+    @Test
+    public void testRemoveLastItem() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        inventory.removeItem(testItem3);
+        assertEquals(testItem1, inventory.getItemAtIndex(0));
+        assertEquals(testItem2, inventory.getItemAtIndex(1));
+    }
+
+    @Test
+    public void testRemoveMultipleItems() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        inventory.removeItem(testItem1);
+        inventory.removeItem(testItem3);
+        assertEquals(1, inventory.numItems());
+        assertEquals(testItem2, inventory.getItemAtIndex(0));
+    }
+
+    @Test
+    public void testRemoveAllItems() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        inventory.removeItem(testItem1);
+        inventory.removeItem(testItem2);
+        inventory.removeItem(testItem3);
+        assertTrue(inventory.isEmpty());
+        assertEquals(0, inventory.numItems());
+    }
+
+    @Test
+    public void testClearItems() {
+        Item testItem1 = new HealingPotion();
+        Item testItem2 = new DefensePotion();
+        Item testItem3 = new StrengthPotion();
+        inventory.addItem(testItem1);
+        inventory.addItem(testItem2);
+        inventory.addItem(testItem3);
+        inventory.clearInventory();
+        assertTrue(inventory.isEmpty());
+        assertEquals(0, inventory.numItems());
+    }
+
+    @Test
+    public void testEquipArmor() {
+        Armor armor = new GuardArmor(5);
+        inventory.setEquippedArmor(armor);
+        assertEquals(armor, inventory.getEquippedArmor());
+    }
+
+    @Test
+    public void testEquipWeapon() {
+        Weapon weapon = new GuardSword(8);
+        inventory.setEquippedWeapon(weapon);
+        assertEquals(weapon, inventory.getEquippedWeapon());
     }
 }

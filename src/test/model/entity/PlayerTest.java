@@ -37,12 +37,12 @@ public class PlayerTest {
     public void testInitPlayer() {
         player.initPlayer();
         // Check Inventory
-        assertEquals(5, player.getInventory().size());
-        assertEquals("Healing Potion", player.getInventory().get(0).getName());
-        assertEquals("Healing Potion", player.getInventory().get(1).getName());
-        assertEquals("Healing Potion", player.getInventory().get(2).getName());
-        assertEquals("Defense Potion", player.getInventory().get(3).getName());
-        assertEquals("Strength Potion", player.getInventory().get(4).getName());
+        assertEquals(5, player.getInventory().numItems());
+        assertEquals("Healing Potion", player.getInventory().getItemAtIndex(0).getName());
+        assertEquals("Healing Potion", player.getInventory().getItemAtIndex(1).getName());
+        assertEquals("Healing Potion", player.getInventory().getItemAtIndex(2).getName());
+        assertEquals("Defense Potion", player.getInventory().getItemAtIndex(3).getName());
+        assertEquals("Strength Potion", player.getInventory().getItemAtIndex(4).getName());
     }
 
     @Test

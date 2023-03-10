@@ -125,6 +125,6 @@ public class DroppedItemTest {
         player.pickupItem(di1);
         assertFalse(player.getInventory().isEmpty());
         // Check is item in inventory is the same as one one dropped
-        assertEquals(testItem1, player.getInventory().get(0));
+        assertEquals(testItem1, player.getInventory().getItemAtIndex(0));
     }
 }

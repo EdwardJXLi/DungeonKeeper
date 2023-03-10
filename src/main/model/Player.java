@@ -3,7 +3,6 @@ package model;
 import com.googlecode.lanterna.TextColor;
 import model.items.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -20,9 +19,7 @@ public class Player extends Entity {
     // Player Information
     private int kills;
     private Enemy lastEnemy;
-    private final List<Item> inventory;
-    private Armor equippedArmor;
-    private Weapon equippedWeapon;
+    private final Inventory inventory;
 
     // EFFECTS: Creates a generic player
     public Player(Game game) {
@@ -33,7 +30,7 @@ public class Player extends Entity {
         );
         // Initialize Variables
         kills = 0;
-        inventory = new ArrayList<>();
+        inventory = new Inventory();
     }
 
     // MODIFIES: this
@@ -109,21 +106,21 @@ public class Player extends Entity {
     }
 
     // EFFECTS: Returns the items in inventory
-    public List<Item> getInventory() {
+    public Inventory getInventory() {
         return inventory;
     }
 
     // MODIFIES: this
-    // EFFECTS: Adds item to inventory
+    // EFFECTS: Adds item to player inventory
     public void addItem(Item item) {
         getGame().sendMessage(String.format("★ Added Item %s to inventory", item.getName()));
-        inventory.add(item);
+        inventory.addItem(item);
     }
 
     // MODIFIES: this
-    // EFFECTS: Removes item from inventory
+    // EFFECTS: Removes item from player inventory
     public void removeItem(Item item) {
-        inventory.removeIf(i -> i == item);
+        inventory.removeItem(item);
     }
 
     // MODIFIES: this
@@ -142,18 +139,18 @@ public class Player extends Entity {
 
     // EFFECTS: Gets currently equipped armor
     public Armor getArmor() {
-        return equippedArmor;
+        return inventory.getEquippedArmor();
     }
 
     // MODIFIES: this
     // EFFECTS: Sets currently equipped armor and places current armor in inventory
     public void equipArmor(Armor armor) {
-        if (equippedArmor == null) {
-            equippedArmor = armor;
+        if (inventory.getEquippedArmor() == null) {
+            inventory.setEquippedArmor(armor);
             removeItem(armor);
         } else {
-            Armor previousArmor = equippedArmor;
-            equippedArmor = armor;
+            Armor previousArmor = inventory.getEquippedArmor();
+            inventory.setEquippedArmor(armor);
             removeItem(armor);
             addItem(previousArmor);
         }
@@ -161,18 +158,18 @@ public class Player extends Entity {
 
     // EFFECTS: Gets currently equipped weapon
     public Weapon getWeapon() {
-        return equippedWeapon;
+        return inventory.getEquippedWeapon();
     }
 
     // MODIFIES: this
     // EFFECTS: Sets currently equipped armor and places current armor in inventory
     public void equipWeapon(Weapon weapon) {
-        if (equippedWeapon == null) {
-            equippedWeapon = weapon;
+        if (inventory.getEquippedWeapon() == null) {
+            inventory.setEquippedWeapon(weapon);
             removeItem(weapon);
         } else {
-            Weapon previousWeapon = equippedWeapon;
-            equippedWeapon = weapon;
+            Weapon previousWeapon = inventory.getEquippedWeapon();
+            inventory.setEquippedWeapon(weapon);
             removeItem(weapon);
             addItem(previousWeapon);
         }
@@ -192,8 +189,8 @@ public class Player extends Entity {
     // EFFECTS: Override existing get defence to add armor defence
     @Override
     public int getDefense() {
-        if (equippedArmor != null) {
-            return super.getDefense() + equippedArmor.getAdditionalDefense();
+        if (inventory.getEquippedArmor() != null) {
+            return super.getDefense() + inventory.getEquippedArmor().getAdditionalDefense();
         } else {
             return super.getDefense();
         }
@@ -202,8 +199,8 @@ public class Player extends Entity {
     // EFFECTS: Override existing get attack to add weapon attack
     @Override
     public int getAttack() {
-        if (equippedWeapon != null) {
-            return super.getAttack() + equippedWeapon.getAdditionalAttack();
+        if (inventory.getEquippedWeapon() != null) {
+            return super.getAttack() + inventory.getEquippedWeapon().getAdditionalAttack();
         } else {
             return super.getAttack();
         }

@@ -56,16 +56,16 @@ public class EquipmentTest {
         // Equip the first armor
         player.equipArmor(testArmor1);
         // Check if armor is equipped, armor in armor slot, and remaining armor in inventory
-        assertEquals(1, player.getInventory().size());
-        assertEquals(testArmor2, player.getInventory().get(0));
+        assertEquals(1, player.getInventory().numItems());
+        assertEquals(testArmor2, player.getInventory().getItemAtIndex(0));
         assertEquals(testArmor1, player.getArmor());
         // Check if defense is increased by testArmor1's value
         assertEquals(Player.INITIAL_DEFENSE + 1, player.getDefense());
         // Now, equip second armor
         player.equipArmor(testArmor2);
         // Check if original armor is back in inventory, and new armor in armor slot
-        assertEquals(1, player.getInventory().size());
-        assertEquals(testArmor1, player.getInventory().get(0));
+        assertEquals(1, player.getInventory().numItems());
+        assertEquals(testArmor1, player.getInventory().getItemAtIndex(0));
         assertEquals(testArmor2, player.getArmor());
         // Check if defense is increased by testArmor2's value
         assertEquals(Player.INITIAL_DEFENSE + 2, player.getDefense());
@@ -91,16 +91,16 @@ public class EquipmentTest {
         // Equip the first weapon
         player.equipWeapon(testWeapon1);
         // Check if weapon is equipped, weapon in weapon slot, and remaining armor in inventory
-        assertEquals(1, player.getInventory().size());
-        assertEquals(testWeapon2, player.getInventory().get(0));
+        assertEquals(1, player.getInventory().numItems());
+        assertEquals(testWeapon2, player.getInventory().getItemAtIndex(0));
         assertEquals(testWeapon1, player.getWeapon());
         // Check if defense is increased by testWeapon1's value
         assertEquals(Player.INITIAL_ATTACK + 10, player.getAttack());
         // Now, equip second weapon
         player.equipWeapon(testWeapon2);
         // Check if original weapon is back in inventory, and new weapon in armor slot
-        assertEquals(1, player.getInventory().size());
-        assertEquals(testWeapon1, player.getInventory().get(0));
+        assertEquals(1, player.getInventory().numItems());
+        assertEquals(testWeapon1, player.getInventory().getItemAtIndex(0));
         assertEquals(testWeapon2, player.getWeapon());
         // Check if defense is increased by testWeapon2's value
         assertEquals(Player.INITIAL_ATTACK + 20, player.getAttack());
