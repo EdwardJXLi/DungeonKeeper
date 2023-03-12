@@ -19,19 +19,27 @@ public class InfoFrame extends TerminalFrame {
         super(leftBound, topBound, rightBound, bottomBound, "Information", screen, game);
     }
 
+    // EFFECTS: Renders the HUD info box. Draws useful info about the game
+    //          as well as user coordinates
+    //          The importance of what gets rendered is as follows:
+    //           - A dropped item is at player location
+    //           - Player is standing on a special tile
+    //           - Player previously fought an enemy
     public void renderInfo() {
         // Draw Basic Instructions
         drawText(0, 0, "Controls:");
         drawText(2, 1, "[W][A][S][D] to move");
         drawText(2, 2, "[E] to open inventory");
 
-        // If a dropped item is at the location, print its information
-        // else, if player standing on a tile, print its information
-        // else, if last fought an enemy, print its information
+        // Get General Info
         Player player = getGame().getPlayer();
         DroppedItem droppedItem = getGame().getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
         Tile standingTile = getGame().getLevel().getTileAtLocation(player.getPosX(), player.getPosY());
         Enemy lastEnemy = player.getLastEnemyFought();
+
+        // If a dropped item is at the location, print its information
+        // else, if player standing on a tile, print its information
+        // else, if last fought an enemy, print its information
         if (droppedItem != null) {
             renderDroppedItemInformation(droppedItem);
         } else if (standingTile != null && standingTile.getDescription() != null) {

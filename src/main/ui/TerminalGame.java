@@ -181,6 +181,63 @@ public class TerminalGame {
     }
 
     // MODIFIES: this
+    // EFFECTS: Takes user input and performs action
+    private void handlePlayerInput() throws IOException {
+        KeyStroke stroke = screen.pollInput();
+
+        Player player = game.getPlayer();
+        DroppedItem di = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
+
+        // Check if keystroke is valid
+        if (stroke != null) {
+            if (stroke.getCharacter() != null) {
+                Character character = stroke.getCharacter();
+                if (character == 'w') {
+                    player.moveUp();
+                } else if (character == 's') {
+                    player.moveDown();
+                } else if (character == 'a') {
+                    player.moveLeft();
+                } else if (character == 'd') {
+                    player.moveRight();
+                } else if (character == 'e') {
+                    handleInventory();
+                } else if (character == 'q' && di != null) {
+                    player.pickupItem(di);
+                } else if (character == 'x' && di != null) {
+                    game.getLevel().removeDroppedItem(di);
+                }
+            }
+        }
+    }
+
+    // EFFECTS: Renders the inventory UI with inventory elements
+    private void renderInventory(
+            List<Item> inventory
+    ) throws IOException {
+        // Initialize the screen
+        screen.setCursorPosition(new TerminalPosition(0, 0));
+        screen.clear();
+
+        // Render all inventory elements
+        inventoryFrame.drawFrame();
+        inventoryFrame.renderInventory(inventory);
+        inventoryInstructionsFrame.drawFrame();
+        inventoryInstructionsFrame.renderInstructions();
+        playerInfoFrame.drawFrame();
+        playerInfoFrame.drawPlayerInfo();
+        inventoryPreviewFrame.drawFrame();
+        inventoryPreviewFrame.renderPreview(inventory, inventoryFrame.getSelected());
+        equipmentFrame.drawFrame();
+        equipmentFrame.renderEquipment();
+        messageFrame.drawFrame();
+        messageFrame.renderMessages();
+
+        // Refresh Screen
+        screen.refresh();
+    }
+
+    // MODIFIES: this
     // EFFECTS: Renders and handles the inventory screen
     private void handleInventory() throws IOException {
         // Get the inventory content
@@ -245,16 +302,17 @@ public class TerminalGame {
     // EFFECTS: Handles player key input in the inventory, when character input fails
     private boolean handlePlayerInventoryKeyInput(KeyStroke stroke, List<Item> inventory) {
         if (stroke.getKeyType() == KeyType.ArrowUp && inventoryFrame.getSelected() > 0) {
-            inventoryFrame.setSelected(inventoryFrame.getSelected() - 1);
+            inventoryFrame.decrementSelected();
             if (inventoryFrame.getSelected() < inventoryFrame.getFrom()) {
-                inventoryFrame.setFrom(inventoryFrame.getFrom() - 1);
-                inventoryFrame.setTo(inventoryFrame.getTo() - 1);
+                inventoryFrame.decrementFrom();
+                inventoryFrame.decrementTo();
             }
-        } else if (stroke.getKeyType() == KeyType.ArrowDown && inventoryFrame.getSelected() < inventory.size() - 1) {
-            inventoryFrame.setSelected(inventoryFrame.getSelected() + 1);
+        } else if (
+                stroke.getKeyType() == KeyType.ArrowDown && inventoryFrame.getSelected() < inventory.size() - 1) {
+            inventoryFrame.incrementSelected();
             if (inventoryFrame.getSelected() >= inventoryFrame.getTo()) {
-                inventoryFrame.setFrom(inventoryFrame.getFrom() + 1);
-                inventoryFrame.setTo(inventoryFrame.getTo() + 1);
+                inventoryFrame.incrementFrom();
+                inventoryFrame.incrementTo();
             }
         } else if (stroke.getKeyType() == KeyType.Enter && inventory.size() > 0) {
             inventory.get(inventoryFrame.getSelected()).useItem(game.getPlayer());
@@ -265,62 +323,5 @@ public class TerminalGame {
             return true;
         }
         return false;
-    }
-
-    // EFFECTS: Renders the inventory UI with inventory elements
-    private void renderInventory(
-            List<Item> inventory
-    ) throws IOException {
-        // Initialize the screen
-        screen.setCursorPosition(new TerminalPosition(0, 0));
-        screen.clear();
-
-        // Render all inventory elements
-        inventoryFrame.drawFrame();
-        inventoryFrame.renderInventory(inventory);
-        inventoryInstructionsFrame.drawFrame();
-        inventoryInstructionsFrame.renderInstructions();
-        playerInfoFrame.drawFrame();
-        playerInfoFrame.drawPlayerInfo();
-        inventoryPreviewFrame.drawFrame();
-        inventoryPreviewFrame.renderPreview(inventory, inventoryFrame.getSelected());
-        equipmentFrame.drawFrame();
-        equipmentFrame.renderEquipment();
-        messageFrame.drawFrame();
-        messageFrame.renderMessages();
-
-        // Refresh Screen
-        screen.refresh();
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Takes user input and performs action
-    private void handlePlayerInput() throws IOException {
-        KeyStroke stroke = screen.pollInput();
-
-        Player player = game.getPlayer();
-        DroppedItem di = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
-
-        // Check if keystroke is valid
-        if (stroke != null) {
-            if (stroke.getCharacter() != null) {
-                Character character = stroke.getCharacter();
-                if (character == 'w') {
-                    player.moveUp();
-                } else if (character == 's') {
-                    player.moveDown();
-                } else if (character == 'a') {
-                    player.moveLeft();
-                } else if (character == 'd') {
-                    player.moveRight();
-                } else if (character == 'e') {
-                    handleInventory();
-                } else if (character == 'q' && di != null) {
-                    player.pickupItem(di);
-                } else if (character == 'x' && di != null) {
-                    game.getLevel().removeDroppedItem(di);
-                }
-            }
-        }
     }
 }

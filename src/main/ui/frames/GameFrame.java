@@ -32,6 +32,7 @@ public class GameFrame extends TerminalFrame {
 
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements() {
+        // Render Tiles
         for (ScreenElement e : getGame().getLevel().getTiles()) {
             drawSprite(e.getPosX(), e.getPosY(), e.getTextSprite(), e.getTextColor(), e.getBackgroundColor());
         }

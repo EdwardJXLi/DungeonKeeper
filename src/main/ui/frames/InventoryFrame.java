@@ -84,6 +84,14 @@ public class InventoryFrame extends TerminalFrame {
         this.selected = selected;
     }
 
+    public void incrementSelected() {
+        this.selected++;
+    }
+
+    public void decrementSelected() {
+        this.selected--;
+    }
+
     public int getFrom() {
         return from;
     }
@@ -92,11 +100,27 @@ public class InventoryFrame extends TerminalFrame {
         this.from = from;
     }
 
+    public void incrementFrom() {
+        this.from++;
+    }
+
+    public void decrementFrom() {
+        this.from--;
+    }
+
     public int getTo() {
         return to;
     }
 
     public void setTo(int to) {
         this.to = to;
+    }
+
+    public void incrementTo() {
+        this.to++;
+    }
+
+    public void decrementTo() {
+        this.to--;
     }
 }
