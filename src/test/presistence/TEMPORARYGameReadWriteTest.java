@@ -7,6 +7,7 @@ package presistence;
 
 import model.Game;
 import org.junit.jupiter.api.Test;
+import persistence.GameReader;
 import persistence.GameWriter;
 
 import java.io.IOException;
@@ -26,6 +27,9 @@ public class TEMPORARYGameReadWriteTest {
             gameWriter.open();
             gameWriter.write(game, 10);
             gameWriter.close();
+
+            GameReader gameReader = new GameReader("./data/temp.json");
+            Game newGame = gameReader.read();
         } catch (IOException e) {
             fail("Exception should not have been thrown");
         }

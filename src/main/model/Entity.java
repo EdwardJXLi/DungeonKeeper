@@ -208,8 +208,16 @@ public abstract class Entity implements ScreenElement, Writable {
         return health;
     }
 
+    protected void setHealth(int health) {
+        this.health = health;
+    }
+
     public int getDefense() {
         return baseDefense;
+    }
+
+    protected void setDefense(int baseDefense) {
+        this.baseDefense = baseDefense;
     }
 
     public void addDefense(int amount) {
@@ -218,6 +226,10 @@ public abstract class Entity implements ScreenElement, Writable {
 
     public int getAttack() {
         return baseAttack;
+    }
+
+    protected void setAttack(int baseAttack) {
+        this.baseAttack = baseAttack;
     }
 
     public void addAttack(int amount) {

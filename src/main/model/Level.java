@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /*
  * Main class for all components relating to a game level
@@ -26,9 +27,9 @@ public class Level implements Writable {
     private final int levelNum;
 
     // Level Data
-    private final ArrayList<Tile> tiles;
-    private final ArrayList<Enemy> enemies;
-    private final ArrayList<DroppedItem> droppedItems;
+    private List<Tile> tiles;
+    private List<Enemy> enemies;
+    private List<DroppedItem> droppedItems;
 
     // EFFECTS: Creates a level with size X and Y
     public Level(int levelNum, Game game, int sizeX, int sizeY, int spawnX, int spawnY) {
@@ -41,6 +42,18 @@ public class Level implements Writable {
         this.tiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.droppedItems = new ArrayList<>();
+    }
+
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Sets tiles, enemies, and droppedItems.
+    public void setGameElements(
+            List<Tile> tiles,
+            List<Enemy> enemies,
+            List<DroppedItem> droppedItems
+    ) {
+        this.tiles = tiles;
+        this.enemies = enemies;
+        this.droppedItems = droppedItems;
     }
 
     // MODIFIES: this
@@ -228,15 +241,15 @@ public class Level implements Writable {
     // Getters, Setters and Adders
     //
 
-    public ArrayList<Tile> getTiles() {
+    public List<Tile> getTiles() {
         return tiles;
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public List<Enemy> getEnemies() {
         return enemies;
     }
 
-    public ArrayList<DroppedItem> getDroppedItems() {
+    public List<DroppedItem> getDroppedItems() {
         return droppedItems;
     }
 

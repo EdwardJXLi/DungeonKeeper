@@ -35,6 +35,19 @@ public class Player extends Entity implements Writable {
         inventory = new Inventory();
     }
 
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Creates a player from pre-existing values.
+    //          Used for loading games from JSON file
+    public Player(Game game, int posX, int posY, int health, int defense, int attack, int kills, Inventory inventory) {
+        super(game, posX, posY, '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+                "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK);
+        setHealth(health);
+        setDefense(defense);
+        setAttack(attack);
+        this.kills = kills;
+        this.inventory = inventory;
+    }
+
     // MODIFIES: this
     // EFFECTS: Adds initial items to player
     public void initPlayer() {

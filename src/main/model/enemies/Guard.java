@@ -28,6 +28,14 @@ public class Guard extends Enemy {
         );
     }
 
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Creates a guard, from pre-existing values.
+    public Guard(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
+        super(game, posX, posY, '%', TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT,
+                "Guard", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,
+                health, defense, attack);
+    }
+
     // MODIFIES: this
     // EFFECTS: Drops random loop on death
     @Override

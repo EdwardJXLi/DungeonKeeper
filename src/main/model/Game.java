@@ -47,6 +47,18 @@ public class Game implements Writable {
         gameRunning = true;
     }
 
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Creates Game with Already Initialized Data. Used for loading game saves
+    public Game(int sizeX, int sizeY, List<String> gameMessages) {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        this.random = new Random();
+        this.gameMessages = gameMessages;
+        this.gameRunning = true;
+
+        // Player and GameLevel to be initialized later!
+    }
+
     // MODIFIES: this
     // EFFECTS: Starts up game by generating map, spawning enemies, and initializing player
     public void initGame() {

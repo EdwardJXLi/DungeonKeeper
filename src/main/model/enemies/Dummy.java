@@ -23,6 +23,14 @@ public class Dummy extends Enemy {
         );
     }
 
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Creates a dummy from pre-existing values.
+    public Dummy(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
+        super(game, posX, posY, ';', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+                "Dummy", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,
+                health, defense, attack);
+    }
+
     // EFFECTS: Helper function to run movement tests
     public void setCoordinate(int posX, int posY) {
         setPosX(posX);

@@ -14,8 +14,17 @@ public class Inventory implements Writable {
     private Armor equippedArmor;
     private Weapon equippedWeapon;
 
+    // EFFECTS: Creates an empty inventory for a player to use
     public Inventory() {
         inventoryItems = new ArrayList<>();
+    }
+
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Creates a pre-filled inventory
+    public Inventory(List<Item> inventoryItems, Armor equippedArmor, Weapon equippedWeapon) {
+        this.inventoryItems = inventoryItems;
+        this.equippedArmor = equippedArmor;
+        this. equippedWeapon = equippedWeapon;
     }
 
     // MODIFIES: this

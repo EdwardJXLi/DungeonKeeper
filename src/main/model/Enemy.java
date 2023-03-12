@@ -28,6 +28,25 @@ public abstract class Enemy extends Entity {
         this.stunned = false;
     }
 
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Creates an enemy from pre-existing values.
+    //          Used for loading games from JSON file
+    public Enemy(
+            Game game, int posX, int posY,
+            char textSprite, TextColor textColor, TextColor backgroundColor,
+            String name, boolean stunned, int maxHealth, int maxDefense, int maxAttack,
+            int health, int defense, int attack
+    ) {
+        super(game, posX, posY, textSprite, textColor, backgroundColor,
+                name, maxHealth, maxDefense, maxAttack);
+        setHealth(health);
+        setDefense(defense);
+        setAttack(attack);
+        if (stunned) {
+            stun();
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: Stuns enemy - next turn is skipped
     public void stun() {
