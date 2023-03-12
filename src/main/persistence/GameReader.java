@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+/*
+ * Save Game Reader Class to load Game States from JSON File
+ * Code inspired by: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+ */
+
 public class GameReader {
     private String source;
     private Game game;
@@ -32,14 +37,27 @@ public class GameReader {
 
     // EFFECTS: Reads Game from JSON file and returns as SaveGame;
     //          throws IOException if an error occurs reading data from file
-    public Game read() throws IOException {
+    public SaveGame read() throws IOException {
         String jsonData = readFile(source);
         JSONObject json = new JSONObject(jsonData);
-        // TODO: Read Metadata
-//        JSONObject metadata = parseMetadata(jsonObject.get("metadata"));
-        return parseGameObject(json.getJSONObject("game"));
+        return parseSaveGameObject(json);
     }
 
+    // EFFECTS: Parses SaveGame Objects from JSON
+    public SaveGame parseSaveGameObject(JSONObject json) {
+        // Parse out metadata
+        JSONObject metadata = json.getJSONObject("metadata");
+        String version = metadata.getString("version");
+        int tick = metadata.getInt("tick");
+
+        // Parse out game object
+        Game game = parseGameObject(json.getJSONObject("game"));
+
+        // Create and return save game
+        return new SaveGame(game, version, tick);
+    }
+
+    // EFFECTS: Parses Game Objects from JSON
     public Game parseGameObject(JSONObject json) {
         // Load Game Messages
         List<String> gameMessages = parseGameMessagesArray(json.getJSONArray("gameMessages"));
@@ -62,6 +80,7 @@ public class GameReader {
         return this.game;
     }
 
+    // EFFECTS: Parses Game Message Lists from JSON Array
     public List<String> parseGameMessagesArray(JSONArray array) {
         List<String> gameMessages = new ArrayList<>();
         for (Object s: array) {
@@ -70,6 +89,7 @@ public class GameReader {
         return gameMessages;
     }
 
+    // EFFECTS: Parses Player Objects from JSON
     public Player parsePlayerObject(JSONObject json) {
         // Load Player Object
         return new Player(
@@ -84,6 +104,7 @@ public class GameReader {
         );
     }
 
+    // EFFECTS: Parses Inventory Objects from JSON
     public Inventory parseInventoryObject(JSONObject json) {
         // Parse Armor
         Armor armor;
@@ -104,6 +125,7 @@ public class GameReader {
         return new Inventory(parseItemsArray(json.getJSONArray("inventory")), armor, weapon);
     }
 
+    // EFFECTS: Parses Item Lists from JSON Arrays
     public List<Item> parseItemsArray(JSONArray array) {
         List<Item> items = new ArrayList<>();
         for (Object i: array) {
@@ -113,6 +135,7 @@ public class GameReader {
         return items;
     }
 
+    // EFFECTS: Parses Item Objects from JSON
     public Item parseItemObject(JSONObject json) {
         String itemClass = json.getString("__type__");
         switch (itemClass) {
@@ -135,6 +158,7 @@ public class GameReader {
         }
     }
 
+    // EFFECTS: Parses Level Objects from JSON
     public Level parseLevelObject(JSONObject json) {
         // Create a new level with existing data
         Level level = new Level(
@@ -157,6 +181,7 @@ public class GameReader {
         return level;
     }
 
+    // EFFECTS: Parses Tile Lists from JSON Array
     public List<Tile> parseTilesArray(JSONArray array) {
         List<Tile> tiles = new ArrayList<>();
         for (Object i: array) {
@@ -166,6 +191,7 @@ public class GameReader {
         return tiles;
     }
 
+    // EFFECTS: Parses Tile Objects from JSON
     public Tile parseTileObject(JSONObject json) {
         String tileClass = json.getString("__type__");
         int posX = json.getInt("posX");
@@ -180,6 +206,7 @@ public class GameReader {
         }
     }
 
+    // EFFECTS: Parses Enemy List from JSON Array
     public List<Enemy> parseEnemiesArray(JSONArray array) {
         List<Enemy> enemies = new ArrayList<>();
         for (Object i: array) {
@@ -189,6 +216,7 @@ public class GameReader {
         return enemies;
     }
 
+    // EFFECTS: Parses Enemy Objects from JSON
     public Enemy parseEnemyObject(JSONObject json) {
         String enemyClass = json.getString("__type__");
         int posX = json.getInt("posX");
@@ -207,6 +235,7 @@ public class GameReader {
         }
     }
 
+    // EFFECTS: Parses DroppedItem Lists from JSON Arrays
     public List<DroppedItem> parseDroppedItemsArray(JSONArray array) {
         List<DroppedItem> droppedItems = new ArrayList<>();
         for (Object i: array) {
@@ -216,6 +245,7 @@ public class GameReader {
         return droppedItems;
     }
 
+    // EFFECTS: Parses DroppedItem Objects from JSON
     public DroppedItem parseDroppedItemObject(JSONObject json) {
         return new DroppedItem(
                 json.getInt("posX"),

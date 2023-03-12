@@ -8,11 +8,11 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
 /*
- * Helper object to write game data to file
+ * Save Game Writer Class to save Game States to JSON File
+ * Code inspired by: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
  */
 
 public class GameWriter {
-    public static final String SAVE_FILE_VERSION = "debug";
     private static final int TAB = 4;
     private final String destination;
     private PrintWriter writer;
@@ -29,20 +29,25 @@ public class GameWriter {
         writer = new PrintWriter(new File(destination));
     }
 
+    // EFFECTS: Creates SaveGame from Game and Tick
+    public SaveGame createSaveGame(Game game, int tick) {
+        return new SaveGame(game, Game.VERSION, tick);
+    }
+
     // EFFECTS: Returns JSON Metadata of Save File
-    public JSONObject getMetadata(int tick) {
+    public JSONObject getMetadata(SaveGame saveGame) {
         JSONObject json = new JSONObject();
-        json.put("save_version", SAVE_FILE_VERSION);
-        json.put("game_tick", tick);
+        json.put("version", saveGame.getVersion());
+        json.put("tick", saveGame.getTick());
         return json;
     }
 
     // MODIFIES: this
     // EFFECTS: Writes JSON Representation of Game to file
-    public void write(Game game, int tick) {
+    public void write(SaveGame saveGame) {
         JSONObject json = new JSONObject();
-        json.put("game", game.toJson());
-        json.put("metadata", getMetadata(tick));
+        json.put("game", saveGame.getGame().toJson());
+        json.put("metadata", getMetadata(saveGame));
         saveToFile(json.toString(TAB));
     }
 

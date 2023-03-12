@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class Game implements Writable {
     // Game Constants
+    public static final String VERSION = "wip-p2-debug";
     public static final int TPS = 20;
     public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
     public static final int SPAWN_X = 2;
