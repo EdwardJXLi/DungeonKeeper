@@ -1,7 +1,5 @@
 package model;
 
-import com.googlecode.lanterna.TextColor;
-
 /*
  * Interface for anything that can be rendered
  * as part of the main game interface

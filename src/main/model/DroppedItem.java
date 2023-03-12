@@ -1,12 +1,14 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import org.json.JSONObject;
+import persistence.Writable;
 
 /*
  * Screen element that represents a dropped item on ground.
  */
 
-public class DroppedItem implements ScreenElement {
+public class DroppedItem implements ScreenElement, Writable {
     // Basic information about dropped item
     private final int posX;
     private final int posY;
@@ -18,6 +20,16 @@ public class DroppedItem implements ScreenElement {
         this.posX = posX;
         this.posY = posY;
         this.item = item;
+    }
+
+    // EFFECTS: Returns JSON Representation of a Dropped Item
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("posX", posX);
+        json.put("posY", posY);
+        json.put("item", item.toJson());
+        return json;
     }
 
     // Getters

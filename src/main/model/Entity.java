@@ -1,6 +1,8 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import org.json.JSONObject;
+import persistence.Writable;
 
 /*
  * Abstract class for all Entities.
@@ -9,7 +11,7 @@ import com.googlecode.lanterna.TextColor;
  * Example: Player, Enemy (Guard)
  */
 
-public abstract class Entity implements ScreenElement {
+public abstract class Entity implements ScreenElement, Writable {
     // Screen Element Info
     private final char textSprite;
     private final TextColor textColor;
@@ -136,6 +138,19 @@ public abstract class Entity implements ScreenElement {
 
     // EFFECTS: Do nothing on each tick
     public void handleNextTick(int tick) {
+    }
+
+    // EFFECTS: Returns JSON Representation of an Entity object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("posX", posX);
+        json.put("posY", posY);
+        json.put("name", name);
+        json.put("health", health);
+        json.put("baseDefense", baseDefense);
+        json.put("baseAttack", baseAttack);
+        return json;
     }
 
     // Getters and Setters

@@ -1,5 +1,9 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,7 +12,7 @@ import java.util.Random;
  * Main class for all game components
  */
 
-public class Game {
+public class Game implements Writable {
     // Game Constants
     public static final int TPS = 20;
     public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
@@ -96,7 +100,6 @@ public class Game {
         this.gameRunning = false;
     }
 
-
     // REQUIRES: n > 0
     // EFFECTS: Returns the last n messages from game messages
     public List<String> getLastMessages(int n) {
@@ -109,6 +112,27 @@ public class Game {
         }
 
         return lastMessages;
+    }
+
+    // EFFECTS: Returns JSON Representation of a Game object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("sizeX", sizeX);
+        json.put("sizeY", sizeY);
+        json.put("gameMessages", gameMessagesToJson());
+        json.put("player", player.toJson());
+        json.put("level", gameLevel.toJson());
+        return json;
+    }
+
+    // EFFECTS: Returns JSON Array Representation of Game Objects
+    public JSONArray gameMessagesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (String m : gameMessages) {
+            jsonArray.put(m);
+        }
+        return jsonArray;
     }
 
     //

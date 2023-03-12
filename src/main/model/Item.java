@@ -1,6 +1,8 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  */
 
 
-public abstract class Item implements Renderable {
+public abstract class Item implements Renderable, Writable {
     // Item Constants
     private final String name;
     private final List<String> description;
@@ -34,6 +36,14 @@ public abstract class Item implements Renderable {
 
     // EFFECTS: Abstract function for what happens when an item is used
     public abstract void useItem(Player p);
+
+    // EFFECTS: Returns JSON Representation of an Item object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("__type__", this.getClass().getName());
+        return json;
+    }
 
     // Getters and Setters
 

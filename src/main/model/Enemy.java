@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import org.json.JSONObject;
 
 /*
  * Abstract class for all Enemies.
@@ -41,5 +42,14 @@ public abstract class Enemy extends Entity {
     // EFFECTS: Resets the stunned state of the enemy
     public void resetStunned() {
         stunned = false;
+    }
+
+    // EFFECTS: Returns JSON Representation of an Enemy object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("__type__", this.getClass().getName());
+        json.put("stunned", stunned);
+        return json;
     }
 }

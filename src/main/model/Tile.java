@@ -1,6 +1,8 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.List;
 
@@ -11,7 +13,7 @@ import java.util.List;
  * Examples: Wall, Spike
  */
 
-public abstract class Tile implements ScreenElement {
+public abstract class Tile implements ScreenElement, Writable {
     // Generic Tile Elements
     private final int posX;
     private final int posY;
@@ -46,6 +48,17 @@ public abstract class Tile implements ScreenElement {
     // EFFECTS: Handles what happens when an entity steps on tile
     //          By default, nothing happens, but should be overwritten
     public void onStep(Entity e) {
+    }
+
+    // EFFECTS: Returns JSON Representation of a Tile object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("__type__", this.getClass().getName());
+        json.put("posX", posX);
+        json.put("posY", posY);
+        json.put("isSolid", isSolid);
+        return json;
     }
 
     //

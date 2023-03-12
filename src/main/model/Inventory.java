@@ -2,11 +2,14 @@ package model;
 
 import model.items.Armor;
 import model.items.Weapon;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventory {
+public class Inventory implements Writable {
     private List<Item> inventoryItems;
     private Armor equippedArmor;
     private Weapon equippedWeapon;
@@ -43,8 +46,27 @@ public class Inventory {
         return inventoryItems.size();
     }
 
+    // EFFECTS: Returns JSON Representation of a player Inventory object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("inventory", inventoryItemsToJson());
+        json.put("equippedArmor", equippedArmor.toJson());
+        json.put("equippedWeapon", equippedWeapon.toJson());
+        return json;
+    }
+
+    // EFFECTS: Gets list of inventory items as serializable object
+    public JSONArray inventoryItemsToJson() {
+        JSONArray array = new JSONArray();
+        for (Item i : inventoryItems) {
+            array.put(i.toJson());
+        }
+        return array;
+    }
+
     // MODIFIES: this
-    // EFFECTS: Clears the inventoru
+    // EFFECTS: Clears the inventory
     public void clearInventory() {
         inventoryItems.clear();
     }

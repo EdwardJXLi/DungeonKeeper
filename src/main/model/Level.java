@@ -1,8 +1,12 @@
 package model;
 
+import jdk.nashorn.internal.runtime.JSONListAdapter;
 import model.enemies.Guard;
 import model.tiles.Trap;
 import model.tiles.Wall;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.ArrayList;
 
@@ -10,7 +14,7 @@ import java.util.ArrayList;
  * Main class for all components relating to a game level
  */
 
-public class Level {
+public class Level implements Writable {
     // Level Constants
     public static final int INITIAL_GUARDS_SPAWN = 10;
 
@@ -175,6 +179,50 @@ public class Level {
             }
         }
         return null;
+    }
+
+    // EFFECTS: Returns JSON Representation of Level object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("sizeX", sizeX);
+        json.put("sizeY", sizeY);
+        json.put("spawnX", spawnX);
+        json.put("spawnY", spawnY);
+        json.put("levelNum", levelNum);
+
+        json.put("tiles", tilesToJson());
+        json.put("enemies", enemiesToJson());
+        json.put("droppedItems", droppedItemsToJson());
+
+        return json;
+    }
+
+    // EFFECTS: Returns JSON Array Representation of tiles
+    public JSONArray tilesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Tile t : tiles) {
+            jsonArray.put(t.toJson());
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: Returns JSON Array Representation of enemies
+    public JSONArray enemiesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Enemy e : enemies) {
+            jsonArray.put(e.toJson());
+        }
+        return jsonArray;
+    }
+
+    // EFFECTS: Returns JSON Array Representation of dropped items
+    public JSONArray droppedItemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (DroppedItem di : droppedItems) {
+            jsonArray.put(di.toJson());
+        }
+        return jsonArray;
     }
 
     //

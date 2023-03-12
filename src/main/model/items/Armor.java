@@ -3,6 +3,7 @@ package model.items;
 import com.googlecode.lanterna.TextColor;
 import model.Item;
 import model.Player;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +42,13 @@ public abstract class Armor extends Item {
     public void useItem(Player p) {
         p.getGame().sendMessage("You Equipped " + getName());
         p.equipArmor(this);
+    }
+
+    // EFFECTS: Returns JSON Representation of an Armor
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("additionalDefense", additionalDefense);
+        return json;
     }
 }

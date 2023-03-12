@@ -2,6 +2,8 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 import model.items.*;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * Players and attack enemies.
  */
 
-public class Player extends Entity {
+public class Player extends Entity implements Writable {
     // Player Constants
     public static final int INITIAL_HEALTH = 200;
     public static final int INITIAL_DEFENSE = 0;
@@ -204,5 +206,16 @@ public class Player extends Entity {
         } else {
             return super.getAttack();
         }
+    }
+
+    // EFFECTS: Returns JSON Representation of a Player object
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = super.toJson();
+        json.put("kills", kills);
+        json.put("inventory", inventory.toJson());
+        // Last Killed Data is lost during this. THIS IS INTENTIONAL!
+        // That should only be a UI helper, so no functionality would be affected!
+        return json;
     }
 }
