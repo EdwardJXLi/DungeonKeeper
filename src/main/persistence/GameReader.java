@@ -72,10 +72,20 @@ public class GameReader {
         );
 
         // Load Player Object
-        Player player = parsePlayerObject(json.getJSONObject("player"));
+        Player player;
+        if (json.has("player")) {
+            player = parsePlayerObject(json.getJSONObject("player"));
+        } else {
+            player = null;
+        }
 
         // Load Level Object
-        Level level = parseLevelObject(json.getJSONObject("level"));
+        Level level;
+        if (json.has("level")) {
+            level = parseLevelObject(json.getJSONObject("level"));
+        } else {
+            level = null;
+        }
 
         return this.game;
     }

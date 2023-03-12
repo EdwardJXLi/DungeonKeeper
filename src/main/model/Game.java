@@ -134,8 +134,12 @@ public class Game implements Writable {
         json.put("sizeX", sizeX);
         json.put("sizeY", sizeY);
         json.put("gameMessages", gameMessagesToJson());
-        json.put("player", player.toJson());
-        json.put("level", gameLevel.toJson());
+        if (player != null) {
+            json.put("player", player.toJson());
+        }
+        if (gameLevel != null) {
+            json.put("level", gameLevel.toJson());
+        }
         return json;
     }
 
