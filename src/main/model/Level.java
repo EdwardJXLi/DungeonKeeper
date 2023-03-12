@@ -261,6 +261,14 @@ public class Level implements Writable {
         return sizeY;
     }
 
+    public int getSpawnX() {
+        return spawnX;
+    }
+
+    public int getSpawnY() {
+        return spawnY;
+    }
+
     public int getLevelNum() {
         return levelNum;
     }

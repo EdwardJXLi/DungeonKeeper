@@ -87,6 +87,9 @@ public class GameReader {
             level = null;
         }
 
+        // Set Player and Level
+        this.game.setGamePlayerAndLevel(player, level);
+
         return this.game;
     }
 

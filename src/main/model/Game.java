@@ -152,6 +152,13 @@ public class Game implements Writable {
         return jsonArray;
     }
 
+    // REQUIRES: Only used for loading from save.
+    // EFFECTS: Sets Game and Level from outside sources
+    public void setGamePlayerAndLevel(Player player, Level gameLevel) {
+        this.player = player;
+        this.gameLevel = gameLevel;
+    }
+
     //
     // Getters and Setters
     //
