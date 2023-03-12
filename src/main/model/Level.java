@@ -1,6 +1,5 @@
 package model;
 
-import jdk.nashorn.internal.runtime.JSONListAdapter;
 import model.enemies.Guard;
 import model.tiles.Trap;
 import model.tiles.Wall;

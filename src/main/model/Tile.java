@@ -57,7 +57,6 @@ public abstract class Tile implements ScreenElement, Writable {
         json.put("__type__", this.getClass().getName());
         json.put("posX", posX);
         json.put("posY", posY);
-        json.put("isSolid", isSolid);
         return json;
     }
 
