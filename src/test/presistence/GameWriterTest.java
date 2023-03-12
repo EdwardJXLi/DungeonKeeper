@@ -32,8 +32,8 @@ public class GameWriterTest {
         try {
             // Create Save Game
             Game game = new Game(32, 24);
-            SaveGame saveGame = new SaveGame(game, 64);
             GameWriter gameWriter = new GameWriter("./data/testGameWriterEmptyGame.json");
+            SaveGame saveGame = gameWriter.createSaveGame(game, 64);
             gameWriter.open();
             gameWriter.write(saveGame);
             gameWriter.close();
@@ -62,8 +62,8 @@ public class GameWriterTest {
             // Create Save Game
             Game game = new Game(100, 100);
             game.initGame();
-            SaveGame saveGame = new SaveGame(game, 22);
             GameWriter gameWriter = new GameWriter("./data/testGameWriterBasicGame.json");
+            SaveGame saveGame = gameWriter.createSaveGame(game, 22);
             gameWriter.open();
             gameWriter.write(saveGame);
             gameWriter.close();
@@ -83,12 +83,11 @@ public class GameWriterTest {
             assertTrue(newGame.isGameRunning());
 
             // Check Game Messages
-            // TODO: KNOWN BROKEN
-//            assertFalse(game.getMessages().isEmpty());
-//            assertEquals(game.getMessages().size(), newGame.getMessages().size());
-//            for (int i = 0; i < game.getMessages().size(); i++) {
-//                assertEquals(game.getMessages().get(i), newGame.getMessages().get(i));
-//            }
+            assertFalse(game.getMessages().isEmpty());
+            assertEquals(game.getMessages().size(), newGame.getMessages().size());
+            for (int i = 0; i < game.getMessages().size(); i++) {
+                assertEquals(game.getMessages().get(i), newGame.getMessages().get(i));
+            }
 
             // Check Player Info
             Player player = game.getPlayer();
@@ -118,8 +117,16 @@ public class GameWriterTest {
             }
             for (int i = 0; i < inventory.getInventoryItems().size(); i++) {
                 assertEquals(
+                        inventory.getInventoryItems().get(i).getClass(),
+                        newInventory.getInventoryItems().get(i).getClass()
+                );
+                assertEquals(
                         inventory.getInventoryItems().get(i).getName(),
                         newInventory.getInventoryItems().get(i).getName()
+                );
+                assertEquals(
+                        inventory.getInventoryItems().get(i).getDescription(),
+                        newInventory.getInventoryItems().get(i).getDescription()
                 );
             }
 
@@ -135,6 +142,10 @@ public class GameWriterTest {
             // Check Tiles
             assertEquals(level.getTiles().size(), newLevel.getTiles().size());
             for (int i = 0; i < level.getTiles().size(); i++) {
+                assertEquals(
+                        level.getTiles().get(i).getClass(),
+                        newLevel.getTiles().get(i).getClass()
+                );
                 assertEquals(
                         level.getTiles().get(i).getName(),
                         newLevel.getTiles().get(i).getName()
@@ -152,6 +163,10 @@ public class GameWriterTest {
             // Check Enemies
             assertEquals(level.getEnemies().size(), newLevel.getEnemies().size());
             for (int i = 0; i < level.getEnemies().size(); i++) {
+                assertEquals(
+                        level.getEnemies().get(i).getClass(),
+                        newLevel.getEnemies().get(i).getClass()
+                );
                 assertEquals(
                         level.getEnemies().get(i).getName(),
                         newLevel.getEnemies().get(i).getName()
@@ -186,8 +201,20 @@ public class GameWriterTest {
             assertEquals(level.getDroppedItems().size(), newLevel.getDroppedItems().size());
             for (int i = 0; i < level.getDroppedItems().size(); i++) {
                 assertEquals(
+                        level.getDroppedItems().get(i).getClass(),
+                        newLevel.getDroppedItems().get(i).getClass()
+                );
+                assertEquals(
+                        level.getDroppedItems().get(i).getItem().getClass(),
+                        newLevel.getDroppedItems().get(i).getItem().getClass()
+                );
+                assertEquals(
                         level.getDroppedItems().get(i).getItem().getName(),
                         newLevel.getDroppedItems().get(i).getItem().getName()
+                );
+                assertEquals(
+                        level.getDroppedItems().get(i).getItem().getDescription(),
+                        newLevel.getDroppedItems().get(i).getItem().getDescription()
                 );
                 assertEquals(
                         level.getDroppedItems().get(i).getPosX(),

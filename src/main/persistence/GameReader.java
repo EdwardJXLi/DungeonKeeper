@@ -97,7 +97,7 @@ public class GameReader {
     public List<String> parseGameMessagesArray(JSONArray array) {
         List<String> gameMessages = new ArrayList<>();
         for (Object s: array) {
-            gameMessages.add(gameMessages.toString());
+            gameMessages.add(s.toString());
         }
         return gameMessages;
     }
