@@ -9,7 +9,7 @@ import model.Game;
  * Abstract class for text-based ui frames
  */
 
-public abstract class Frame {
+public abstract class TerminalFrame {
     private final int leftBound;
     private final int topBound;
     private final int rightBound;
@@ -21,7 +21,7 @@ public abstract class Frame {
     private final Game game;
 
     // EFFECTS: Initializes a generic frame that fits within bounds
-    public Frame(
+    public TerminalFrame(
             int leftBound, int topBound, int rightBound, int bottomBound, String frameName, Screen screen, Game game
     ) {
         this.leftBound = leftBound;

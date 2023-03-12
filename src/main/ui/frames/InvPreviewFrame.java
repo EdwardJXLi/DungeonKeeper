@@ -4,7 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import model.Item;
-import ui.Frame;
+import ui.TerminalFrame;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * text-based ui frame to render the item previews in the inventory
  */
 
-public class InvPreviewFrame extends Frame {
+public class InvPreviewFrame extends TerminalFrame {
     // EFFECTS: Initializes an inventory frame that shows inventory contents
     public InvPreviewFrame(
             int leftBound, int topBound, int rightBound, int bottomBound,

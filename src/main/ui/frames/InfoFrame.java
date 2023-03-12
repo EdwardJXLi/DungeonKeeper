@@ -3,7 +3,7 @@ package ui.frames;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.*;
-import ui.Frame;
+import ui.TerminalFrame;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * text-based ui frame to render live game information and tooltips
  */
 
-public class InfoFrame extends Frame {
+public class InfoFrame extends TerminalFrame {
     private static final int INFO_OFFSET = 5;
 
     // EFFECTS: Initializes a player info frame that shows information stats

@@ -4,7 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import model.Item;
-import ui.Frame;
+import ui.TerminalFrame;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
  * text-based ui frame to render the inventory
  */
 
-public class InventoryFrame extends Frame {
+public class InventoryFrame extends TerminalFrame {
     // Base Helper Variables
     int selected;
     int from;

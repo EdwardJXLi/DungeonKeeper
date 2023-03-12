@@ -6,13 +6,13 @@ import model.Game;
 import model.Player;
 import model.items.Armor;
 import model.items.Weapon;
-import ui.Frame;
+import ui.TerminalFrame;
 
 /*
  * text-based ui frame to render equipped armors and swords
  */
 
-public class EquipmentFrame extends Frame {
+public class EquipmentFrame extends TerminalFrame {
     private static final int ARMOR_BOX_OFFSET = 6;
 
     // EFFECTS: Initializes an inventory frame that shows inventory contents

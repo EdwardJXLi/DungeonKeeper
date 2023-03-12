@@ -4,13 +4,13 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import model.Player;
-import ui.Frame;
+import ui.TerminalFrame;
 
 /*
  * text-based ui frame to render info about the player
  */
 
-public class PlayerInfoFrame extends Frame {
+public class PlayerInfoFrame extends TerminalFrame {
     private final Player player;
 
     // EFFECTS: Initializes a player info frame that shows player stats

@@ -2,7 +2,7 @@ package ui.frames;
 
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
-import ui.Frame;
+import ui.TerminalFrame;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * text-based ui frame to render game messages
  */
 
-public class MessageFrame extends Frame {
+public class MessageFrame extends TerminalFrame {
     // EFFECTS: Initializes a message info frame that shows game messages
     public MessageFrame(
             int leftBound, int topBound, int rightBound, int bottomBound,

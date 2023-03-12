@@ -2,13 +2,13 @@ package ui.frames;
 
 import com.googlecode.lanterna.screen.Screen;
 import model.Game;
-import ui.Frame;
+import ui.TerminalFrame;
 
 /*
  * text-based ui frame to render the inventory instructions
  */
 
-public class InvInstructionsFrame extends Frame {
+public class InvInstructionsFrame extends TerminalFrame {
     // EFFECTS: Initializes an inventory frame that shows inventory contents
     public InvInstructionsFrame(
             int leftBound, int topBound, int rightBound, int bottomBound,

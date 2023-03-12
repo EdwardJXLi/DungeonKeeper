@@ -4,13 +4,13 @@ import com.googlecode.lanterna.screen.Screen;
 import model.Game;
 import model.Player;
 import model.ScreenElement;
-import ui.Frame;
+import ui.TerminalFrame;
 
 /*
  * text-based ui frame to render the main game content
  */
 
-public class GameFrame extends Frame {
+public class GameFrame extends TerminalFrame {
     // EFFECTS: Initializes a player info frame that draws primary game map
     public GameFrame(int leftBound, int topBound, int rightBound, int bottomBound, Screen screen, Game game) {
         super(leftBound, topBound, rightBound, bottomBound, "Game Level", screen, game);
