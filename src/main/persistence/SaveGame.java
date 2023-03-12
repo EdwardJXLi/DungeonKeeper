@@ -14,7 +14,14 @@ public class SaveGame {
     private int tick;
     // TODO: add date
 
-    // Creates a generic save game from the game object and version
+    // EFFECTS: Creates a generic save game from the game object and tick
+    public SaveGame(Game game, int tick) {
+        this.game = game;
+        this.version = Game.VERSION;
+        this.tick = tick;
+    }
+
+    // EFFECTS: Creates a generic save game from the game object, version, and tick
     public SaveGame(Game game, String version, int tick) {
         this.game = game;
         this.version = version;
