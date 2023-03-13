@@ -286,7 +286,6 @@ public class TerminalGame {
 
         // Check if keystroke is valid
         if (stroke != null) {
-            System.out.println(stroke);
             if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'w') {
                 player.moveUp();
             } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 's') {
