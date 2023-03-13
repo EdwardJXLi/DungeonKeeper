@@ -9,8 +9,14 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import model.*;
+import persistence.GameReader;
+import persistence.GameWriter;
+import persistence.SaveGame;
 import ui.frames.*;
 
+import javax.imageio.stream.FileImageOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,14 +32,16 @@ public class TerminalGame {
     private static final int PLAYER_INFO_BOX_HEIGHT = 5;
     private static final int INV_PREVIEW_BOX_HEIGHT = 4;
     private static final int INV_INSTRUCTION_BOX_HEIGHT = 5;
+    private static final String SAVE_LOCATION = "./data/saveGame.json";
 
     // Game and Screen Variables
-    private final Game game;
+    private Game game;
     private Screen screen;
     private final int gameSizeX;
     private final int gameSizeY;
     private final int windowSizeX;
     private final int windowSizeY;
+    private int tick;
 
     // Terminal UI Frames
     private GameFrame gameFrame;
@@ -46,6 +54,10 @@ public class TerminalGame {
     private InvInstructionsFrame inventoryInstructionsFrame;
     private InvPreviewFrame inventoryPreviewFrame;
     private EquipmentFrame equipmentFrame;
+
+    // Menu Inventory Frames
+    private PauseMenuFrame pauseMenuFrame;
+    private MainMenuFrame mainMenuFrame;
 
     // EFFECTS: Creates and Initializes Game of size X and Y
     public TerminalGame(int sizeX, int sizeY) {
@@ -76,14 +88,33 @@ public class TerminalGame {
             screen = new TerminalScreen(terminal);
             screen.startScreen();
 
+            // Set Up Main Menu
+            mainMenuFrame = new MainMenuFrame(
+                    0, 0,
+                    windowSizeX - 1, windowSizeY - 1,
+                    screen, game
+            );
+
+            // Start up the main menu
+            boolean startGame = handleMainMenu();
+
             // Set up main UI Frames
             initUIFrames();
 
             // Setup Inventory Frames
             initInventoryFrames();
 
-            // Start The Game Loop
-            startGameLoop();
+            // Set Up Pause Menu
+            pauseMenuFrame = new PauseMenuFrame(
+                    0, 0,
+                    windowSizeX - 1, windowSizeY - 1,
+                    screen, game
+            );
+
+            // Start the game as necessary
+            if (startGame) {
+                startGameLoop();
+            }
         } catch (IOException e) {
             System.out.println("Game Unexpectedly Closed");
         } catch (InterruptedException e) {
@@ -95,6 +126,46 @@ public class TerminalGame {
         System.out.println("Thank you for playing!");
 
         System.exit(0);
+    }
+
+    // MODIFIES: This
+    // EFFECTS: Asks the user if they want to load existing game or continue playing
+    private boolean handleMainMenu() throws IOException {
+        // Check if save file exists
+        boolean saveFileExists = new File(SAVE_LOCATION).exists();
+
+        // Wait for user input
+        while (true) {
+            // Initialize the screen
+            screen.setCursorPosition(new TerminalPosition(0, 0));
+            screen.clear();
+
+            // Render the current inventory
+            mainMenuFrame.drawFrame();
+            mainMenuFrame.renderMainMenu(saveFileExists);
+
+            // Refresh Screen
+            screen.refresh();
+
+            // Launch a thread blocking read
+            KeyStroke stroke = screen.readInput();
+
+            if (stroke != null) {
+                if (stroke.getKeyType() == KeyType.Escape) {
+                    return false;
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'q') {
+                    return false;
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'n') {
+                    return true;
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'c') {
+                    GameReader gameReader = new GameReader(SAVE_LOCATION);
+                    SaveGame saveGame = gameReader.read();
+                    game = saveGame.getGame();
+                    tick = saveGame.getTick();
+                    return true;
+                }
+            }
+        }
     }
 
     // MODIFIES: this
@@ -150,7 +221,6 @@ public class TerminalGame {
     // MODIFIES: this
     // EFFECTS: Renders Game and Handles Input for each tick
     private void startGameLoop() throws IOException, InterruptedException {
-        int tick = 0;
         while (game.isGameRunning()) {
             tick++;
             renderGame();
@@ -190,23 +260,22 @@ public class TerminalGame {
 
         // Check if keystroke is valid
         if (stroke != null) {
-            if (stroke.getCharacter() != null) {
-                Character character = stroke.getCharacter();
-                if (character == 'w') {
-                    player.moveUp();
-                } else if (character == 's') {
-                    player.moveDown();
-                } else if (character == 'a') {
-                    player.moveLeft();
-                } else if (character == 'd') {
-                    player.moveRight();
-                } else if (character == 'e') {
-                    handleInventory();
-                } else if (character == 'q' && di != null) {
-                    player.pickupItem(di);
-                } else if (character == 'x' && di != null) {
-                    game.getLevel().removeDroppedItem(di);
-                }
+            if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'w') {
+                player.moveUp();
+            } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 's') {
+                player.moveDown();
+            } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'a') {
+                player.moveLeft();
+            } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'd') {
+                player.moveRight();
+            } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'e') {
+                handleInventory();
+            } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'q' && di != null) {
+                player.pickupItem(di);
+            } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'x' && di != null) {
+                game.getLevel().removeDroppedItem(di);
+            } else if (stroke.getKeyType() == KeyType.Escape) {
+                handlePauseMenu();
             }
         }
     }
@@ -323,5 +392,55 @@ public class TerminalGame {
             return true;
         }
         return false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Renders and handles the pause screen
+    private void handlePauseMenu() throws IOException {
+        // Wait for user input
+        while (true) {
+            // Initialize the screen
+            screen.setCursorPosition(new TerminalPosition(0, 0));
+            screen.clear();
+
+            // Render the current inventory
+            pauseMenuFrame.drawFrame();
+            pauseMenuFrame.renderPauseMenu();
+
+            // Refresh Screen
+            screen.refresh();
+
+            // Launch a thread blocking read
+            KeyStroke stroke = screen.readInput();
+
+            if (stroke != null) {
+                if (stroke.getKeyType() == KeyType.Escape) {
+                    return;
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'q') {
+                    quitGame(true);
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'x') {
+                    quitGame(false);
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Quits the game, with optionals saving
+    public void quitGame(boolean save) {
+        try {
+            if (save) {
+                GameWriter gameWriter = new GameWriter(SAVE_LOCATION);
+                SaveGame saveGame = gameWriter.createSaveGame(game, tick);
+                gameWriter.open();
+                gameWriter.write(saveGame);
+                gameWriter.close();
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Failed to save game for reason: " + e);
+        }
+
+        // Actually quit the game
+        System.exit(0);
     }
 }

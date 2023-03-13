@@ -63,7 +63,7 @@ public class Inventory implements Writable {
         if (equippedArmor != null) {
             json.put("equippedArmor", equippedArmor.toJson());
         }
-        if (equippedArmor != null) {
+        if (equippedWeapon != null) {
             json.put("equippedWeapon", equippedWeapon.toJson());
         }
         return json;
