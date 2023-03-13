@@ -88,12 +88,8 @@ public class TerminalGame {
             screen = new TerminalScreen(terminal);
             screen.startScreen();
 
-            // Set Up Main Menu
-            mainMenuFrame = new MainMenuFrame(
-                    0, 0,
-                    windowSizeX - 1, windowSizeY - 1,
-                    screen, game
-            );
+            // Setup Menu Frames
+            initMenuFrames();
 
             // Start up the main menu
             boolean startGame = handleMainMenu();
@@ -103,13 +99,6 @@ public class TerminalGame {
 
             // Setup Inventory Frames
             initInventoryFrames();
-
-            // Set Up Pause Menu
-            pauseMenuFrame = new PauseMenuFrame(
-                    0, 0,
-                    windowSizeX - 1, windowSizeY - 1,
-                    screen, game
-            );
 
             // Start the game as necessary
             if (startGame) {
@@ -158,8 +147,7 @@ public class TerminalGame {
                 } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'n') {
                     return true;
                 } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'c') {
-                    GameReader gameReader = new GameReader(SAVE_LOCATION);
-                    SaveGame saveGame = gameReader.read();
+                    SaveGame saveGame = new GameReader(SAVE_LOCATION).read();
                     game = saveGame.getGame();
                     tick = saveGame.getTick();
                     return true;
@@ -219,6 +207,21 @@ public class TerminalGame {
     }
 
     // MODIFIES: this
+    // EFFECTS: Initializes Menu Terminal Frames
+    private void initMenuFrames() {
+        pauseMenuFrame = new PauseMenuFrame(
+                0, 0,
+                windowSizeX - 1, windowSizeY - 1,
+                screen, game
+        );
+        mainMenuFrame = new MainMenuFrame(
+                0, 0,
+                windowSizeX - 1, windowSizeY - 1,
+                screen, game
+        );
+    }
+
+    // MODIFIES: this
     // EFFECTS: Renders Game and Handles Input for each tick
     private void startGameLoop() throws IOException, InterruptedException {
         while (game.isGameRunning()) {
@@ -260,6 +263,7 @@ public class TerminalGame {
 
         // Check if keystroke is valid
         if (stroke != null) {
+            System.out.println(stroke);
             if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'w') {
                 player.moveUp();
             } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 's') {
