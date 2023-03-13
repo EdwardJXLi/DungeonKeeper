@@ -24,7 +24,8 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
 - I want to be able to use and equip items.
 - 
 ## User Stories (Part 2)
-- I want to be able to save my game state while playing
-- I want to be able to load my game state while playing
-- I want to be able to save my game state when starting the game
-- I want to be able to load my game state when starting the game
+- I want to have the option to save my game state while playing
+- I want to have the option to reload my game state while playing
+- I want to have the option to save my game state when quitting the game
+- I want to have the option to reload my game state when starting the game
+- I want to have the option to create a new game, without loading the previous game state
