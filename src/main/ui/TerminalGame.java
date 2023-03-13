@@ -91,14 +91,14 @@ public class TerminalGame {
             // Setup Menu Frames
             initMenuFrames();
 
-            // Start up the main menu
-            boolean startGame = handleMainMenu();
-
             // Set up main UI Frames
             initUIFrames();
 
             // Setup Inventory Frames
             initInventoryFrames();
+
+            // Start up the main menu
+            boolean startGame = handleMainMenu();
 
             // Start the game as necessary
             if (startGame) {
@@ -117,7 +117,32 @@ public class TerminalGame {
         System.exit(0);
     }
 
-    // MODIFIES: This
+    // EFFECTS: Saves the game to file
+    public void saveGame() throws FileNotFoundException {
+        GameWriter gameWriter = new GameWriter(SAVE_LOCATION);
+        SaveGame saveGame = gameWriter.createSaveGame(game, tick);
+        gameWriter.open();
+        gameWriter.write(saveGame);
+        gameWriter.close();
+    }
+
+    // REQUIRES: Save File Exists
+    // MODIFIES: this
+    // EFFECTS: Loads The Game from File
+    public void loadGame() throws IOException {
+        // Load game from file
+        GameReader gameReader = new GameReader(SAVE_LOCATION);
+        SaveGame saveGame = gameReader.read();
+        game = saveGame.getGame();
+        tick = saveGame.getTick();
+
+        // Reinitialize Game Frames
+        initMenuFrames();
+        initUIFrames();
+        initInventoryFrames();
+    }
+
+    // MODIFIES: this
     // EFFECTS: Asks the user if they want to load existing game or continue playing
     private boolean handleMainMenu() throws IOException {
         // Check if save file exists
@@ -146,10 +171,8 @@ public class TerminalGame {
                     return false;
                 } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'n') {
                     return true;
-                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'c') {
-                    SaveGame saveGame = new GameReader(SAVE_LOCATION).read();
-                    game = saveGame.getGame();
-                    tick = saveGame.getTick();
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'c' && saveFileExists) {
+                    loadGame();
                     return true;
                 }
             }
@@ -401,6 +424,9 @@ public class TerminalGame {
     // MODIFIES: this
     // EFFECTS: Renders and handles the pause screen
     private void handlePauseMenu() throws IOException {
+        // Check if save file exists
+        boolean saveFileExists = new File(SAVE_LOCATION).exists();
+
         // Wait for user input
         while (true) {
             // Initialize the screen
@@ -408,8 +434,7 @@ public class TerminalGame {
             screen.clear();
 
             // Render the current inventory
-            pauseMenuFrame.drawFrame();
-            pauseMenuFrame.renderPauseMenu();
+            pauseMenuFrame.renderPauseMenu(saveFileExists);
 
             // Refresh Screen
             screen.refresh();
@@ -424,6 +449,12 @@ public class TerminalGame {
                     quitGame(true);
                 } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'x') {
                     quitGame(false);
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 's') {
+                    saveGame();
+                    return;
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'l' && saveFileExists) {
+                    loadGame();
+                    return;
                 }
             }
         }
@@ -434,11 +465,7 @@ public class TerminalGame {
     public void quitGame(boolean save) {
         try {
             if (save) {
-                GameWriter gameWriter = new GameWriter(SAVE_LOCATION);
-                SaveGame saveGame = gameWriter.createSaveGame(game, tick);
-                gameWriter.open();
-                gameWriter.write(saveGame);
-                gameWriter.close();
+                saveGame();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Failed to save game for reason: " + e);
