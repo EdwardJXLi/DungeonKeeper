@@ -162,12 +162,11 @@ public class GameReader {
                 return new GuardSword(
                         json.getInt("additionalAttack")
                 );
-            case "model.items.GuardArmor":
+//            case "model.items.GuardArmor":
+            default:
                 return new GuardArmor(
                         json.getInt("additionalDefense")
                 );
-            default:
-                throw new RuntimeException("Error While Parsing Item! Unknown Item: " + itemClass);
         }
     }
 
@@ -212,10 +211,9 @@ public class GameReader {
         switch (tileClass) {
             case "model.tiles.Wall":
                 return new Wall(posX, posY);
-            case "model.tiles.Trap":
-                return new Trap(posX, posY);
+//            case "model.tiles.Trap":
             default:
-                throw new RuntimeException("Error While Parsing Tile! Unknown Tile: " + tileClass);
+                return new Trap(posX, posY);
         }
     }
 
@@ -241,10 +239,9 @@ public class GameReader {
         switch (enemyClass) {
             case "model.enemies.Dummy":
                 return new Dummy(game, posX, posY, health, defense, attack, stunned);
-            case "model.enemies.Guard":
-                return new Guard(game, posX, posY, health, defense, attack, stunned);
+//            case "model.enemies.Guard":
             default:
-                throw new RuntimeException("Error While Parsing Enemy! Unknown Enemy: " + enemyClass);
+                return new Guard(game, posX, posY, health, defense, attack, stunned);
         }
     }
 

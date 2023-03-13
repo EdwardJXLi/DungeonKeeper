@@ -1,0 +1,11 @@
+{
+    "game": {
+        "sizeX": 32,
+        "gameMessages": [],
+        "sizeY": 24
+    },
+    "metadata": {
+        "tick": 0,
+        "version": "wip-p2-debug"
+    }
+}

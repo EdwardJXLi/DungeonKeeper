@@ -65,14 +65,14 @@ public class FullGameSaveTest extends SaveGameTest {
             game.getLevel().dropItem(7, 3, new GuardArmor(45678));
 
             // Create Save Game
-            GameWriter gameWriter = new GameWriter("./data/testGameWriterBasicGame.json");
+            GameWriter gameWriter = new GameWriter("./data/testGameWriterFullGame.json");
             saveGame = gameWriter.createSaveGame(game, 20);
             gameWriter.open();
             gameWriter.write(saveGame);
             gameWriter.close();
 
             // Read Save Game
-            GameReader gameReader = new GameReader("./data/testGameWriterBasicGame.json");
+            GameReader gameReader = new GameReader("./data/testGameWriterFullGame.json");
             newSaveGame = gameReader.read();
             newGame = newSaveGame.getGame();
         } catch (IOException e) {
