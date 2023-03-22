@@ -16,7 +16,7 @@ public class GamePanel extends JPanel {
 
         try {
             // Load the image from a file
-            BufferedImage rawImage = ImageIO.read(new File("assets/Dungeon_Tileset.png"));
+            BufferedImage rawImage = ImageIO.read(new File("assets/tileset.png"));
             image = resize(rawImage, 400, 400);
         } catch (IOException e) {
             e.printStackTrace();

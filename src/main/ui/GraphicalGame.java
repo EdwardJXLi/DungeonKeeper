@@ -1,6 +1,7 @@
 package ui;
 
 import ui.panels.GamePanel;
+import ui.sprites.SpriteManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -22,6 +23,8 @@ public class GraphicalGame extends JFrame {
 
     private GamePanel gamePanel;
 
+    private SpriteManager spriteManager;
+
     // EFFECTS: Creates and Initializes Game of size X and Y
     public GraphicalGame(int sizeX, int sizeY) {
         // Create UI
@@ -42,7 +45,10 @@ public class GraphicalGame extends JFrame {
         gamePanel = new GamePanel();
         add(gamePanel);
 
+        // Initialize Graphics and Sprites
+        spriteManager = new SpriteManager("assets/texturepack.json");
+
         // Initialize UI and Game
-        setVisible(true);
+//        setVisible(true);
     }
 }

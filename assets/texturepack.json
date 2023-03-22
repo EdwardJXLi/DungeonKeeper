@@ -1,0 +1,31 @@
+{
+  "spritesheets": {
+    "TILES": {
+      "source": "assets/tileset.png",
+      "sprite_size": 16
+    }
+  },
+  "sprites": {
+    "TILE_FLOOR": {
+      "type": "sprite",
+      "spritesheet": "TILES",
+      "x": 1,
+      "y": 1,
+      "transparent": false
+    },
+    "TILE_WALL": {
+      "type": "sprite",
+      "spritesheet": "TILES",
+      "x": 0,
+      "y": 0,
+      "transparent": false
+    },
+    "TILE_TRAP": {
+      "type": "sprite",
+      "spritesheet": "TILES",
+      "x": 8,
+      "y": 6,
+      "transparent": false
+    }
+  }
+}

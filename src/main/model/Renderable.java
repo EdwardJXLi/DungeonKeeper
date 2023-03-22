@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 
 /*
  * Interface for anything that can be rendered,
@@ -15,4 +16,6 @@ public interface Renderable {
     TextColor getTextColor();
 
     TextColor getBackgroundColor();
+
+//    SpriteID getSpriteID();
 }

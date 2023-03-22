@@ -18,7 +18,7 @@ public class RenderingTest extends JFrame {
 
         try {
             // Load the image from a file
-            image = ImageIO.read(new File("assets/Dungeon_Tileset.png"));
+            image = ImageIO.read(new File("assets/tileset.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
