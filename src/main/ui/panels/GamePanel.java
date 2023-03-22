@@ -1,43 +1,65 @@
 package ui.panels;
 
-import javax.imageio.ImageIO;
+import model.graphics.SpriteID;
+import ui.GraphicalGame;
+import ui.sprites.Sprite;
+import ui.sprites.SpriteManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
 public class GamePanel extends JPanel {
 
     private BufferedImage image;
+    SpriteManager spriteManager;
 
-    public GamePanel() {
+    public GamePanel(SpriteManager spriteManager) {
         super();
-
-//        try {
-//            // Load the image from a file
-//            BufferedImage rawImage = ImageIO.read(new File("assets/tileset.png"));
-//            image = resize(rawImage, 400, 400);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        this.spriteManager = spriteManager;
     }
 
-    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
-        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_FAST);
-        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D g2d = dimg.createGraphics();
-        g2d.drawImage(tmp, 0, 0, null);
-        g2d.dispose();
-
-        return dimg;
+    // TODO: Hacky and Temporary Draw Function!
+    public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY) {
+        g.drawImage(
+                sprite.getImage(),
+                offsetX * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
+                offsetY * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
+                null
+        );
     }
 
-//    @Override
-//    public void paint(Graphics g) {
-//        // Draw the image on screen
-//        g.drawImage(image, 0, 0, null);
-//    }
+    @Override
+    public void paint(Graphics g) {
+        // TODO: Test Draw!
+        g.setColor(Color.GRAY);
+        g.fillRect(0, 0, getWidth(), getHeight());
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Test", Font.PLAIN, 24));
+        g.drawString(
+                "Initial Rendering Test!",
+                GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
+                GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE - 8
+        );
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Test", Font.PLAIN, 12));
+        int offsetY = 1;
+        for (SpriteID spriteID : SpriteID.values()) {
+            List<Sprite> sprites = spriteManager.getSpriteList(spriteID);
+            g.drawString(
+                    spriteID.name(),
+                    8,
+                    offsetY * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE + 18
+            );
+            int offsetX = 5;
+            for (Sprite sprite : sprites) {
+                drawSprite(g, sprite, offsetX, offsetY);
+                offsetX++;
+            }
+            offsetY++;
+        }
+
+    }
 
 }

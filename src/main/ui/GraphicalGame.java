@@ -36,19 +36,19 @@ public class GraphicalGame extends JFrame {
         windowSizeX = sizeX * SPRITE_SIZE * SCALE;
         windowSizeY = sizeY * SPRITE_SIZE * SCALE;
 
+        // Initialize Graphics and Sprites
+        spriteManager = new SpriteManager("assets/texturepack.json");
+
         // Set up graphical UI
         setSize(windowSizeX, windowSizeY);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
         // Create and add all panels
-        gamePanel = new GamePanel();
+        gamePanel = new GamePanel(spriteManager);
         add(gamePanel);
 
-        // Initialize Graphics and Sprites
-        spriteManager = new SpriteManager("assets/texturepack.json");
-
         // Initialize UI and Game
-//        setVisible(true);
+        setVisible(true);
     }
 }

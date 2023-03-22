@@ -4,28 +4,430 @@
   },
   "sprites": {
     "TILE_FLOOR": {
-      "type": "sprite",
-      "source": "TILES",
-      "x": 1,
-      "y": 1,
-      "sprite_size": 16,
-      "transparent": false
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 1,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 2,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 3,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 4,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 1,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 2,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 3,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 4,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 1,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 2,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 3,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 4,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
     },
     "TILE_WALL": {
-      "type": "sprite",
-      "source": "TILES",
-      "x": 0,
-      "y": 0,
-      "sprite_size": 16,
-      "transparent": false
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 5,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 5,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 5,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 5,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 5,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 4,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 3,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 2,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 1,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
     },
     "TILE_TRAP": {
+      "type": "animated",
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "PLAYER": {
+      "type": "animated",
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "ENTITY_DUMMY": {
       "type": "sprite",
-      "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
+      "source": "assets/2DPixelDungeonAssetPack/items/box_1/box_1_1.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
       "transparent": true
+    },
+    "ENTITY_GUARD": {
+      "type": "animated",
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "ITEM_HEALTH_POTION": {
+      "type": "animated",
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "ITEM_DEFENSE_POTION": {
+      "type": "animated",
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "ITEM_STRENGTH_POTION": {
+      "type": "animated",
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
     }
   }
 }
