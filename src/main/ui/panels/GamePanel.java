@@ -14,13 +14,13 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         super();
 
-        try {
-            // Load the image from a file
-            BufferedImage rawImage = ImageIO.read(new File("assets/tileset.png"));
-            image = resize(rawImage, 400, 400);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            // Load the image from a file
+//            BufferedImage rawImage = ImageIO.read(new File("assets/tileset.png"));
+//            image = resize(rawImage, 400, 400);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public static BufferedImage resize(BufferedImage img, int newW, int newH) {
@@ -34,10 +34,10 @@ public class GamePanel extends JPanel {
         return dimg;
     }
 
-    @Override
-    public void paint(Graphics g) {
-        // Draw the image on screen
-        g.drawImage(image, 0, 0, null);
-    }
+//    @Override
+//    public void paint(Graphics g) {
+//        // Draw the image on screen
+//        g.drawImage(image, 0, 0, null);
+//    }
 
 }

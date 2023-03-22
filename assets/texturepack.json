@@ -1,31 +1,31 @@
 {
   "spritesheets": {
-    "TILES": {
-      "source": "assets/tileset.png",
-      "sprite_size": 16
-    }
+    "TILES": "assets/2DPixelDungeonAssetPack/character_tiles/Dungeon_Tileset.png"
   },
   "sprites": {
     "TILE_FLOOR": {
       "type": "sprite",
-      "spritesheet": "TILES",
+      "source": "TILES",
       "x": 1,
       "y": 1,
+      "sprite_size": 16,
       "transparent": false
     },
     "TILE_WALL": {
       "type": "sprite",
-      "spritesheet": "TILES",
+      "source": "TILES",
       "x": 0,
       "y": 0,
+      "sprite_size": 16,
       "transparent": false
     },
     "TILE_TRAP": {
       "type": "sprite",
-      "spritesheet": "TILES",
-      "x": 8,
-      "y": 6,
-      "transparent": false
+      "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
+      "x": 0,
+      "y": 0,
+      "sprite_size": 16,
+      "transparent": true
     }
   }
 }

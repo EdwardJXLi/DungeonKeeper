@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class SpriteManager {
     private String texturepack;
     private Map<String, SpriteSheet> spritesheets;
-    private Map<SpriteID, Sprite> sprites;
+    private Map<String, Sprite> sprites;
 
     public SpriteManager(String texturepack) {
         this.texturepack = texturepack;
@@ -53,15 +53,13 @@ public class SpriteManager {
     private void loadSpritesheets(JSONObject data) throws IOException {
         for (String name : data.keySet()) {
             // Get Information from Texture Pack
-            JSONObject ssData = data.getJSONObject(name);
-            String ssSource = ssData.getString("source");
-            int ssSpriteSize = ssData.getInt("sprite_size");
+            String ssSource = data.getString(name);
 
             // Load Image
             BufferedImage rawImage = readImage(ssSource);
 
             // Load Spritesheet
-            spritesheets.put(name, new SpriteSheet(rawImage, ssSpriteSize));
+            spritesheets.put(name, new SpriteSheet(rawImage));
         }
     }
 
@@ -71,21 +69,28 @@ public class SpriteManager {
         for (String name : data.keySet()) {
             // Get Information from Texture Pack
             JSONObject spriteData = data.getJSONObject(name);
-            String ssName = spriteData.getString("spritesheet");
+            String source = spriteData.getString("source");
             String type = spriteData.getString("type");
+            int spriteSize = spriteData.getInt("sprite_size");
             boolean transparent = spriteData.getBoolean("transparent");
 
-            // If type is "sptite", load as usual
+            // If type is "sprite", load as usual
             if (type.equals("sprite")) {
                 // Get X Y coords
                 int x = spriteData.getInt("x");
                 int y = spriteData.getInt("y");
 
-                // Get the referenced spritesheet
-                SpriteSheet ss = spritesheets.get(ssName);
+                // Check if a spritesheet was referenced. Else, use as file location.
+                // After that, load and initialize the sprite
+                BufferedImage rawImage;
+                if (spritesheets.containsKey(source)) {
+                    rawImage = spritesheets.get(source).getSprite(x, y, spriteSize);
+                } else {
+                    rawImage = new SpriteSheet(readImage(source)).getSprite(x, y, spriteSize);
+                }
 
                 // Load the sprite
-                sprites.put(SpriteID.valueOf(name), new Sprite(ss, x, y, transparent));
+                sprites.put(name, new Sprite(rawImage, x, y, transparent));
             }
         }
     }
