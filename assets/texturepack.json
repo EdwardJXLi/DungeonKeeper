@@ -225,6 +225,7 @@
     },
     "TILE_TRAP": {
       "type": "animated",
+      "frame_time": 4,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
@@ -258,6 +259,7 @@
     },
     "PLAYER": {
       "type": "animated",
+      "frame_time": 4,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_1.png",
@@ -299,6 +301,7 @@
     },
     "ENTITY_GUARD": {
       "type": "animated",
+      "frame_time": 4,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_1.png",
@@ -332,6 +335,7 @@
     },
     "ITEM_HEALTH_POTION": {
       "type": "animated",
+      "frame_time": 4,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_1.png",
@@ -365,6 +369,7 @@
     },
     "ITEM_DEFENSE_POTION": {
       "type": "animated",
+      "frame_time": 4,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_1.png",
@@ -398,6 +403,7 @@
     },
     "ITEM_STRENGTH_POTION": {
       "type": "animated",
+      "frame_time": 4,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_1.png",

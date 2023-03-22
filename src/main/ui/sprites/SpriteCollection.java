@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 public abstract class SpriteCollection implements Sprite {
-    private final List<Sprite> sprites;
+    protected final List<Sprite> sprites;
 
     public SpriteCollection(List<Sprite> sprites) {
         this.sprites = sprites;
@@ -16,7 +16,7 @@ public abstract class SpriteCollection implements Sprite {
     }
 
     @Override
-    public BufferedImage getSprite(int value) {
+    public BufferedImage getImage(int value) {
         return sprites.get(value % sprites.size()).getImage();
     }
 

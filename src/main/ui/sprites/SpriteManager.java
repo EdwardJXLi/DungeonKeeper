@@ -153,14 +153,13 @@ public class SpriteManager {
                     sprites.put(name, parseSprite(name, spriteData));
                     break;
                 case "varied":
-                    sprites.put(name, new VariedSprite(
-                            parseSpriteList(name, spriteData.getJSONArray("sprites")))
-                    );
+                    JSONArray variedSpriteList = spriteData.getJSONArray("sprites");
+                    sprites.put(name, new VariedSprite(parseSpriteList(name, variedSpriteList)));
                     break;
                 case "animated":
-                    sprites.put(name, new AnimatedSprite(
-                            parseSpriteList(name, spriteData.getJSONArray("sprites")))
-                    );
+                    JSONArray animatedSpriteList = spriteData.getJSONArray("sprites");
+                    int frameTime = spriteData.getInt("frame_time");
+                    sprites.put(name, new AnimatedSprite(parseSpriteList(name, animatedSpriteList), frameTime));
                     break;
                 default:
                     throw new RuntimeException("Unknown Sprite Type: " + type);

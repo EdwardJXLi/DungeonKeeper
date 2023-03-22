@@ -1,14 +1,13 @@
 package ui;
 
-import ui.panels.GamePanel;
+import model.Game;
+import ui.panels.RenderingTest;
 import ui.sprites.SpriteManager;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class GraphicalGame extends JFrame {
     public static final int SPRITE_SIZE = 16;
@@ -21,7 +20,11 @@ public class GraphicalGame extends JFrame {
     private final int windowSizeX;
     private final int windowSizeY;
 
-    private GamePanel gamePanel;
+    private int tick;
+    private Timer timer;
+    private Game game;
+
+    private RenderingTest gamePanel;
 
     private SpriteManager spriteManager;
 
@@ -35,6 +38,7 @@ public class GraphicalGame extends JFrame {
         gameSizeY = sizeY;
         windowSizeX = sizeX * SPRITE_SIZE * SCALE;
         windowSizeY = sizeY * SPRITE_SIZE * SCALE;
+        tick = 0;
 
         // Initialize Graphics and Sprites
         spriteManager = new SpriteManager("assets/texturepack.json");
@@ -45,10 +49,55 @@ public class GraphicalGame extends JFrame {
         setResizable(false);
 
         // Create and add all panels
-        gamePanel = new GamePanel(spriteManager);
+        gamePanel = new RenderingTest(this);
         add(gamePanel);
 
-        // Initialize UI and Game
+        // Initialize UI and Rendering
         setVisible(true);
+        addTimer();
+        timer.start();
+    }
+
+    // Set up timer
+    // modifies: none
+    // effects:  initializes a timer that updates game each
+    //           INTERVAL milliseconds
+    private void addTimer() {
+        timer = new Timer(1000 / Game.TPS, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                tick++;
+                repaint();
+//                game.handleNextTick(tick);
+            }
+        });
+    }
+
+    public SpriteManager getSpriteManager() {
+        return spriteManager;
+    }
+
+    public int getGameSizeX() {
+        return gameSizeX;
+    }
+
+    public int getGameSizeY() {
+        return gameSizeY;
+    }
+
+    public int getWindowSizeX() {
+        return windowSizeX;
+    }
+
+    public int getWindowSizeY() {
+        return windowSizeY;
+    }
+
+    public int getTick() {
+        return tick;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

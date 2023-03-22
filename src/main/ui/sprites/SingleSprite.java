@@ -19,7 +19,7 @@ public class SingleSprite implements Sprite {
     }
 
     @Override
-    public BufferedImage getSprite(int value) {
+    public BufferedImage getImage(int value) {
         // Alias for getImage
         return getImage();
     }
