@@ -48,12 +48,13 @@ public class GraphicalGame extends JFrame {
         // Initialize Game
         tick = 0;
         game = new Game(sizeX, sizeY);
+        game.initGame();
 
         // Create and add all panels
-//        testRenderer = new TestRenderer(this);
-//        getContentPane().add(testRenderer);
-        gameRenderer = new GameRenderer(this);
-        add(gameRenderer);
+        testRenderer = new TestRenderer(this);
+        getContentPane().add(testRenderer);
+//        gameRenderer = new GameRenderer(this);
+//        add(gameRenderer);
 
         // Set up graphical UI
         pack();
@@ -76,7 +77,7 @@ public class GraphicalGame extends JFrame {
             public void actionPerformed(ActionEvent ae) {
                 tick++;
                 repaint();
-//                game.handleNextTick(tick);
+                game.handleNextTick(tick);
             }
         });
     }

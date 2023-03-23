@@ -10,7 +10,8 @@
   },
   "spritesheets": {
     "TILES": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_tileset.png",
-    "FLOOR": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_floor_tileset_modified.png"
+    "FLOOR": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_floor_tileset_modified.png",
+    "MINECRAFT_ICONS": "assets/MinecraftIcons/icons.png"
   },
   "sprites": {
     "TILE_FLOOR": {
@@ -242,7 +243,7 @@
     },
     "TILE_TRAP": {
       "type": "animated",
-      "frame_time": 4,
+      "frame_time": 8,
       "sprites": [
         {
           "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
@@ -451,6 +452,46 @@
           "transparent": true
         }
       ]
+    },
+    "SPRITE_HEART_FULL": {
+      "type": "sprite",
+      "source": "MINECRAFT_ICONS",
+      "x": 4,
+      "y": 5,
+      "sprite_size": 9,
+      "transparent": true
+    },
+    "SPRITE_HEART_EMPTY": {
+      "type": "sprite",
+      "source": "MINECRAFT_ICONS",
+      "x": 0,
+      "y": 5,
+      "sprite_size": 9,
+      "transparent": true
+    },
+    "SPRITE_ARMOR_FULL": {
+      "type": "sprite",
+      "source": "MINECRAFT_ICONS",
+      "x": 2,
+      "y": 1,
+      "sprite_size": 9,
+      "transparent": true
+    },
+    "SPRITE_ARMOR_EMPTY": {
+      "type": "sprite",
+      "source": "MINECRAFT_ICONS",
+      "x": 0,
+      "y": 1,
+      "sprite_size": 9,
+      "transparent": true
+    },
+    "SPRITE_STRENGTH": {
+      "type": "sprite",
+      "source": "MINECRAFT_ICONS",
+      "x": 0,
+      "y": 4,
+      "sprite_size": 9,
+      "transparent": true
     }
   }
 }

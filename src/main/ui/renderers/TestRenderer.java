@@ -12,8 +12,8 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 public class TestRenderer extends Renderer {
-    public TestRenderer(GraphicalGame graphicalGame) {
-        super(graphicalGame);
+    public TestRenderer(GraphicalGame gameWindow) {
+        super(gameWindow);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class TestRenderer extends Renderer {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Test", Font.PLAIN, 24));
         g.drawString(
-                "Initial Rendering Test! " + graphicalGame.getTick(),
+                "Initial Rendering Test! " + gameWindow.getTick(),
                 GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
                 GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE - 8
         );
@@ -40,7 +40,7 @@ public class TestRenderer extends Renderer {
                     offsetY * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE + 18
             );
             int offsetX = 5;
-            drawSprite(g, sprite, offsetX, offsetY, graphicalGame.getTick());
+            drawSprite(g, sprite, offsetX, offsetY, gameWindow.getTick());
             offsetX++;
             for (Sprite s : sprites) {
                 drawSprite(g, s, offsetX, offsetY);

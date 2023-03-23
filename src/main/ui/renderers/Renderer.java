@@ -9,17 +9,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public abstract class Renderer extends JPanel {
-    protected GraphicalGame graphicalGame;
+    protected GraphicalGame gameWindow;
     protected Game game;
     protected SpriteManager spriteManager;
 
-    public Renderer(GraphicalGame graphicalGame) {
+    public Renderer(GraphicalGame gameWindow) {
         super();
-        this.graphicalGame = graphicalGame;
-        this.game = graphicalGame.getGame();
-        this.spriteManager = graphicalGame.getSpriteManager();
+        this.gameWindow = gameWindow;
+        this.game = gameWindow.getGame();
+        this.spriteManager = gameWindow.getSpriteManager();
 
-        setPreferredSize(new Dimension(graphicalGame.getWindowSizeX(), graphicalGame.getWindowSizeY()));
+        setPreferredSize(new Dimension(gameWindow.getWindowSizeX(), gameWindow.getWindowSizeY()));
     }
 
     // TODO: Hacky and Temporary Draw Function!
