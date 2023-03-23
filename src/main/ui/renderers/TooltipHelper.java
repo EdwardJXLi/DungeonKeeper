@@ -1,7 +1,7 @@
 package ui.renderers;
 
 import model.Tile;
-import ui.sprites.TextureManager;
+import ui.TextureManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -43,7 +43,12 @@ public class TooltipHelper {
 
         // Draw Tile Name
         g.setColor(Color.WHITE);
-
+        g.setFont(textureManager.getFont(16));
+        g.drawString(
+                tile.getName(),
+                (padding * 6) + textureManager.getSpriteSize(),
+                (padding * 4) + (textureManager.getSpriteSize() / 2)
+        );
         return tooltip;
     }
 }

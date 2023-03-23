@@ -1,5 +1,7 @@
 package ui.sprites;
 
+import ui.TextureManager;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 

@@ -493,5 +493,10 @@
       "sprite_size": 9,
       "transparent": true
     }
+  },
+  "fonts": {
+    "FONT_DEFAULT": {
+      "source": "assets/Fonts/Pixeboy.ttf"
+    }
   }
 }

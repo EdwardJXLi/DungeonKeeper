@@ -1,8 +1,9 @@
-package ui.sprites;
+package ui;
 
 import model.graphics.SpriteID;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import ui.sprites.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,22 +19,28 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class TextureManager {
+    private static final String DEFAULT_FONT = "FONT_DEFAULT";
     // Base TextureManager Information
     private String texturepack;
+    private final double scale;
 
     // Sprite Information
     private Map<String, SpriteSheet> spritesheets;
     private Map<String, Sprite> sprites;
-    private int spriteSize;
+    private final int spriteSize;
 
     // Font Information
-    private Font baseFont;
+    private Map<String, Font> fonts;
 
-    public TextureManager(String texturepack, int spriteSize) {
+    public TextureManager(String texturepack, double scale, int spriteSize) {
         this.texturepack = texturepack;
+        this.scale = scale;
+
         this.spritesheets = new HashMap<>();
         this.sprites = new HashMap<>();
         this.spriteSize = spriteSize;
+
+        this.fonts = new HashMap<>();
 
         // Load Textures
         try {
@@ -116,6 +123,20 @@ public class TextureManager {
         return image;
     }
 
+    // EFFECTS: Returns given font in given size
+    public Font getFont(String font, int size) {
+        if (fonts.containsKey(font)) {
+            return fonts.get(font).deriveFont((float) (size * scale));
+        } else {
+            return fonts.get(DEFAULT_FONT).deriveFont((float) (size * scale));
+        }
+    }
+
+    // EFFECTS: Returns hte default font in given size
+    public Font getFont(int size) {
+        return getFont(DEFAULT_FONT, size);
+    }
+
     // MODIFIES: this
     // EFFECTS:  Reads the texture pack and loads all assets
     // REQUIRES: The texture pack is valid
@@ -124,11 +145,23 @@ public class TextureManager {
         String jsonData = readFile(texturepack);
         JSONObject json = new JSONObject(jsonData);
 
+        // Load all (useful) metdata
+        loadMetadata(json.getJSONObject("metadata"));
+
         // Load all spritesheets
         loadSpritesheets(json.getJSONObject("spritesheets"));
 
         // Load all sprites
         loadSprites(json.getJSONObject("sprites"));
+
+        // Load all fonts
+        loadFonts(json.getJSONObject("fonts"));
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  Loads all metadata from the texture pack
+    private void loadMetadata(JSONObject data) {
+        // TODO: do nothing for now.
     }
 
     // MODIFIES: this
@@ -171,6 +204,28 @@ public class TextureManager {
                 default:
                     throw new RuntimeException("Unknown Sprite Type: " + type);
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS:  Loads all fonts from the texture pack
+    private void loadFonts(JSONObject data) throws IOException {
+        for (String name : data.keySet()) {
+            System.out.println("Loading Font: " + name);
+            // Get Information from Texture Pack
+            JSONObject fontData = data.getJSONObject(name);
+            String fontSource = fontData.getString("source");
+
+            // Load Font
+            Font font;
+            try {
+                font = Font.createFont(Font.TRUETYPE_FONT, new File(fontSource));
+            } catch (FontFormatException e) {
+                throw new IOException(e);
+            }
+            System.out.println(fonts);
+            fonts.put(name, font);
+            System.out.println(fonts);
         }
     }
 
@@ -239,5 +294,10 @@ public class TextureManager {
     // EFFECTS: Returns the calculated sprite size
     public int getSpriteSize() {
         return spriteSize;
+    }
+
+    // EFFECTS: Returns the scale
+    public double getScale() {
+        return scale;
     }
 }

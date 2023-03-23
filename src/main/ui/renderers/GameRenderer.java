@@ -170,7 +170,7 @@ public class GameRenderer extends Renderer {
     private void renderDebugInfo(Graphics g) {
         // Setup Fonts
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Monospaced", Font.PLAIN, 18));
+        g.setFont(textureManager.getFont(12));
 
         // Add Debug Text
         List<String> debugInfo = new ArrayList<>();

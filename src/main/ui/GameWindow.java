@@ -4,7 +4,6 @@ import model.Game;
 import ui.renderers.GameRenderer;
 import ui.renderers.HudRenderer;
 import ui.renderers.TestRenderer;
-import ui.sprites.TextureManager;
 
 import javax.swing.*;
 
@@ -35,7 +34,7 @@ public class GameWindow extends JFrame {
 
         // Initialize Graphics and Sprites
         int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
-        textureManager = new TextureManager("assets/texturepack.json", spriteSize);
+        textureManager = new TextureManager("assets/texturepack.json", scale, spriteSize);
 
         // Create and add all panels
 //        testRenderer = new TestRenderer(this);
