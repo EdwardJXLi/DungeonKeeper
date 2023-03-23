@@ -3,7 +3,7 @@ package ui.sprites;
 import model.graphics.SpriteID;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.GraphicalGame;
+import ui.GameWindow;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,14 +19,17 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class SpriteManager {
+
     private String texturepack;
     private Map<String, SpriteSheet> spritesheets;
     private Map<String, Sprite> sprites;
+    private int spriteSize;
 
-    public SpriteManager(String texturepack) {
+    public SpriteManager(String texturepack, int spriteSize) {
         this.texturepack = texturepack;
         this.spritesheets = new HashMap<>();
         this.sprites = new HashMap<>();
+        this.spriteSize = spriteSize;
 
         // Load Textures
         try {
@@ -229,15 +232,8 @@ public class SpriteManager {
         return dimg;
     }
 
-    public int getBaseSpriteSize() {
-        return GraphicalGame.SPRITE_SIZE;
-    }
-
+    // EFFECTS: Returns the calculated sprite size
     public int getSpriteSize() {
-        return (int) (GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE);
-    }
-
-    public double getScale() {
-        return GraphicalGame.SCALE;
+        return spriteSize;
     }
 }

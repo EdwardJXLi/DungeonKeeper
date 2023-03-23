@@ -1,25 +1,91 @@
 package ui.renderers;
 
 import model.Game;
-import ui.GraphicalGame;
+import ui.GameWindow;
 import ui.sprites.Sprite;
 import ui.sprites.SpriteManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public abstract class Renderer extends JPanel {
-    protected GraphicalGame gameWindow;
+    protected GameWindow gameWindow;
     protected Game game;
     protected SpriteManager spriteManager;
 
-    public Renderer(GraphicalGame gameWindow) {
+    private KeyHandler keyHandler;
+    private MouseHandler mouseHandler;
+
+    public Renderer(GameWindow gameWindow) {
         super();
+
+        // Make layers transparent
+        setOpaque(false);
+
+        // Set up game variables
         this.gameWindow = gameWindow;
         this.game = gameWindow.getGame();
         this.spriteManager = gameWindow.getSpriteManager();
 
-        setPreferredSize(new Dimension(gameWindow.getWindowSizeX(), gameWindow.getWindowSizeY()));
+        // Initialize Key Handlers
+        this.keyHandler = new KeyHandler();
+        this.mouseHandler = new MouseHandler();
+
+        setPreferredSize(new Dimension(gameWindow.getSizeX(), gameWindow.getSizeY()));
+    }
+
+    // EFFECTS: Sets up mouse and key listeners
+    // MODIFIES: this
+    public void initUserInputHandlers() {
+        gameWindow.addKeyListener(keyHandler);
+        gameWindow.addMouseListener(mouseHandler);
+        gameWindow.addMouseMotionListener(mouseHandler);
+    }
+
+    // EFFECTS: Removes mouse and key listeners
+    // MODIFIES: this
+    public void removeUserInputHandlers() {
+        gameWindow.removeKeyListener(keyHandler);
+        gameWindow.removeMouseListener(mouseHandler);
+        gameWindow.removeMouseMotionListener(mouseHandler);
+    }
+
+    private class KeyHandler extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            onKeyPress(e);
+        }
+    }
+
+    private class MouseHandler extends MouseAdapter {
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            onMouseMove(e);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            onMouseClick(e);
+        }
+    }
+
+    // EFFECTS: Handler for key presses
+    public void onKeyPress(KeyEvent e) {
+        // Do Nothing
+    }
+
+    // EFFECTS: Handler for mouse movement
+    public void onMouseMove(MouseEvent e) {
+        // Do Nothing
+    }
+
+    // EFFECTS: Handler for mouse clicks
+    public void onMouseClick(MouseEvent e) {
+        // Do Nothing
     }
 
     // TODO: Hacky and Temporary Draw Function!

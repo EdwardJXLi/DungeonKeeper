@@ -1,67 +1,49 @@
 package ui;
 
 import model.Game;
-import ui.renderers.GameRenderer;
-import ui.renderers.TestRenderer;
-import ui.sprites.SpriteManager;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GraphicalGame extends JFrame {
-    public static final int SPRITE_SIZE = 16;
-    public static final double SCALE = 1.5;
+public class GraphicalGame {
+    public static final double DEFAULT_SCALE = 1.5;
 
     private final int gameSizeX;
     private final int gameSizeY;
     private final int windowSizeX;
     private final int windowSizeY;
+    private final double spriteScale;
+
+    private GameWindow gameWindow;
+    private Game game;
 
     private int tick;
     private Timer timer;
-    private Game game;
 
-    private TestRenderer testRenderer;
-    private GameRenderer gameRenderer;
-
-    private SpriteManager spriteManager;
-
-    // EFFECTS: Creates and Initializes Game of size X and Y
-    public GraphicalGame(int sizeX, int sizeY) {
-        // Create UI
-        super("Untitled Roguelike");
-
+    public GraphicalGame(int sizeX, int sizeY, double spriteScale) {
         // Set up game variables
-        gameSizeX = sizeX;
-        gameSizeY = sizeY;
-        windowSizeX = (int) (sizeX * SPRITE_SIZE * SCALE);
-        windowSizeY = (int) (sizeY * SPRITE_SIZE * SCALE);
-
-        // Initialize Graphics and Sprites
-        spriteManager = new SpriteManager("assets/texturepack.json");
+        this.gameSizeX = sizeX;
+        this.gameSizeY = sizeY;
+        this.spriteScale = spriteScale;
+        this.windowSizeX = (int) (sizeX * GameWindow.BASE_SPRITE_SIZE * spriteScale);
+        this.windowSizeY = (int) (sizeY * GameWindow.BASE_SPRITE_SIZE * spriteScale);
 
         // Initialize Game
         tick = 0;
         game = new Game(sizeX, sizeY);
         game.initGame();
 
-        // Create and add all panels
-        testRenderer = new TestRenderer(this);
-        getContentPane().add(testRenderer);
-//        gameRenderer = new GameRenderer(this);
-//        add(gameRenderer);
+        // Initialize UI
+        gameWindow = new GameWindow(windowSizeX, windowSizeY, this);
 
-        // Set up graphical UI
-        pack();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
-
-        // Initialize UI and Rendering
-        setVisible(true);
+        // Setup tick timer
         addTimer();
         timer.start();
+    }
+
+    public GraphicalGame(int sizeX, int sizeY) {
+        this(sizeX, sizeY, DEFAULT_SCALE);
     }
 
     // Set up timer
@@ -72,38 +54,36 @@ public class GraphicalGame extends JFrame {
         timer = new Timer(1000 / Game.TPS, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                tick++;
-                repaint();
-                game.handleNextTick(tick);
+                if (game.isGameRunning()) {
+                    tick++;
+                    gameWindow.repaint();
+                    game.handleNextTick(tick);
+                } else {
+                    // TODO: DEATH
+                    System.out.println("Game over!");
+                    timer.stop();
+                }
             }
         });
     }
 
-    public SpriteManager getSpriteManager() {
-        return spriteManager;
+    public GameWindow getGameWindow() {
+        return gameWindow;
     }
 
-    public int getGameSizeX() {
-        return gameSizeX;
-    }
-
-    public int getGameSizeY() {
-        return gameSizeY;
-    }
-
-    public int getWindowSizeX() {
-        return windowSizeX;
-    }
-
-    public int getWindowSizeY() {
-        return windowSizeY;
+    public Game getGame() {
+        return game;
     }
 
     public int getTick() {
         return tick;
     }
 
-    public Game getGame() {
-        return game;
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public double getSpriteScale() {
+        return spriteScale;
     }
 }

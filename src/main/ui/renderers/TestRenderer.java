@@ -1,14 +1,16 @@
 package ui.renderers;
 
 import model.graphics.SpriteID;
-import ui.GraphicalGame;
+import ui.GameWindow;
 import ui.sprites.Sprite;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 public class TestRenderer extends Renderer {
-    public TestRenderer(GraphicalGame gameWindow) {
+    public TestRenderer(GameWindow gameWindow) {
         super(gameWindow);
     }
 
@@ -44,7 +46,20 @@ public class TestRenderer extends Renderer {
             }
             offsetY++;
         }
-
     }
 
+    @Override
+    public void onKeyPress(KeyEvent e) {
+        System.out.printf(String.format("Key Pressed: %s\n", e.getKeyChar()));
+    }
+
+    @Override
+    public void onMouseMove(MouseEvent e) {
+        System.out.printf(String.format("Mouse Moved: %s, %s\n", e.getX(), e.getY()));
+    }
+
+    @Override
+    public void onMouseClick(MouseEvent e) {
+        System.out.printf(String.format("Mouse Clicked: %s, %s", e.getX(), e.getY()));
+    }
 }
