@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 import org.json.JSONObject;
 
 /*
@@ -16,11 +17,11 @@ public abstract class Enemy extends Entity {
     // EFFECTS: Creates a generic enemy
     public Enemy(
             Game game,
-            char textSprite, TextColor textColor, TextColor backgroundColor,
+            char textSprite, TextColor textColor, TextColor backgroundColor, SpriteID spriteID,
             String name, int health, int baseDefence, int baseAttack
     ) {
         super(
-                game, 0, 0, textSprite, textColor, backgroundColor,
+                game, 0, 0, textSprite, textColor, backgroundColor, spriteID,
                 name, health, baseDefence, baseAttack
         );
 
@@ -33,11 +34,11 @@ public abstract class Enemy extends Entity {
     //          Used for loading games from JSON file
     public Enemy(
             Game game, int posX, int posY,
-            char textSprite, TextColor textColor, TextColor backgroundColor,
+            char textSprite, TextColor textColor, TextColor backgroundColor, SpriteID spriteID,
             String name, boolean stunned, int maxHealth, int maxDefense, int maxAttack,
             int health, int defense, int attack
     ) {
-        super(game, posX, posY, textSprite, textColor, backgroundColor,
+        super(game, posX, posY, textSprite, textColor, backgroundColor, spriteID,
                 name, maxHealth, maxDefense, maxAttack);
         setHealth(health);
         setDefense(defense);

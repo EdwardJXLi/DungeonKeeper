@@ -17,5 +17,5 @@ public interface Renderable {
 
     TextColor getBackgroundColor();
 
-//    SpriteID getSpriteID();
+    SpriteID getSpriteID();
 }

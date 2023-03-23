@@ -350,7 +350,7 @@
         }
       ]
     },
-    "ITEM_HEALTH_POTION": {
+    "ITEM_HEALING_POTION": {
       "type": "animated",
       "frame_time": 4,
       "sprites": [

@@ -3,6 +3,7 @@ package model.enemies;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
+import model.graphics.SpriteID;
 
 /*
  * A Dummy enemy that has no attack and no defense.
@@ -18,7 +19,7 @@ public class Dummy extends Enemy {
     public Dummy(Game game) {
         super(
                 game,
-                ';', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+                ';', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT, SpriteID.ENTITY_DUMMY,
                 "Dummy", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
     }
@@ -26,7 +27,7 @@ public class Dummy extends Enemy {
     // REQUIRES: Only used for loading from save.
     // EFFECTS: Creates a dummy from pre-existing values.
     public Dummy(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
-        super(game, posX, posY, ';', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+        super(game, posX, posY, ';', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT, SpriteID.ENTITY_DUMMY,
                 "Dummy", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,
                 health, defense, attack);
     }

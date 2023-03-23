@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -21,13 +22,14 @@ public abstract class Tile implements ScreenElement, Writable {
     private final char textSprite;
     private final TextColor textColor;
     private final TextColor backgroundColor;
+    private final SpriteID spriteID;
     private final String name;
     private final List<String> description;
 
     // EFFECTS: Creates a generic map tile
     public Tile(
             int posX, int posY, boolean isSolid, char textSprite,
-            TextColor textColor, TextColor backgroundColor,
+            TextColor textColor, TextColor backgroundColor, SpriteID spriteID,
             String name, List<String> description
     ) {
         this.posX = posX;
@@ -36,6 +38,7 @@ public abstract class Tile implements ScreenElement, Writable {
         this.textSprite = textSprite;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
+        this.spriteID = spriteID;
         this.name = name;
         this.description = description;
     }
@@ -87,6 +90,11 @@ public abstract class Tile implements ScreenElement, Writable {
     @Override
     public TextColor getBackgroundColor() {
         return backgroundColor;
+    }
+
+    @Override
+    public SpriteID getSpriteID() {
+        return spriteID;
     }
 
     public String getName() {

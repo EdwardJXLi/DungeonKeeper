@@ -3,6 +3,7 @@ package model.items;
 import com.googlecode.lanterna.TextColor;
 import model.Item;
 import model.Player;
+import model.graphics.SpriteID;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -17,8 +18,12 @@ public abstract class Armor extends Item {
     private final int additionalDefense;
 
     // EFFECTS: Creates an abstract armor class
-    public Armor(String name, List<String> description, TextColor armorColor, int additionalDefense) {
-        super(name, description, '$', TextColor.ANSI.WHITE, armorColor);
+    public Armor(
+            String name, List<String> description,
+            TextColor armorColor, SpriteID spriteID,
+            int additionalDefense
+    ) {
+        super(name, description, '$', TextColor.ANSI.WHITE, armorColor, spriteID);
         this.additionalDefense = additionalDefense;
     }
 

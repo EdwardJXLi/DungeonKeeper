@@ -2,6 +2,7 @@ package model.items;
 
 import com.googlecode.lanterna.TextColor;
 import model.Player;
+import model.graphics.SpriteID;
 
 import java.util.Arrays;
 
@@ -18,7 +19,7 @@ public class DefensePotion extends Potion {
         super(
                 "Defense Potion",
                 Arrays.asList("Permanently Increases", "Defense by 5"),
-                TextColor.ANSI.BLUE);
+                TextColor.ANSI.BLUE, SpriteID.ITEM_DEFENSE_POTION);
     }
 
     // EFFECTS: Adds additional defense to player when used

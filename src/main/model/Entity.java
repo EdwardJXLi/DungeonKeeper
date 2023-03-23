@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -16,6 +17,7 @@ public abstract class Entity implements ScreenElement, Writable {
     private final char textSprite;
     private final TextColor textColor;
     private final TextColor backgroundColor;
+    private final SpriteID spriteID;
     private final Game game;
     private final int maxHealth;
     // Entity Information
@@ -29,7 +31,7 @@ public abstract class Entity implements ScreenElement, Writable {
     // EFFECTS: Creates a generic entity with sprites, health, defence, and attack
     public Entity(
             Game game, int posX, int posY, char textSprite,
-            TextColor textColor, TextColor backgroundColor,
+            TextColor textColor, TextColor backgroundColor, SpriteID spriteID,
             String name, int health, int baseDefence, int baseAttack
     ) {
         this.game = game;
@@ -38,6 +40,7 @@ public abstract class Entity implements ScreenElement, Writable {
         this.textSprite = textSprite;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
+        this.spriteID = spriteID;
         this.name = name;
         this.maxHealth = health;
         this.health = health;
@@ -186,6 +189,11 @@ public abstract class Entity implements ScreenElement, Writable {
     @Override
     public TextColor getBackgroundColor() {
         return backgroundColor;
+    }
+
+    @Override
+    public SpriteID getSpriteID() {
+        return spriteID;
     }
 
     public String getName() {

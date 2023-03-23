@@ -2,6 +2,7 @@ package model.items;
 
 import com.googlecode.lanterna.TextColor;
 import model.Player;
+import model.graphics.SpriteID;
 
 import java.util.Arrays;
 
@@ -15,7 +16,10 @@ public class HealingPotion extends Potion {
 
     // EFFECTS: Creates a simple potion that increases health
     public HealingPotion() {
-        super("Healing Potion", Arrays.asList("Heals 20 Hearts"), TextColor.ANSI.RED);
+        super(
+                "Healing Potion", Arrays.asList("Heals 20 Hearts"),
+                TextColor.ANSI.RED, SpriteID.ITEM_HEALING_POTION
+        );
     }
 
     // EFFECTS: heals player once used

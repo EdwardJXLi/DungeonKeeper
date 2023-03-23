@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -21,17 +22,19 @@ public abstract class Item implements Renderable, Writable {
     private final char textSprite;
     private final TextColor textColor;
     private final TextColor backgroundColor;
+    private final SpriteID spriteID;
 
     // Creates a generic item with a sprite, name, description, and methods for when it is used
     public Item(
             String name, List<String> description, char textSprite,
-            TextColor textColor, TextColor backgroundColor
+            TextColor textColor, TextColor backgroundColor, SpriteID spriteID
     ) {
         this.name = name;
         this.description = description;
         this.textSprite = textSprite;
         this.textColor = textColor;
         this.backgroundColor = backgroundColor;
+        this.spriteID = spriteID;
     }
 
     // EFFECTS: Abstract function for what happens when an item is used
@@ -68,5 +71,10 @@ public abstract class Item implements Renderable, Writable {
     @Override
     public TextColor getBackgroundColor() {
         return backgroundColor;
+    }
+
+    @Override
+    public SpriteID getSpriteID() {
+        return spriteID;
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -62,5 +63,10 @@ public class DroppedItem implements ScreenElement, Writable {
     @Override
     public TextColor getBackgroundColor() {
         return TextColor.ANSI.YELLOW;
+    }
+
+    @Override
+    public SpriteID getSpriteID() {
+        return item.getSpriteID();
     }
 }

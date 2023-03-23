@@ -2,6 +2,7 @@ package model.items;
 
 import com.googlecode.lanterna.TextColor;
 import model.Player;
+import model.graphics.SpriteID;
 
 import java.util.Arrays;
 
@@ -18,7 +19,8 @@ public class StrengthPotion extends Potion {
         super(
                 "Strength Potion",
                 Arrays.asList("Permanently Increases", "Attack by 10"),
-                TextColor.ANSI.MAGENTA);
+                TextColor.ANSI.MAGENTA, SpriteID.ITEM_STRENGTH_POTION
+        );
     }
 
     // EFFECTS: Adds additional attack to player once used

@@ -1,6 +1,7 @@
 package model;
 
 import com.googlecode.lanterna.TextColor;
+import model.graphics.SpriteID;
 import model.items.*;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -27,7 +28,7 @@ public class Player extends Entity implements Writable {
     public Player(Game game) {
         super(
                 game, 0, 0,
-                '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+                '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT, SpriteID.PLAYER,
                 "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
         // Initialize Variables
@@ -39,7 +40,7 @@ public class Player extends Entity implements Writable {
     // EFFECTS: Creates a player from pre-existing values.
     //          Used for loading games from JSON file
     public Player(Game game, int posX, int posY, int health, int defense, int attack, int kills, Inventory inventory) {
-        super(game, posX, posY, '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT,
+        super(game, posX, posY, '@', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT, SpriteID.PLAYER,
                 "Player", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK);
         setHealth(health);
         setDefense(defense);
