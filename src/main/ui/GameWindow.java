@@ -4,15 +4,15 @@ import model.Game;
 import ui.renderers.GameRenderer;
 import ui.renderers.HudRenderer;
 import ui.renderers.TestRenderer;
-import ui.sprites.SpriteManager;
+import ui.sprites.TextureManager;
 
 import javax.swing.*;
-import java.awt.event.*;
 
 public class GameWindow extends JFrame {
     public static final int BASE_SPRITE_SIZE = 16;
     private final int sizeX;
     private final int sizeY;
+    private final double scale;
 
     private GraphicalGame graphicalGame;
 
@@ -20,7 +20,7 @@ public class GameWindow extends JFrame {
     private GameRenderer gameRenderer;
     private HudRenderer hudRenderer;
 
-    private SpriteManager spriteManager;
+    private TextureManager textureManager;
 
     // EFFECTS: Creates and Initializes Game of size X and Y
     public GameWindow(int sizeX, int sizeY, GraphicalGame graphicalGame) {
@@ -31,10 +31,11 @@ public class GameWindow extends JFrame {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.graphicalGame = graphicalGame;
+        this.scale = graphicalGame.getScale();
 
         // Initialize Graphics and Sprites
-        int spriteSize = (int) (BASE_SPRITE_SIZE * graphicalGame.getSpriteScale());
-        spriteManager = new SpriteManager("assets/texturepack.json", spriteSize);
+        int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
+        textureManager = new TextureManager("assets/texturepack.json", spriteSize);
 
         // Create and add all panels
 //        testRenderer = new TestRenderer(this);
@@ -55,8 +56,8 @@ public class GameWindow extends JFrame {
         setVisible(true);
     }
 
-    public SpriteManager getSpriteManager() {
-        return spriteManager;
+    public TextureManager getSpriteManager() {
+        return textureManager;
     }
 
     public int getSizeX() {
@@ -73,6 +74,10 @@ public class GameWindow extends JFrame {
 
     public Game getGame() {
         return graphicalGame.getGame();
+    }
+
+    public double getScale() {
+        return scale;
     }
 
     public int getFPS() {

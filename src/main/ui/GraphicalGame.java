@@ -13,7 +13,7 @@ public class GraphicalGame {
     private final int gameSizeY;
     private final int windowSizeX;
     private final int windowSizeY;
-    private final double spriteScale;
+    private final double scale;
 
     private GameWindow gameWindow;
     private Game game;
@@ -21,13 +21,13 @@ public class GraphicalGame {
     private int tick;
     private Timer timer;
 
-    public GraphicalGame(int sizeX, int sizeY, double spriteScale) {
+    public GraphicalGame(int sizeX, int sizeY, double scale) {
         // Set up game variables
         this.gameSizeX = sizeX;
         this.gameSizeY = sizeY;
-        this.spriteScale = spriteScale;
-        this.windowSizeX = (int) (sizeX * GameWindow.BASE_SPRITE_SIZE * spriteScale);
-        this.windowSizeY = (int) (sizeY * GameWindow.BASE_SPRITE_SIZE * spriteScale);
+        this.scale = scale;
+        this.windowSizeX = (int) (sizeX * GameWindow.BASE_SPRITE_SIZE * scale);
+        this.windowSizeY = (int) (sizeY * GameWindow.BASE_SPRITE_SIZE * scale);
 
         // Initialize Game
         tick = 0;
@@ -83,7 +83,7 @@ public class GraphicalGame {
         return timer;
     }
 
-    public double getSpriteScale() {
-        return spriteScale;
+    public double getScale() {
+        return scale;
     }
 }

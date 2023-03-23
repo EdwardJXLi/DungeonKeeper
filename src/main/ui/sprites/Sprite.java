@@ -9,5 +9,5 @@ public interface Sprite {
 
     public boolean isTransparent();
 
-    public void initialize(SpriteManager spriteManager);
+    public void initialize(TextureManager textureManager);
 }

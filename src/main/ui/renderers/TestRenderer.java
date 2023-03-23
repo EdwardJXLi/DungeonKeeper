@@ -23,19 +23,19 @@ public class TestRenderer extends Renderer {
         g.setFont(new Font("Test", Font.PLAIN, 24));
         g.drawString(
                 "Initial Rendering Test! " + gameWindow.getTick(),
-                spriteManager.getSpriteSize(),
-                spriteManager.getSpriteSize() - 8
+                textureManager.getSpriteSize(),
+                textureManager.getSpriteSize() - 8
         );
         g.setColor(Color.BLACK);
         g.setFont(new Font("Test", Font.PLAIN, 12));
         int offsetY = 1;
         for (SpriteID spriteID : SpriteID.values()) {
-            Sprite sprite = spriteManager.getSprite(spriteID);
-            List<Sprite> sprites = spriteManager.getSpriteList(spriteID);
+            Sprite sprite = textureManager.getSprite(spriteID);
+            List<Sprite> sprites = textureManager.getSpriteList(spriteID);
             g.drawString(
                     spriteID.name(),
                     8,
-                    offsetY * spriteManager.getSpriteSize() + 18
+                    offsetY * textureManager.getSpriteSize() + 18
             );
             int offsetX = 5;
             drawSprite(g, sprite, offsetX, offsetY, gameWindow.getTick());

@@ -3,7 +3,7 @@ package ui.renderers;
 import model.Game;
 import ui.GameWindow;
 import ui.sprites.Sprite;
-import ui.sprites.SpriteManager;
+import ui.sprites.TextureManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
 public abstract class Renderer extends JPanel {
     protected GameWindow gameWindow;
     protected Game game;
-    protected SpriteManager spriteManager;
+    protected TextureManager textureManager;
 
     private KeyHandler keyHandler;
     private MouseHandler mouseHandler;
@@ -29,7 +29,7 @@ public abstract class Renderer extends JPanel {
         // Set up game variables
         this.gameWindow = gameWindow;
         this.game = gameWindow.getGame();
-        this.spriteManager = gameWindow.getSpriteManager();
+        this.textureManager = gameWindow.getSpriteManager();
 
         // Initialize Key Handlers
         this.keyHandler = new KeyHandler();
@@ -122,13 +122,25 @@ public abstract class Renderer extends JPanel {
     public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY, int tick) {
         g.drawImage(
                 sprite.getImage(tick),
-                offsetX * spriteManager.getSpriteSize(),
-                offsetY * spriteManager.getSpriteSize(),
+                offsetX * textureManager.getSpriteSize(),
+                offsetY * textureManager.getSpriteSize(),
                 null
         );
     }
 
     public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY) {
         drawSprite(g, sprite, offsetX, offsetY, 0);
+    }
+
+    public GameWindow getGameWindow() {
+        return gameWindow;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public TextureManager getSpriteManager() {
+        return textureManager;
     }
 }

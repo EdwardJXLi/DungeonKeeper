@@ -31,12 +31,12 @@ public class SingleSprite implements Sprite {
     }
 
     @Override
-    public void initialize(SpriteManager spriteManager) {
+    public void initialize(TextureManager textureManager) {
         System.out.println("Initializing sprite: " + this);
-        this.image = SpriteManager.resize(
+        this.image = TextureManager.resize(
                 rawImage,
-                spriteManager.getSpriteSize(),
-                spriteManager.getSpriteSize(),
+                textureManager.getSpriteSize(),
+                textureManager.getSpriteSize(),
                 Image.SCALE_FAST
         );
     }

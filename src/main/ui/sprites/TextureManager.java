@@ -3,7 +3,6 @@ package ui.sprites;
 import model.graphics.SpriteID;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import ui.GameWindow;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,14 +17,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class SpriteManager {
-
+public class TextureManager {
+    // Base TextureManager Information
     private String texturepack;
+
+    // Sprite Information
     private Map<String, SpriteSheet> spritesheets;
     private Map<String, Sprite> sprites;
     private int spriteSize;
 
-    public SpriteManager(String texturepack, int spriteSize) {
+    // Font Information
+    private Font baseFont;
+
+    public TextureManager(String texturepack, int spriteSize) {
         this.texturepack = texturepack;
         this.spritesheets = new HashMap<>();
         this.sprites = new HashMap<>();

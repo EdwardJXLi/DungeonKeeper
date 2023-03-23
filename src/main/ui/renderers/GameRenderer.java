@@ -21,10 +21,14 @@ public class GameRenderer extends Renderer {
     private boolean mouseInFrame = false;
     private int lastKeyPress = 0;
 
+    private TooltipHelper tooltipHelper;
     private BufferedImage background;
 
     public GameRenderer(GameWindow gameWindow) {
         super(gameWindow);
+
+        // Initialize Helpers
+        tooltipHelper = new TooltipHelper(this, textureManager);
 
         // Initialize Background
         initializeBackground();
@@ -113,7 +117,7 @@ public class GameRenderer extends Renderer {
         );
 
         // Get list of floor sprites
-        List<Sprite> floorSprites = spriteManager.getSpriteList(SpriteID.TILE_FLOOR);
+        List<Sprite> floorSprites = textureManager.getSpriteList(SpriteID.TILE_FLOOR);
         Sprite floorSprite;
 
         // Set up RNG to get random floor sprites
@@ -135,25 +139,25 @@ public class GameRenderer extends Renderer {
     private void renderScreenElements(Graphics g) {
         // Render Tiles
         for (ScreenElement e : game.getLevel().getTiles()) {
-            drawSprite(g, spriteManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+            drawSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
 
         // Render Enemies
         for (ScreenElement e : game.getLevel().getEnemies()) {
-            drawSprite(g, spriteManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+            drawSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
 
         // Render Dropped Items
         for (ScreenElement e : game.getLevel().getDroppedItems()) {
-            drawSprite(g, spriteManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+            drawSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
     }
 
     // EFFECTS: Renders Tooltips
     private void renderTooltips(Graphics g) {
         if (mouseInFrame) {
-            g.setColor(Color.BLACK);
-            g.fillRect(mouseX, mouseY, 20, 20);
+            BufferedImage tooltip = tooltipHelper.generateTileTooltip(game.getLevel().getTileAtLocation(0, 0));
+            g.drawImage(tooltip, mouseX, mouseY, null);
         }
     }
 
@@ -208,7 +212,7 @@ public class GameRenderer extends Renderer {
         // Draw Player
         Player player = game.getPlayer();
         drawSprite(
-                g, spriteManager.getSprite(player.getSpriteID()),
+                g, textureManager.getSprite(player.getSpriteID()),
                 player.getPosX(), player.getPosY(),
                 gameWindow.getTick()
         );

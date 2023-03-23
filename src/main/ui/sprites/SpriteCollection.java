@@ -26,9 +26,9 @@ public abstract class SpriteCollection implements Sprite {
     }
 
     @Override
-    public void initialize(SpriteManager spriteManager) {
+    public void initialize(TextureManager textureManager) {
         for (Sprite sprite : sprites) {
-            sprite.initialize(spriteManager);
+            sprite.initialize(textureManager);
         }
     }
 
