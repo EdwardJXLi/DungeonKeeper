@@ -9,8 +9,8 @@
     "flags": ["SUPPORTS_DYNAMIC_WALLS"]
   },
   "spritesheets": {
-    "TILES": "assets/2DPixelDungeonAssetPack/character_tiles/dungeon_tileset.png",
-    "FLOOR": "assets/2DPixelDungeonAssetPack/character_tiles/dungeon_floor_tileset_modified.png"
+    "TILES": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_tileset.png",
+    "FLOOR": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_floor_tileset_modified.png"
   },
   "sprites": {
     "TILE_FLOOR": {
@@ -106,7 +106,7 @@
       "type": "varied",
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_tiles/wall_tile.png",
+          "source": "assets/2DPixelDungeonAssetPack/dungeon_tiles/wall_tile.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
