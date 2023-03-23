@@ -2,7 +2,6 @@ package ui;
 
 import model.Game;
 import ui.renderers.GameRenderer;
-import ui.renderers.Renderer;
 import ui.renderers.TestRenderer;
 import ui.sprites.SpriteManager;
 
@@ -13,9 +12,7 @@ import java.awt.event.ActionListener;
 
 public class GraphicalGame extends JFrame {
     public static final int SPRITE_SIZE = 16;
-    public static final int SCALE = 2;
-
-    private Canvas canvas;
+    public static final double SCALE = 1.5;
 
     private final int gameSizeX;
     private final int gameSizeY;
@@ -39,8 +36,8 @@ public class GraphicalGame extends JFrame {
         // Set up game variables
         gameSizeX = sizeX;
         gameSizeY = sizeY;
-        windowSizeX = sizeX * SPRITE_SIZE * SCALE;
-        windowSizeY = sizeY * SPRITE_SIZE * SCALE;
+        windowSizeX = (int) (sizeX * SPRITE_SIZE * SCALE);
+        windowSizeY = (int) (sizeY * SPRITE_SIZE * SCALE);
 
         // Initialize Graphics and Sprites
         spriteManager = new SpriteManager("assets/texturepack.json");

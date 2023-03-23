@@ -40,8 +40,8 @@ public class SpriteManager {
         sprites.put(
                 "MISSING", new SingleSprite(
                 generateMissingImage(
-                        GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
-                        GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE
+                        getSpriteSize(),
+                        getSpriteSize()
                 ), false
             )
         );
@@ -53,7 +53,7 @@ public class SpriteManager {
     // EFFECTS: Initializes All Sprites
     private void initializeSprites() {
         for (Sprite sprite : sprites.values()) {
-            sprite.initialize(GraphicalGame.SPRITE_SIZE, GraphicalGame.SCALE);
+            sprite.initialize(this);
         }
     }
 
@@ -218,8 +218,8 @@ public class SpriteManager {
     }
 
     // EFFECTS: Resizes sprite with new size
-    public static BufferedImage resize(BufferedImage img, int newW, int newH) {
-        Image tmp = img.getScaledInstance(newW, newH, Image.SCALE_FAST);
+    public static BufferedImage resize(BufferedImage img, int newW, int newH, int scaleType) {
+        Image tmp = img.getScaledInstance(newW, newH, scaleType);
         BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2d = dimg.createGraphics();
@@ -227,5 +227,17 @@ public class SpriteManager {
         g2d.dispose();
 
         return dimg;
+    }
+
+    public int getBaseSpriteSize() {
+        return GraphicalGame.SPRITE_SIZE;
+    }
+
+    public int getSpriteSize() {
+        return (int) (GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE);
+    }
+
+    public double getScale() {
+        return GraphicalGame.SCALE;
     }
 }

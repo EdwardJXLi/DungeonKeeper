@@ -26,9 +26,9 @@ public abstract class SpriteCollection implements Sprite {
     }
 
     @Override
-    public void initialize(int size, int scale) {
+    public void initialize(SpriteManager spriteManager) {
         for (Sprite sprite : sprites) {
-            sprite.initialize(size, scale);
+            sprite.initialize(spriteManager);
         }
     }
 

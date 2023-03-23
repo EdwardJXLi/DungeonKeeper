@@ -26,8 +26,8 @@ public abstract class Renderer extends JPanel {
     public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY, int tick) {
         g.drawImage(
                 sprite.getImage(tick),
-                offsetX * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
-                offsetY * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
+                offsetX * spriteManager.getSpriteSize(),
+                offsetY * spriteManager.getSpriteSize(),
                 null
         );
     }

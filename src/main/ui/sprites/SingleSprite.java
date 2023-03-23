@@ -1,5 +1,6 @@
 package ui.sprites;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SingleSprite implements Sprite {
@@ -30,8 +31,13 @@ public class SingleSprite implements Sprite {
     }
 
     @Override
-    public void initialize(int size, int scale) {
+    public void initialize(SpriteManager spriteManager) {
         System.out.println("Initializing sprite: " + this);
-        this.image = SpriteManager.resize(rawImage, size * scale, size * scale);
+        this.image = SpriteManager.resize(
+                rawImage,
+                spriteManager.getSpriteSize(),
+                spriteManager.getSpriteSize(),
+                Image.SCALE_FAST
+        );
     }
 }
