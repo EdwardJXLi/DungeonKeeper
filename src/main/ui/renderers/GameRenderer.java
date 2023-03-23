@@ -18,6 +18,7 @@ import java.util.Random;
 public class GameRenderer extends Renderer {
     private int mouseX = 0;
     private int mouseY = 0;
+    private boolean mouseInFrame = false;
     private int lastKeyPress = 0;
 
     private BufferedImage background;
@@ -35,6 +36,20 @@ public class GameRenderer extends Renderer {
     public void onMouseMove(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
+    }
+
+    // EFFECTS: Handles mouse entering frame. Updates mouse position.
+    // MODIFIES: this
+    @Override
+    public void onMouseEnter(MouseEvent e) {
+        mouseInFrame = true;
+    }
+
+    // EFFECTS: Handles mouse leaving frame. Updates mouse position.
+    // MODIFIES: this
+    @Override
+    public void onMouseLeave(MouseEvent e) {
+        mouseInFrame = false;
     }
 
     // EFFECTS: Handles key presses. Updates game state.
@@ -116,26 +131,6 @@ public class GameRenderer extends Renderer {
         g.dispose();
     }
 
-    @Override
-    public void paint(Graphics g) {
-        // Draw Background
-        g.drawImage(background, 0, 0, null);
-
-        // Draw Screen Renderables
-        renderScreenElements(g);
-
-        // Draw Player
-        Player player = game.getPlayer();
-        drawSprite(
-                g, spriteManager.getSprite(player.getSpriteID()),
-                player.getPosX(), player.getPosY(),
-                gameWindow.getTick()
-        );
-
-        // Draw Debug Info
-        renderDebugInfo(g);
-    }
-
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements(Graphics g) {
         // Render Tiles
@@ -154,6 +149,19 @@ public class GameRenderer extends Renderer {
         }
     }
 
+    // EFFECTS: Renders Tooltips
+    private void renderTooltips(Graphics g) {
+        if (mouseInFrame) {
+            g.setColor(Color.BLACK);
+            g.fillRect(mouseX, mouseY, 20, 20);
+        }
+    }
+
+    // EFFECTS: Renders HUD Elements
+    private void renderHudElements(Graphics g) {
+        // TODO
+    }
+
     // EFFECTS: Draws debug info to screen
     private void renderDebugInfo(Graphics g) {
         // Setup Fonts
@@ -166,6 +174,7 @@ public class GameRenderer extends Renderer {
         debugInfo.add("Game Tick: " + gameWindow.getTick());
         debugInfo.add("Player Position: " + game.getPlayer().getPosX() + ", " + game.getPlayer().getPosY());
         debugInfo.add("Mouse Position: " + mouseX + ", " + mouseY);
+        debugInfo.add("Mouse In Frame: " + mouseInFrame);
         debugInfo.add("Last Key Press: " + lastKeyPress);
         debugInfo.add("");
         debugInfo.add("== RENDERING DEBUG ==");
@@ -186,5 +195,31 @@ public class GameRenderer extends Renderer {
         for (int i = 0; i < debugInfo.size(); i++) {
             g.drawString(debugInfo.get(i), 0, 18 * (i + 1));
         }
+    }
+
+    @Override
+    public void paint(Graphics g) {
+        // Draw Background
+        g.drawImage(background, 0, 0, null);
+
+        // Draw Screen Renderables
+        renderScreenElements(g);
+
+        // Draw Player
+        Player player = game.getPlayer();
+        drawSprite(
+                g, spriteManager.getSprite(player.getSpriteID()),
+                player.getPosX(), player.getPosY(),
+                gameWindow.getTick()
+        );
+
+        // Draw Tooltips
+        renderTooltips(g);
+
+        // Draw HUD Elements
+        renderHudElements(g);
+
+        // Draw Debug Info
+        renderDebugInfo(g);
     }
 }

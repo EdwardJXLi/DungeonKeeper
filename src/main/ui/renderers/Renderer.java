@@ -42,16 +42,16 @@ public abstract class Renderer extends JPanel {
     // MODIFIES: this
     public void initUserInputHandlers() {
         gameWindow.addKeyListener(keyHandler);
-        gameWindow.addMouseListener(mouseHandler);
-        gameWindow.addMouseMotionListener(mouseHandler);
+        addMouseListener(mouseHandler);
+        addMouseMotionListener(mouseHandler);
     }
 
     // EFFECTS: Removes mouse and key listeners
     // MODIFIES: this
     public void removeUserInputHandlers() {
         gameWindow.removeKeyListener(keyHandler);
-        gameWindow.removeMouseListener(mouseHandler);
-        gameWindow.removeMouseMotionListener(mouseHandler);
+        removeMouseListener(mouseHandler);
+        removeMouseMotionListener(mouseHandler);
     }
 
     private class KeyHandler extends KeyAdapter {
@@ -65,6 +65,21 @@ public abstract class Renderer extends JPanel {
         @Override
         public void mouseMoved(MouseEvent e) {
             onMouseMove(e);
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            onMouseDrag(e);
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            onMouseEnter(e);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            onMouseLeave(e);
         }
 
         @Override
@@ -85,6 +100,21 @@ public abstract class Renderer extends JPanel {
 
     // EFFECTS: Handler for mouse clicks
     public void onMouseClick(MouseEvent e) {
+        // Do Nothing
+    }
+
+    // EFFECTS: Handler for mouse dragging
+    public void onMouseDrag(MouseEvent e) {
+        // Do Nothing
+    }
+
+    // EFFECTS: Handler for mouse entering
+    public void onMouseEnter(MouseEvent e) {
+        // Do Nothing
+    }
+
+    // EFFECTS: Handler for mouse exiting
+    public void onMouseLeave(MouseEvent e) {
         // Do Nothing
     }
 
