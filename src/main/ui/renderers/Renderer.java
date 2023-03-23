@@ -18,6 +18,8 @@ public abstract class Renderer extends JPanel {
         this.graphicalGame = graphicalGame;
         this.game = graphicalGame.getGame();
         this.spriteManager = graphicalGame.getSpriteManager();
+
+        setPreferredSize(new Dimension(graphicalGame.getWindowSizeX(), graphicalGame.getWindowSizeY()));
     }
 
     // TODO: Hacky and Temporary Draw Function!

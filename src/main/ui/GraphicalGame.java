@@ -50,13 +50,13 @@ public class GraphicalGame extends JFrame {
         game = new Game(sizeX, sizeY);
 
         // Create and add all panels
-        testRenderer = new TestRenderer(this);
-        add(testRenderer);
-//        gameRenderer = new GameRenderer(this);
-//        add(gameRenderer);
+//        testRenderer = new TestRenderer(this);
+//        getContentPane().add(testRenderer);
+        gameRenderer = new GameRenderer(this);
+        add(gameRenderer);
 
         // Set up graphical UI
-        setSize(windowSizeX, windowSizeY);
+        pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 

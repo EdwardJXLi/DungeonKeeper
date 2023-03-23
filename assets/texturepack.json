@@ -106,6 +106,13 @@
       "type": "varied",
       "sprites": [
         {
+          "source": "assets/2DPixelDungeonAssetPack/character_tiles/wall_tile.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
           "source": "TILES",
           "x": 0,
           "y": 0,

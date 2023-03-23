@@ -2,9 +2,12 @@ package ui.renderers;
 
 import model.graphics.SpriteID;
 import ui.GraphicalGame;
+import ui.sprites.Sprite;
 
+import java.util.List;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Random;
 
 public class GameRenderer extends Renderer {
     BufferedImage background;
@@ -18,6 +21,7 @@ public class GameRenderer extends Renderer {
     }
 
     private void initializeBackground() {
+        // Initialize Background
         background = new BufferedImage(
                 graphicalGame.getWindowSizeX(),
                 graphicalGame.getWindowSizeY(),
@@ -30,9 +34,21 @@ public class GameRenderer extends Renderer {
                 graphicalGame.getWindowSizeX(),
                 graphicalGame.getWindowSizeY()
         );
+
+        // Get list of floor sprites
+        List<Sprite> floorSprites = spriteManager.getSpriteList(SpriteID.TILE_FLOOR);
+        Sprite floorSprite;
+
+        // Set up RNG to get random floor sprites
+        Random rng = new Random(1337);
+
+        // Draw floors
         for (int y = 0; y < game.getSizeY(); y++) {
             for (int x = 0; x < game.getSizeX(); x++) {
-                drawSprite(g, spriteManager.getSprite(SpriteID.TILE_FLOOR), x, y);
+                // Quick hack for a varied floor
+                floorSprite = floorSprites.get(rng.nextInt(floorSprites.size()));
+
+                drawSprite(g, floorSprite, x, y);
             }
         }
         g.dispose();
