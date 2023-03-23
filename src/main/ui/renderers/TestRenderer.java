@@ -1,4 +1,4 @@
-package ui.panels;
+package ui.renderers;
 
 import model.Game;
 import model.graphics.SpriteID;
@@ -11,28 +11,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-public class RenderingTest extends JPanel {
-
-    private BufferedImage image;
-    private GraphicalGame graphicalGame;
-    private Game game;
-    private SpriteManager spriteManager;
-
-    public RenderingTest(GraphicalGame graphicalGame) {
-        super();
-        this.graphicalGame = graphicalGame;
-        this.game = graphicalGame.getGame();
-        this.spriteManager = graphicalGame.getSpriteManager();
-    }
-
-    // TODO: Hacky and Temporary Draw Function!
-    public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY) {
-        g.drawImage(
-                sprite.getImage(graphicalGame.getTick()),
-                offsetX * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
-                offsetY * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE,
-                null
-        );
+public class TestRenderer extends Renderer {
+    public TestRenderer(GraphicalGame graphicalGame) {
+        super(graphicalGame);
     }
 
     @Override
@@ -59,7 +40,7 @@ public class RenderingTest extends JPanel {
                     offsetY * GraphicalGame.SPRITE_SIZE * GraphicalGame.SCALE + 18
             );
             int offsetX = 5;
-            drawSprite(g, sprite, offsetX, offsetY);
+            drawSprite(g, sprite, offsetX, offsetY, graphicalGame.getTick());
             offsetX++;
             for (Sprite s : sprites) {
                 drawSprite(g, s, offsetX, offsetY);

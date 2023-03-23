@@ -1,7 +1,9 @@
 package ui;
 
 import model.Game;
-import ui.panels.RenderingTest;
+import ui.renderers.GameRenderer;
+import ui.renderers.Renderer;
+import ui.renderers.TestRenderer;
 import ui.sprites.SpriteManager;
 
 import javax.swing.*;
@@ -24,7 +26,8 @@ public class GraphicalGame extends JFrame {
     private Timer timer;
     private Game game;
 
-    private RenderingTest gamePanel;
+    private TestRenderer testRenderer;
+    private GameRenderer gameRenderer;
 
     private SpriteManager spriteManager;
 
@@ -38,19 +41,24 @@ public class GraphicalGame extends JFrame {
         gameSizeY = sizeY;
         windowSizeX = sizeX * SPRITE_SIZE * SCALE;
         windowSizeY = sizeY * SPRITE_SIZE * SCALE;
-        tick = 0;
 
         // Initialize Graphics and Sprites
         spriteManager = new SpriteManager("assets/texturepack.json");
+
+        // Initialize Game
+        tick = 0;
+        game = new Game(sizeX, sizeY);
+
+        // Create and add all panels
+        testRenderer = new TestRenderer(this);
+        add(testRenderer);
+//        gameRenderer = new GameRenderer(this);
+//        add(gameRenderer);
 
         // Set up graphical UI
         setSize(windowSizeX, windowSizeY);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-
-        // Create and add all panels
-        gamePanel = new RenderingTest(this);
-        add(gamePanel);
 
         // Initialize UI and Rendering
         setVisible(true);

@@ -1,92 +1,102 @@
 {
+  "metadata": {
+    "name": "2D Pixel Dungeon Asset Pack",
+    "author": "Kenney",
+    "version": "1.0",
+    "description": "2D Pixel Dungeon Asset Pack",
+    "license": "CC0",
+    "homepage": "https://pixel-poem.itch.io/dungeon-assetpuck",
+    "flags": ["SUPPORTS_DYNAMIC_WALLS"]
+  },
   "spritesheets": {
-    "TILES": "assets/2DPixelDungeonAssetPack/character_tiles/Dungeon_Tileset.png"
+    "TILES": "assets/2DPixelDungeonAssetPack/character_tiles/dungeon_tileset.png",
+    "FLOOR": "assets/2DPixelDungeonAssetPack/character_tiles/dungeon_floor_tileset_modified.png"
   },
   "sprites": {
     "TILE_FLOOR": {
       "type": "varied",
       "sprites": [
         {
-          "source": "TILES",
+          "source": "FLOOR",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "FLOOR",
+          "x": 1,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "FLOOR",
+          "x": 2,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "FLOOR",
+          "x": 3,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "FLOOR",
+          "x": 0,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "FLOOR",
           "x": 1,
           "y": 1,
           "sprite_size": 16,
           "transparent": false
         },
         {
-          "source": "TILES",
+          "source": "FLOOR",
           "x": 2,
           "y": 1,
           "sprite_size": 16,
           "transparent": false
         },
         {
-          "source": "TILES",
+          "source": "FLOOR",
           "x": 3,
           "y": 1,
           "sprite_size": 16,
           "transparent": false
         },
         {
-          "source": "TILES",
-          "x": 4,
-          "y": 1,
+          "source": "FLOOR",
+          "x": 0,
+          "y": 2,
           "sprite_size": 16,
           "transparent": false
         },
         {
-          "source": "TILES",
+          "source": "FLOOR",
           "x": 1,
           "y": 2,
           "sprite_size": 16,
           "transparent": false
         },
         {
-          "source": "TILES",
+          "source": "FLOOR",
           "x": 2,
           "y": 2,
           "sprite_size": 16,
           "transparent": false
         },
         {
-          "source": "TILES",
+          "source": "FLOOR",
           "x": 3,
           "y": 2,
-          "sprite_size": 16,
-          "transparent": false
-        },
-        {
-          "source": "TILES",
-          "x": 4,
-          "y": 2,
-          "sprite_size": 16,
-          "transparent": false
-        },
-        {
-          "source": "TILES",
-          "x": 1,
-          "y": 3,
-          "sprite_size": 16,
-          "transparent": false
-        },
-        {
-          "source": "TILES",
-          "x": 2,
-          "y": 3,
-          "sprite_size": 16,
-          "transparent": false
-        },
-        {
-          "source": "TILES",
-          "x": 3,
-          "y": 3,
-          "sprite_size": 16,
-          "transparent": false
-        },
-        {
-          "source": "TILES",
-          "x": 4,
-          "y": 3,
           "sprite_size": 16,
           "transparent": false
         }
@@ -262,28 +272,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_1.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_2.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_3.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/priests_idle/priest1/v1/priest1_v1_4.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -304,28 +314,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_1.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_2.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_3.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/Character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_4.png",
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
