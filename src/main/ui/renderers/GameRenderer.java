@@ -4,6 +4,7 @@ import model.DroppedItem;
 import model.Player;
 import model.ScreenElement;
 import model.graphics.SpriteID;
+import model.tiles.Trap;
 import ui.GameWindow;
 import ui.sprites.Sprite;
 
@@ -155,9 +156,44 @@ public class GameRenderer extends Renderer {
 
     // EFFECTS: Renders Tooltips
     private void renderTooltips(Graphics g) {
+        // Only render if mouse is in frame
         if (mouseInFrame) {
-            BufferedImage tooltip = tooltipHelper.generateTileTooltip(game.getLevel().getTileAtLocation(0, 0));
-            g.drawImage(tooltip, mouseX, mouseY, null);
+            // Get currently highlighted tile, and initiate tooltip
+            int tileX = mouseX / textureManager.getSpriteSize();
+            int tileY = mouseY / textureManager.getSpriteSize();
+            BufferedImage tooltip;
+
+            // First, check if a dropped item is at the hovered location.
+            // Else, if it is the player at the hovered location.
+            // Else, if it is an entity at the hovered location
+            // Else, if it is a tile with a valid description at the hovered location.
+            if (game.getLevel().getDroppedItemAtLocation(tileX, tileY) != null) {
+                tooltip = tooltipHelper.generateDroppedItemTooltip(
+                        game.getLevel().getDroppedItemAtLocation(tileX, tileY)
+                );
+            } else if (tileX == game.getPlayer().getPosX() && tileY == game.getPlayer().getPosY()) {
+                tooltip = tooltipHelper.generatePlayerTooltip(game.getPlayer());
+            } else if (game.getLevel().getEnemyAtLocation(tileX, tileY) != null) {
+                tooltip = tooltipHelper.generateEnemyTooltip(
+                        game.getLevel().getEnemyAtLocation(tileX, tileY)
+                );
+            } else if (game.getLevel().getTileAtLocation(tileX, tileY) != null) {
+                if (game.getLevel().getTileAtLocation(tileX, tileY).getDescription() != null) {
+                    tooltip = tooltipHelper.generateTileTooltip(
+                            game.getLevel().getTileAtLocation(tileX, tileY)
+                    );
+                } else {
+                    // Do not render!
+                    return;
+                }
+            } else {
+                // Do not render tooltip and return!
+                return;
+            }
+
+            // Draw the tooltip
+            final int tooltipOffset = 15;
+            g.drawImage(tooltip, mouseX + tooltipOffset, mouseY + tooltipOffset, null);
         }
     }
 
