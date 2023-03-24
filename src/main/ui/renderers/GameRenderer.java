@@ -136,6 +136,37 @@ public class GameRenderer extends Renderer {
         g.dispose();
     }
 
+    @Override
+    public void paint(Graphics g) {
+        // Draw Background
+        g.drawImage(background, 0, 0, null);
+
+        // Draw Screen Renderables
+        renderScreenElements(g);
+
+        // Draw Player
+        Player player = game.getPlayer();
+        drawSprite(
+                g, textureManager.getSprite(player.getSpriteID()),
+                player.getPosX(), player.getPosY(),
+                gameWindow.getTick()
+        );
+//        drawSprite(
+//                g, textureManager.getSprite(SpriteID.SELECT_BLUE),
+//                player.getPosX(), player.getPosY(),
+//                gameWindow.getTick() / 2  // half speed
+//        );
+
+        // Draw Tooltips
+        renderTooltips(g);
+
+        // Draw HUD Elements
+        renderHudElements(g);
+
+        // Draw Debug Info
+        renderDebugInfo(g);
+    }
+
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements(Graphics g) {
         // Render Tiles
@@ -191,6 +222,9 @@ public class GameRenderer extends Renderer {
                 return;
             }
 
+            // Draw the hover animation
+            drawSprite(g, textureManager.getSprite(SpriteID.SELECT_GREEN), tileX, tileY, gameWindow.getTick());
+
             // Draw the tooltip
             final int tooltipOffset = 15;
             g.drawImage(tooltip, mouseX + tooltipOffset, mouseY + tooltipOffset, null);
@@ -235,31 +269,5 @@ public class GameRenderer extends Renderer {
         for (int i = 0; i < debugInfo.size(); i++) {
             g.drawString(debugInfo.get(i), 0, 18 * (i + 1));
         }
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        // Draw Background
-        g.drawImage(background, 0, 0, null);
-
-        // Draw Screen Renderables
-        renderScreenElements(g);
-
-        // Draw Player
-        Player player = game.getPlayer();
-        drawSprite(
-                g, textureManager.getSprite(player.getSpriteID()),
-                player.getPosX(), player.getPosY(),
-                gameWindow.getTick()
-        );
-
-        // Draw Tooltips
-        renderTooltips(g);
-
-        // Draw HUD Elements
-        renderHudElements(g);
-
-        // Draw Debug Info
-        renderDebugInfo(g);
     }
 }

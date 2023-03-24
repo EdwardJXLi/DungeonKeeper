@@ -492,6 +492,86 @@
       "y": 4,
       "sprite_size": 9,
       "transparent": true
+    },
+    "SELECT_BLUE": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/select_blue.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/select_blue.png",
+          "x": 1,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "SELECT_GREEN": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/select_green.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/select_green.png",
+          "x": 1,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "SELECT_RED": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/select_red.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/select_red.png",
+          "x": 1,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "PARTICLE_STUN": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/particle_stun.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/selection/particle_stun.png",
+          "x": 1,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
     }
   },
   "fonts": {

@@ -39,7 +39,7 @@ public class TooltipHelper {
     public BufferedImage generateDroppedItemTooltip(DroppedItem di) {
         // Generate Tooltip Size
         double scale = renderer.getGameWindow().getScale();
-        int width = (int) (128 * scale);
+        int width = (int) (144 * scale);
         int height = (int) (86 * scale);
         int padding = (int) (2 * scale);
 
