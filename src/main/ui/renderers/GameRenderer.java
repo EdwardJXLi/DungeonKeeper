@@ -4,7 +4,6 @@ import model.DroppedItem;
 import model.Player;
 import model.ScreenElement;
 import model.graphics.SpriteID;
-import model.tiles.Trap;
 import ui.GameWindow;
 import ui.sprites.Sprite;
 
@@ -17,6 +16,10 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class GameRenderer extends Renderer {
+    private static final int HEARTS_PER_HEART_ICON = 20;
+    private static final int ATTACK_PER_ATTACK_ICON = 5;
+    private static final int DEFENSE_PER_DEFENSE_ICON = 5;
+
     private int mouseX = 0;
     private int mouseY = 0;
     private boolean mouseInFrame = false;
@@ -130,7 +133,7 @@ public class GameRenderer extends Renderer {
                 // Quick hack for a varied floor
                 floorSprite = floorSprites.get(rng.nextInt(floorSprites.size()));
 
-                drawSprite(g, floorSprite, x, y);
+                drawMapSprite(g, floorSprite, x, y);
             }
         }
         g.dispose();
@@ -146,7 +149,7 @@ public class GameRenderer extends Renderer {
 
         // Draw Player
         Player player = game.getPlayer();
-        drawSprite(
+        drawMapSprite(
                 g, textureManager.getSprite(player.getSpriteID()),
                 player.getPosX(), player.getPosY(),
                 gameWindow.getTick()
@@ -164,24 +167,24 @@ public class GameRenderer extends Renderer {
         renderHudElements(g);
 
         // Draw Debug Info
-        renderDebugInfo(g);
+//        renderDebugInfo(g);
     }
 
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements(Graphics g) {
         // Render Tiles
         for (ScreenElement e : game.getLevel().getTiles()) {
-            drawSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+            drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
 
         // Render Enemies
         for (ScreenElement e : game.getLevel().getEnemies()) {
-            drawSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+            drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
 
         // Render Dropped Items
         for (ScreenElement e : game.getLevel().getDroppedItems()) {
-            drawSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+            drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
     }
 
@@ -223,7 +226,7 @@ public class GameRenderer extends Renderer {
             }
 
             // Draw the hover animation
-            drawSprite(g, textureManager.getSprite(SpriteID.SELECT_GREEN), tileX, tileY, gameWindow.getTick());
+            drawMapSprite(g, textureManager.getSprite(SpriteID.SELECT_GREEN), tileX, tileY, gameWindow.getTick());
 
             // Draw the tooltip
             final int tooltipOffset = 15;
@@ -233,7 +236,113 @@ public class GameRenderer extends Renderer {
 
     // EFFECTS: Renders HUD Elements
     private void renderHudElements(Graphics g) {
-        // TODO
+        // Render Player HUD Elements
+        renderPlayerHearts(g);
+        renderPlayerDefense(g);
+        renderPlayerAttack(g);
+
+        // Renders Game Messages
+        renderGameMessages(g);
+
+        // Renders Game Instructions
+        renderGameInstructions(g);
+    }
+
+    // EFFECTS: Renders the Player Hearts
+    private void renderPlayerHearts(Graphics g) {
+        // Draw Heart Text
+        g.setColor(Color.RED);
+        g.setFont(textureManager.getFont(20));
+        g.drawString("Health: ", 10, 8 + textureManager.getSpriteSize());
+
+        // Draw Empty Hearts (Max Number of Hearts)
+        for (int i = 0; i < game.getPlayer().getMaxHealth() / HEARTS_PER_HEART_ICON; i++) {
+            drawSprite(
+                    g, textureManager.getSprite(SpriteID.SPRITE_HEART_EMPTY),
+                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)), 10
+            );
+        }
+
+        // Draw Full Hearts (Current Health)
+        for (int i = 0; i < game.getPlayer().getHealth() / HEARTS_PER_HEART_ICON; i++) {
+            drawSprite(
+                    g, textureManager.getSprite(SpriteID.SPRITE_HEART_FULL),
+                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)), 10
+            );
+        }
+    }
+
+    // EFFECTS: Renders the Player Defense
+    private void renderPlayerDefense(Graphics g) {
+        // Draw Defense Text
+        g.setColor(Color.BLUE);
+        g.setFont(textureManager.getFont(20));
+        g.drawString("DEFENSE: ", 10, 4 + (4 + textureManager.getSpriteSize()) * 2);
+
+        // Draw Defense Points
+        for (int i = 0; i < game.getPlayer().getDefense() / DEFENSE_PER_DEFENSE_ICON; i++) {
+            drawSprite(
+                    g, textureManager.getSprite(SpriteID.SPRITE_ARMOR_FULL),
+                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)), 10 + textureManager.getSpriteSize() + 4
+            );
+        }
+    }
+
+    // EFFECTS: Renders the Player Attack
+    private void renderPlayerAttack(Graphics g) {
+        // Draw Defense Text
+        g.setColor(Color.ORANGE);
+        g.setFont(textureManager.getFont(20));
+        g.drawString("STRENGTH: ", 10, 4 + (4 + textureManager.getSpriteSize()) * 3);
+
+        // Draw Attack Points
+        for (int i = 0; i < game.getPlayer().getAttack() / ATTACK_PER_ATTACK_ICON; i++) {
+            drawSprite(
+                    g, textureManager.getSprite(SpriteID.SPRITE_STRENGTH),
+                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)), 10 + (textureManager.getSpriteSize() + 4) * 2
+            );
+        }
+    }
+
+    // EFFECTS: Renders Game Messages
+    private void renderGameMessages(Graphics g) {
+        // Setup Fonts
+        g.setFont(textureManager.getFont(12));
+
+        // Get Game Messages
+        List<String> gameMessages = game.getLastMessages(5);
+
+        // Renders game messages on bottom left corner of screen, backwards
+        for (int i = 0; i < gameMessages.size(); i++) {
+            // Render with slight gradient as messages go on
+            g.setColor(new Color(
+                    255, 200, 255,
+                    250 - (int) (200 * ((float) i / (float) gameMessages.size()))
+            ));
+            g.drawString(
+                    gameMessages.get(gameMessages.size() - i - 1),
+                    10, gameWindow.getHeight() - 50 - (i * textureManager.getFont(12).getSize())
+            );
+        }
+    }
+
+    // EFFECTS: Renders Game Instructions
+    private void renderGameInstructions(Graphics g) {
+        // Setup Fonts
+        g.setFont(textureManager.getFont(16));
+
+        // Renders Inventory Instructions
+        g.setColor(new Color(255, 255, 255, 128));
+        g.drawString(
+                "Press [E] to open your inventory.",
+                textureManager.getFont(16).getSize() * 18,
+                gameWindow.getHeight() - textureManager.getFont(16).getSize() * 4
+        );
+        g.drawString(
+                "Use [W] [A] [S] [D] to move.",
+                textureManager.getFont(16).getSize() * 22,
+                gameWindow.getHeight() - textureManager.getFont(16).getSize() * 3
+        );
     }
 
     // EFFECTS: Draws debug info to screen

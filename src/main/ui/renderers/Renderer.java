@@ -118,18 +118,34 @@ public abstract class Renderer extends JPanel {
         // Do Nothing
     }
 
-    // TODO: Hacky and Temporary Draw Function!
-    public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY, int tick) {
+    // EFFECTS: Draws an animated sprite at pixel location
+    public void drawSprite(Graphics g, Sprite sprite, int x, int y, int tick) {
         g.drawImage(
                 sprite.getImage(tick),
-                offsetX * textureManager.getSpriteSize(),
-                offsetY * textureManager.getSpriteSize(),
+                x,
+                y,
                 null
         );
     }
 
-    public void drawSprite(Graphics g, Sprite sprite, int offsetX, int offsetY) {
-        drawSprite(g, sprite, offsetX, offsetY, 0);
+    // EFFECTS: Draws a sprite at pixel location
+    public void drawSprite(Graphics g, Sprite sprite, int x, int y) {
+        drawSprite(g, sprite, x, y, 0);
+    }
+
+    // EFFECTS: Draws an animated sprite at the given offset
+    public void drawMapSprite(Graphics g, Sprite sprite, int offsetX, int offsetY, int tick) {
+        drawSprite(
+                g, sprite,
+                offsetX * textureManager.getSpriteSize(),
+                offsetY * textureManager.getSpriteSize(),
+                tick
+        );
+    }
+
+    // EFFECTS: Draws a sprite at the given offset
+    public void drawMapSprite(Graphics g, Sprite sprite, int offsetX, int offsetY) {
+        drawMapSprite(g, sprite, offsetX, offsetY, 0);
     }
 
     public GameWindow getGameWindow() {

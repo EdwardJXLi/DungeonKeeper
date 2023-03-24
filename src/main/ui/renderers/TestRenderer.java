@@ -38,10 +38,10 @@ public class TestRenderer extends Renderer {
                     offsetY * textureManager.getSpriteSize() + 18
             );
             int offsetX = 5;
-            drawSprite(g, sprite, offsetX, offsetY, gameWindow.getTick());
+            drawMapSprite(g, sprite, offsetX, offsetY, gameWindow.getTick());
             offsetX++;
             for (Sprite s : sprites) {
-                drawSprite(g, s, offsetX, offsetY);
+                drawMapSprite(g, s, offsetX, offsetY);
                 offsetX++;
             }
             offsetY++;
