@@ -5,8 +5,8 @@ import ui.GameWindow;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class PauseRenderer extends MenuRenderer {
-    public PauseRenderer(GameWindow gameWindow) {
+public class DeathRenderer extends MenuRenderer {
+    public DeathRenderer(GameWindow gameWindow) {
         super(gameWindow);
     }
 
@@ -26,9 +26,6 @@ public class PauseRenderer extends MenuRenderer {
         // Draw pause menu in the center of the screen
         g.setColor(Color.WHITE);
         g.setFont(textureManager.getFont(32));
-        g.drawString("GAME PAUSED", 16, 48);
-
-        // Draw Debug Info
-        renderDebugInfo(g);
+        g.drawString("YOU DIED...", 16, 48);
     }
 }

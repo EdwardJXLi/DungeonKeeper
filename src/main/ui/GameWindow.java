@@ -13,6 +13,7 @@ public class GameWindow extends JFrame {
     private final int sizeY;
     private final double scale;
     private boolean paused;
+    private boolean debug;
 
     private GraphicalGame graphicalGame;
 
@@ -57,6 +58,8 @@ public class GameWindow extends JFrame {
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
+        setDebug(false);
+        setPaused(false);
 
         // Initialize UI and Rendering
         setVisible(true);
@@ -81,6 +84,14 @@ public class GameWindow extends JFrame {
 
     public void setPaused(boolean paused) {
         this.paused = paused;
+    }
+
+    public boolean isDebug() {
+        return debug;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
     }
 
     public TextureManager getSpriteManager() {
@@ -130,5 +141,9 @@ public class GameWindow extends JFrame {
 
     public InventoryRenderer getInventoryRenderer() {
         return inventoryRenderer;
+    }
+
+    public Renderer getCurrentRenderer() {
+        return currentRenderer;
     }
 }

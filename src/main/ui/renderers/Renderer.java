@@ -11,6 +11,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Renderer extends JPanel {
     protected GameWindow gameWindow;
@@ -46,6 +48,43 @@ public abstract class Renderer extends JPanel {
     // MODIFIES: this
     public void initRenderer() {
         // Nothing for now. To be overridden
+    }
+
+    // EFFECTS: Draws debug info to screen
+    protected void renderDebugInfo(Graphics g) {
+        if (gameWindow.isDebug()) {
+            // Setup Fonts
+            g.setColor(Color.WHITE);
+            g.setFont(textureManager.getFont(12));
+
+            // Add Debug Text
+            List<String> debugInfo = new ArrayList<>();
+            debugInfo.add("== ENGINE DEBUG ==");
+            debugInfo.add("Game Tick: " + gameWindow.getTick());
+            debugInfo.add("Player Position: " + game.getPlayer().getPosX() + ", " + game.getPlayer().getPosY());
+            debugInfo.add("Mouse Position: " + mouseX + ", " + mouseY);
+            debugInfo.add("Mouse In Frame: " + mouseInFrame);
+            debugInfo.add("Current Renderer: " + gameWindow.getCurrentRenderer().getClass().getSimpleName());
+            debugInfo.add("");
+            debugInfo.add("== RENDERING DEBUG ==");
+            debugInfo.add("FPS: " + gameWindow.getFPS());
+            debugInfo.add("Rendered Tiles: " + game.getLevel().getTiles().size());
+            debugInfo.add("Rendered Enemies: " + game.getLevel().getEnemies().size());
+            debugInfo.add("Rendered Dropped Items: " + game.getLevel().getDroppedItems().size());
+            debugInfo.add("");
+            debugInfo.add("== GAME DEBUG ==");
+            debugInfo.add("Player Health: " + game.getPlayer().getHealth());
+            debugInfo.add("Player Max Health: " + game.getPlayer().getMaxHealth());
+            debugInfo.add("Player Attack: " + game.getPlayer().getAttack());
+            debugInfo.add("Player Defense: " + game.getPlayer().getDefense());
+            debugInfo.add("Player Kills: " + game.getPlayer().getKills());
+            debugInfo.add("Player Inventory Size: " + game.getPlayer().getInventory().numItems());
+
+            // Draw Debug Text
+            for (int i = 0; i < debugInfo.size(); i++) {
+                g.drawString(debugInfo.get(i), 0, 18 * (i + 1));
+            }
+        }
     }
 
     // EFFECTS: Sets up mouse and key listeners

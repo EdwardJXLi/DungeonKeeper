@@ -84,6 +84,9 @@ public class InventoryRenderer extends MenuRenderer {
 
         // Render Tooltips
         renderTooltips(g);
+
+        // Draw Debug Info
+        renderDebugInfo(g);
     }
 
     // EFFECTS: Sets up ItemBox's for each item in player inventory

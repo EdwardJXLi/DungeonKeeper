@@ -9,7 +9,6 @@ import ui.helpers.TooltipHelper;
 import ui.sprites.Sprite;
 
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
@@ -19,9 +18,7 @@ import java.util.Random;
 public class GameRenderer extends Renderer {
     private static final int HEARTS_PER_HEART_ICON = 20;
     private static final int ATTACK_PER_ATTACK_ICON = 5;
-    private static final int DEFENSE_PER_DEFENSE_ICON = 5;
-    
-    private int lastKeyPress = 0;
+    private static final int DEFENSE_PER_DEFENSE_ICON = 10;
 
     private final TooltipHelper tooltipHelper;
     private BufferedImage background;
@@ -40,14 +37,12 @@ public class GameRenderer extends Renderer {
     // MODIFIES: this
     @Override
     public void onKeyPress(KeyEvent e) {
-        lastKeyPress = e.getKeyCode();
-
         // Get Game Info
         Player player = game.getPlayer();
         DroppedItem di = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
 
         // Handles key presses and moves character
-        switch (lastKeyPress) {
+        switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
                 player.moveUp();
                 break;
@@ -133,11 +128,6 @@ public class GameRenderer extends Renderer {
                 player.getPosX(), player.getPosY(),
                 gameWindow.getTick()
         );
-//        drawSprite(
-//                g, textureManager.getSprite(SpriteID.SELECT_BLUE),
-//                player.getPosX(), player.getPosY(),
-//                gameWindow.getTick() / 2  // half speed
-//        );
 
         // Draw Tooltips
         renderTooltips(g);
@@ -146,7 +136,7 @@ public class GameRenderer extends Renderer {
         renderHudElements(g);
 
         // Draw Debug Info
-//        renderDebugInfo(g);
+        renderDebugInfo(g);
     }
 
     // EFFECTS: Draws all tiles and enemies to screen
@@ -322,41 +312,6 @@ public class GameRenderer extends Renderer {
                 textureManager.getFont(16).getSize() * 22,
                 gameWindow.getHeight() - textureManager.getFont(16).getSize() * 3
         );
-    }
-
-    // EFFECTS: Draws debug info to screen
-    private void renderDebugInfo(Graphics g) {
-        // Setup Fonts
-        g.setColor(Color.WHITE);
-        g.setFont(textureManager.getFont(12));
-
-        // Add Debug Text
-        List<String> debugInfo = new ArrayList<>();
-        debugInfo.add("== ENGINE DEBUG ==");
-        debugInfo.add("Game Tick: " + gameWindow.getTick());
-        debugInfo.add("Player Position: " + game.getPlayer().getPosX() + ", " + game.getPlayer().getPosY());
-        debugInfo.add("Mouse Position: " + mouseX + ", " + mouseY);
-        debugInfo.add("Mouse In Frame: " + mouseInFrame);
-        debugInfo.add("Last Key Press: " + lastKeyPress);
-        debugInfo.add("");
-        debugInfo.add("== RENDERING DEBUG ==");
-        debugInfo.add("FPS: " + gameWindow.getFPS());
-        debugInfo.add("Rendered Tiles: " + game.getLevel().getTiles().size());
-        debugInfo.add("Rendered Enemies: " + game.getLevel().getEnemies().size());
-        debugInfo.add("Rendered Dropped Items: " + game.getLevel().getDroppedItems().size());
-        debugInfo.add("");
-        debugInfo.add("== GAME DEBUG ==");
-        debugInfo.add("Player Health: " + game.getPlayer().getHealth());
-        debugInfo.add("Player Max Health: " + game.getPlayer().getMaxHealth());
-        debugInfo.add("Player Attack: " + game.getPlayer().getAttack());
-        debugInfo.add("Player Defense: " + game.getPlayer().getDefense());
-        debugInfo.add("Player Kills: " + game.getPlayer().getKills());
-        debugInfo.add("Player Inventory Size: " + game.getPlayer().getInventory().numItems());
-
-        // Draw Debug Text
-        for (int i = 0; i < debugInfo.size(); i++) {
-            g.drawString(debugInfo.get(i), 0, 18 * (i + 1));
-        }
     }
 
     // EFFECTS: Returns the rendered game screen as a BufferedImage

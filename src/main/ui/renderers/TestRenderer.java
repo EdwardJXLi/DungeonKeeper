@@ -46,6 +46,9 @@ public class TestRenderer extends Renderer {
             }
             offsetY++;
         }
+
+        // Draw Debug Info
+        renderDebugInfo(g);
     }
 
     @Override
