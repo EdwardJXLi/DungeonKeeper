@@ -1,10 +1,9 @@
 package ui;
 
 import model.Game;
-import ui.renderers.GameRenderer;
-import ui.renderers.PauseRenderer;
+import ui.helpers.TextureManager;
+import ui.renderers.*;
 import ui.renderers.Renderer;
-import ui.renderers.TestRenderer;
 
 import javax.swing.*;
 
@@ -19,7 +18,9 @@ public class GameWindow extends JFrame {
 
     private TestRenderer testRenderer;
     private GameRenderer gameRenderer;
+    private MainMenuRenderer mainMenuRenderer;
     private PauseRenderer pauseRenderer;
+    private InventoryRenderer inventoryRenderer;
     private Renderer currentRenderer;
 
     private TextureManager textureManager;
@@ -42,7 +43,9 @@ public class GameWindow extends JFrame {
         // Create and add all panels
         testRenderer = new TestRenderer(this);
         gameRenderer = new GameRenderer(this);
+        mainMenuRenderer = new MainMenuRenderer(this);
         pauseRenderer = new PauseRenderer(this);
+        inventoryRenderer = new InventoryRenderer(this);
 
         // Init gameRenderer and add Input Handling
         currentRenderer = gameRenderer;
@@ -67,6 +70,7 @@ public class GameWindow extends JFrame {
         setPaused(pause);
         pack();
         repaint();
+        currentRenderer = other;
     }
 
     public boolean isPaused() {
@@ -114,7 +118,15 @@ public class GameWindow extends JFrame {
         return gameRenderer;
     }
 
+    public MainMenuRenderer getMainMenuRenderer() {
+        return mainMenuRenderer;
+    }
+
     public PauseRenderer getPauseRenderer() {
         return pauseRenderer;
+    }
+
+    public InventoryRenderer getInventoryRenderer() {
+        return inventoryRenderer;
     }
 }

@@ -18,7 +18,7 @@ public class PauseRenderer extends MenuRenderer {
     }
 
     // EFFECTS: Renders pause menu
-//    @Override
+    @Override
     public void paint(Graphics g) {
         // Draw background
         g.drawImage(renderBackground(gameWindow.getGameRenderer()), 0, 0, null);

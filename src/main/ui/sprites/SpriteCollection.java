@@ -1,6 +1,6 @@
 package ui.sprites;
 
-import ui.TextureManager;
+import ui.helpers.TextureManager;
 
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -20,6 +20,16 @@ public abstract class SpriteCollection implements Sprite {
     @Override
     public BufferedImage getImage(int value) {
         return sprites.get(value % sprites.size()).getImage();
+    }
+
+    @Override
+    public BufferedImage getRawImage() {
+        return sprites.get(0).getRawImage();
+    }
+
+    @Override
+    public BufferedImage getRawImage(int value) {
+        return sprites.get(value % sprites.size()).getRawImage();
     }
 
     @Override

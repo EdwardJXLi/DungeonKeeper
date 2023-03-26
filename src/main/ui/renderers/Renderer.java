@@ -3,7 +3,7 @@ package ui.renderers;
 import model.Game;
 import ui.GameWindow;
 import ui.sprites.Sprite;
-import ui.TextureManager;
+import ui.helpers.TextureManager;
 
 import javax.swing.*;
 import java.awt.*;

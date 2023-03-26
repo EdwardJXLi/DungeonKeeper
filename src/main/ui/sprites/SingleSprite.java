@@ -1,6 +1,6 @@
 package ui.sprites;
 
-import ui.TextureManager;
+import ui.helpers.TextureManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,6 +25,17 @@ public class SingleSprite implements Sprite {
     public BufferedImage getImage(int value) {
         // Alias for getImage
         return getImage();
+    }
+
+    @Override
+    public BufferedImage getRawImage() {
+        return rawImage;
+    }
+
+    @Override
+    public BufferedImage getRawImage(int value) {
+        // Alias for getRawImage
+        return getRawImage();
     }
 
     @Override

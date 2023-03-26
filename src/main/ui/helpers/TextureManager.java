@@ -1,4 +1,4 @@
-package ui;
+package ui.helpers;
 
 import model.graphics.SpriteID;
 import org.json.JSONArray;
@@ -62,6 +62,11 @@ public class TextureManager {
 
         // Initialize Sprites
         initializeSprites();
+    }
+
+    // EFFECTS: Returns integer scaled with UI scaling factor
+    public int getScaledSize(int size) {
+        return (int) (size * scale);
     }
 
     // EFFECTS: Initializes All Sprites

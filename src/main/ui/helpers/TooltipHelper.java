@@ -1,15 +1,14 @@
-package ui.renderers;
+package ui.helpers;
 
 import model.DroppedItem;
 import model.Enemy;
 import model.Player;
 import model.Tile;
-import ui.TextureManager;
+import ui.renderers.Renderer;
 import ui.sprites.Sprite;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 public class TooltipHelper {
     private Renderer renderer;

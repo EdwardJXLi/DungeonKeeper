@@ -5,6 +5,7 @@ import model.Player;
 import model.ScreenElement;
 import model.graphics.SpriteID;
 import ui.GameWindow;
+import ui.helpers.TooltipHelper;
 import ui.sprites.Sprite;
 
 import java.awt.event.KeyEvent;
@@ -85,7 +86,7 @@ public class GameRenderer extends Renderer {
                 player.moveRight();
                 break;
             case KeyEvent.VK_E:
-                // TODO: Open Inventory
+                gameWindow.switchRenderer(gameWindow.getInventoryRenderer(), true);
                 break;
             case KeyEvent.VK_Q:
                 if (di != null) {
