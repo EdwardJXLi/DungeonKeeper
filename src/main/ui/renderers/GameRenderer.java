@@ -98,7 +98,7 @@ public class GameRenderer extends Renderer {
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
-                // TODO: Pause Game
+                gameWindow.pauseGame();
                 break;
         }
     }
@@ -378,5 +378,34 @@ public class GameRenderer extends Renderer {
         for (int i = 0; i < debugInfo.size(); i++) {
             g.drawString(debugInfo.get(i), 0, 18 * (i + 1));
         }
+    }
+
+    // EFFECTS: Returns the rendered game screen as a BufferedImage
+    public BufferedImage getRenderedFrame() {
+        BufferedImage framebuffer = new BufferedImage(
+                gameWindow.getWidth(),
+                gameWindow.getHeight(),
+                BufferedImage.TYPE_INT_ARGB
+        );
+        Graphics g = framebuffer.getGraphics();
+
+        // Draw Background
+        g.drawImage(background, 0, 0, null);
+
+        // Draw Screen Renderables
+        renderScreenElements(g);
+
+        // Draw Player
+        Player player = game.getPlayer();
+        drawMapSprite(
+                g, textureManager.getSprite(player.getSpriteID()),
+                player.getPosX(), player.getPosY(),
+                gameWindow.getTick()
+        );
+
+        // Draw HUD Elements
+        renderHudElements(g);
+
+        return framebuffer;
     }
 }

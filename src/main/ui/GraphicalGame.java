@@ -54,10 +54,13 @@ public class GraphicalGame {
         timer = new Timer(1000 / Game.TPS, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (game.isGameRunning()) {
+                if (game.isGameRunning() && !gameWindow.isPaused()) {
                     tick++;
                     gameWindow.repaint();
                     game.handleNextTick(tick);
+                } else if (game.isGameRunning() && gameWindow.isPaused()) {
+                    // Just draw but do not tick!
+                    gameWindow.repaint();
                 } else {
                     // TODO: DEATH
                     System.out.println("Game over!");

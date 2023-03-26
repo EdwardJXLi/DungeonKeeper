@@ -54,6 +54,13 @@ public abstract class Renderer extends JPanel {
         removeMouseMotionListener(mouseHandler);
     }
 
+    // EFFECTS: Switches input handlers between two renderers
+    // MODIFIES: this, other
+    public void switchInputHandlers(Renderer other) {
+        removeUserInputHandlers();
+        other.initUserInputHandlers();
+    }
+
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {

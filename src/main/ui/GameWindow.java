@@ -3,6 +3,7 @@ package ui;
 import model.Game;
 import ui.renderers.GameRenderer;
 import ui.renderers.HudRenderer;
+import ui.renderers.PauseRenderer;
 import ui.renderers.TestRenderer;
 
 import javax.swing.*;
@@ -12,12 +13,13 @@ public class GameWindow extends JFrame {
     private final int sizeX;
     private final int sizeY;
     private final double scale;
+    private boolean paused;
 
     private GraphicalGame graphicalGame;
 
     private TestRenderer testRenderer;
     private GameRenderer gameRenderer;
-    private HudRenderer hudRenderer;
+    private PauseRenderer pauseRenderer;
 
     private TextureManager textureManager;
 
@@ -37,13 +39,11 @@ public class GameWindow extends JFrame {
         textureManager = new TextureManager("assets/texturepack.json", scale, spriteSize);
 
         // Create and add all panels
-//        testRenderer = new TestRenderer(this);
-//        getContentPane().add(testRenderer);
-//        testRenderer.initUserInputHandlers();
         gameRenderer = new GameRenderer(this);
+        pauseRenderer = new PauseRenderer(this);
+
+        // Init gameRenderer and add Input Handling
         add(gameRenderer, 0);
-        hudRenderer = new HudRenderer(this);
-//        add(hudRenderer, 1);
         gameRenderer.initUserInputHandlers();
 
         // Set up graphical UI
@@ -53,6 +53,36 @@ public class GameWindow extends JFrame {
 
         // Initialize UI and Rendering
         setVisible(true);
+    }
+
+    // EFFECTS: Helper method to switch to pause menu
+    // MODIFIES: this
+    public void pauseGame() {
+        remove(gameRenderer);
+        add(pauseRenderer, 0);
+        gameRenderer.switchInputHandlers(pauseRenderer);
+        setPaused(true);
+        pack();
+        repaint();
+    }
+
+    // EFFECTS: Helper method to exit pause menu
+    // MODIFIES: this
+    public void unpauseGame() {
+        remove(pauseRenderer);
+        add(gameRenderer, 0);
+        pauseRenderer.switchInputHandlers(gameRenderer);
+        setPaused(false);
+        pack();
+        repaint();
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
     public TextureManager getSpriteManager() {
@@ -82,5 +112,13 @@ public class GameWindow extends JFrame {
     public int getFPS() {
         // TODO
         return -1;
+    }
+
+    public GameRenderer getGameRenderer() {
+        return gameRenderer;
+    }
+
+    public PauseRenderer getPauseRenderer() {
+        return pauseRenderer;
     }
 }
