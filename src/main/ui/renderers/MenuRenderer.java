@@ -9,12 +9,30 @@ import java.awt.image.Kernel;
 import java.util.Arrays;
 
 public abstract class MenuRenderer extends Renderer {
+    private BufferedImage background;
+
     public MenuRenderer(GameWindow gameWindow) {
         super(gameWindow);
+        background = null;
     }
 
-    // EFFECTS: Renders menu background
-    public BufferedImage renderBackground(GameRenderer gameRenderer) {
+    // EFFECTS: Initializes the Background
+    // MODIFIES: this
+    @Override
+    public void initRenderer() {
+        super.initRenderer();
+
+        // Generates the background
+        background = generateBackground(gameWindow.getGameRenderer());
+    }
+
+    // EFFECTS: Renders the background
+    public void renderBackground(Graphics g) {
+        g.drawImage(background, 0, 0, null);
+    }
+
+    // EFFECTS: Generates menu background
+    public BufferedImage generateBackground(GameRenderer gameRenderer) {
         BufferedImage background = new BufferedImage(
                 gameWindow.getSizeX(),
                 gameWindow.getSizeY(),

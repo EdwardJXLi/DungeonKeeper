@@ -45,8 +45,13 @@ public abstract class Armor extends Item {
     // EFFECTS: When used, player equips armor
     @Override
     public void useItem(Player p) {
-        p.getGame().sendMessage("You Equipped " + getName());
-        p.equipArmor(this);
+        if (p.getArmor() == this) {
+            p.getGame().sendMessage("You Unequipped " + getName());
+            p.unequipArmor();
+        } else {
+            p.getGame().sendMessage("You Equipped " + getName());
+            p.equipArmor(this);
+        }
     }
 
     // EFFECTS: Returns JSON Representation of an Armor

@@ -1,6 +1,7 @@
 package ui.renderers;
 
 import model.Item;
+import model.Player;
 import model.graphics.SpriteID;
 import ui.GameWindow;
 import ui.helpers.ItemBox;
@@ -21,7 +22,12 @@ public class InventoryRenderer extends MenuRenderer {
     private static final int PADDING_SIZE = 10;
     private static final int ITEM_RENDER_SIZE = 34;
 
-    private BufferedImage background;
+    final int padding;
+    final int itemRenderSize;
+    final int itemBoxPadding;
+    final int itemBoxSize;
+    final int itemSize;
+
     private List<ItemBox> inventoryItems;
     private final TooltipHelper tooltipHelper;
 
@@ -30,15 +36,20 @@ public class InventoryRenderer extends MenuRenderer {
 
     public InventoryRenderer(GameWindow gameWindow) {
         super(gameWindow);
-        background = null;
         tooltipHelper = new TooltipHelper(this, textureManager);
+
+        this.padding = textureManager.getScaledSize(PADDING_SIZE);
+        this.itemRenderSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
+        this.itemBoxPadding = textureManager.getScaledSize(2);
+        this.itemBoxSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
+        this.itemSize = (int) (itemBoxSize  * (0.75));
     }
 
     // EFFECTS: Sets up the inventory variables when a user opens the inventory
     // MODIFIES: this
     @Override
     public void initRenderer() {
-        background = renderBackground(gameWindow.getGameRenderer());
+        super.initRenderer();
 
         // Initialize Player Inventory Item Preview
         initializeInventoryItems();
@@ -51,7 +62,7 @@ public class InventoryRenderer extends MenuRenderer {
         internalTick++;
 
         // Draw background
-        g.drawImage(background, 0, 0, null);
+        renderBackground(g);
 
         // Draw Inventory Text
         // Draw pause menu in the center of the screen
@@ -61,6 +72,9 @@ public class InventoryRenderer extends MenuRenderer {
 
         // Render Player Model Preview
         renderPlayerModel(g);
+
+        // Render Player Stats
+        renderPlayerStats(g);
 
         // Render Inventory Content
         renderInventory(g);
@@ -75,8 +89,6 @@ public class InventoryRenderer extends MenuRenderer {
     // EFFECTS: Sets up ItemBox's for each item in player inventory
     private void initializeInventoryItems() {
         inventoryItems = new ArrayList<>();
-        final int padding = textureManager.getScaledSize(PADDING_SIZE);
-        final int itemRenderSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
         List<Item> inventory = game.getPlayer().getInventory().getInventoryItems();
 
         // Initialize Misc Items
@@ -108,12 +120,9 @@ public class InventoryRenderer extends MenuRenderer {
 
     // EFFECTS: Sets up ItemBox's for misc items such as weapons and armors
     private void initializeMiscItems() {
-        final int padding = textureManager.getScaledSize(PADDING_SIZE);
-        final int itemRenderSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
-
         // Add the weapon slot
         inventoryItems.add(new ItemBox(
-                gameWindow.getSizeX() / 2 - padding * 2 - itemRenderSize,
+                gameWindow.getSizeX() / 2 - padding * 4 - itemRenderSize,
                 gameWindow.getSizeY() / 2 - padding - itemRenderSize,
                 itemRenderSize,
                 itemRenderSize,
@@ -122,7 +131,7 @@ public class InventoryRenderer extends MenuRenderer {
 
         // Add the armor slot
         inventoryItems.add(new ItemBox(
-                gameWindow.getSizeX() / 2 - padding * 2 - itemRenderSize,
+                gameWindow.getSizeX() / 2 - padding * 4 - itemRenderSize,
                 gameWindow.getSizeY() / 2 + padding,
                 itemRenderSize,
                 itemRenderSize,
@@ -152,6 +161,43 @@ public class InventoryRenderer extends MenuRenderer {
         );
     }
 
+    // EFFECTS: Renders player stats onto the screen
+    private void renderPlayerStats(Graphics g) {
+        final int padding = textureManager.getScaledSize(PADDING_SIZE);
+        final int itemRenderSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
+
+        //
+        int spriteSize = textureManager.getSpriteSize() * PLAYER_MODEL_SCALE;
+
+        // Get player stats
+        Player player = game.getPlayer();
+
+        // Draw Health
+        g.setFont(textureManager.getFont(24));
+        g.setColor(Color.RED);
+        g.drawString(
+                "Health: " + player.getHealth() + "/" + player.getMaxHealth(),
+                gameWindow.getSizeX() / 4 - spriteSize / 2,
+                gameWindow.getSizeY() / 2 + spriteSize / 2 + padding * 2
+        );
+
+        // Draw Attack
+        g.setColor(Color.ORANGE);
+        g.drawString(
+                "Attack: " + player.getAttack(),
+                gameWindow.getSizeX() / 4 - spriteSize / 2,
+                gameWindow.getSizeY() / 2 - spriteSize / 2 - padding * 2
+        );
+
+        // Draw Defense
+        g.setColor(Color.BLUE);
+        g.drawString(
+                "Defense: " + player.getDefense(),
+                gameWindow.getSizeX() / 4 - spriteSize / 2,
+                gameWindow.getSizeY() / 2 - spriteSize / 2
+        );
+    }
+
     // EFFECTS: Renders the inventory content
     // MODIFIES: this
     private void renderInventory(Graphics g) {
@@ -174,10 +220,6 @@ public class InventoryRenderer extends MenuRenderer {
 
     // EFFECTS: Draws an itembox on screen
     private void drawItemBox(Graphics g, ItemBox ib) {
-        final int itemBoxPadding = textureManager.getScaledSize(2);
-        final int itemBoxSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
-        final int itemSize = (int) (itemBoxSize  * (0.75));
-
         // Draw Outline
         g.setColor(Color.WHITE);
         g.fillRect(ib.getPosX(), ib.getPosY(), ib.getWidth(), ib.getHeight());

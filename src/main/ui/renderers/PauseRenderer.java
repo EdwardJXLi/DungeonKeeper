@@ -21,7 +21,7 @@ public class PauseRenderer extends MenuRenderer {
     @Override
     public void paint(Graphics g) {
         // Draw background
-        g.drawImage(renderBackground(gameWindow.getGameRenderer()), 0, 0, null);
+        renderBackground(g);
 
         // Draw pause menu in the center of the screen
         g.setColor(Color.WHITE);
