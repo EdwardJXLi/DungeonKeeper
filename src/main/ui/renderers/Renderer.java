@@ -163,7 +163,7 @@ public abstract class Renderer extends JPanel {
         return game;
     }
 
-    public TextureManager getSpriteManager() {
+    public TextureManager getTextureManager() {
         return textureManager;
     }
 }

@@ -13,7 +13,7 @@ public class PauseRenderer extends MenuRenderer {
     @Override
     public void onKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            gameWindow.unpauseGame();
+            gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
         }
     }
 
@@ -23,9 +23,9 @@ public class PauseRenderer extends MenuRenderer {
         // Draw background
         g.drawImage(renderBackground(gameWindow.getGameRenderer()), 0, 0, null);
 
-        // Draw pause menu
+        // Draw pause menu in the center of the screen
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 32));
-        g.drawString("PAUSED", 100, 100);
+        g.setFont(textureManager.getFont(32));
+        g.drawString("GAME PAUSED", 16, 48);
     }
 }

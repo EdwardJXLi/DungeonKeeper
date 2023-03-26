@@ -98,7 +98,10 @@ public class GameRenderer extends Renderer {
                 }
                 break;
             case KeyEvent.VK_ESCAPE:
-                gameWindow.pauseGame();
+                gameWindow.switchRenderer(gameWindow.getPauseRenderer(), true);
+                break;
+            case KeyEvent.VK_BACK_SLASH:
+                gameWindow.switchRenderer(gameWindow.getTestRenderer(), false);
                 break;
         }
     }

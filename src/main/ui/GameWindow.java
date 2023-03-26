@@ -2,8 +2,8 @@ package ui;
 
 import model.Game;
 import ui.renderers.GameRenderer;
-import ui.renderers.HudRenderer;
 import ui.renderers.PauseRenderer;
+import ui.renderers.Renderer;
 import ui.renderers.TestRenderer;
 
 import javax.swing.*;
@@ -20,6 +20,7 @@ public class GameWindow extends JFrame {
     private TestRenderer testRenderer;
     private GameRenderer gameRenderer;
     private PauseRenderer pauseRenderer;
+    private Renderer currentRenderer;
 
     private TextureManager textureManager;
 
@@ -39,10 +40,12 @@ public class GameWindow extends JFrame {
         textureManager = new TextureManager("assets/texturepack.json", scale, spriteSize);
 
         // Create and add all panels
+        testRenderer = new TestRenderer(this);
         gameRenderer = new GameRenderer(this);
         pauseRenderer = new PauseRenderer(this);
 
         // Init gameRenderer and add Input Handling
+        currentRenderer = gameRenderer;
         add(gameRenderer, 0);
         gameRenderer.initUserInputHandlers();
 
@@ -55,24 +58,13 @@ public class GameWindow extends JFrame {
         setVisible(true);
     }
 
-    // EFFECTS: Helper method to switch to pause menu
-    // MODIFIES: this
-    public void pauseGame() {
-        remove(gameRenderer);
-        add(pauseRenderer, 0);
-        gameRenderer.switchInputHandlers(pauseRenderer);
-        setPaused(true);
-        pack();
-        repaint();
-    }
-
-    // EFFECTS: Helper method to exit pause menu
-    // MODIFIES: this
-    public void unpauseGame() {
-        remove(pauseRenderer);
-        add(gameRenderer, 0);
-        pauseRenderer.switchInputHandlers(gameRenderer);
-        setPaused(false);
+    // EFFECTS: Helper method to switch scenes
+    // MODIFIES: this, other
+    public void switchRenderer(Renderer other, boolean pause) {
+        remove(currentRenderer);
+        add(other, 0);
+        currentRenderer.switchInputHandlers(other);
+        setPaused(pause);
         pack();
         repaint();
     }
@@ -112,6 +104,10 @@ public class GameWindow extends JFrame {
     public int getFPS() {
         // TODO
         return -1;
+    }
+
+    public TestRenderer getTestRenderer() {
+        return testRenderer;
     }
 
     public GameRenderer getGameRenderer() {

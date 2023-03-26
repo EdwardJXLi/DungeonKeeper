@@ -51,6 +51,9 @@ public class TestRenderer extends Renderer {
     @Override
     public void onKeyPress(KeyEvent e) {
         System.out.printf(String.format("Key Pressed: %s\n", e.getKeyChar()));
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
+        }
     }
 
     @Override
