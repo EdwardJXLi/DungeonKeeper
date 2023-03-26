@@ -1,9 +1,6 @@
 package ui.helpers;
 
-import model.DroppedItem;
-import model.Enemy;
-import model.Player;
-import model.Tile;
+import model.*;
 import ui.renderers.Renderer;
 import ui.sprites.Sprite;
 
@@ -31,6 +28,41 @@ public class TooltipHelper {
         g.fillRect(
                 padding, padding,
                 width - (padding * 2), height - (padding * 2));
+
+        return tooltip;
+    }
+
+    public BufferedImage generateItemTooltip(Item item) {
+        // Generate Tooltip Size
+        double scale = renderer.getGameWindow().getScale();
+        int width = (int) (128 * scale);
+        int height = (int) (96 * scale);
+        int padding = (int) (2 * scale);
+
+        // Generate Tooltip Image
+        BufferedImage tooltip = generateTooltipBackground(width, height, padding);
+        Graphics2D g = tooltip.createGraphics();
+
+        // Create Render Helper
+        TooltipRenderHelper drawHelper = new TooltipRenderHelper(
+                g, padding * 4, padding * 4, padding
+        );
+
+        // Draw Tile Image
+        drawHelper.drawSpriteWithName(
+                textureManager.getSprite(item.getSpriteID()),
+                item.getName(),
+                16
+        );
+
+        // Draw Tile Description
+        for (String line : item.getDescription()) {
+            drawHelper.drawString(line);
+        }
+
+        drawHelper.drawString("Click to use/equip", Color.GREEN);
+        drawHelper.drawString("[Q] to drop item", Color.GREEN);
+        drawHelper.drawString("[X] to delete item", Color.GREEN);
 
         return tooltip;
     }

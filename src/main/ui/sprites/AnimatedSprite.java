@@ -15,4 +15,9 @@ public class AnimatedSprite extends SpriteCollection {
     public BufferedImage getImage(int value) {
         return sprites.get((value / frameTime) % sprites.size()).getImage();
     }
+
+    @Override
+    public BufferedImage getRawImage(int value) {
+        return sprites.get((value / frameTime) % sprites.size()).getRawImage();
+    }
 }

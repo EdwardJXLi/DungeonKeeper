@@ -159,16 +159,24 @@ public class Player extends Entity implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: Sets currently equipped armor and places current armor in inventory
+    // EFFECTS: Sets the new equipped armor
     public void equipArmor(Armor armor) {
         if (inventory.getEquippedArmor() == null) {
             inventory.setEquippedArmor(armor);
             removeItem(armor);
         } else {
-            Armor previousArmor = inventory.getEquippedArmor();
-            inventory.setEquippedArmor(armor);
-            removeItem(armor);
-            addItem(previousArmor);
+            // Remove armor and try again
+            unequipArmor();
+            equipArmor(armor);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Removes the old equipped armor and adds it back into the inventory
+    public void unequipArmor() {
+        if (inventory.getEquippedArmor() != null) {
+            addItem(inventory.getEquippedArmor());
+            inventory.setEquippedArmor(null);
         }
     }
 
@@ -178,16 +186,24 @@ public class Player extends Entity implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: Sets currently equipped armor and places current armor in inventory
+    // EFFECTS: Sets the new equipped weapon
     public void equipWeapon(Weapon weapon) {
         if (inventory.getEquippedWeapon() == null) {
             inventory.setEquippedWeapon(weapon);
             removeItem(weapon);
         } else {
-            Weapon previousWeapon = inventory.getEquippedWeapon();
-            inventory.setEquippedWeapon(weapon);
-            removeItem(weapon);
-            addItem(previousWeapon);
+            // Remove weapon and try again
+            unequipWeapon();
+            equipWeapon(weapon);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Removes the old equipped weapon and adds it back into the inventory
+    public void unequipWeapon() {
+        if (inventory.getEquippedWeapon() != null) {
+            addItem(inventory.getEquippedWeapon());
+            inventory.setEquippedWeapon(null);
         }
     }
 

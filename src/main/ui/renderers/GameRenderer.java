@@ -20,13 +20,10 @@ public class GameRenderer extends Renderer {
     private static final int HEARTS_PER_HEART_ICON = 20;
     private static final int ATTACK_PER_ATTACK_ICON = 5;
     private static final int DEFENSE_PER_DEFENSE_ICON = 5;
-
-    private int mouseX = 0;
-    private int mouseY = 0;
-    private boolean mouseInFrame = false;
+    
     private int lastKeyPress = 0;
 
-    private TooltipHelper tooltipHelper;
+    private final TooltipHelper tooltipHelper;
     private BufferedImage background;
 
     public GameRenderer(GameWindow gameWindow) {
@@ -37,28 +34,6 @@ public class GameRenderer extends Renderer {
 
         // Initialize Background
         initializeBackground();
-    }
-
-    // EFFECTS: Handles mouse movement. Updates mouse position.
-    // MODIFIES: this
-    @Override
-    public void onMouseMove(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
-    }
-
-    // EFFECTS: Handles mouse entering frame. Updates mouse position.
-    // MODIFIES: this
-    @Override
-    public void onMouseEnter(MouseEvent e) {
-        mouseInFrame = true;
-    }
-
-    // EFFECTS: Handles mouse leaving frame. Updates mouse position.
-    // MODIFIES: this
-    @Override
-    public void onMouseLeave(MouseEvent e) {
-        mouseInFrame = false;
     }
 
     // EFFECTS: Handles key presses. Updates game state.

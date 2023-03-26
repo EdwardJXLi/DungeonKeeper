@@ -50,6 +50,7 @@ public class GameWindow extends JFrame {
         // Init gameRenderer and add Input Handling
         currentRenderer = gameRenderer;
         add(gameRenderer, 0);
+        gameRenderer.initRenderer();
         gameRenderer.initUserInputHandlers();
 
         // Set up graphical UI
@@ -66,6 +67,7 @@ public class GameWindow extends JFrame {
     public void switchRenderer(Renderer other, boolean pause) {
         remove(currentRenderer);
         add(other, 0);
+        other.initRenderer();
         currentRenderer.switchInputHandlers(other);
         setPaused(pause);
         pack();

@@ -17,6 +17,10 @@ public abstract class Renderer extends JPanel {
     protected Game game;
     protected TextureManager textureManager;
 
+    protected int mouseX = 0;
+    protected int mouseY = 0;
+    protected boolean mouseInFrame = false;
+
     private KeyHandler keyHandler;
     private MouseHandler mouseHandler;
 
@@ -36,6 +40,12 @@ public abstract class Renderer extends JPanel {
         this.mouseHandler = new MouseHandler();
 
         setPreferredSize(new Dimension(gameWindow.getSizeX(), gameWindow.getSizeY()));
+    }
+
+    // EFFECTS: Calls when the renderer starts rendering
+    // MODIFIES: this
+    public void initRenderer() {
+        // Nothing for now. To be overridden
     }
 
     // EFFECTS: Sets up mouse and key listeners
@@ -95,13 +105,27 @@ public abstract class Renderer extends JPanel {
         }
     }
 
-    // EFFECTS: Handler for key presses
-    public void onKeyPress(KeyEvent e) {
-        // Do Nothing
+    // EFFECTS: Handler for movement. Updates mouse position.
+    // MODIFIES: this
+    public void onMouseMove(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
     }
 
-    // EFFECTS: Handler for mouse movement
-    public void onMouseMove(MouseEvent e) {
+    // EFFECTS: Handler for mouse entering frame. Updates mouse position.
+    // MODIFIES: this
+    public void onMouseEnter(MouseEvent e) {
+        mouseInFrame = true;
+    }
+
+    // EFFECTS: Handler for mouse leaving frame. Updates mouse position.
+    // MODIFIES: this
+    public void onMouseLeave(MouseEvent e) {
+        mouseInFrame = false;
+    }
+
+    // EFFECTS: Handler for key presses
+    public void onKeyPress(KeyEvent e) {
         // Do Nothing
     }
 
@@ -112,16 +136,6 @@ public abstract class Renderer extends JPanel {
 
     // EFFECTS: Handler for mouse dragging
     public void onMouseDrag(MouseEvent e) {
-        // Do Nothing
-    }
-
-    // EFFECTS: Handler for mouse entering
-    public void onMouseEnter(MouseEvent e) {
-        // Do Nothing
-    }
-
-    // EFFECTS: Handler for mouse exiting
-    public void onMouseLeave(MouseEvent e) {
         // Do Nothing
     }
 
