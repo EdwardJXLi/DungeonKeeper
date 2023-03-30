@@ -8,16 +8,23 @@ import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
 import java.util.Arrays;
 
+/*
+ * Abstract class for all menu renderers.
+ * Menu renderers are used to render the game menus.
+ * These are renderers that do not tick the game, and may have blurred backgrounds
+ */
+
 public abstract class MenuRenderer extends Renderer {
     private BufferedImage background;
 
+    // EFFECTS: Creates a menu renderer for a game window.
     public MenuRenderer(GameWindow gameWindow) {
         super(gameWindow);
         background = null;
     }
 
-    // EFFECTS: Initializes the Background
     // MODIFIES: this
+    // EFFECTS: Generates and Initializes the Background
     @Override
     public void initRenderer() {
         super.initRenderer();
@@ -26,12 +33,13 @@ public abstract class MenuRenderer extends Renderer {
         background = generateBackground(gameWindow.getGameRenderer());
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders the background
     public void renderBackground(Graphics g) {
         g.drawImage(background, 0, 0, null);
     }
 
-    // EFFECTS: Generates menu background
+    // EFFECTS: Generates menu background by blurring a frame of the game
     public BufferedImage generateBackground(GameRenderer gameRenderer) {
         BufferedImage background = new BufferedImage(
                 gameWindow.getSizeX(),

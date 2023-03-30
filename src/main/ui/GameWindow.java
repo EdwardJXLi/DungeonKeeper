@@ -6,25 +6,37 @@ import ui.renderers.*;
 import ui.renderers.Renderer;
 
 import javax.swing.*;
+import java.util.List;
+
+/*
+ * Main class for GUI game rendering and control handling.
+ */
 
 public class GameWindow extends JFrame {
+    // Renderer Constants
     public static final int BASE_SPRITE_SIZE = 16;
+
+    // Renderer Variables
     private final int sizeX;
     private final int sizeY;
     private final double scale;
+    private final GraphicalGame graphicalGame;
     private boolean paused;
     private boolean debug;
 
-    private GraphicalGame graphicalGame;
-
-    private TestRenderer testRenderer;
-    private GameRenderer gameRenderer;
-    private MainMenuRenderer mainMenuRenderer;
-    private PauseRenderer pauseRenderer;
-    private InventoryRenderer inventoryRenderer;
+    // Renderers
+    private final TestRenderer testRenderer;
+    private final GameRenderer gameRenderer;
+    private final MainMenuRenderer mainMenuRenderer;
+    private final PauseRenderer pauseRenderer;
+    private final InventoryRenderer inventoryRenderer;
     private Renderer currentRenderer;
 
+    // Texture Manager
     private TextureManager textureManager;
+
+    // TODO: Feature unfinished, but later be able to hotswap textures
+    private List<TextureManager> textureManagers;
 
     // EFFECTS: Creates and Initializes Game of size X and Y
     public GameWindow(int sizeX, int sizeY, GraphicalGame graphicalGame) {
@@ -68,10 +80,15 @@ public class GameWindow extends JFrame {
     // EFFECTS: Helper method to switch scenes
     // MODIFIES: this, other
     public void switchRenderer(Renderer other, boolean pause) {
+        // Remove current renderer from JFrame and add the other
         remove(currentRenderer);
         add(other, 0);
+
+        // Initialize the other renderer and switch input handling
         other.initRenderer();
         currentRenderer.switchInputHandlers(other);
+
+        // Redraw graphics and update tick handler
         setPaused(pause);
         pack();
         repaint();

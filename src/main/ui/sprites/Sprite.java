@@ -4,16 +4,20 @@ import ui.helpers.TextureManager;
 
 import java.awt.image.BufferedImage;
 
+/*
+ * Interface for all graphical sprites used in the game.
+ */
+
 public interface Sprite {
-    public BufferedImage getImage();
+    BufferedImage getImage();
 
-    public BufferedImage getImage(int value);
+    BufferedImage getImage(int value);
 
-    public BufferedImage getRawImage();
+    BufferedImage getRawImage();
 
-    public BufferedImage getRawImage(int value);
+    BufferedImage getRawImage(int value);
 
-    public boolean isTransparent();
+    boolean isTransparent();
 
-    public void initialize(TextureManager textureManager);
+    void initialize(TextureManager textureManager);
 }

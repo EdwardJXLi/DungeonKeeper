@@ -7,16 +7,26 @@ import ui.sprites.Sprite;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/*
+ * Helper class for generating tooltips. Used by the UI to generate tooltips for items, entities, etc.
+ */
+
 public class TooltipHelper {
-    private Renderer renderer;
-    private TextureManager textureManager;
-    
+    private final Renderer renderer;
+    private final TextureManager textureManager;
+    private final int padding;
+
+    // EFFECTS: Creates a new TooltipHelper
     public TooltipHelper(Renderer renderer, TextureManager textureManager) {
         this.renderer = renderer;
         this.textureManager = textureManager;
+
+        // Calculate Padding
+        this.padding = textureManager.getScaledSize(2);
     }
 
-    private BufferedImage generateTooltipBackground(int width, int height, int padding) {
+    // EFFECTS: Helper method for generating the default tooltip background
+    private BufferedImage generateTooltipBackground(int width, int height) {
         // Generate Tooltip Image
         BufferedImage tooltip = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = tooltip.createGraphics();
@@ -32,15 +42,14 @@ public class TooltipHelper {
         return tooltip;
     }
 
+    // EFFECTS: Generates a tooltip for the given item
     public BufferedImage generateItemTooltip(Item item) {
         // Generate Tooltip Size
-        double scale = renderer.getGameWindow().getScale();
-        int width = (int) (128 * scale);
-        int height = (int) (96 * scale);
-        int padding = (int) (2 * scale);
+        int width = textureManager.getScaledSize(128);
+        int height = textureManager.getScaledSize(96);
 
         // Generate Tooltip Image
-        BufferedImage tooltip = generateTooltipBackground(width, height, padding);
+        BufferedImage tooltip = generateTooltipBackground(width, height);
         Graphics2D g = tooltip.createGraphics();
 
         // Create Render Helper
@@ -60,6 +69,7 @@ public class TooltipHelper {
             drawHelper.drawString(line);
         }
 
+        // Draw Item Instructions
         drawHelper.drawString("Click to use/equip", Color.GREEN);
         drawHelper.drawString("[Q] to drop item", Color.GREEN);
         drawHelper.drawString("[X] to delete item", Color.GREEN);
@@ -67,15 +77,14 @@ public class TooltipHelper {
         return tooltip;
     }
 
+    // EFFECTS: Generates a tooltip for the given dropped item
     public BufferedImage generateDroppedItemTooltip(DroppedItem di) {
         // Generate Tooltip Size
-        double scale = renderer.getGameWindow().getScale();
-        int width = (int) (144 * scale);
-        int height = (int) (86 * scale);
-        int padding = (int) (2 * scale);
+        int width = textureManager.getScaledSize(144);
+        int height = textureManager.getScaledSize(86);
 
         // Generate Tooltip Image
-        BufferedImage tooltip = generateTooltipBackground(width, height, padding);
+        BufferedImage tooltip = generateTooltipBackground(width, height);
         Graphics2D g = tooltip.createGraphics();
 
         // Create Render Helper
@@ -101,15 +110,14 @@ public class TooltipHelper {
         return tooltip;
     }
 
+    // EFFECTS: Generates a tooltip for the given player
     public BufferedImage generatePlayerTooltip(Player player) {
         // Generate Tooltip Size
-        double scale = renderer.getGameWindow().getScale();
-        int width = (int) (128 * scale);
-        int height = (int) (92 * scale);
-        int padding = (int) (2 * scale);
+        int width = textureManager.getScaledSize(128);
+        int height = textureManager.getScaledSize(92);
 
         // Generate Tooltip Image
-        BufferedImage tooltip = generateTooltipBackground(width, height, padding);
+        BufferedImage tooltip = generateTooltipBackground(width, height);
         Graphics2D g = tooltip.createGraphics();
 
         // Create Render Helper
@@ -134,15 +142,14 @@ public class TooltipHelper {
         return tooltip;
     }
 
+    // EFFECTS: Generates a tooltip for the given enemy
     public BufferedImage generateEnemyTooltip(Enemy enemy) {
         // Generate Tooltip Size
-        double scale = renderer.getGameWindow().getScale();
-        int width = (int) (128 * scale);
-        int height = (int) (72 * scale);
-        int padding = (int) (2 * scale);
+        int width = textureManager.getScaledSize(128);
+        int height = textureManager.getScaledSize(72);
 
         // Generate Tooltip Image
-        BufferedImage tooltip = generateTooltipBackground(width, height, padding);
+        BufferedImage tooltip = generateTooltipBackground(width, height);
         Graphics2D g = tooltip.createGraphics();
 
         // Create Render Helper
@@ -165,15 +172,14 @@ public class TooltipHelper {
         return tooltip;
     }
 
+    // EFFECTS: Generates a tooltip for the given tile
     public BufferedImage generateTileTooltip(Tile tile) {
         // Generate Tooltip Size
-        double scale = renderer.getGameWindow().getScale();
-        int width = (int) (128 * scale);
-        int height = (int) (64 * scale);
-        int padding = (int) (2 * scale);
+        int width = textureManager.getScaledSize(128);
+        int height = textureManager.getScaledSize(64);
 
         // Generate Tooltip Image
-        BufferedImage tooltip = generateTooltipBackground(width, height, padding);
+        BufferedImage tooltip = generateTooltipBackground(width, height);
         Graphics2D g = tooltip.createGraphics();
 
         // Create Render Helper
@@ -196,12 +202,23 @@ public class TooltipHelper {
         return tooltip;
     }
 
+    /*
+     * Private internal-use only class for helping with spacing and rendering for tooltip text.
+     * This is highly specific to the tooltip rendering and should not be used for anything else.
+     */
     private class TooltipRenderHelper {
+        // Tooltip Constants
+        // This should be static, but that is not supported in jdk8 :skull:
+        private final Color defaultColor = Color.WHITE;
+        private final int defaultSize = 12;
+
+        // Tooltip Parameters
         private final Graphics2D graphics;
         private int offsetX;
         private int offsetY;
         private final int padding;
 
+        // EFFECTS: Creates a new TooltipRenderHelper with the given parameters
         public TooltipRenderHelper(Graphics2D graphics, int offsetX, int offsetY, int padding) {
             this.graphics = graphics;
             this.offsetX = offsetX;
@@ -209,6 +226,8 @@ public class TooltipHelper {
             this.padding = padding;
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a sprite on the next line of the tooltip
         public void drawSprite(Sprite sprite) {
             graphics.drawImage(
                     sprite.getImage(),
@@ -218,6 +237,8 @@ public class TooltipHelper {
             addOffsetY(textureManager.getSpriteSize());
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a sprite on the next line of the tooltip alongside the given name
         public void drawSpriteWithName(Sprite sprite, String name, int size, Color color) {
             graphics.drawImage(
                     sprite.getImage(),
@@ -235,10 +256,15 @@ public class TooltipHelper {
             addOffsetY(textureManager.getFont(size).getSize() / 2);
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a sprite on the next line of the tooltip alongside the given name
+        //          with default color
         public void drawSpriteWithName(Sprite sprite, String name, int size) {
-            drawSpriteWithName(sprite, name, size, Color.WHITE);
+            drawSpriteWithName(sprite, name, size, defaultColor);
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a string on the next line of the tooltip
         public void drawString(String text, int size, Color color) {
             addOffsetY(textureManager.getFont(size).getSize() / 2);
             graphics.setColor(color);
@@ -247,38 +273,54 @@ public class TooltipHelper {
             addOffsetY(textureManager.getFont(size).getSize() / 2);
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a string on the next line of the tooltip with default color
         public void drawString(String text, int size) {
-            drawString(text, size, Color.WHITE);
+            drawString(text, size, defaultColor);
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a string on the next line of the tooltip with default size
         public void drawString(String text, Color color) {
-            drawString(text, 12, color);
+            drawString(text, defaultSize, color);
         }
 
+        // MODIFIES: this
+        // EFFECTS: Draws a string on the next line of the tooltip with default size and color
         public void drawString(String text) {
-            drawString(text, 12, Color.WHITE);
+            drawString(text, defaultSize, defaultColor);
         }
 
+        // EFFECTS: Returns the current x offset of text rendering
         public int getOffsetX() {
             return offsetX;
         }
 
+        // MODIFIES: this
+        // EFFECTS: Sets the current x offset of text rendering
         public void addOffsetX(int offsetX) {
             this.offsetX += offsetX;
         }
 
+        // MODIFIES: this
+        // EFFECTS: Sets the current x offset of text rendering
         public void setOffsetX(int offsetX) {
             this.offsetX = offsetX;
         }
 
+        // EFFECTS: Returns the current y offset of text rendering
         public int getOffsetY() {
             return offsetY;
         }
 
+        // MODIFIES: this
+        // EFFECTS: Sets the current y offset of text rendering
         public void setOffsetY(int offsetY) {
             this.offsetY = offsetY;
         }
 
+        // MODIFIES: this
+        // EFFECTS: Adds to the current y offset of text rendering
         public void addOffsetY(int offsetY) {
             this.offsetY += offsetY;
         }

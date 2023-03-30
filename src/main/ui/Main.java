@@ -1,7 +1,7 @@
 package ui;
 
 /*
- * Main class
+ * Main class. Chooses to either launch in graphics or terminal mode.
  */
 
 public class Main {

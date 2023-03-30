@@ -15,29 +15,42 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Renderer for the inventory menu.
+ * Displays the player's inventory and allows them to interact with it.
+ * Allows the player to equip items, drop items, and use items.
+ * Also allows the player to view their stats.
+ */
+
 public class InventoryRenderer extends MenuRenderer {
+    // Inventory GUI Constants
     private static final int HORIZONTAL_ITEMS = 4;
     private static final int VERTICAL_ITEMS = 7;
     private static final int PLAYER_MODEL_SCALE = 12;
     private static final int PADDING_SIZE = 10;
     private static final int ITEM_RENDER_SIZE = 34;
 
+    // Dynamic Inventory GUI Constants (They change depending on the scale of the game window)
     final int padding;
     final int itemRenderSize;
     final int itemBoxPadding;
     final int itemBoxSize;
     final int itemSize;
 
+    // Inventory GUI Variables
     private List<ItemBox> inventoryItems;
     private final TooltipHelper tooltipHelper;
 
-    // Quick hack to get the player model to animate items in the inventory
+    // Quick hack to get the animated model to animate items in the inventory
     int internalTick = 0;
 
+    // EFFECTS: Creates a new inventory renderer
     public InventoryRenderer(GameWindow gameWindow) {
         super(gameWindow);
+        // Create a tooltip helper
         tooltipHelper = new TooltipHelper(this, textureManager);
 
+        // Calculate dynamic inventory GUI constants
         this.padding = textureManager.getScaledSize(PADDING_SIZE);
         this.itemRenderSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
         this.itemBoxPadding = textureManager.getScaledSize(2);
@@ -45,8 +58,8 @@ public class InventoryRenderer extends MenuRenderer {
         this.itemSize = (int) (itemBoxSize  * (0.75));
     }
 
-    // EFFECTS: Sets up the inventory variables when a user opens the inventory
     // MODIFIES: this
+    // EFFECTS: Sets up the inventory variables when a user opens the inventory
     @Override
     public void initRenderer() {
         super.initRenderer();
@@ -55,6 +68,7 @@ public class InventoryRenderer extends MenuRenderer {
         initializeInventoryItems();
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders the inventory menu
     @Override
     public void paint(Graphics g) {
@@ -89,18 +103,21 @@ public class InventoryRenderer extends MenuRenderer {
         renderDebugInfo(g);
     }
 
+    // MODIFIES: this
     // EFFECTS: Sets up ItemBox's for each item in player inventory
     private void initializeInventoryItems() {
+        // Set up empty array of inventory items.
+        // Inventory items are saved as ItemBoxes
         inventoryItems = new ArrayList<>();
         List<Item> inventory = game.getPlayer().getInventory().getInventoryItems();
 
-        // Initialize Misc Items
+        // Initialize miscellaneous items, such as armor and weapons
         initializeMiscItems();
 
         // Loop through all inventory slots and create an item box
         for (int x = 0; x < HORIZONTAL_ITEMS; x++) {
             for (int y = 0; y < VERTICAL_ITEMS; y++) {
-                // Get item. If its out of bounds, item is null
+                // Get item. If it's out of bounds, item is null
                 int index = y * HORIZONTAL_ITEMS + x;
                 Item item;
                 
@@ -109,7 +126,8 @@ public class InventoryRenderer extends MenuRenderer {
                 } else {
                     item = null;
                 }
-                
+
+                // Create new itembox at given location
                 inventoryItems.add(new ItemBox(
                         gameWindow.getSizeX() / 2 + padding * 4 + (itemRenderSize + padding) * x,
                         padding * 4 + (itemRenderSize + padding) * y,
@@ -121,6 +139,7 @@ public class InventoryRenderer extends MenuRenderer {
         }
     }
 
+    // MODIFIES: this
     // EFFECTS: Sets up ItemBox's for misc items such as weapons and armors
     private void initializeMiscItems() {
         // Add the weapon slot
@@ -142,6 +161,7 @@ public class InventoryRenderer extends MenuRenderer {
         ));
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders Large Version of Player Model
     private void renderPlayerModel(Graphics g) {
         // Get the base player image
@@ -164,6 +184,7 @@ public class InventoryRenderer extends MenuRenderer {
         );
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders player stats onto the screen
     private void renderPlayerStats(Graphics g) {
         final int padding = textureManager.getScaledSize(PADDING_SIZE);
@@ -201,8 +222,8 @@ public class InventoryRenderer extends MenuRenderer {
         );
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders the inventory content
-    // MODIFIES: this
     private void renderInventory(Graphics g) {
         final int padding = textureManager.getScaledSize(PADDING_SIZE);
 
@@ -221,6 +242,7 @@ public class InventoryRenderer extends MenuRenderer {
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws an itembox on screen
     private void drawItemBox(Graphics g, ItemBox ib) {
         // Draw Outline
@@ -267,6 +289,7 @@ public class InventoryRenderer extends MenuRenderer {
         return null;
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders Game Messages
     private void renderGameMessages(Graphics g) {
         // Setup Fonts
@@ -289,6 +312,7 @@ public class InventoryRenderer extends MenuRenderer {
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders item information when player hovers in inventory
     private void renderTooltips(Graphics g) {
         final int tooltipOffset = 15;
@@ -306,6 +330,7 @@ public class InventoryRenderer extends MenuRenderer {
         }
     }
 
+    // EFFECTS: Handles when user clicks on an item
     @Override
     public void onMouseClick(MouseEvent e) {
         // Get clicked item
@@ -320,6 +345,7 @@ public class InventoryRenderer extends MenuRenderer {
         }
     }
 
+    // EFFECTS: Handles when user presses a key
     @Override
     public void onKeyPress(KeyEvent e) {
         // Get hovering item

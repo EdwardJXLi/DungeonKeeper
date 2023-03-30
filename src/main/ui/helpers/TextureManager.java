@@ -18,28 +18,37 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
 
+/*
+ * Main class for loading and managing all textures, sprites, and fonts in the game.
+ * Each TextureManager is tied to a specific texture pack.
+ */
+
 public class TextureManager {
     private static final String DEFAULT_FONT = "FONT_DEFAULT";
+
     // Base TextureManager Information
-    private String texturepack;
+    private final String texturepack;
     private final double scale;
 
     // Sprite Information
-    private Map<String, SpriteSheet> spritesheets;
-    private Map<String, Sprite> sprites;
+    private final Map<String, SpriteSheet> spritesheets;
+    private final Map<String, Sprite> sprites;
     private final int spriteSize;
 
     // Font Information
-    private Map<String, Font> fonts;
+    private final Map<String, Font> fonts;
 
     public TextureManager(String texturepack, double scale, int spriteSize) {
+        // Setup Base Information
         this.texturepack = texturepack;
         this.scale = scale;
 
+        // Setup Sprite Information
         this.spritesheets = new HashMap<>();
         this.sprites = new HashMap<>();
         this.spriteSize = spriteSize;
 
+        // Setup Font Information
         this.fonts = new HashMap<>();
 
         // Load Textures
@@ -69,6 +78,7 @@ public class TextureManager {
         return (int) (size * scale);
     }
 
+    // MODIFIES: this
     // EFFECTS: Initializes All Sprites
     private void initializeSprites() {
         for (Sprite sprite : sprites.values()) {
@@ -88,6 +98,7 @@ public class TextureManager {
     // EFFECTS: Returns sprits as a list
     //          If a SingleSprite is passed, it is the only element in the list
     //          If a SpriteCollection is passed, it is the list of sprites in the collection
+    //          If there is no sprite found, return the missing texture
     public ArrayList<Sprite> getSpriteList(SpriteID id) {
         ArrayList<Sprite> spriteList = new ArrayList<>();
         Sprite sprite;
@@ -107,10 +118,13 @@ public class TextureManager {
 
     // EFFECTS: Generates Missing Image for Missing Sprites and Textures
     private BufferedImage generateMissingImage(int sizeX, int sizeY) {
+        // Create sprite
         BufferedImage image = new BufferedImage(
                 sizeX, sizeY, BufferedImage.TYPE_INT_ARGB
         );
         Graphics2D g = image.createGraphics();
+
+        // Draw magenta and black squares
         g.setColor(Color.BLACK);
         g.fillRect(
                 0, 0,
@@ -128,7 +142,7 @@ public class TextureManager {
         return image;
     }
 
-    // EFFECTS: Returns given font in given size
+    // EFFECTS: Returns given font in given size. This is scaled with the UI scaling factor
     public Font getFont(String font, int size) {
         if (fonts.containsKey(font)) {
             return fonts.get(font).deriveFont((float) (size * scale));
@@ -142,15 +156,15 @@ public class TextureManager {
         return getFont(DEFAULT_FONT, size);
     }
 
+    // REQUIRES: The texture pack is a valid file
     // MODIFIES: this
     // EFFECTS:  Reads the texture pack and loads all assets
-    // REQUIRES: The texture pack is valid
     public void loadTexturePack() throws IOException {
         // Read and load the texture pack json
         String jsonData = readFile(texturepack);
         JSONObject json = new JSONObject(jsonData);
 
-        // Load all (useful) metdata
+        // Load all (useful) metadata
         loadMetadata(json.getJSONObject("metadata"));
 
         // Load all spritesheets
@@ -301,7 +315,7 @@ public class TextureManager {
         return spriteSize;
     }
 
-    // EFFECTS: Returns the scale
+    // EFFECTS: Returns the UI scaling factor
     public double getScale() {
         return scale;
     }

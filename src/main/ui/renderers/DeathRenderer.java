@@ -5,11 +5,17 @@ import ui.GameWindow;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
+/*
+ * Renderer for the death menu.
+ * Tells the player that they died.
+ */
+
 public class DeathRenderer extends MenuRenderer {
     public DeathRenderer(GameWindow gameWindow) {
         super(gameWindow);
     }
 
+    // EFFECTS: Handles key presses
     @Override
     public void onKeyPress(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -17,6 +23,7 @@ public class DeathRenderer extends MenuRenderer {
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders pause menu
     @Override
     public void paint(Graphics g) {

@@ -9,20 +9,28 @@ import ui.helpers.TooltipHelper;
 import ui.sprites.Sprite;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+/*
+ * Main Render Class for the entire game.
+ * Handles rendering of the game state, with map tiles and UI elements.
+ * Also handles key presses and mouse clicks.
+ */
+
 public class GameRenderer extends Renderer {
+    // Game Renderer Constants
     private static final int HEARTS_PER_HEART_ICON = 20;
     private static final int ATTACK_PER_ATTACK_ICON = 5;
     private static final int DEFENSE_PER_DEFENSE_ICON = 10;
 
+    // Game Renderer Helpers
     private final TooltipHelper tooltipHelper;
     private BufferedImage background;
 
+    // EFFECTS: Create Game Renderer
     public GameRenderer(GameWindow gameWindow) {
         super(gameWindow);
 
@@ -33,8 +41,8 @@ public class GameRenderer extends Renderer {
         initializeBackground();
     }
 
-    // EFFECTS: Handles key presses. Updates game state.
     // MODIFIES: this
+    // EFFECTS: Handles key presses. Updates game state.
     @Override
     public void onKeyPress(KeyEvent e) {
         // Get Game Info
@@ -71,14 +79,17 @@ public class GameRenderer extends Renderer {
             case KeyEvent.VK_ESCAPE:
                 gameWindow.switchRenderer(gameWindow.getPauseRenderer(), true);
                 break;
+            case KeyEvent.VK_F12:
+                gameWindow.setDebug(!gameWindow.isDebug());
+                break;
             case KeyEvent.VK_BACK_SLASH:
                 gameWindow.switchRenderer(gameWindow.getTestRenderer(), false);
                 break;
         }
     }
 
-    // EFFECTS: Renders the initial background
     // MODIFIES: this
+    // EFFECTS: Renders the initial background
     private void initializeBackground() {
         // Initialize Background
         background = new BufferedImage(
@@ -113,6 +124,8 @@ public class GameRenderer extends Renderer {
         g.dispose();
     }
 
+    // MODIFIES: g
+    // EFFECTS: Renders the game state to the screen
     @Override
     public void paint(Graphics g) {
         // Draw Background
@@ -139,6 +152,7 @@ public class GameRenderer extends Renderer {
         renderDebugInfo(g);
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements(Graphics g) {
         // Render Tiles
@@ -157,6 +171,7 @@ public class GameRenderer extends Renderer {
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders Tooltips
     private void renderTooltips(Graphics g) {
         // Only render if mouse is in frame
@@ -203,6 +218,7 @@ public class GameRenderer extends Renderer {
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders HUD Elements
     private void renderHudElements(Graphics g) {
         // Render Player HUD Elements
@@ -217,6 +233,7 @@ public class GameRenderer extends Renderer {
         renderGameInstructions(g);
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders the Player Hearts
     private void renderPlayerHearts(Graphics g) {
         // Draw Heart Text
@@ -241,6 +258,7 @@ public class GameRenderer extends Renderer {
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders the Player Defense
     private void renderPlayerDefense(Graphics g) {
         // Draw Defense Text
@@ -252,11 +270,13 @@ public class GameRenderer extends Renderer {
         for (int i = 0; i < game.getPlayer().getDefense() / DEFENSE_PER_DEFENSE_ICON; i++) {
             drawSprite(
                     g, textureManager.getSprite(SpriteID.SPRITE_ARMOR_FULL),
-                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)), 10 + textureManager.getSpriteSize() + 4
+                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)),
+                    10 + textureManager.getSpriteSize() + 4
             );
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders the Player Attack
     private void renderPlayerAttack(Graphics g) {
         // Draw Defense Text
@@ -268,11 +288,13 @@ public class GameRenderer extends Renderer {
         for (int i = 0; i < game.getPlayer().getAttack() / ATTACK_PER_ATTACK_ICON; i++) {
             drawSprite(
                     g, textureManager.getSprite(SpriteID.SPRITE_STRENGTH),
-                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)), 10 + (textureManager.getSpriteSize() + 4) * 2
+                    (textureManager.getSpriteSize() * 6) + (i * (textureManager.getSpriteSize() + 4)),
+                    10 + (textureManager.getSpriteSize() + 4) * 2
             );
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders Game Messages
     private void renderGameMessages(Graphics g) {
         // Setup Fonts
@@ -290,11 +312,13 @@ public class GameRenderer extends Renderer {
             ));
             g.drawString(
                     gameMessages.get(gameMessages.size() - i - 1),
-                    10, gameWindow.getHeight() - 50 - (i * textureManager.getFont(12).getSize())
+                    10,
+                    gameWindow.getHeight() - 50 - (i * textureManager.getFont(12).getSize())
             );
         }
     }
 
+    // MODIFIES: g
     // EFFECTS: Renders Game Instructions
     private void renderGameInstructions(Graphics g) {
         // Setup Fonts
@@ -314,6 +338,7 @@ public class GameRenderer extends Renderer {
         );
     }
 
+    // MODIFIES: g
     // EFFECTS: Returns the rendered game screen as a BufferedImage
     public BufferedImage getRenderedFrame() {
         BufferedImage framebuffer = new BufferedImage(

@@ -14,18 +14,28 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Abstract class for all renderer objects.
+ * Render objects and JPanels that are used to render the game state, whether in game or in a menu.
+ * Only one renderer should be active at a time.
+ */
+
 public abstract class Renderer extends JPanel {
+    // Game Variables
     protected GameWindow gameWindow;
     protected Game game;
     protected TextureManager textureManager;
 
+    // Mouse and Key Variables
     protected int mouseX = 0;
     protected int mouseY = 0;
     protected boolean mouseInFrame = false;
 
-    private KeyHandler keyHandler;
-    private MouseHandler mouseHandler;
+    // Key and Mouse Handlers
+    private final KeyHandler keyHandler;
+    private final MouseHandler mouseHandler;
 
+    // EFFECTS: Creates a render object for a game window.
     public Renderer(GameWindow gameWindow) {
         super();
 
@@ -44,12 +54,13 @@ public abstract class Renderer extends JPanel {
         setPreferredSize(new Dimension(gameWindow.getSizeX(), gameWindow.getSizeY()));
     }
 
-    // EFFECTS: Calls when the renderer starts rendering
     // MODIFIES: this
+    // EFFECTS: Calls when the renderer starts rendering
     public void initRenderer() {
         // Nothing for now. To be overridden
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws debug info to screen
     protected void renderDebugInfo(Graphics g) {
         if (gameWindow.isDebug()) {
@@ -71,14 +82,14 @@ public abstract class Renderer extends JPanel {
             debugInfo.add("Rendered Tiles: " + game.getLevel().getTiles().size());
             debugInfo.add("Rendered Enemies: " + game.getLevel().getEnemies().size());
             debugInfo.add("Rendered Dropped Items: " + game.getLevel().getDroppedItems().size());
-            debugInfo.add("");
-            debugInfo.add("== GAME DEBUG ==");
-            debugInfo.add("Player Health: " + game.getPlayer().getHealth());
-            debugInfo.add("Player Max Health: " + game.getPlayer().getMaxHealth());
-            debugInfo.add("Player Attack: " + game.getPlayer().getAttack());
-            debugInfo.add("Player Defense: " + game.getPlayer().getDefense());
-            debugInfo.add("Player Kills: " + game.getPlayer().getKills());
-            debugInfo.add("Player Inventory Size: " + game.getPlayer().getInventory().numItems());
+            // debugInfo.add("");
+            // debugInfo.add("== GAME DEBUG ==");
+            // debugInfo.add("Player Health: " + game.getPlayer().getHealth());
+            // debugInfo.add("Player Max Health: " + game.getPlayer().getMaxHealth());
+            // debugInfo.add("Player Attack: " + game.getPlayer().getAttack());
+            // debugInfo.add("Player Defense: " + game.getPlayer().getDefense());
+            // debugInfo.add("Player Kills: " + game.getPlayer().getKills());
+            // debugInfo.add("Player Inventory Size: " + game.getPlayer().getInventory().numItems());
 
             // Draw Debug Text
             for (int i = 0; i < debugInfo.size(); i++) {
@@ -87,29 +98,30 @@ public abstract class Renderer extends JPanel {
         }
     }
 
-    // EFFECTS: Sets up mouse and key listeners
     // MODIFIES: this
+    // EFFECTS: Sets up mouse and key listeners
     public void initUserInputHandlers() {
         gameWindow.addKeyListener(keyHandler);
         addMouseListener(mouseHandler);
         addMouseMotionListener(mouseHandler);
     }
 
-    // EFFECTS: Removes mouse and key listeners
     // MODIFIES: this
+    // EFFECTS: Removes mouse and key listeners
     public void removeUserInputHandlers() {
         gameWindow.removeKeyListener(keyHandler);
         removeMouseListener(mouseHandler);
         removeMouseMotionListener(mouseHandler);
     }
 
-    // EFFECTS: Switches input handlers between two renderers
     // MODIFIES: this, other
+    // EFFECTS: Switches input handlers between two renderers
     public void switchInputHandlers(Renderer other) {
         removeUserInputHandlers();
         other.initUserInputHandlers();
     }
 
+    // Key Handler
     private class KeyHandler extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -117,6 +129,7 @@ public abstract class Renderer extends JPanel {
         }
     }
 
+    // Mouse Handler
     private class MouseHandler extends MouseAdapter {
         @Override
         public void mouseMoved(MouseEvent e) {
@@ -144,21 +157,21 @@ public abstract class Renderer extends JPanel {
         }
     }
 
-    // EFFECTS: Handler for movement. Updates mouse position.
     // MODIFIES: this
+    // EFFECTS: Handler for movement. Updates mouse position.
     public void onMouseMove(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
     }
 
-    // EFFECTS: Handler for mouse entering frame. Updates mouse position.
     // MODIFIES: this
+    // EFFECTS: Handler for mouse entering frame. Updates mouse position.
     public void onMouseEnter(MouseEvent e) {
         mouseInFrame = true;
     }
 
-    // EFFECTS: Handler for mouse leaving frame. Updates mouse position.
     // MODIFIES: this
+    // EFFECTS: Handler for mouse leaving frame. Updates mouse position.
     public void onMouseLeave(MouseEvent e) {
         mouseInFrame = false;
     }
@@ -178,6 +191,7 @@ public abstract class Renderer extends JPanel {
         // Do Nothing
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws an animated sprite at pixel location
     public void drawSprite(Graphics g, Sprite sprite, int x, int y, int tick) {
         g.drawImage(
@@ -188,11 +202,13 @@ public abstract class Renderer extends JPanel {
         );
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws a sprite at pixel location
     public void drawSprite(Graphics g, Sprite sprite, int x, int y) {
         drawSprite(g, sprite, x, y, 0);
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws an animated sprite at the given offset
     public void drawMapSprite(Graphics g, Sprite sprite, int offsetX, int offsetY, int tick) {
         drawSprite(
@@ -203,6 +219,7 @@ public abstract class Renderer extends JPanel {
         );
     }
 
+    // MODIFIES: g
     // EFFECTS: Draws a sprite at the given offset
     public void drawMapSprite(Graphics g, Sprite sprite, int offsetX, int offsetY) {
         drawMapSprite(g, sprite, offsetX, offsetY, 0);

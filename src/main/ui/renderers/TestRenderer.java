@@ -9,16 +9,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+/*
+ * Renderer for testing graphics and rendering engine.
+ * Kept in the game cuz it was cool lol
+ */
+
 public class TestRenderer extends Renderer {
     public TestRenderer(GameWindow gameWindow) {
         super(gameWindow);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        // TODO: Test Draw!
-        g.setColor(Color.GRAY);
-        g.fillRect(0, 0, getWidth(), getHeight());
+    // MODIFIES: g
+    // EFFECTS: Draws Test String
+    private void drawStringTest(Graphics g) {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Test", Font.PLAIN, 24));
         g.drawString(
@@ -28,6 +31,11 @@ public class TestRenderer extends Renderer {
         );
         g.setColor(Color.BLACK);
         g.setFont(new Font("Test", Font.PLAIN, 12));
+    }
+
+    // MODIFIES: g
+    // EFFECTS: Draws Test Sprites
+    private void drawSpriteTest(Graphics g) {
         int offsetY = 1;
         for (SpriteID spriteID : SpriteID.values()) {
             Sprite sprite = textureManager.getSprite(spriteID);
@@ -46,11 +54,26 @@ public class TestRenderer extends Renderer {
             }
             offsetY++;
         }
+    }
+
+    // MODIFIES: g
+    // EFFECTS: Renders the test renderer
+    @Override
+    public void paint(Graphics g) {
+        g.setColor(Color.GRAY);
+        g.fillRect(0, 0, getWidth(), getHeight());
+
+        // Draw Test String
+        drawStringTest(g);
+
+        // Draw Test Sprites
+        drawSpriteTest(g);
 
         // Draw Debug Info
         renderDebugInfo(g);
     }
 
+    // EFFECTS: Debugs Keypress events
     @Override
     public void onKeyPress(KeyEvent e) {
         System.out.printf(String.format("Key Pressed: %s\n", e.getKeyChar()));
@@ -59,11 +82,14 @@ public class TestRenderer extends Renderer {
         }
     }
 
+    // EFFECTS: Debugs Mouse events
     @Override
     public void onMouseMove(MouseEvent e) {
         System.out.printf(String.format("Mouse Moved: %s, %s\n", e.getX(), e.getY()));
     }
 
+
+    // EFFECTS: Debugs Clicked events
     @Override
     public void onMouseClick(MouseEvent e) {
         System.out.printf(String.format("Mouse Clicked: %s, %s", e.getX(), e.getY()));
