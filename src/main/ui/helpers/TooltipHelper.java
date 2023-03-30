@@ -97,7 +97,7 @@ public class TooltipHelper {
         drawHelper.drawString("Stand on item and press:");
         drawHelper.addOffsetX(padding * 2);
         drawHelper.drawString("[Q] to pick up", Color.YELLOW);
-        drawHelper.drawString("[E] to drop", Color.YELLOW);
+        drawHelper.drawString("[X] to delete", Color.YELLOW);
         drawHelper.addOffsetX(-(padding * 2));
 
         // Draw Item Preview

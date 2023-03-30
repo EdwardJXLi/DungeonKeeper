@@ -68,6 +68,7 @@ public class GameRenderer extends Renderer {
     @Override
     public void onKeyPress(KeyEvent e) {
         super.onKeyPress(e);
+        handleMovementKeypress(e);
 
         // Get Game Info
         Player player = game.getPlayer();
@@ -75,12 +76,6 @@ public class GameRenderer extends Renderer {
 
         // Handles key presses and moves character
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_W:
-            case KeyEvent.VK_A:
-            case KeyEvent.VK_D:
-            case KeyEvent.VK_S:
-                handleMovementKeypress(e);
-                break;
             case KeyEvent.VK_E:
                 gameWindow.switchRenderer(gameWindow.getInventoryRenderer(), true);
                 break;
