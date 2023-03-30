@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
 import model.enemies.Dummy;
+import model.graphics.SpriteID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,7 @@ public class PlayerTest {
         assertEquals('@', player.getTextSprite());
         assertEquals(TextColor.ANSI.YELLOW, player.getTextColor());
         assertEquals(TextColor.ANSI.DEFAULT, player.getBackgroundColor());
+        assertEquals(SpriteID.PLAYER, player.getSpriteID());
         assertEquals("Player", player.getName());
         assertEquals(Player.INITIAL_HEALTH, player.getHealth());
         assertEquals(Player.INITIAL_HEALTH, player.getMaxHealth());

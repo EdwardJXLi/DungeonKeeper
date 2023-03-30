@@ -3,6 +3,7 @@ package model.item;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
+import model.graphics.SpriteID;
 import model.items.DefensePotion;
 import model.items.HealingPotion;
 import model.items.StrengthPotion;
@@ -34,6 +35,7 @@ public class PotionTest {
         assertEquals('▲', healingPot.getTextSprite());
         assertEquals(TextColor.ANSI.WHITE, healingPot.getTextColor());
         assertEquals(TextColor.ANSI.RED, healingPot.getBackgroundColor());
+        assertEquals(SpriteID.ITEM_HEALING_POTION, healingPot.getSpriteID());
     }
 
     @Test

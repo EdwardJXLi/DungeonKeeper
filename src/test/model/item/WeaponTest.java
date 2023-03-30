@@ -3,6 +3,7 @@ package model.item;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
+import model.graphics.SpriteID;
 import model.items.GuardSword;
 import model.items.StrengthPotion;
 import model.items.Weapon;
@@ -32,6 +33,7 @@ public class WeaponTest {
         assertEquals('!', weapon.getTextSprite());
         assertEquals(TextColor.ANSI.RED, weapon.getTextColor());
         assertEquals(TextColor.ANSI.YELLOW, weapon.getBackgroundColor());
+        assertEquals(SpriteID.ITEM_GUARD_SWORD, weapon.getSpriteID());
     }
 
     @Test
@@ -39,6 +41,14 @@ public class WeaponTest {
         player.addItem(weapon);
         weapon.useItem(player);
         assertEquals(Player.INITIAL_ATTACK + 16, player.getAttack());
+    }
+
+    @Test
+    public void testUneqiupWeapon() {
+        player.addItem(weapon);
+        weapon.useItem(player);
+        weapon.useItem(player);
+        assertEquals(Player.INITIAL_ATTACK, player.getAttack());
     }
 
     @Test

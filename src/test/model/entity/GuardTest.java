@@ -3,6 +3,7 @@ package model.entity;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.enemies.Guard;
+import model.graphics.SpriteID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,6 +26,7 @@ public class GuardTest {
         assertEquals('%', guard.getTextSprite());
         assertEquals(TextColor.ANSI.MAGENTA, guard.getTextColor());
         assertEquals(TextColor.ANSI.DEFAULT, guard.getBackgroundColor());
+        assertEquals(SpriteID.ENTITY_GUARD, guard.getSpriteID());
         assertEquals(Guard.INITIAL_HEALTH, guard.getMaxHealth());
         assertEquals(Guard.INITIAL_HEALTH, guard.getHealth());
         assertEquals(Guard.INITIAL_ATTACK, guard.getAttack());

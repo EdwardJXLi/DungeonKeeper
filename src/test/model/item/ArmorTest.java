@@ -3,6 +3,7 @@ package model.item;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
+import model.graphics.SpriteID;
 import model.items.Armor;
 import model.items.DefensePotion;
 import model.items.GuardArmor;
@@ -32,6 +33,7 @@ public class ArmorTest {
         assertEquals('$', armor.getTextSprite());
         assertEquals(TextColor.ANSI.WHITE, armor.getTextColor());
         assertEquals(TextColor.ANSI.YELLOW, armor.getBackgroundColor());
+        assertEquals(SpriteID.ITEM_GUARD_ARMOR, armor.getSpriteID());
     }
 
     @Test
@@ -39,6 +41,14 @@ public class ArmorTest {
         player.addItem(armor);
         armor.useItem(player);
         assertEquals(Player.INITIAL_DEFENSE + 10, player.getDefense());
+    }
+
+    @Test
+    public void testUnequipArmor() {
+        player.addItem(armor);
+        armor.useItem(player);
+        armor.useItem(player);
+        assertEquals(Player.INITIAL_DEFENSE, player.getDefense());
     }
 
     @Test

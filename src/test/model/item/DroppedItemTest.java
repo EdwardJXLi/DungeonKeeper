@@ -33,6 +33,7 @@ public class DroppedItemTest {
         assertEquals(1, di.getPosX());
         assertEquals(2, di.getPosY());
         assertEquals('★', di.getTextSprite());
+        assertEquals(testItem1.getSpriteID(), di.getSpriteID());
         assertEquals(TextColor.ANSI.WHITE, di.getTextColor());
         assertEquals(TextColor.ANSI.YELLOW, di.getBackgroundColor());
     }

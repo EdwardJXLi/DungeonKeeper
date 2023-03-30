@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
 import model.Tile;
+import model.graphics.SpriteID;
 import model.tiles.Trap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,7 @@ public class TrapTest {
         assertEquals('"', tile.getTextSprite());
         assertEquals(TextColor.ANSI.RED, tile.getTextColor());
         assertEquals(TextColor.ANSI.DEFAULT, tile.getBackgroundColor());
+        assertEquals(SpriteID.TILE_TRAP, tile.getSpriteID());
         assertEquals("Spike Trap", tile.getName());
         assertEquals("Ouch! That Hurts!", tile.getDescription().get(0));
         assertEquals("Standing on Spike Traps", tile.getDescription().get(1));

@@ -72,6 +72,35 @@ public class EquipmentTest {
     }
 
     @Test
+    public void testUnequipArmor() {
+        // Add armor to inventory and equip
+        player.addItem(testArmor1);
+        player.equipArmor(testArmor1);
+        // Check if armor is equipped, inventory is empty, and armor in armor slot
+        assertTrue(player.getInventory().isEmpty());
+        assertEquals(testArmor1, player.getArmor());
+        // Unequip Armor
+        player.unequipArmor();
+        // Check if armor is unequipped, armor in inventory, and armor slot is empty
+        assertFalse(player.getInventory().isEmpty());
+        assertEquals(1, player.getInventory().numItems());
+        assertEquals(testArmor1, player.getInventory().getItemAtIndex(0));
+        assertNull(player.getArmor());
+        // Check if defense remains the same
+        assertEquals(Player.INITIAL_DEFENSE, player.getDefense());
+    }
+
+    @Test
+    public void testUnequipArmorWhenNoArmorEquipped() {
+        // "Unequip" armor when no armor is equipped
+        player.unequipArmor();
+        // Check if inventory remains empty, armor slot remains empty, and defense remains the same
+        assertTrue(player.getInventory().isEmpty());
+        assertNull(player.getArmor());
+        assertEquals(Player.INITIAL_DEFENSE, player.getDefense());
+    }
+
+    @Test
     public void testEquipWeapon() {
         // Add weapon to inventory and equip
         player.addItem(testWeapon1);
@@ -104,5 +133,34 @@ public class EquipmentTest {
         assertEquals(testWeapon2, player.getWeapon());
         // Check if defense is increased by testWeapon2's value
         assertEquals(Player.INITIAL_ATTACK + 20, player.getAttack());
+    }
+
+    @Test
+    public void testUnequipWeapon() {
+        // Add weapon to inventory and equip
+        player.addItem(testWeapon1);
+        player.equipWeapon(testWeapon1);
+        // Check if weapon is equipped, inventory is empty, and weapon in weapon slot
+        assertTrue(player.getInventory().isEmpty());
+        assertEquals(testWeapon1, player.getWeapon());
+        // Unequip Weapon
+        player.unequipWeapon();
+        // Check if weapon is unequipped, weapon in inventory, and weapon slot is empty
+        assertFalse(player.getInventory().isEmpty());
+        assertEquals(1, player.getInventory().numItems());
+        assertEquals(testWeapon1, player.getInventory().getItemAtIndex(0));
+        assertNull(player.getWeapon());
+        // Check if defense remains the same
+        assertEquals(Player.INITIAL_ATTACK, player.getAttack());
+    }
+
+    @Test
+    public void testUnequipWeaponWhenNoWeaponEquipped() {
+        // "Unequip" weapon when no weapon is equipped
+        player.unequipWeapon();
+        // Check if inventory remains empty, weapon slot remains empty, and attack remains the same
+        assertTrue(player.getInventory().isEmpty());
+        assertNull(player.getWeapon());
+        assertEquals(Player.INITIAL_ATTACK, player.getAttack());
     }
 }
