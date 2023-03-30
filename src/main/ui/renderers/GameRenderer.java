@@ -42,12 +42,9 @@ public class GameRenderer extends Renderer {
     }
 
     // MODIFIES: this
-    // EFFECTS: Handles key presses. Updates game state.
-    @Override
-    public void onKeyPress(KeyEvent e) {
-        // Get Game Info
+    // EFFECTS: Handles movement key presses.
+    private void handleMovementKeypress(KeyEvent e) {
         Player player = game.getPlayer();
-        DroppedItem di = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
 
         // Handles key presses and moves character
         switch (e.getKeyCode()) {
@@ -63,6 +60,24 @@ public class GameRenderer extends Renderer {
             case KeyEvent.VK_D:
                 player.moveRight();
                 break;
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Handles key presses. Updates game state.
+    @Override
+    public void onKeyPress(KeyEvent e) {
+        super.onKeyPress(e);
+
+        // Get Game Info
+        Player player = game.getPlayer();
+        DroppedItem di = game.getLevel().getDroppedItemAtLocation(player.getPosX(), player.getPosY());
+
+        // Handles key presses and moves character
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_W:
+                handleMovementKeypress(e);
+                break;
             case KeyEvent.VK_E:
                 gameWindow.switchRenderer(gameWindow.getInventoryRenderer(), true);
                 break;
@@ -75,15 +90,6 @@ public class GameRenderer extends Renderer {
                 if (di != null) {
                     game.getLevel().removeDroppedItem(di);
                 }
-                break;
-            case KeyEvent.VK_ESCAPE:
-                gameWindow.switchRenderer(gameWindow.getPauseRenderer(), true);
-                break;
-            case KeyEvent.VK_F12:
-                gameWindow.setDebug(!gameWindow.isDebug());
-                break;
-            case KeyEvent.VK_BACK_SLASH:
-                gameWindow.switchRenderer(gameWindow.getTestRenderer(), false);
                 break;
         }
     }
@@ -128,6 +134,8 @@ public class GameRenderer extends Renderer {
     // EFFECTS: Renders the game state to the screen
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
+
         // Draw Background
         g.drawImage(background, 0, 0, null);
 
@@ -176,46 +184,57 @@ public class GameRenderer extends Renderer {
     private void renderTooltips(Graphics g) {
         // Only render if mouse is in frame
         if (mouseInFrame) {
-            // Get currently highlighted tile, and initiate tooltip
-            int tileX = mouseX / textureManager.getSpriteSize();
-            int tileY = mouseY / textureManager.getSpriteSize();
-            BufferedImage tooltip;
+            // Get whichever tooltip should show up at mouse location
+            BufferedImage tooltip = getTooltipAtMouseLocation();
 
-            // First, check if a dropped item is at the hovered location.
-            // Else, if it is the player at the hovered location.
-            // Else, if it is an entity at the hovered location
-            // Else, if it is a tile with a valid description at the hovered location.
-            if (game.getLevel().getDroppedItemAtLocation(tileX, tileY) != null) {
-                tooltip = tooltipHelper.generateDroppedItemTooltip(
-                        game.getLevel().getDroppedItemAtLocation(tileX, tileY)
-                );
-            } else if (tileX == game.getPlayer().getPosX() && tileY == game.getPlayer().getPosY()) {
-                tooltip = tooltipHelper.generatePlayerTooltip(game.getPlayer());
-            } else if (game.getLevel().getEnemyAtLocation(tileX, tileY) != null) {
-                tooltip = tooltipHelper.generateEnemyTooltip(
-                        game.getLevel().getEnemyAtLocation(tileX, tileY)
-                );
-            } else if (game.getLevel().getTileAtLocation(tileX, tileY) != null) {
-                if (game.getLevel().getTileAtLocation(tileX, tileY).getDescription() != null) {
-                    tooltip = tooltipHelper.generateTileTooltip(
-                            game.getLevel().getTileAtLocation(tileX, tileY)
-                    );
-                } else {
-                    // Do not render!
-                    return;
-                }
-            } else {
-                // Do not render tooltip and return!
-                return;
+            // If a tooltip should be rendered, do it.
+            if (tooltip != null) {
+                // Get the currently highlighted tile
+                int tileX = mouseX / textureManager.getSpriteSize();
+                int tileY = mouseY / textureManager.getSpriteSize();
+
+                // Draw the hover animation
+                drawMapSprite(g, textureManager.getSprite(SpriteID.SELECT_GREEN), tileX, tileY, gameWindow.getTick());
+
+                // Draw the tooltip
+                final int tooltipOffset = 15;
+                g.drawImage(tooltip, mouseX + tooltipOffset, mouseY + tooltipOffset, null);
             }
-
-            // Draw the hover animation
-            drawMapSprite(g, textureManager.getSprite(SpriteID.SELECT_GREEN), tileX, tileY, gameWindow.getTick());
-
-            // Draw the tooltip
-            final int tooltipOffset = 15;
-            g.drawImage(tooltip, mouseX + tooltipOffset, mouseY + tooltipOffset, null);
         }
+    }
+
+    // EFFECTS: Gets tooltip based on where the mouse is hovering
+    private BufferedImage getTooltipAtMouseLocation() {
+        // Get currently highlighted tile, and initiate tooltip
+        int tileX = mouseX / textureManager.getSpriteSize();
+        int tileY = mouseY / textureManager.getSpriteSize();
+
+        // First, check if a dropped item is at the hovered location.
+        // Else, if it is the player at the hovered location.
+        // Else, if it is an entity at the hovered location
+        // Else, if it is a tile with a valid description at the hovered location.
+        if (game.getLevel().getDroppedItemAtLocation(tileX, tileY) != null) {
+            return tooltipHelper.generateDroppedItemTooltip(
+                    game.getLevel().getDroppedItemAtLocation(tileX, tileY)
+            );
+        } else if (tileX == game.getPlayer().getPosX() && tileY == game.getPlayer().getPosY()) {
+            return tooltipHelper.generatePlayerTooltip(
+                    game.getPlayer()
+            );
+        } else if (game.getLevel().getEnemyAtLocation(tileX, tileY) != null) {
+            return tooltipHelper.generateEnemyTooltip(
+                    game.getLevel().getEnemyAtLocation(tileX, tileY)
+            );
+        } else if (game.getLevel().getTileAtLocation(tileX, tileY) != null) {
+            if (game.getLevel().getTileAtLocation(tileX, tileY).getDescription() != null) {
+                return tooltipHelper.generateTileTooltip(
+                        game.getLevel().getTileAtLocation(tileX, tileY)
+                );
+            }
+        }
+
+        // All conditions failed. No tooltip should be rendered.
+        return null;
     }
 
     // MODIFIES: g

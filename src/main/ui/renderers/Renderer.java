@@ -11,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,7 @@ public abstract class Renderer extends JPanel {
     protected int mouseX = 0;
     protected int mouseY = 0;
     protected boolean mouseInFrame = false;
+    protected KeyEvent lastKeyPress = null;
 
     // Key and Mouse Handlers
     private final KeyHandler keyHandler;
@@ -82,6 +84,7 @@ public abstract class Renderer extends JPanel {
             debugInfo.add("Rendered Tiles: " + game.getLevel().getTiles().size());
             debugInfo.add("Rendered Enemies: " + game.getLevel().getEnemies().size());
             debugInfo.add("Rendered Dropped Items: " + game.getLevel().getDroppedItems().size());
+            debugInfo.add("Last Key Pressed: " + lastKeyPress);
             // debugInfo.add("");
             // debugInfo.add("== GAME DEBUG ==");
             // debugInfo.add("Player Health: " + game.getPlayer().getHealth());
@@ -176,9 +179,25 @@ public abstract class Renderer extends JPanel {
         mouseInFrame = false;
     }
 
-    // EFFECTS: Handler for key presses
+    // EFFECTS: Handler for key presses. Saves last key pressed.
     public void onKeyPress(KeyEvent e) {
-        // Do Nothing
+        lastKeyPress = e;
+
+        // Handle key presses for base game features
+        switch (e.getKeyCode()) {
+            // Exit any open menus
+            case KeyEvent.VK_ESCAPE:
+                gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
+                break;
+            // Toggle Debug
+            case KeyEvent.VK_F12:
+                gameWindow.setDebug(!gameWindow.isDebug());
+                break;
+            // Toggle Test Mode
+            case KeyEvent.VK_BACK_SLASH:
+                gameWindow.switchRenderer(gameWindow.getTestRenderer(), false);
+                break;
+        }
     }
 
     // EFFECTS: Handler for mouse clicks
@@ -189,6 +208,21 @@ public abstract class Renderer extends JPanel {
     // EFFECTS: Handler for mouse dragging
     public void onMouseDrag(MouseEvent e) {
         // Do Nothing
+    }
+
+    // MODIFIES: g
+    // EFFECTS: Base Painting Function.
+    @Override
+    public void paint(Graphics g) {
+        // Clear Screen and paint screen black
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, gameWindow.getSizeX(), gameWindow.getSizeY());
+
+        // Paint magenta if debug to catch rendering errors
+        if (gameWindow.isDebug()) {
+            g.setColor(Color.MAGENTA);
+            g.fillRect(0, 0, gameWindow.getSizeX(), gameWindow.getSizeY());
+        }
     }
 
     // MODIFIES: g

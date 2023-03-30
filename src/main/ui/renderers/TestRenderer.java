@@ -60,6 +60,8 @@ public class TestRenderer extends Renderer {
     // EFFECTS: Renders the test renderer
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
+
         g.setColor(Color.GRAY);
         g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -76,15 +78,16 @@ public class TestRenderer extends Renderer {
     // EFFECTS: Debugs Keypress events
     @Override
     public void onKeyPress(KeyEvent e) {
+        super.onKeyPress(e);
+
         System.out.printf(String.format("Key Pressed: %s\n", e.getKeyChar()));
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
-        }
     }
 
     // EFFECTS: Debugs Mouse events
     @Override
     public void onMouseMove(MouseEvent e) {
+        super.onMouseMove(e);
+
         System.out.printf(String.format("Mouse Moved: %s, %s\n", e.getX(), e.getY()));
     }
 
@@ -92,6 +95,8 @@ public class TestRenderer extends Renderer {
     // EFFECTS: Debugs Clicked events
     @Override
     public void onMouseClick(MouseEvent e) {
+        super.onMouseClick(e);
+
         System.out.printf(String.format("Mouse Clicked: %s, %s", e.getX(), e.getY()));
     }
 }

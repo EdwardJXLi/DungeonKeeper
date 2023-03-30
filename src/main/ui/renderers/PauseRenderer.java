@@ -15,18 +15,12 @@ public class PauseRenderer extends MenuRenderer {
         super(gameWindow);
     }
 
-    // EFFECTS: Handles key presses
-    @Override
-    public void onKeyPress(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
-        }
-    }
-
     // MODIFIES: g
     // EFFECTS: Renders pause menu
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
+
         // Draw background
         renderBackground(g);
 

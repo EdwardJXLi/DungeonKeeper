@@ -72,6 +72,8 @@ public class InventoryRenderer extends MenuRenderer {
     // EFFECTS: Renders the inventory menu
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
+
         // Increment internal tick
         internalTick++;
 
@@ -333,6 +335,8 @@ public class InventoryRenderer extends MenuRenderer {
     // EFFECTS: Handles when user clicks on an item
     @Override
     public void onMouseClick(MouseEvent e) {
+        super.onMouseClick(e);
+
         // Get clicked item
         ItemBox clickedItem = getItemBoxAtScreenLocation(e.getX(), e.getY());
 
@@ -348,6 +352,8 @@ public class InventoryRenderer extends MenuRenderer {
     // EFFECTS: Handles when user presses a key
     @Override
     public void onKeyPress(KeyEvent e) {
+        super.onKeyPress(e);
+
         // Get hovering item
         ItemBox clickedItem = getItemBoxAtScreenLocation(mouseX, mouseY);
 
@@ -370,7 +376,6 @@ public class InventoryRenderer extends MenuRenderer {
                     initializeInventoryItems();
                 }
                 break;
-            case KeyEvent.VK_ESCAPE:
             case KeyEvent.VK_E:
                 gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
                 break;
