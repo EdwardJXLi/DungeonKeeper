@@ -36,6 +36,7 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
   - Picking up and dropping items
   - Fighting enemies
   - Using and equipping items
+  - Saving and loading the game
 
 ## Instructions for Grader
 - To start the game:
