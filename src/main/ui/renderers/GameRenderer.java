@@ -76,6 +76,9 @@ public class GameRenderer extends Renderer {
         // Handles key presses and moves character
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W:
+            case KeyEvent.VK_A:
+            case KeyEvent.VK_D:
+            case KeyEvent.VK_S:
                 handleMovementKeypress(e);
                 break;
             case KeyEvent.VK_E:
@@ -90,6 +93,9 @@ public class GameRenderer extends Renderer {
                 if (di != null) {
                     game.getLevel().removeDroppedItem(di);
                 }
+                break;
+            case KeyEvent.VK_ESCAPE:
+                gameWindow.switchRenderer(gameWindow.getPauseRenderer(), true);
                 break;
         }
     }

@@ -6,6 +6,8 @@ import ui.renderers.*;
 import ui.renderers.Renderer;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 /*
@@ -25,11 +27,11 @@ public class GameWindow extends JFrame {
     private boolean debug;
 
     // Renderers
-    private final TestRenderer testRenderer;
-    private final GameRenderer gameRenderer;
-    private final MainMenuRenderer mainMenuRenderer;
-    private final PauseRenderer pauseRenderer;
-    private final InventoryRenderer inventoryRenderer;
+    private TestRenderer testRenderer;
+    private GameRenderer gameRenderer;
+    private MainMenuRenderer mainMenuRenderer;
+    private PauseRenderer pauseRenderer;
+    private InventoryRenderer inventoryRenderer;
     private Renderer currentRenderer;
 
     // Texture Manager
@@ -53,18 +55,14 @@ public class GameWindow extends JFrame {
         int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
         textureManager = new TextureManager("assets/texturepack.json", scale, spriteSize);
 
-        // Create and add all panels
-        testRenderer = new TestRenderer(this);
-        gameRenderer = new GameRenderer(this);
-        mainMenuRenderer = new MainMenuRenderer(this);
-        pauseRenderer = new PauseRenderer(this);
-        inventoryRenderer = new InventoryRenderer(this);
+        // Initialize Main Menu
+        initMainMenu();
 
-        // Init gameRenderer and add Input Handling
-        currentRenderer = gameRenderer;
-        add(gameRenderer, 0);
-        gameRenderer.initRenderer();
-        gameRenderer.initUserInputHandlers();
+        // Init mainMenuRenderer and add Input Handling
+        currentRenderer = mainMenuRenderer;
+        add(currentRenderer, 0);
+        currentRenderer.initRenderer();
+        currentRenderer.initUserInputHandlers();
 
         // Set up graphical UI
         pack();
@@ -77,8 +75,25 @@ public class GameWindow extends JFrame {
         setVisible(true);
     }
 
-    // EFFECTS: Helper method to switch scenes
+    // MODIFIES: this
+    // EFFECTS: Initializes Main Menu
+    public void initMainMenu() {
+        // Initialize Main Menu Renderer
+        mainMenuRenderer = new MainMenuRenderer(this);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Initializes Game
+    public void initGame() {
+        // Initialize Renderers and create all panels
+        testRenderer = new TestRenderer(this);
+        gameRenderer = new GameRenderer(this);
+        pauseRenderer = new PauseRenderer(this);
+        inventoryRenderer = new InventoryRenderer(this);
+    }
+
     // MODIFIES: this, other
+    // EFFECTS: Helper method to switch scenes
     public void switchRenderer(Renderer other, boolean pause) {
         // Remove current renderer from JFrame and add the other
         remove(currentRenderer);
@@ -93,6 +108,38 @@ public class GameWindow extends JFrame {
         pack();
         repaint();
         currentRenderer = other;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Creates Game
+    public void createGame() {
+        graphicalGame.newGame();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Saves Game To File
+    public void saveGame() {
+        try {
+            graphicalGame.saveGame();
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save game to file: " + e);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Loads Game From File
+    public void loadGame() {
+        try {
+            graphicalGame.loadGame();
+        } catch (IOException e) {
+            System.out.println("Unable to load game from file: " + e);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Quits Game
+    public void quitGame() {
+        graphicalGame.quitGame();
     }
 
     public boolean isPaused() {

@@ -1,10 +1,15 @@
 package ui;
 
 import model.Game;
+import persistence.GameReader;
+import persistence.GameWriter;
+import persistence.SaveGame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /*
  * Main class for the graphical game.
@@ -15,6 +20,7 @@ import java.awt.event.ActionListener;
 public class GraphicalGame {
     // Game Constants
     public static final double DEFAULT_SCALE = 1.5;
+    public static final String SAVE_LOCATION = "./data/saveGame.json";
 
     // Game Variables
     private final int gameSizeX;
@@ -40,15 +46,11 @@ public class GraphicalGame {
         this.windowSizeX = (int) (sizeX * GameWindow.BASE_SPRITE_SIZE * scale);
         this.windowSizeY = (int) (sizeY * GameWindow.BASE_SPRITE_SIZE * scale);
 
-        // Initialize Game
-        tick = 0;
-        game = new Game(sizeX, sizeY);
-        game.initGame();
-
         // Initialize UI
         gameWindow = new GameWindow(windowSizeX, windowSizeY, this);
 
         // Setup tick timer
+        tick = 0;
         addTimer();
         timer.start();
     }
@@ -67,22 +69,51 @@ public class GraphicalGame {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 // Only tick if game is running and not paused
-                if (game.isGameRunning() && !gameWindow.isPaused()) {
+                if (game != null && game.isGameRunning() && !gameWindow.isPaused()) {
                     tick++;
                     gameWindow.repaint();
                     game.handleNextTick(tick);
-                // If game is paused, just draw the game, but do not tick
-                } else if (game.isGameRunning() && gameWindow.isPaused()) {
+                // Else, just draw the game, but do not tick
+                } else {
                     // Just draw but do not tick!
                     gameWindow.repaint();
-                // If dead, render death screen and quit game.
-                } else {
-                    // TODO: DEATH
-                    System.out.println("TODO: Game over!");
-                    timer.stop();
                 }
             }
         });
+    }
+
+    // EFFECTS: Saves the game to file
+    public void saveGame() throws FileNotFoundException {
+        GameWriter gameWriter = new GameWriter(SAVE_LOCATION);
+        SaveGame saveGame = gameWriter.createSaveGame(game, tick);
+        gameWriter.open();
+        gameWriter.write(saveGame);
+        gameWriter.close();
+    }
+
+    // REQUIRES: Save File Exists
+    // MODIFIES: this
+    // EFFECTS: Loads The Game from File
+    public void loadGame() throws IOException {
+        // Load game from file
+        GameReader gameReader = new GameReader(SAVE_LOCATION);
+        SaveGame saveGame = gameReader.read();
+        game = saveGame.getGame();
+        tick = saveGame.getTick();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Initializes New Game
+    public void newGame() {
+        game = new Game(gameSizeX, gameSizeY);
+        game.initGame();
+        tick = 0;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Quits Game
+    public void quitGame() {
+        System.exit(0);
     }
 
     public GameWindow getGameWindow() {

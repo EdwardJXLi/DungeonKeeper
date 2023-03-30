@@ -1,46 +1,60 @@
 package ui.renderers;
 
 import ui.GameWindow;
+import ui.helpers.CustomButton;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ConvolveOp;
 import java.awt.image.Kernel;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /*
  * Abstract class for all menu renderers.
  * Menu renderers are used to render the game menus.
- * These are renderers that do not tick the game, and may have blurred backgrounds
  */
 
 public abstract class MenuRenderer extends Renderer {
     private BufferedImage background;
+    private List<CustomButton> buttons;
 
     // EFFECTS: Creates a menu renderer for a game window.
     public MenuRenderer(GameWindow gameWindow) {
         super(gameWindow);
+
+        // Setup Menu Items
         background = null;
+        buttons = new ArrayList<>();
     }
 
     // MODIFIES: this
-    // EFFECTS: Generates and Initializes the Background
-    @Override
-    public void initRenderer() {
-        super.initRenderer();
+    // EFFECTS: Adds a button to the menu
+    public void addButton(CustomButton button) {
+        buttons.add(button);
+    }
 
-        // Generates the background
-        background = generateBackground(gameWindow.getGameRenderer());
+    // MODIFIES: g
+    // EFFECTS: Renders Menu Buttons
+    public void renderButtons(Graphics g) {
+        for (CustomButton button : buttons) {
+            // Render Button
+            button.render(g, button.isHovered(mouseX, mouseY));
+        }
     }
 
     // MODIFIES: g
     // EFFECTS: Renders the background
     public void renderBackground(Graphics g) {
-        g.drawImage(background, 0, 0, null);
+        if (background != null) {
+            g.drawImage(background, 0, 0, null);
+        }
     }
 
     // EFFECTS: Generates menu background by blurring a frame of the game
-    public BufferedImage generateBackground(GameRenderer gameRenderer) {
+    public BufferedImage generateBlurBackground(GameRenderer gameRenderer) {
         BufferedImage background = new BufferedImage(
                 gameWindow.getSizeX(),
                 gameWindow.getSizeY(),
@@ -96,5 +110,26 @@ public abstract class MenuRenderer extends Renderer {
 
         // Crop the image to the original size.
         return blurredImage.getSubimage(radius, radius, image.getWidth(), image.getHeight());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Handles mouse clicks, and performs actions based on the buttons
+    @Override
+    public void onMouseClick(MouseEvent e) {
+        super.onMouseClick(e);
+
+        // Check if the location clicked is that of a button
+        for (CustomButton button : buttons) {
+            if (button.isHovered(e.getX(), e.getY())) {
+                button.onClick();
+                break; // Only one button can be clicked at a time
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Sets the background
+    public void setBackground(BufferedImage background) {
+        this.background = background;
     }
 }

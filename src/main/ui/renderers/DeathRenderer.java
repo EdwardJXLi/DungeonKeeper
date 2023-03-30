@@ -3,7 +3,6 @@ package ui.renderers;
 import ui.GameWindow;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /*
  * Renderer for the death menu.

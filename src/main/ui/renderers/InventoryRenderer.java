@@ -64,6 +64,9 @@ public class InventoryRenderer extends MenuRenderer {
     public void initRenderer() {
         super.initRenderer();
 
+        // Generates the background
+        setBackground(generateBlurBackground(gameWindow.getGameRenderer()));
+
         // Initialize Player Inventory Item Preview
         initializeInventoryItems();
     }

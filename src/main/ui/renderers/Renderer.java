@@ -84,7 +84,7 @@ public abstract class Renderer extends JPanel {
             debugInfo.add("Rendered Tiles: " + game.getLevel().getTiles().size());
             debugInfo.add("Rendered Enemies: " + game.getLevel().getEnemies().size());
             debugInfo.add("Rendered Dropped Items: " + game.getLevel().getDroppedItems().size());
-            debugInfo.add("Last Key Pressed: " + lastKeyPress);
+            // debugInfo.add("Last Key Pressed: " + lastKeyPress);
             // debugInfo.add("");
             // debugInfo.add("== GAME DEBUG ==");
             // debugInfo.add("Player Health: " + game.getPlayer().getHealth());
