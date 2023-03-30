@@ -453,6 +453,22 @@
         }
       ]
     },
+    "ITEM_GUARD_ARMOR":  {
+      "type": "sprite",
+      "source": "assets/2DPixelDungeonAssetPack/armor.png",
+      "x": 0,
+      "y": 0,
+      "sprite_size": 16,
+      "transparent": true
+    },
+    "ITEM_GUARD_SWORD":  {
+      "type": "sprite",
+      "source": "assets/2DPixelDungeonAssetPack/sword.png",
+      "x": 0,
+      "y": 0,
+      "sprite_size": 16,
+      "transparent": true
+    },
     "SPRITE_HEART_FULL": {
       "type": "sprite",
       "source": "MINECRAFT_ICONS",
