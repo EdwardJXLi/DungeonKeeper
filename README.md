@@ -22,10 +22,62 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
 - I want to be able to pick up multiple items and add them to my inventory.
 - I want to be able to see and fight enemies
 - I want to be able to use and equip items.
-- 
+
 ## User Stories (Part 2)
 - I want to have the option to save my game state while playing
 - I want to have the option to reload my game state while playing
 - I want to have the option to save my game state when quitting the game
 - I want to have the option to reload my game state when starting the game
 - I want to have the option to create a new game, without loading the previous game state
+
+## User Stories (Part 3)
+- I want to be able to do everything the previous user stories have asked for, in a graphical interface. 
+  - Seeing and moving the player
+  - Picking up and dropping items
+  - Fighting enemies
+  - Using and equipping items
+
+## Instructions for Grader
+- To start the game:
+  - Hover over and click "New Game" in the main menu.
+- To continue a saved game:
+  - Hover over and click "Load Game" in the main menu.
+  - NOTE: A game save must be created in order for this to work!
+- Quick introduction to the GUI:
+  - The top left corner has the player's health, defense, and strength.
+    - Icons will show up as any of these stats increase.
+  - The bottom left corner has the game chat box. This is where the game will display messages.
+  - The bottom right corner has quick instructions as to how to get started with the game.
+- To move around the game:
+  - Use the keys "W", "A", "S", "D" to move.
+  - The player, by default, spawns in the top left corner of the map.
+    - NOTE: you may need to move around a little, as the player may be hidden by the GUI.
+- To activate tooltips
+  - Similar to the terminal UI, you can learn more about items, tiles, and enemies by hovering over them.
+  - Hover over some tiles to see their descriptions.
+  - Hover over some enemies to see their health, attack, and defense.
+  - Hover over some dropped items to see their descriptions.
+  - Hover over the player to see in-depth information about the player.
+- To fight enemies:
+  - Move the player to the same tile as an enemy and walk into the enemy.
+  - Hover over the enemy to see their health.
+- To pick up items:
+  - Move the player to the same tile as an item and walk into the item.
+  - Press "Q" to pick up the item or press "X" to discard.
+  - Hover over the dropped item to learn more about it.
+- To open and navigate the inventory:
+  - Press "E" to open the inventory.
+  - The player attack, defense, and health is shown next to the player icon.
+  - The player's inventory is shown on the right side of the screen.
+  - The player's equipped items are shown on the two boxes on left side of the screen.
+  - Hover over the items to see their information.
+  - Click on the items to use and/or equip them.
+  - Hover over an item and press "Q" to drop the item or "X" to delete the item.
+  - Press "E" or "Escape" to close the inventory.
+- To open the inventory and save the game:
+  - Press "Escape" to pause the game.
+  - Hover over the options on screen.
+  - Press "Resume" to resume the game.
+  - Press "Save and Quit" to save the game and quit.
+  - Press "Quit Without Saving" to quit the game without saving.
+  - Press "Escape" again to exit the pause menu.
