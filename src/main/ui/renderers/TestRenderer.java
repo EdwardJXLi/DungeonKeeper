@@ -39,7 +39,7 @@ public class TestRenderer extends Renderer {
         int offsetY = 1;
         int offsetX = 0;
         for (SpriteID spriteID : SpriteID.values()) {
-            if (offsetY > 20) {
+            if (offsetY > 22) {
                 offsetX = 15;
                 offsetY = 8;
             }
