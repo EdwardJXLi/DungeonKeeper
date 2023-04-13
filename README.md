@@ -82,3 +82,6 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
   - Press "Save and Quit" to save the game and quit.
   - Press "Quit Without Saving" to quit the game without saving.
   - Press "Escape" again to exit the pause menu.
+
+## Phase 4: Task 2
+Text is too long to put here, so refer to example_game_logs.txt
