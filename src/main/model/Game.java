@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class Game implements Writable {
     // Game Constants
-    public static final String VERSION = "project";
+    public static final String VERSION = "wip-p2-debug";
     public static final int TPS = 20;
     public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
     public static final int SPAWN_X = 2;
@@ -94,8 +94,14 @@ public class Game implements Writable {
     //          - Occasionally spawns new items and enemies
     public void handleNextTick(int tick) {
         // Next tick for all enemies
+        /*
         for (Enemy e : getLevel().getEnemies()) {
             e.handleNextTick(tick);
+        }
+        */
+        // TODO: Dirty Hack to fix spawning issue!
+        for (int i = 0; i < getLevel().getEnemies().size(); i++) {
+            getLevel().getEnemies().get(i).handleNextTick(tick);
         }
 
         // Next tick for player

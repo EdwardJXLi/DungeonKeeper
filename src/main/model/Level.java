@@ -1,6 +1,7 @@
 package model;
 
 import model.enemies.Guard;
+import model.enemies.Wisp;
 import model.tiles.Trap;
 import model.tiles.Wall;
 import org.json.JSONArray;
@@ -70,6 +71,10 @@ public class Level implements Writable {
                     game.getRandom().nextInt(sizeY - 2) + 1
             );
         }
+
+        // Spawns two wisps on the top corners of the screen
+        this.spawnEnemy(new Wisp(game), sizeX - 5, 5);
+        this.spawnEnemy(new Wisp(game), 5, sizeY - 5);
     }
 
     // MODIFIES: this
