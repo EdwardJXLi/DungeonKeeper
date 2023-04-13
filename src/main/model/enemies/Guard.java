@@ -73,18 +73,8 @@ public class Guard extends Enemy {
                 return;
             }
 
-            // Try to move in a random direction
-            // If this fails, nothing will happen. This is intended behavior!
-            int i = getGame().getRandom().nextInt(4);
-            if (i == 0) {
-                moveUp();
-            } else if (i == 1) {
-                moveDown();
-            } else if (i == 2) {
-                moveLeft();
-            } else {
-                moveRight();
-            }
+            // Process Random Movement AI
+            moveRandom();
         }
 
         // Handle super

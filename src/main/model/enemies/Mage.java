@@ -57,17 +57,25 @@ public class Mage extends Enemy {
                 return;
             }
 
-            // Try to move in a random direction
-            // If this fails, nothing will happen. This is intended behavior!
-            int i = getGame().getRandom().nextInt(4);
-            if (i == 0) {
-                moveUp();
-            } else if (i == 1) {
-                moveDown();
-            } else if (i == 2) {
-                moveLeft();
+            // Basic Mage AI
+            // If player is within 5 tiles, move towards them
+            // Otherwise, move randomly
+            int playerX = getGame().getPlayer().getPosX();
+            int playerY = getGame().getPlayer().getPosY();
+            if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
+                // Move towards player
+                if (playerX > getPosX()) {
+                    moveRight();
+                } else if (playerX < getPosX()) {
+                    moveLeft();
+                } else if (playerY > getPosY()) {
+                    moveDown();
+                } else if (playerY < getPosY()) {
+                    moveUp();
+                }
             } else {
-                moveRight();
+                // Move randomly
+                moveRandom();
             }
         }
 

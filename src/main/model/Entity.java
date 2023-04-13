@@ -74,6 +74,26 @@ public abstract class Entity implements ScreenElement, Writable {
     }
 
     // MODIFIES: this
+    // EFFECTS: Moves in a random direction
+    public void moveRandom() {
+        int random = (int) (Math.random() * 4);
+        switch (random) {
+            case 0:
+                moveUp();
+                break;
+            case 1:
+                moveDown();
+                break;
+            case 2:
+                moveLeft();
+                break;
+            case 3:
+                moveRight();
+                break;
+        }
+    }
+
+    // MODIFIES: this
     // EFFECTS: Tries to move player up.
     public boolean moveUp() {
         return handleMovement(getPosX(), getPosY() - 1);

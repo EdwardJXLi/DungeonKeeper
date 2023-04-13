@@ -49,6 +49,23 @@ public abstract class Enemy extends Entity {
     }
 
     // MODIFIES: this
+    // EFFECTS: Checks if enemy runs into player. If so, undo move and initiate attack.
+    //          If not, move enemy to new location
+    @Override
+    protected boolean handleMovement(int posX, int posY) {
+        Player player = getGame().getPlayer();
+
+        // If new location is the player, initiate attack
+        if (player.getPosX() == posX && player.getPosY() == posY) {
+            player.attackEnemy(this);
+            return false;
+        }
+
+        // Else, continue with entity movement script
+        return super.handleMovement(posX, posY);
+    }
+
+    // MODIFIES: this
     // EFFECTS: Stuns enemy - next turn is skipped
     public void stun() {
         stunned = true;

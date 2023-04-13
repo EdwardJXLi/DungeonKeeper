@@ -69,17 +69,16 @@ public class Wisp extends Enemy {
                 return;
             }
 
-            // Try to move in a random direction
-            // If this fails, nothing will happen. This is intended behavior!
-            int i = getGame().getRandom().nextInt(4);
-            if (i == 0) {
-                moveUp();
-            } else if (i == 1) {
-                moveDown();
-            } else if (i == 2) {
+            // Very basic entity AI.
+            // Always try to move in the direction of the player
+            if (getGame().getPlayer().getPosX() < getPosX()) {
                 moveLeft();
-            } else {
+            } else if (getGame().getPlayer().getPosX() > getPosX()) {
                 moveRight();
+            } else if (getGame().getPlayer().getPosY() < getPosY()) {
+                moveUp();
+            } else if (getGame().getPlayer().getPosY() > getPosY()) {
+                moveDown();
             }
 
             // If the enemy has moved 5 times, spawn a whisper
