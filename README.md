@@ -85,3 +85,13 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
 
 ## Phase 4: Task 2
 Example log is too long to fit here, so refer to `example_game_logs.txt`.
+
+## Phase 4: Task 3
+There are a couple areas that could be improved. For one, functionality between
+DroppedItem and Item could be merged together as one single "Item" class.
+This is because the coupling between the two classes is very high, and
+there is some duplicated code between the two classes. Another thing is that 
+many functionalities in different potions are similar, so it would be nice to 
+abstract those away to the parent potion class. Finally, the "Level" class could
+be improved by merging into the main "Game" class. This was originally designed so that
+a single game could have multiple levels, but this was never implemented. 
