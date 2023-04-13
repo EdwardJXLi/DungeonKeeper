@@ -16,7 +16,7 @@ public class Vampire extends Enemy {
     public static final int INITIAL_HEALTH = 400;
     public static final int INITIAL_DEFENSE = 20;
     public static final int INITIAL_ATTACK = VampireFangs.FANG_DAMAGE;
-    public static final int TICKS_UNTIL_MOVEMENT = 20;
+    public static final int TICKS_UNTIL_MOVEMENT = 15;
 
     // EFFECTS: Creates a vampire to fight
     public Vampire(Game game) {
@@ -47,6 +47,31 @@ public class Vampire extends Enemy {
     }
 
     // MODIFIES: this
+    // EFFECTS: Handle vampire movement
+    private void handleVampireMovement(int tick) {
+        // Basic Vampire AI
+        // If player is within 5 tiles, move towards them
+        // Otherwise, move randomly
+        int playerX = getGame().getPlayer().getPosX();
+        int playerY = getGame().getPlayer().getPosY();
+        if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
+            // Move towards player
+            if (playerX > getPosX()) {
+                moveRight();
+            } else if (playerX < getPosX()) {
+                moveLeft();
+            } else if (playerY > getPosY()) {
+                moveDown();
+            } else if (playerY < getPosY()) {
+                moveUp();
+            }
+        } else {
+            // Move randomly
+            moveRandom();
+        }
+    }
+
+    // MODIFIES: this
     // EFFECTS: Check if enemy should move on each tick
     @Override
     public void handleNextTick(int tick) {
@@ -57,26 +82,8 @@ public class Vampire extends Enemy {
                 return;
             }
 
-            // Basic Vampire AI
-            // If player is within 5 tiles, move towards them
-            // Otherwise, move randomly
-            int playerX = getGame().getPlayer().getPosX();
-            int playerY = getGame().getPlayer().getPosY();
-            if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
-                // Move towards player
-                if (playerX > getPosX()) {
-                    moveRight();
-                } else if (playerX < getPosX()) {
-                    moveLeft();
-                } else if (playerY > getPosY()) {
-                    moveDown();
-                } else if (playerY < getPosY()) {
-                    moveUp();
-                }
-            } else {
-                // Move randomly
-                moveRandom();
-            }
+            // Handle Vampire Movement
+            handleVampireMovement(tick);
         }
 
         // Handle super

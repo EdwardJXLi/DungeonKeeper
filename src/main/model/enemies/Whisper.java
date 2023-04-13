@@ -28,15 +28,9 @@ public class Whisper extends Enemy {
     // REQUIRES: Only used for loading from save.
     // EFFECTS: Creates a whisper from pre-existing values.
     public Whisper(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
-        super(game, posX, posY, '*', TextColor.ANSI.CYAN, TextColor.ANSI.DEFAULT, SpriteID.ENTITY_DUMMY,
+        super(game, posX, posY, '*', TextColor.ANSI.CYAN, TextColor.ANSI.DEFAULT, SpriteID.ENTITY_WHISPER,
                 "Whisper", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,
                 health, defense, attack);
-    }
-
-    // EFFECTS: Helper function to run movement tests
-    public void setCoordinate(int posX, int posY) {
-        setPosX(posX);
-        setPosY(posY);
     }
 
     // MODIFIES: this

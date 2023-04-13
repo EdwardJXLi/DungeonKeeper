@@ -16,7 +16,8 @@ public class Mage extends Enemy {
     public static final int INITIAL_HEALTH = 100;
     public static final int INITIAL_DEFENSE = MageRobe.MAGE_DEFENSE;
     public static final int INITIAL_ATTACK = 20;
-    public static final int TICKS_UNTIL_MOVEMENT = 20;
+    public static final int TICKS_UNTIL_MOVEMENT = 15;
+    public static final int MOVES_UNTIL_FIRE_SPAWN = 2;
 
     // EFFECTS: Creates a mage to fight
     public Mage(Game game) {
@@ -47,6 +48,31 @@ public class Mage extends Enemy {
     }
 
     // MODIFIES: this
+    // EFFECTS: Handle movement for the mage
+    private void handleMageMovement(int tick) {
+        // Basic Mage AI
+        // If player is within 5 tiles, move towards them
+        // Otherwise, move randomly
+        int playerX = getGame().getPlayer().getPosX();
+        int playerY = getGame().getPlayer().getPosY();
+        if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
+            // Move towards player
+            if (playerX > getPosX()) {
+                moveRight();
+            } else if (playerX < getPosX()) {
+                moveLeft();
+            } else if (playerY > getPosY()) {
+                moveDown();
+            } else if (playerY < getPosY()) {
+                moveUp();
+            }
+        } else {
+            // Move randomly
+            moveRandom();
+        }
+    }
+
+    // MODIFIES: this
     // EFFECTS: Check if enemy should move on each tick
     @Override
     public void handleNextTick(int tick) {
@@ -57,28 +83,15 @@ public class Mage extends Enemy {
                 return;
             }
 
-            // Basic Mage AI
-            // If player is within 5 tiles, move towards them
-            // Otherwise, move randomly
-            int playerX = getGame().getPlayer().getPosX();
-            int playerY = getGame().getPlayer().getPosY();
-            if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
-                // Move towards player
-                if (playerX > getPosX()) {
-                    moveRight();
-                } else if (playerX < getPosX()) {
-                    moveLeft();
-                } else if (playerY > getPosY()) {
-                    moveDown();
-                } else if (playerY < getPosY()) {
-                    moveUp();
-                }
-            } else {
-                // Move randomly
-                moveRandom();
-            }
-        }
+            // Handle Mage Movement
+            handleMageMovement(tick);
 
+            // If the enemy has moved twice, spawn a fire
+            if (tick % (TICKS_UNTIL_MOVEMENT * MOVES_UNTIL_FIRE_SPAWN) == 0) {
+                getGame().getLevel().spawnEnemy(new Fire(getGame()), getPosX(), getPosY());
+            }
+
+        }
         // Handle super
         super.handleNextTick(tick);
     }

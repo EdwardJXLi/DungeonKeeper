@@ -8,6 +8,7 @@ public enum SpriteID {
     ENTITY_DUMMY,
     ENTITY_GUARD,
     ENTITY_MAGE,
+    ENTITY_FIRE,
     ENTITY_VAMPIRE,
     ENTITY_WISP,
     ENTITY_WHISPER,
