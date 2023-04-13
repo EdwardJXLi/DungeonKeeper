@@ -4,6 +4,7 @@ public enum SpriteID {
     TILE_FLOOR,
     TILE_WALL,
     TILE_TRAP,
+    TILE_SOULFIRE,
     PLAYER,
     ENTITY_DUMMY,
     ENTITY_GUARD,

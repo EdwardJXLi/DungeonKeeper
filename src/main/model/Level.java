@@ -95,6 +95,19 @@ public class Level implements Writable {
         tiles.add(tile);
     }
 
+    // MODIFIES: this
+    // EFFECTS: Adds tile to level, making sure it doesn't overlap with other tiles
+    public void addTile(Tile tile, boolean check) {
+        if (!check) {
+            addTile(tile);
+        } else {
+            // Check that tile does not overlap with other tiles
+            if (getTileAtLocation(tile.getPosX(), tile.getPosY()) == null) {
+                addTile(tile);
+            }
+        }
+    }
+
     // MODIFIES: this, p
     // EFFECTS: Sets player location to spawn location
     public void spawnPlayer(Player p) {
