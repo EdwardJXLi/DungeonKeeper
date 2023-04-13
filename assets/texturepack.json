@@ -6,7 +6,7 @@
     "description": "2D Pixel Dungeon Asset Pack",
     "license": "CC0",
     "homepage": "https://pixel-poem.itch.io/dungeon-assetpuck",
-    "flags": ["SUPPORTS_DYNAMIC_WALLS"]
+    "flags": ["DYNAMIC_WALLS", "DECORATIONS"]
   },
   "spritesheets": {
     "TILES": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_tileset.png",

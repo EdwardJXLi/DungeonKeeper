@@ -33,6 +33,7 @@ public class Level implements Writable {
     private List<Tile> tiles;
     private List<Enemy> enemies;
     private List<DroppedItem> droppedItems;
+    private List<Decoration> decorations;
 
     // EFFECTS: Creates a level with size X and Y
     public Level(int levelNum, Game game, int sizeX, int sizeY, int spawnX, int spawnY) {
@@ -45,6 +46,7 @@ public class Level implements Writable {
         this.tiles = new ArrayList<>();
         this.enemies = new ArrayList<>();
         this.droppedItems = new ArrayList<>();
+        this.decorations = new ArrayList<>();
     }
 
     // REQUIRES: Only used for loading from save.
@@ -106,6 +108,12 @@ public class Level implements Writable {
                 addTile(tile);
             }
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Adds decoration to level
+    public void addDecoration(Decoration decoration) {
+        decorations.add(decoration);
     }
 
     // MODIFIES: this, p
@@ -281,6 +289,10 @@ public class Level implements Writable {
 
     public List<DroppedItem> getDroppedItems() {
         return droppedItems;
+    }
+
+    public List<Decoration> getDecorations() {
+        return decorations;
     }
 
     public int getSizeX() {

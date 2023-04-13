@@ -1,6 +1,8 @@
 package ui;
 
 import model.Game;
+import model.Level;
+import model.Tile;
 import model.logging.Event;
 import model.logging.EventLog;
 import ui.helpers.TextureManager;
@@ -82,23 +84,6 @@ public class GameWindow extends JFrame {
         addWindowListener(getWindowCloseAdapter());
     }
 
-    // EFFECTS: Returns WindowAdapter that handles on window close.
-    private static WindowAdapter getWindowCloseAdapter() {
-        return new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                // Print out all logs
-                EventLog logger = EventLog.getInstance();
-
-                System.out.println("Game Logs:");
-                for (Event event : logger) {
-                    System.out.println(event);
-                }
-            }
-        };
-    }
-
     // MODIFIES: this
     // EFFECTS: Initializes Main Menu
     public void initMainMenu() {
@@ -164,6 +149,23 @@ public class GameWindow extends JFrame {
     // EFFECTS: Quits Game
     public void quitGame() {
         graphicalGame.quitGame();
+    }
+
+    // EFFECTS: Returns WindowAdapter that handles on window close.
+    private static WindowAdapter getWindowCloseAdapter() {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                // Print out all logs
+                EventLog logger = EventLog.getInstance();
+
+                System.out.println("Game Logs:");
+                for (Event event : logger) {
+                    System.out.println(event);
+                }
+            }
+        };
     }
 
     public boolean isPaused() {

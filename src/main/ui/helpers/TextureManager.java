@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,15 @@ public class TextureManager {
     // Font Information
     private final Map<String, Font> fonts;
 
+    // Texturepack Info
+    private String name;
+    private String author;
+    private String version;
+    private String description;
+    private String license;
+    private String homepage;
+    private List<String> flags;
+
     public TextureManager(String texturepack, double scale, int spriteSize) {
         // Setup Base Information
         this.texturepack = texturepack;
@@ -50,6 +60,9 @@ public class TextureManager {
 
         // Setup Font Information
         this.fonts = new HashMap<>();
+
+        // Setup Texturepack Info
+        this.flags = new ArrayList<>();
 
         // Load Textures
         try {
@@ -180,7 +193,17 @@ public class TextureManager {
     // MODIFIES: this
     // EFFECTS:  Loads all metadata from the texture pack
     private void loadMetadata(JSONObject data) {
-        // TODO: do nothing for now.
+        name = data.getString("name");
+        author = data.getString("author");
+        version = data.getString("version");
+        description = data.getString("description");
+        license = data.getString("license");
+        homepage = data.getString("homepage");
+
+        // Add Flags
+        for (Object flag : data.getJSONArray("flags")) {
+            flags.add((String) flag);
+        }
     }
 
     // MODIFIES: this
@@ -318,5 +341,33 @@ public class TextureManager {
     // EFFECTS: Returns the UI scaling factor
     public double getScale() {
         return scale;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getVersion() {
+        return version;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public List<String> getFlags() {
+        return flags;
     }
 }

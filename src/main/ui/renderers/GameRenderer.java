@@ -1,8 +1,6 @@
 package ui.renderers;
 
-import model.DroppedItem;
-import model.Player;
-import model.ScreenElement;
+import model.*;
 import model.graphics.SpriteID;
 import ui.GameWindow;
 import ui.helpers.TooltipHelper;
@@ -39,6 +37,27 @@ public class GameRenderer extends Renderer {
 
         // Initialize Background
         initializeBackground();
+
+        // Initialize Level Decorations
+        initializeLevelDecorations(getGame().getLevel());
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Level Decorations
+    private void initializeLevelDecorations(Level level) {
+        // Check if dynamic walls are supported
+        if (textureManager.getFlags().contains("DYNAMIC_WALLS")) {
+            initializeDynamicWalls(level);
+        }
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Dynamic Walls
+    //          This makes it so that connecting walls are drawn as one wall
+    private void initializeDynamicWalls(Level level) {
+        // Loop through all tiles.
+        // If they have another wall at a 90 degree angle, draw a connecting wall, for all 4 angles.
+        // Else, if they have a wall next to them on both sides, draw a connecting wall.
     }
 
     // MODIFIES: this
