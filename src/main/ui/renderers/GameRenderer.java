@@ -2,6 +2,7 @@ package ui.renderers;
 
 import model.*;
 import model.decorations.FancyWall;
+import model.decorations.Rock;
 import model.graphics.SpriteID;
 import model.tiles.Wall;
 import ui.GameWindow;
@@ -49,26 +50,68 @@ public class GameRenderer extends Renderer {
     private void initializeLevelDecorations(Level level) {
         // Check if dynamic walls are supported
         if (textureManager.getFlags().contains("DYNAMIC_WALLS")) {
-            initializeDynamicWalls(level);
+            // If walls have other walls next to them on both sides, draw a connecting wall.
+            // Else, if they have another wall at a 90 degree angle, draw an edge wall.
+            initializeConnectingWalls(level);
+
+            // If walls is in a corner, draw a corner wall.
+            initializeCornerWalls(level);
         }
     }
 
     // MODIFIES: this, level
     // EFFECTS: Initializes Dynamic Walls
     //          This makes it so that connecting walls are drawn as one wall
-    private void initializeDynamicWalls(Level level) {
-        // Loop through all tiles.
-        // If they have a wall next to them on both sides, draw a connecting wall.
-        // Else, if they have another wall at a 90 degree angle, draw a connecting wall, for all 4 angles.
+    private void initializeConnectingWalls(Level level) {
+        // Loop through all tiles and check if they are eligible for connecting walls.
         for (Tile tile : level.getTiles()) {
             if (tile instanceof Wall) {
                 int tileX = tile.getPosX();
                 int tileY = tile.getPosY();
-                // Check if tile has walls on both sides and air on bottom
-                if (level.getTileAtLocation(tileX - 1, tileY) instanceof Wall
-                        && level.getTileAtLocation(tileX + 1, tileY) instanceof Wall
-                        && level.getTileAtLocation(tileX, tileY + 1) == null) {
+                Tile tileAbove = level.getTileAtLocation(tileX, tileY - 1);
+                Tile tileBelow = level.getTileAtLocation(tileX, tileY + 1);
+                Tile tileLeft = level.getTileAtLocation(tileX - 1, tileY);
+                Tile tileRight = level.getTileAtLocation(tileX + 1, tileY);
+
+                if (tileY < level.getSizeY() - 1
+                        && tileLeft instanceof Wall && tileRight instanceof Wall && tileBelow == null) {
                     level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP));
+                } else if (tileY > 0
+                        && tileLeft instanceof Wall && tileRight instanceof Wall && tileAbove == null) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.BOTTOM));
+                } else if (tileX < level.getSizeX() - 1
+                        && tileAbove instanceof Wall && tileBelow instanceof Wall && tileRight == null) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.LEFT));
+                } else if (tileX > 0
+                        && tileAbove instanceof Wall && tileBelow instanceof Wall && tileLeft == null) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.RIGHT));
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Corner Walls
+    //          This makes it so that corner walls are drawn as one wall
+    private void initializeCornerWalls(Level level) {
+        // Loop through all tiles and check if they are eligible for corner walls.
+        for (Tile tile : level.getTiles()) {
+            if (tile instanceof Wall) {
+                int tileX = tile.getPosX();
+                int tileY = tile.getPosY();
+                Tile tileAbove = level.getTileAtLocation(tileX, tileY - 1);
+                Tile tileBelow = level.getTileAtLocation(tileX, tileY + 1);
+                Tile tileLeft = level.getTileAtLocation(tileX - 1, tileY);
+                Tile tileRight = level.getTileAtLocation(tileX + 1, tileY);
+
+                if (tileBelow instanceof Wall && tileRight instanceof Wall) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP_LEFT));
+                } else if (tileBelow instanceof Wall && tileLeft instanceof Wall) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP_RIGHT));
+                } else if (tileAbove instanceof Wall && tileRight instanceof Wall) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.BOTTOM_LEFT));
+                } else if (tileAbove instanceof Wall && tileLeft instanceof Wall) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.BOTTOM_RIGHT));
                 }
             }
         }
@@ -198,17 +241,33 @@ public class GameRenderer extends Renderer {
     // EFFECTS: Draws all tiles and enemies to screen
     private void renderScreenElements(Graphics g) {
         // Render Tiles
-        for (ScreenElement e : game.getLevel().getTiles()) {
-            drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+        for (Tile e : game.getLevel().getTiles()) {
+            // Draw Walls Specially
+            if (e instanceof Wall) {
+                drawMapSprite(
+                        g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY()
+                );
+            } else {
+                drawMapSprite(
+                        g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick()
+                );
+            }
+        }
+
+        // Render Decorations
+        for (Decoration e : game.getLevel().getDecorations()) {
+            drawMapSprite(
+                    g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), e.getSpriteOffset()
+            );
         }
 
         // Render Enemies
-        for (ScreenElement e : game.getLevel().getEnemies()) {
+        for (Enemy e : game.getLevel().getEnemies()) {
             drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
 
         // Render Dropped Items
-        for (ScreenElement e : game.getLevel().getDroppedItems()) {
+        for (DroppedItem e : game.getLevel().getDroppedItems()) {
             drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
         }
     }

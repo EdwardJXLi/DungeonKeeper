@@ -9,14 +9,4 @@ public class VariedSprite extends SpriteCollection {
     public VariedSprite(List<Sprite> sprites) {
         super(sprites);
     }
-
-    @Override
-    public BufferedImage getImage(int value) {
-        return sprites.get(0).getImage();
-    }
-
-    @Override
-    public BufferedImage getRawImage(int value) {
-        return sprites.get(0).getRawImage();
-    }
 }

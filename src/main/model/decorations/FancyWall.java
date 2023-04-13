@@ -16,8 +16,8 @@ public class FancyWall extends Decoration {
         BOTTOM_RIGHT(10),
         TOP(2),
         BOTTOM(11),
-        LEFT(7),
-        RIGHT(16);
+        LEFT(16),
+        RIGHT(7);
 
         private final int value;
         FancyWallType(int value) {
