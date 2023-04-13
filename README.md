@@ -84,4 +84,4 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
   - Press "Escape" again to exit the pause menu.
 
 ## Phase 4: Task 2
-Text is too long to put here, so refer to example_game_logs.txt
+Example log is too long to fit here, so refer to `example_game_logs.txt`.
