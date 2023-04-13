@@ -22,15 +22,17 @@ public abstract class Decoration implements ScreenElement {
     private final int posY;
     private final SpriteID spriteID;
     private final String name;
+    private int spriteOffset;
 
     // EFFECTS: Creates a generic map tile
     public Decoration(
-            int posX, int posY, SpriteID spriteID, String name
+            int posX, int posY, SpriteID spriteID, String name, int spriteOffset
     ) {
         this.posX = posX;
         this.posY = posY;
         this.spriteID = spriteID;
         this.name = name;
+        this.spriteOffset = spriteOffset;
     }
 
     //
@@ -69,5 +71,9 @@ public abstract class Decoration implements ScreenElement {
 
     public String getName() {
         return name;
+    }
+
+    public int getSpriteOffset() {
+        return spriteOffset;
     }
 }

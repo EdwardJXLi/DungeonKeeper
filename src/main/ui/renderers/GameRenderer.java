@@ -1,7 +1,9 @@
 package ui.renderers;
 
 import model.*;
+import model.decorations.FancyWall;
 import model.graphics.SpriteID;
+import model.tiles.Wall;
 import ui.GameWindow;
 import ui.helpers.TooltipHelper;
 import ui.sprites.Sprite;
@@ -56,8 +58,20 @@ public class GameRenderer extends Renderer {
     //          This makes it so that connecting walls are drawn as one wall
     private void initializeDynamicWalls(Level level) {
         // Loop through all tiles.
-        // If they have another wall at a 90 degree angle, draw a connecting wall, for all 4 angles.
-        // Else, if they have a wall next to them on both sides, draw a connecting wall.
+        // If they have a wall next to them on both sides, draw a connecting wall.
+        // Else, if they have another wall at a 90 degree angle, draw a connecting wall, for all 4 angles.
+        for (Tile tile : level.getTiles()) {
+            if (tile instanceof Wall) {
+                int tileX = tile.getPosX();
+                int tileY = tile.getPosY();
+                // Check if tile has walls on both sides and air on bottom
+                if (level.getTileAtLocation(tileX - 1, tileY) instanceof Wall
+                        && level.getTileAtLocation(tileX + 1, tileY) instanceof Wall
+                        && level.getTileAtLocation(tileX, tileY + 1) == null) {
+                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP));
+                }
+            }
+        }
     }
 
     // MODIFIES: this
