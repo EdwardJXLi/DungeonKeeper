@@ -84,7 +84,7 @@ adventure game. For this CPSC 210 project, I wanted to continue this trend by bu
   - Press "Escape" again to exit the pause menu.
 
 ## Phase 4: Task 2
-Example log is too long to fit here, so refer to `example_game_logs.txt`.
+Example log is too long to fit here, so please refer to `example_game_logs.txt`.
 
 ## Phase 4: Task 3
 There are a couple areas that could be improved. For one, functionality between
@@ -94,4 +94,6 @@ there is some duplicated code between the two classes. Another thing is that
 many functionalities in different potions are similar, so it would be nice to 
 abstract those away to the parent potion class. Finally, the "Level" class could
 be improved by merging into the main "Game" class. This was originally designed so that
-a single game could have multiple levels, but this was never implemented. 
+a single game could have multiple levels, but this was never implemented. There is a
+lot more specific implementation details that could be improved as well if there was
+more time, especially in the rendering code.
