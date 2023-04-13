@@ -1,6 +1,8 @@
 package model;
 
 import model.enemies.Guard;
+import model.enemies.Mage;
+import model.enemies.Vampire;
 import model.enemies.Wisp;
 import model.tiles.Trap;
 import model.tiles.Wall;
@@ -75,6 +77,16 @@ public class Level implements Writable {
         // Spawns two wisps on the top corners of the screen
         this.spawnEnemy(new Wisp(game), sizeX - 5, 5);
         this.spawnEnemy(new Wisp(game), 5, sizeY - 5);
+
+        // Spawn mage and vampire randomly
+        this.spawnEnemy(new Vampire(game),
+                game.getRandom().nextInt(sizeX - 2) + 1,
+                game.getRandom().nextInt(sizeY - 2) + 1
+        );
+        this.spawnEnemy(new Mage(game),
+                game.getRandom().nextInt(sizeX - 2) + 1,
+                game.getRandom().nextInt(sizeY - 2) + 1
+        );
     }
 
     // MODIFIES: this

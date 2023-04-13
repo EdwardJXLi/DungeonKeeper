@@ -6,8 +6,8 @@ import model.Game;
 import model.graphics.SpriteID;
 
 /*
- * A Dummy enemy that has no attack and no defense.
- * Used to test out the fighting and movement system.
+ * Minion of the wisp.
+ * Little defence, attack, and health, but spawns a lot at a time.
  */
 
 public class Whisper extends Enemy {
@@ -16,7 +16,7 @@ public class Whisper extends Enemy {
     public static final int INITIAL_ATTACK = 5;
     public static final int TICKS_UNTIL_MOVEMENT = 5;
 
-    // EFFECTS: Creates a basic dummy to fight
+    // EFFECTS: Creates a whisper enemy
     public Whisper(Game game) {
         super(
                 game,
@@ -26,7 +26,7 @@ public class Whisper extends Enemy {
     }
 
     // REQUIRES: Only used for loading from save.
-    // EFFECTS: Creates a dummy from pre-existing values.
+    // EFFECTS: Creates a whisper from pre-existing values.
     public Whisper(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
         super(game, posX, posY, '*', TextColor.ANSI.CYAN, TextColor.ANSI.DEFAULT, SpriteID.ENTITY_DUMMY,
                 "Whisper", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,

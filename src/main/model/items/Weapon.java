@@ -18,12 +18,13 @@ public abstract class Weapon extends Item {
     private final int additionalAttack;
 
     public Weapon(
-            String name, List<String> description,
-            TextColor weaponColor, SpriteID spriteID, int additionalAttack
+            String name, List<String> description, char textSprite,
+            TextColor textColor, TextColor backgroundColor, SpriteID spriteID,
+            int additionalAttack
     ) {
         super(
-                name, description, '!',
-                TextColor.ANSI.RED, weaponColor, spriteID
+                name, description, textSprite,
+                textColor, backgroundColor, spriteID
         );
         this.additionalAttack = additionalAttack;
     }

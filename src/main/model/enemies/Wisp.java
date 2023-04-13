@@ -19,7 +19,7 @@ public class Wisp extends Enemy {
     public static final int TICKS_UNTIL_MOVEMENT = 10;
     public static final int MOVES_UNTIL_WHISPER_SPAWN = 3;
 
-    // EFFECTS: Creates a basic dummy to fight
+    // EFFECTS: Creates a wisp to fight
     public Wisp(Game game) {
         super(
                 game,
@@ -29,7 +29,7 @@ public class Wisp extends Enemy {
     }
 
     // REQUIRES: Only used for loading from save.
-    // EFFECTS: Creates a dummy from pre-existing values.
+    // EFFECTS: Creates a wisp from pre-existing values.
     public Wisp(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
         super(game, posX, posY, '*', TextColor.ANSI.BLUE, TextColor.ANSI.DEFAULT, SpriteID.ENTITY_WISP,
                 "Wisp", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,
@@ -37,7 +37,7 @@ public class Wisp extends Enemy {
     }
 
     // MODIFIES: this
-    // EFFECTS: Drops random loop on death
+    // EFFECTS: Drops Ectoplasm on death
     @Override
     public void onDeath() {
         // Drop Ectoplasm

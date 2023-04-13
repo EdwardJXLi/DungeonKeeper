@@ -6,16 +6,18 @@ import model.graphics.SpriteID;
 import java.util.Arrays;
 
 /*
- * Basic armor dropped by guards when killed
+ * Mage Robe - Dropped by mages when killed
  */
 
 public class MageRobe extends Armor {
-    // EFFECTS: Creates a simple armor dropped by guards
-    public MageRobe(int armorDefense) {
+    public static final int MAGE_DEFENSE = 60;
+
+    // EFFECTS: Creates a mage robe armor.
+    public MageRobe() {
         super(
-                "Guard's Armor", Arrays.asList("Sturdy Looking Armor"),
-                TextColor.ANSI.YELLOW, SpriteID.ITEM_GUARD_ARMOR,
-                armorDefense
+                "Mage Robe", Arrays.asList("Strong Mage Robe", "Dropped by Mages"),
+                ']', TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT, SpriteID.ITEM_MAGE_ROBE,
+                MAGE_DEFENSE
         );
     }
 }

@@ -19,11 +19,11 @@ public abstract class Armor extends Item {
 
     // EFFECTS: Creates an abstract armor class
     public Armor(
-            String name, List<String> description,
-            TextColor armorColor, SpriteID spriteID,
+            String name, List<String> description, char textSprite,
+            TextColor textColor, TextColor backgroundColor, SpriteID spriteID,
             int additionalDefense
     ) {
-        super(name, description, '$', TextColor.ANSI.WHITE, armorColor, spriteID);
+        super(name, description, textSprite, textColor, backgroundColor, spriteID);
         this.additionalDefense = additionalDefense;
     }
 
