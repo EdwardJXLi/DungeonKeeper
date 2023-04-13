@@ -1,11 +1,15 @@
 package ui;
 
 import model.Game;
+import model.logging.Event;
+import model.logging.EventLog;
 import ui.helpers.TextureManager;
 import ui.renderers.*;
 import ui.renderers.Renderer;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -73,6 +77,26 @@ public class GameWindow extends JFrame {
 
         // Initialize UI and Rendering
         setVisible(true);
+
+        // Setup Window Close Handler
+        addWindowListener(getWindowCloseAdapter());
+    }
+
+    // EFFECTS: Returns WindowAdapter that handles on window close.
+    private static WindowAdapter getWindowCloseAdapter() {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                // Print out all logs
+                EventLog logger = EventLog.getInstance();
+
+                System.out.println("Game Logs:");
+                for (Event event : logger) {
+                    System.out.println(event);
+                }
+            }
+        };
     }
 
     // MODIFIES: this

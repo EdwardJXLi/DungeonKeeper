@@ -71,7 +71,7 @@ public class Player extends Entity implements Writable {
             return false;
         }
 
-        // Else, just jet the superclass method handle movement
+        // Else, just let the superclass method handle movement
         boolean didMove = super.handleMovement(posX, posY);
         if (!didMove) {
             getGame().sendMessage("X Sorry! You Cant Go There!");
@@ -136,12 +136,14 @@ public class Player extends Entity implements Writable {
     // MODIFIES: this
     // EFFECTS: Removes item from player inventory
     public void removeItem(Item item) {
+        getGame().sendMessage(String.format("★ Removed Item %s to inventory", item.getName()));
         inventory.removeItem(item);
     }
 
     // MODIFIES: this
     // EFFECTS: Picks up dropped item and add to inventory
     public void pickupItem(DroppedItem di) {
+        getGame().sendMessage("★ Picked Up Dropped Item");
         addItem(di.getItem());
         getGame().getLevel().removeDroppedItem(di);
     }
@@ -149,6 +151,7 @@ public class Player extends Entity implements Writable {
     // MODIFIES: this
     // EFFECTS: Drops item onto ground
     public void dropItem(Item item) {
+        getGame().sendMessage("★ Dropped Item To Ground");
         getGame().getLevel().dropItem(getPosX(), getPosY(), item);
         removeItem(item);
     }
@@ -161,6 +164,7 @@ public class Player extends Entity implements Writable {
     // MODIFIES: this
     // EFFECTS: Sets the new equipped armor
     public void equipArmor(Armor armor) {
+        getGame().sendMessage(String.format("★ Equipped Armor %s", armor.getName()));
         if (inventory.getEquippedArmor() == null) {
             inventory.setEquippedArmor(armor);
             removeItem(armor);
@@ -175,6 +179,7 @@ public class Player extends Entity implements Writable {
     // EFFECTS: Removes the old equipped armor and adds it back into the inventory
     public void unequipArmor() {
         if (inventory.getEquippedArmor() != null) {
+            getGame().sendMessage(String.format("★ Removed Armor %s", inventory.getEquippedArmor().getName()));
             addItem(inventory.getEquippedArmor());
             inventory.setEquippedArmor(null);
         }
@@ -188,6 +193,7 @@ public class Player extends Entity implements Writable {
     // MODIFIES: this
     // EFFECTS: Sets the new equipped weapon
     public void equipWeapon(Weapon weapon) {
+        getGame().sendMessage(String.format("★ Equipped Weapon %s", weapon.getName()));
         if (inventory.getEquippedWeapon() == null) {
             inventory.setEquippedWeapon(weapon);
             removeItem(weapon);
@@ -202,6 +208,7 @@ public class Player extends Entity implements Writable {
     // EFFECTS: Removes the old equipped weapon and adds it back into the inventory
     public void unequipWeapon() {
         if (inventory.getEquippedWeapon() != null) {
+            getGame().sendMessage(String.format("★ Removed Weapon %s", inventory.getEquippedWeapon().getName()));
             addItem(inventory.getEquippedWeapon());
             inventory.setEquippedWeapon(null);
         }

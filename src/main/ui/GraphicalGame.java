@@ -1,6 +1,8 @@
 package ui;
 
 import model.Game;
+import model.logging.Event;
+import model.logging.EventLog;
 import persistence.GameReader;
 import persistence.GameWriter;
 import persistence.SaveGame;
@@ -113,6 +115,14 @@ public class GraphicalGame {
     // MODIFIES: this
     // EFFECTS: Quits Game
     public void quitGame() {
+        // Print out all logs
+        EventLog logger = EventLog.getInstance();
+
+        System.out.println("Game Logs:");
+        for (Event event : logger) {
+            System.out.println(event);
+        }
+
         System.exit(0);
     }
 

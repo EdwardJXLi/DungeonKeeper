@@ -1,5 +1,7 @@
 package model;
 
+import model.logging.Event;
+import model.logging.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -14,7 +16,7 @@ import java.util.Random;
 
 public class Game implements Writable {
     // Game Constants
-    public static final String VERSION = "wip-p2-debug";
+    public static final String VERSION = "project";
     public static final int TPS = 20;
     public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
     public static final int SPAWN_X = 2;
@@ -130,6 +132,9 @@ public class Game implements Writable {
     // EFFECTS: Returns JSON Representation of a Game object
     @Override
     public JSONObject toJson() {
+        EventLog logger = EventLog.getInstance();
+        logger.logEvent(new Event("Saving Game..."));
+
         JSONObject json = new JSONObject();
         json.put("sizeX", sizeX);
         json.put("sizeY", sizeY);
@@ -176,6 +181,9 @@ public class Game implements Writable {
     }
 
     public void sendMessage(String message) {
+        // Slight hack for event logger, as I already has an event logging system LOL!
+        EventLog logger = EventLog.getInstance();
+        logger.logEvent(new Event(message));
         gameMessages.add(message);
     }
 
