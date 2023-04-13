@@ -11,7 +11,10 @@
   "spritesheets": {
     "TILES": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_tileset.png",
     "FLOOR": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_floor_tileset_modified.png",
-    "MINECRAFT_ICONS": "assets/MinecraftIcons/icons.png"
+    "CHARACTERS": "assets/2DPixelDungeonAssetPack/character_animation/character_tileset.png",
+    "MINECRAFT_ICONS": "assets/MinecraftIcons/icons.png",
+    "MINECRAFT_FIRE": "assets/MinecraftIcons/fire.png",
+    "MINECRAFT_SOULFIRE": "assets/MinecraftIcons/soul_fire.png"
   },
   "sprites": {
     "TILE_FLOOR": {
@@ -309,6 +312,242 @@
         }
       ]
     },
+    "FIRE": {
+      "type": "animated",
+      "frame_time": 1,
+      "sprites": [
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 5,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 7,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 8,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 9,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 10,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 11,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 12,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 13,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 14,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_FIRE",
+          "x": 0,
+          "y": 15,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "SOULFIRE": {
+      "type": "animated",
+      "frame_time": 1,
+      "sprites": [
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 1,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 2,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 3,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 5,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 7,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 8,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 9,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 10,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 11,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 12,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 13,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 14,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "MINECRAFT_SOULFIRE",
+          "x": 0,
+          "y": 15,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
     "ENTITY_DUMMY": {
       "type": "sprite",
       "source": "assets/2DPixelDungeonAssetPack/items/box_1/box_1_1.png",
@@ -350,6 +589,90 @@
           "transparent": true
         }
       ]
+    },
+    "ENTITY_MAGE": {
+      "type": "sprite",
+      "source": "CHARACTERS",
+      "x": 3,
+      "y": 2,
+      "sprite_size": 16,
+      "transparent": true
+    },
+    "ENTITY_VAMPIRE": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "ENTITY_WISP": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "ENTITY_WHISPER": {
+      "type": "sprite",
+      "source": "CHARACTERS",
+      "x": 0,
+      "y": 3,
+      "sprite_size": 16,
+      "transparent": true
     },
     "ITEM_HEALING_POTION": {
       "type": "animated",
@@ -455,7 +778,7 @@
     },
     "ITEM_GUARD_ARMOR":  {
       "type": "sprite",
-      "source": "assets/2DPixelDungeonAssetPack/armor.png",
+      "source": "assets/MinecraftIcons/Iron_Armor.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
@@ -463,9 +786,33 @@
     },
     "ITEM_GUARD_SWORD":  {
       "type": "sprite",
-      "source": "assets/2DPixelDungeonAssetPack/sword.png",
+      "source": "assets/MinecraftIcons/Iron_Sword.png",
       "x": 0,
       "y": 0,
+      "sprite_size": 16,
+      "transparent": true
+    },
+    "ITEM_MAGE_ROBE":  {
+      "type": "sprite",
+      "source": "assets/TerrariaIcons/mage_robe.png",
+      "x": 0,
+      "y": 0,
+      "sprite_size": 16,
+      "transparent": true
+    },
+    "ITEM_VAMPIRE_FANGS":  {
+      "type": "sprite",
+      "source": "assets/TerrariaIcons/vampire_fangs.png",
+      "x": 0,
+      "y": 0,
+      "sprite_size": 16,
+      "transparent": true
+    },
+    "ITEM_ECTOPLASM": {
+      "type": "sprite",
+      "source": "CHARACTERS",
+      "x": 0,
+      "y": 3,
       "sprite_size": 16,
       "transparent": true
     },

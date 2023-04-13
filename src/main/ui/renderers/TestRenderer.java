@@ -37,20 +37,25 @@ public class TestRenderer extends Renderer {
     // EFFECTS: Draws Test Sprites
     private void drawSpriteTest(Graphics g) {
         int offsetY = 1;
+        int offsetX = 0;
         for (SpriteID spriteID : SpriteID.values()) {
+            if (offsetY > 20) {
+                offsetX = 15;
+                offsetY = 8;
+            }
             Sprite sprite = textureManager.getSprite(spriteID);
             List<Sprite> sprites = textureManager.getSpriteList(spriteID);
             g.drawString(
                     spriteID.name(),
-                    8,
+                    offsetX * textureManager.getSpriteSize() + 8,
                     offsetY * textureManager.getSpriteSize() + 18
             );
-            int offsetX = 5;
-            drawMapSprite(g, sprite, offsetX, offsetY, gameWindow.getTick());
-            offsetX++;
+            int tileOffsetX = 5;
+            drawMapSprite(g, sprite, offsetX + tileOffsetX, offsetY, gameWindow.getTick());
+            tileOffsetX++;
             for (Sprite s : sprites) {
-                drawMapSprite(g, s, offsetX, offsetY);
-                offsetX++;
+                drawMapSprite(g, s, offsetX + tileOffsetX, offsetY);
+                tileOffsetX++;
             }
             offsetY++;
         }

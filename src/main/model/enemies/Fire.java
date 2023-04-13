@@ -20,7 +20,7 @@ public class Fire extends Enemy {
     public Fire(Game game) {
         super(
                 game,
-                '#', TextColor.ANSI.YELLOW, TextColor.ANSI.RED, SpriteID.ENTITY_FIRE,
+                '#', TextColor.ANSI.YELLOW, TextColor.ANSI.RED, SpriteID.FIRE,
                 "Fire", INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK
         );
     }
@@ -28,7 +28,7 @@ public class Fire extends Enemy {
     // REQUIRES: Only used for loading from save.
     // EFFECTS: Creates a fire from pre-existing values.
     public Fire(Game game, int posX, int posY, int health, int defense, int attack, boolean stunned) {
-        super(game, posX, posY, '#', TextColor.ANSI.YELLOW, TextColor.ANSI.RED, SpriteID.ENTITY_FIRE,
+        super(game, posX, posY, '#', TextColor.ANSI.YELLOW, TextColor.ANSI.RED, SpriteID.FIRE,
                 "Fire", stunned, INITIAL_HEALTH, INITIAL_DEFENSE, INITIAL_ATTACK,
                 health, defense, attack);
     }
