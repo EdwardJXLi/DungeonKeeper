@@ -2,6 +2,7 @@ package model.tiles;
 
 import com.googlecode.lanterna.TextColor;
 import model.Entity;
+import model.Player;
 import model.Tile;
 import model.graphics.SpriteID;
 
@@ -28,7 +29,11 @@ public class Trap extends Tile {
     // EFFECTS: Damages entity when stepped on
     @Override
     public void onStep(Entity e) {
-        e.damage(TRAP_DAMAGE);
+        // Traps only damage player
+        if (e instanceof Player) {
+            e.damage(TRAP_DAMAGE);
+        }
+
         super.onStep(e);
     }
 }
