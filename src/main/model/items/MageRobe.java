@@ -15,7 +15,7 @@ public class MageRobe extends Armor {
     // EFFECTS: Creates a mage robe armor.
     public MageRobe() {
         super(
-                "Mage Robe", Arrays.asList("Strong Mage Robe", "Dropped by Mages"),
+                "Mage's Robe", Arrays.asList("Strong Mage Robe", "Dropped by Mages"),
                 ']', TextColor.ANSI.GREEN, TextColor.ANSI.DEFAULT, SpriteID.ITEM_MAGE_ROBE,
                 MAGE_DEFENSE
         );

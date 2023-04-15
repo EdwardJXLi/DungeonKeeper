@@ -6,6 +6,7 @@ import model.Player;
 import model.graphics.SpriteID;
 import model.items.GuardSword;
 import model.items.StrengthPotion;
+import model.items.VampireFangs;
 import model.items.Weapon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,17 @@ public class WeaponTest {
         assertEquals(TextColor.ANSI.RED, weapon.getTextColor());
         assertEquals(TextColor.ANSI.YELLOW, weapon.getBackgroundColor());
         assertEquals(SpriteID.ITEM_GUARD_SWORD, weapon.getSpriteID());
+    }
+
+    @Test
+    public void testVampireFangsConstructor() {
+        weapon = new VampireFangs();
+        assertEquals("Vampire Fangs", weapon.getName());
+        assertEquals(VampireFangs.FANG_DAMAGE, weapon.getAdditionalAttack());
+        assertEquals('V', weapon.getTextSprite());
+        assertEquals(TextColor.ANSI.RED, weapon.getTextColor());
+        assertEquals(TextColor.ANSI.DEFAULT, weapon.getBackgroundColor());
+        assertEquals(SpriteID.ITEM_VAMPIRE_FANGS, weapon.getSpriteID());
     }
 
     @Test

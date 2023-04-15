@@ -5,9 +5,10 @@ package persistence;
  */
 
 import model.*;
-import model.enemies.Dummy;
-import model.enemies.Guard;
+import model.enemies.*;
 import model.items.*;
+import model.tiles.DungeonExit;
+import model.tiles.SoulFire;
 import model.tiles.Trap;
 import model.tiles.Wall;
 import org.json.JSONArray;
@@ -159,14 +160,18 @@ public class GameReader {
             case "model.items.DefensePotion":
                 return new DefensePotion();
             case "model.items.GuardSword":
-                return new GuardSword(
-                        json.getInt("additionalAttack")
-                );
-//            case "model.items.GuardArmor":
+                return new GuardSword(json.getInt("additionalAttack"));
+            case "model.items.GuardArmor":
+                return new GuardArmor(json.getInt("additionalDefense"));
+            case "model.items.MageRobe":
+                return new MageRobe();
+            case "model.items.VampireFangs":
+                return new VampireFangs();
+            case "model.items.Ectoplasm":
+                return new Ectoplasm();
+//            case "model.items.DungeonKey":
             default:
-                return new GuardArmor(
-                        json.getInt("additionalDefense")
-                );
+                return new DungeonKey();
         }
     }
 
@@ -211,9 +216,13 @@ public class GameReader {
         switch (tileClass) {
             case "model.tiles.Wall":
                 return new Wall(posX, posY);
-//            case "model.tiles.Trap":
-            default:
+            case "model.tiles.Trap":
                 return new Trap(posX, posY);
+            case "model.tiles.SoulFire":
+                return new SoulFire(posX, posY);
+//            case "model.tiles.DungeonExit":
+            default:
+                return new DungeonExit(posX, posY);
         }
     }
 
@@ -236,12 +245,19 @@ public class GameReader {
         int defense = json.getInt("baseDefense");
         int attack = json.getInt("baseAttack");
         boolean stunned = json.getBoolean("stunned");
+
+        // TODO: This code looks ugly as i need to keep it under the max line limit...
         switch (enemyClass) {
-            case "model.enemies.Dummy":
-                return new Dummy(game, posX, posY, health, defense, attack, stunned);
-//            case "model.enemies.Guard":
+            case "model.enemies.Dummy": return new Dummy(game, posX, posY, health, defense, attack, stunned);
+            case "model.enemies.Guard": return new Guard(game, posX, posY, health, defense, attack, stunned);
+            case "model.enemies.Mage": return new Mage(game, posX, posY, health, defense, attack, stunned);
+            case "model.enemies.Vampire": return new Vampire(game, posX, posY, health, defense, attack, stunned);
+            case "model.enemies.Wisp": return new Wisp(game, posX, posY, health, defense, attack, stunned);
+            case "model.enemies.Whisper": return new Whisper(game, posX, posY, health, defense, attack, stunned);
+            case "model.enemies.Fire": return new Fire(game, posX, posY, health, defense, attack, stunned);
+//            case "model.enemies.DungeonKeeper":
             default:
-                return new Guard(game, posX, posY, health, defense, attack, stunned);
+                return new DungeonKeeper(game, posX, posY, health, defense, attack, stunned);
         }
     }
 

@@ -56,7 +56,7 @@ public abstract class Enemy extends Entity {
         Player player = getGame().getPlayer();
 
         // If new location is the player, initiate attack
-        if (player.getPosX() == posX && player.getPosY() == posY) {
+        if (player != null && player.getPosX() == posX && player.getPosY() == posY) {
             player.attackEnemy(this);
             return false;
         }

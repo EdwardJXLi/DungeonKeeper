@@ -14,7 +14,7 @@ public class GuardSword extends Weapon {
     public GuardSword(int swordDamage) {
         super(
                 "Guard's Sword", Arrays.asList("Sharp Looking Sword"),
-                '!', TextColor.ANSI.WHITE, TextColor.ANSI.YELLOW, SpriteID.ITEM_GUARD_SWORD,
+                '!', TextColor.ANSI.RED, TextColor.ANSI.YELLOW, SpriteID.ITEM_GUARD_SWORD,
                 swordDamage
         );
     }

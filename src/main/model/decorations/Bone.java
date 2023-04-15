@@ -28,9 +28,4 @@ public class Bone extends Decoration {
                 posX, posY, SpriteID.DECORATION_BONE, "Bone", type.getValue()
         );
     }
-
-    // EFFECTS: Creates a bone decoration with a normal bone
-    public Bone(int posX, int posY) {
-        this(posX, posY, BoneType.NORMAL);
-    }
 }

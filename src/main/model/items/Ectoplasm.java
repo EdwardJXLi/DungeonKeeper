@@ -17,7 +17,7 @@ public class Ectoplasm extends Item {
     public Ectoplasm() {
         super(
                 "Ectoplasm",
-                Arrays.asList("Spawns Soul Fire", "That Only Damages", "Enemies"),
+                Arrays.asList("Spawns Soul Fire", "that Only Damages", "enemies"),
                 '*', TextColor.ANSI.CYAN, TextColor.ANSI.DEFAULT, SpriteID.ITEM_ECTOPLASM);
     }
 

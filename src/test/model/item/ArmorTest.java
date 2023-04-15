@@ -7,6 +7,7 @@ import model.graphics.SpriteID;
 import model.items.Armor;
 import model.items.DefensePotion;
 import model.items.GuardArmor;
+import model.items.MageRobe;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -25,7 +26,7 @@ public class ArmorTest {
     }
 
     @Test
-    public void testHealingConstructor() {
+    public void testGuardArmorConstructor() {
         assertEquals("Guard's Armor", armor.getName());
         assertEquals("Sturdy Looking Armor", armor.getDescription().get(0));
         assertEquals("+10 Defense", armor.getDescription().get(1));
@@ -34,6 +35,17 @@ public class ArmorTest {
         assertEquals(TextColor.ANSI.WHITE, armor.getTextColor());
         assertEquals(TextColor.ANSI.YELLOW, armor.getBackgroundColor());
         assertEquals(SpriteID.ITEM_GUARD_ARMOR, armor.getSpriteID());
+    }
+
+    @Test
+    public void testMageRobeConstructor() {
+        armor = new MageRobe();
+        assertEquals("Mage's Robe", armor.getName());
+        assertEquals(MageRobe.MAGE_DEFENSE, armor.getAdditionalDefense());
+        assertEquals(']', armor.getTextSprite());
+        assertEquals(TextColor.ANSI.GREEN, armor.getTextColor());
+        assertEquals(TextColor.ANSI.DEFAULT, armor.getBackgroundColor());
+        assertEquals(SpriteID.ITEM_MAGE_ROBE, armor.getSpriteID());
     }
 
     @Test

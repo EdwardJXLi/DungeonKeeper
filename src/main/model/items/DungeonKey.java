@@ -11,7 +11,7 @@ public class DungeonKey extends Item {
     public DungeonKey() {
         super("Dungeon Key",
                 Arrays.asList("Mystical Dungeon Key", "Used to unlock the exit", "at the center of the map"),
-                'L', TextColor.ANSI.YELLOW, TextColor.ANSI.DEFAULT, SpriteID.ITEM_DUNGEON_KEY);
+                'K', TextColor.ANSI.WHITE, TextColor.ANSI.YELLOW, SpriteID.ITEM_DUNGEON_KEY);
     }
 
     @Override

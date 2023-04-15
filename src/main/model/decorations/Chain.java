@@ -28,9 +28,4 @@ public class Chain extends Decoration {
                 posX, posY, SpriteID.DECORATION_CHAIN, "Chain", type.getValue()
         );
     }
-
-    // EFFECTS: Creates a chain decoration with a normal chain
-    public Chain(int posX, int posY) {
-        this(posX, posY, ChainType.TYPE1);
-    }
 }

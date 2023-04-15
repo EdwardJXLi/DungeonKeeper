@@ -4,6 +4,7 @@ import model.Enemy;
 import model.Game;
 import model.Level;
 import model.Player;
+import model.decorations.Banner;
 import model.enemies.Guard;
 import model.tiles.Trap;
 import model.tiles.Wall;
@@ -76,6 +77,18 @@ public class LevelTest {
     public void testNonSolidTileAtLocation() {
         level.addTile(new Trap(10, 20));
         assertFalse(level.isSolidTileAtLocation(10, 20));
+    }
+
+    @Test
+    public void testOverlappingTiles() {
+        // Check disabled, tile should add
+        level.addTile(new Wall(10, 20), false);
+        level.addTile(new Trap(10, 20), false);
+        assertEquals(2, level.getTiles().size());
+
+        // Check Enabled, tile should not add
+        level.addTile(new Wall(10, 20), true);
+        assertEquals(2, level.getTiles().size());
     }
 
     @Test

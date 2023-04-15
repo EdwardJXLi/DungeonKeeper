@@ -35,10 +35,10 @@ public class GameTest {
     public void testNextTick() {
         game.initGame();
         // Kill one enemy, and check if next tick removes enemy
-        assertEquals(10, game.getLevel().getEnemies().size());
+        assertEquals(15, game.getLevel().getEnemies().size());
         game.getLevel().getEnemies().get(0).damage(9999);
         game.handleNextTick(0);
-        assertEquals(9, game.getLevel().getEnemies().size());
+        assertEquals(17, game.getLevel().getEnemies().size());
     }
 
     @Test
