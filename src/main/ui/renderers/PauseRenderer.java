@@ -21,7 +21,8 @@ public class PauseRenderer extends MenuRenderer {
         super(gameWindow);
 
         // Setup Buttons
-        setupButtons();
+        setupButtons1();
+        setupButtons2();
     }
 
     // MODIFIES: this
@@ -35,8 +36,8 @@ public class PauseRenderer extends MenuRenderer {
     }
 
     // MODIFIES: this
-    // EFFECTS: Sets up the buttons for the pause menu
-    private void setupButtons() {
+    // EFFECTS: Sets up the resume, save, and load buttons for the pause menu
+    private void setupButtons1() {
         // Add Resume Button
         addButton(new CustomButton(this, 16, 60, "RESUME", 24, new ActionListener() {
             @Override
@@ -45,8 +46,41 @@ public class PauseRenderer extends MenuRenderer {
             }
         }));
 
+        // Add Save Button
+        addButton(new CustomButton(this, 16, 100, "SAVE GAME", 24, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                gameWindow.saveGame();
+                gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
+            }
+        }));
+
+        // Add Load Button
+        addButton(new CustomButton(this, 16, 140, "LOAD LAST SAVE", 24, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                gameWindow.loadGame();
+                gameWindow.initGameRenderers();
+                gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
+            }
+        }));
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Sets up the new game, quit, and force quit buttons for the pause menu
+    private void setupButtons2() {
         // Add Save and Quit Button
-        addButton(new CustomButton(this, 16, 100, "SAVE AND QUIT", 24, new ActionListener() {
+        addButton(new CustomButton(this, 16, 220, "CREATE NEW GAME", 24, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                gameWindow.newGame();
+                gameWindow.initGameRenderers();
+                gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
+            }
+        }));
+
+        // Add Save and Quit Button
+        addButton(new CustomButton(this, 16, 260, "SAVE AND QUIT", 24, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 gameWindow.saveGame();
@@ -55,7 +89,7 @@ public class PauseRenderer extends MenuRenderer {
         }));
 
         // Add Quit without Saving Button
-        addButton(new CustomButton(this, 16, 140, "QUIT WITHOUT SAVING", 24, new ActionListener() {
+        addButton(new CustomButton(this, 16, 300, "QUIT WITHOUT SAVING", 24, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 gameWindow.quitGame();

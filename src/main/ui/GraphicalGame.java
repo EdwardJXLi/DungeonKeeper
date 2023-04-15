@@ -80,6 +80,11 @@ public class GraphicalGame {
                     // Just draw but do not tick!
                     gameWindow.repaint();
                 }
+
+                // Check if player is dead. If so, end game
+                if (game != null && game.getPlayer().isDead()) {
+                    gameWindow.switchRenderer(gameWindow.getGameOverRenderer(), true);
+                }
             }
         });
     }

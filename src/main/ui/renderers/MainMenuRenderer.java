@@ -45,7 +45,7 @@ public class MainMenuRenderer extends MenuRenderer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameWindow.createGame();
-                gameWindow.initGame();
+                gameWindow.initGameRenderers();
                 gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
             }
         }));
@@ -57,7 +57,7 @@ public class MainMenuRenderer extends MenuRenderer {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     gameWindow.loadGame();
-                    gameWindow.initGame();
+                    gameWindow.initGameRenderers();
                     gameWindow.switchRenderer(gameWindow.getGameRenderer(), false);
                 }
             }));

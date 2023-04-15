@@ -1,8 +1,6 @@
 package ui;
 
 import model.Game;
-import model.Level;
-import model.Tile;
 import model.logging.Event;
 import model.logging.EventLog;
 import ui.helpers.TextureManager;
@@ -37,6 +35,7 @@ public class GameWindow extends JFrame {
     private GameRenderer gameRenderer;
     private MainMenuRenderer mainMenuRenderer;
     private PauseRenderer pauseRenderer;
+    private GameOverRenderer gameOverRenderer;
     private InventoryRenderer inventoryRenderer;
     private Renderer currentRenderer;
 
@@ -92,12 +91,13 @@ public class GameWindow extends JFrame {
     }
 
     // MODIFIES: this
-    // EFFECTS: Initializes Game
-    public void initGame() {
+    // EFFECTS: Initializes Game Renderers
+    public void initGameRenderers() {
         // Initialize Renderers and create all panels
         testRenderer = new TestRenderer(this);
         gameRenderer = new GameRenderer(this);
         pauseRenderer = new PauseRenderer(this);
+        gameOverRenderer = new GameOverRenderer(this);
         inventoryRenderer = new InventoryRenderer(this);
     }
 
@@ -143,6 +143,12 @@ public class GameWindow extends JFrame {
         } catch (IOException e) {
             System.out.println("Unable to load game from file: " + e);
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Creates a brand new game
+    public void newGame() {
+        graphicalGame.newGame();
     }
 
     // MODIFIES: this
@@ -227,6 +233,10 @@ public class GameWindow extends JFrame {
 
     public PauseRenderer getPauseRenderer() {
         return pauseRenderer;
+    }
+
+    public GameOverRenderer getGameOverRenderer() {
+        return gameOverRenderer;
     }
 
     public InventoryRenderer getInventoryRenderer() {
