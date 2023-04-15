@@ -33,6 +33,7 @@ public class Game implements Writable {
     private Level gameLevel;
     // Game Status
     private boolean gameRunning;
+    private boolean gameWon;
 
     // REQUIRES: sizeX > 32 and sizeY > 24
     // EFFECTS: Creates a game object with levels and player
@@ -48,6 +49,7 @@ public class Game implements Writable {
 
         // Start Game
         gameRunning = true;
+        gameWon = false;
     }
 
     // REQUIRES: Only used for loading from save.
@@ -125,6 +127,12 @@ public class Game implements Writable {
             }
         }
         getLevel().getEnemies().removeIf(Entity::isDead);
+    }
+
+    // EFFECTS: Wins game
+    public void winGame() {
+        this.gameWon = true;
+        this.gameOver();
     }
 
     // EFFECTS: Ends game
@@ -218,5 +226,9 @@ public class Game implements Writable {
 
     public boolean isGameRunning() {
         return gameRunning;
+    }
+
+    public boolean isGameWon() {
+        return gameWon;
     }
 }

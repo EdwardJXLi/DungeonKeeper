@@ -25,7 +25,7 @@ public class TestRenderer extends Renderer {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Test", Font.PLAIN, 24));
         g.drawString(
-                "Initial Rendering Test! " + gameWindow.getTick(),
+                "Rendering and Graphics Test! - Press BACKSLASH To Exit " + gameWindow.getTick(),
                 textureManager.getSpriteSize(),
                 textureManager.getSpriteSize() - 8
         );
@@ -41,7 +41,7 @@ public class TestRenderer extends Renderer {
         for (SpriteID spriteID : SpriteID.values()) {
             if (offsetY > 22) {
                 offsetX = 15;
-                offsetY = 8;
+                offsetY = 5;
             }
             Sprite sprite = textureManager.getSprite(spriteID);
             List<Sprite> sprites = textureManager.getSpriteList(spriteID);

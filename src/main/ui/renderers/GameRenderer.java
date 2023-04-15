@@ -3,6 +3,8 @@ package ui.renderers;
 import model.*;
 import model.decorations.*;
 import model.graphics.SpriteID;
+import model.items.DungeonKey;
+import model.tiles.DungeonExit;
 import model.tiles.Wall;
 import ui.GameWindow;
 import ui.helpers.TooltipHelper;
@@ -12,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 import java.util.Random;
 
 /*
@@ -384,6 +387,26 @@ public class GameRenderer extends Renderer {
         // Render Dropped Items
         for (DroppedItem e : game.getLevel().getDroppedItems()) {
             drawMapSprite(g, textureManager.getSprite(e.getSpriteID()), e.getPosX(), e.getPosY(), gameWindow.getTick());
+        }
+
+        // Special logic for drawing arrow on top of exit when player has dungeon key
+        drawExitArrow(g);
+    }
+
+    // MODIFIES: g
+    // EFFECTS: Draws an arrow on top of the exit if the player has the dungeon key
+    private void drawExitArrow(Graphics g) {
+        // Get the exit tile
+        DungeonExit exit = game.getLevel().getDungeonExit();
+
+        // If the player has the dungeon key, draw an arrow on above exit
+        if (game.getPlayer().getInventory().getInventoryItems().stream().anyMatch(
+                item -> Objects.equals(item.getClass(), DungeonKey.class))
+        ) {
+            drawMapSprite(
+                    g, textureManager.getSprite(SpriteID.PARTICLE_ARROW),
+                    exit.getPosX(), exit.getPosY() - 1, gameWindow.getTick()
+            );
         }
     }
 

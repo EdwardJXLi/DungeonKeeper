@@ -1,10 +1,8 @@
 package model;
 
-import model.enemies.Guard;
-import model.enemies.Mage;
-import model.enemies.Vampire;
-import model.enemies.Wisp;
+import model.enemies.*;
 import model.items.HealingPotion;
+import model.tiles.DungeonExit;
 import model.tiles.Trap;
 import model.tiles.Wall;
 import org.json.JSONArray;
@@ -38,6 +36,7 @@ public class Level implements Writable {
     private List<Enemy> enemies;
     private List<DroppedItem> droppedItems;
     private List<Decoration> decorations;
+    private DungeonExit dungeonExit;
 
     // EFFECTS: Creates a level with size X and Y
     public Level(int levelNum, Game game, int sizeX, int sizeY, int spawnX, int spawnY) {
@@ -93,6 +92,9 @@ public class Level implements Writable {
                 game.getRandom().nextInt(sizeX - 2) + 1,
                 game.getRandom().nextInt(sizeY - 2) + 1
         );
+
+        // Spawn Dungeon Keeper at the center of the map
+        this.spawnEnemy(new DungeonKeeper(game), sizeX / 2, sizeY / 2);
     }
 
     // MODIFIES: this
@@ -187,6 +189,33 @@ public class Level implements Writable {
                 }
             }
         }
+
+        // Generate Dungeon Exit
+        generateDungeonExit();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Generates dungeon exit
+    private void generateDungeonExit() {
+        // Generate dungeon exit in the center of the map
+        int exitX = sizeX / 2;
+        int exitY = sizeY / 2;
+
+        // Remove all tiles surrounding the door
+        for (int y = exitY - 1; y <= exitY + 1; y++) {
+            for (int x = exitX - 1; x <= exitX + 1; x++) {
+                Tile t = getTileAtLocation(x, y);
+                if (t != null) {
+                    tiles.remove(t);
+                }
+            }
+        }
+
+        // Generate Dungeon Exit
+        this.dungeonExit = new DungeonExit(exitX, exitY);
+
+        // Add the exit door
+        addTile(dungeonExit, false);
     }
 
     // MODIFIES: this
@@ -357,5 +386,9 @@ public class Level implements Writable {
 
     public int getLevelNum() {
         return levelNum;
+    }
+
+    public DungeonExit getDungeonExit() {
+        return dungeonExit;
     }
 }

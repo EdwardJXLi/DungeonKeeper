@@ -194,6 +194,11 @@ public abstract class Renderer extends JPanel {
             case KeyEvent.VK_F12:
                 gameWindow.setDebug(!gameWindow.isDebug());
                 break;
+            // Enable God Mode
+            case KeyEvent.VK_F10:
+                game.getPlayer().addDefense(9999);
+                game.getPlayer().addAttack(9999);
+                break;
             // Toggle Test Mode
             case KeyEvent.VK_BACK_SLASH:
                 gameWindow.switchRenderer(gameWindow.getTestRenderer(), false);

@@ -36,6 +36,7 @@ public class GameWindow extends JFrame {
     private MainMenuRenderer mainMenuRenderer;
     private PauseRenderer pauseRenderer;
     private GameOverRenderer gameOverRenderer;
+    private GameWinRenderer gameWinRenderer;
     private InventoryRenderer inventoryRenderer;
     private Renderer currentRenderer;
 
@@ -98,6 +99,7 @@ public class GameWindow extends JFrame {
         gameRenderer = new GameRenderer(this);
         pauseRenderer = new PauseRenderer(this);
         gameOverRenderer = new GameOverRenderer(this);
+        gameWinRenderer = new GameWinRenderer(this);
         inventoryRenderer = new InventoryRenderer(this);
     }
 
@@ -237,6 +239,10 @@ public class GameWindow extends JFrame {
 
     public GameOverRenderer getGameOverRenderer() {
         return gameOverRenderer;
+    }
+
+    public GameWinRenderer getGameWinRenderer() {
+        return gameWinRenderer;
     }
 
     public InventoryRenderer getInventoryRenderer() {

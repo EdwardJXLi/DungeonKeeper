@@ -244,40 +244,6 @@
         }
       ]
     },
-    "TILE_TRAP": {
-      "type": "animated",
-      "frame_time": 8,
-      "sprites": [
-        {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
-          "x": 0,
-          "y": 0,
-          "sprite_size": 16,
-          "transparent": true
-        },
-        {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_2.png",
-          "x": 0,
-          "y": 0,
-          "sprite_size": 16,
-          "transparent": true
-        },
-        {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_3.png",
-          "x": 0,
-          "y": 0,
-          "sprite_size": 16,
-          "transparent": true
-        },
-        {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_4.png",
-          "x": 0,
-          "y": 0,
-          "sprite_size": 16,
-          "transparent": true
-        }
-      ]
-    },
     "PLAYER": {
       "type": "animated",
       "frame_time": 4,
@@ -429,6 +395,48 @@
           "transparent": true
         }
       ]
+    },
+    "TILE_TRAP": {
+      "type": "animated",
+      "frame_time": 8,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "TILE_EXIT": {
+      "type": "sprite",
+      "source": "TILES",
+      "x": 9,
+      "y": 3,
+      "sprite_size": 16,
+      "transparent": true
     },
     "SOULFIRE": {
       "type": "animated",
@@ -674,6 +682,40 @@
       "sprite_size": 16,
       "transparent": true
     },
+    "ENTITY_DUNGEON_KEEPER": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
     "ITEM_HEALING_POTION": {
       "type": "animated",
       "frame_time": 4,
@@ -816,6 +858,40 @@
       "sprite_size": 16,
       "transparent": true
     },
+    "ITEM_DUNGEON_KEY": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_4.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
     "SPRITE_HEART_FULL": {
       "type": "sprite",
       "source": "MINECRAFT_ICONS",
@@ -930,6 +1006,40 @@
         {
           "source": "assets/2DPixelDungeonAssetPack/selection/particle_stun.png",
           "x": 1,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        }
+      ]
+    },
+    "PARTICLE_ARROW": {
+      "type": "animated",
+      "frame_time": 4,
+      "sprites": [
+        {
+          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_1.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_2.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_3.png",
+          "x": 0,
+          "y": 0,
+          "sprite_size": 16,
+          "transparent": true
+        },
+        {
+          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_4.png",
+          "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true

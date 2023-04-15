@@ -23,6 +23,7 @@ public class Player extends Entity implements Writable {
     private int kills;
     private Enemy lastEnemy;
     private final Inventory inventory;
+    private boolean winGame;
 
     // EFFECTS: Creates a generic player
     public Player(Game game) {

@@ -81,6 +81,11 @@ public class GraphicalGame {
                     gameWindow.repaint();
                 }
 
+                // Check if player wins game. If so, end game.
+                if (game != null && game.isGameWon()) {
+                    gameWindow.switchRenderer(gameWindow.getGameWinRenderer(), true);
+                }
+
                 // Check if player is dead. If so, end game
                 if (game != null && game.getPlayer().isDead()) {
                     gameWindow.switchRenderer(gameWindow.getGameOverRenderer(), true);
