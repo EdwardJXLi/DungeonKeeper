@@ -46,7 +46,7 @@ public class TooltipHelper {
     public BufferedImage generateItemTooltip(Item item) {
         // Generate Tooltip Size
         int width = textureManager.getScaledSize(128);
-        int height = textureManager.getScaledSize(96);
+        int height = textureManager.getScaledSize(100);
 
         // Generate Tooltip Image
         BufferedImage tooltip = generateTooltipBackground(width, height);
@@ -176,7 +176,7 @@ public class TooltipHelper {
     public BufferedImage generateTileTooltip(Tile tile) {
         // Generate Tooltip Size
         int width = textureManager.getScaledSize(128);
-        int height = textureManager.getScaledSize(64);
+        int height = textureManager.getScaledSize(72);
 
         // Generate Tooltip Image
         BufferedImage tooltip = generateTooltipBackground(width, height);

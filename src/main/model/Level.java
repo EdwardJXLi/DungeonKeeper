@@ -20,7 +20,7 @@ public class Level implements Writable {
     // Level Constants
     public static final int INITIAL_GUARDS_SPAWN = 10;
     public static final int TICKS_UNTIL_GUARD_SPAWN = 200;
-    public static final int TICKS_UNTIL_WISP_SPAWN = 500;
+    public static final int TICKS_UNTIL_WISP_SPAWN = 800;
     public static final int TICKS_UNTIL_HEALTH_SPAWN = 100;
 
     // Information on level
@@ -250,6 +250,11 @@ public class Level implements Writable {
     // MODIFIES: this
     // EFFECTS: Drops item at location
     public DroppedItem dropItem(int posX, int posY, Item item) {
+        // Don't drop item if there is a tile at the location
+        if (getTileAtLocation(posX, posY) != null) {
+            return null;
+        }
+
         game.sendMessage(String.format("%s was dropped!", item.getName()));
         DroppedItem di = new DroppedItem(posX, posY, item);
         // Adding at zero to ensure items are like a stack

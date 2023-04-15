@@ -14,7 +14,7 @@ import model.items.*;
 
 public class Wisp extends Enemy {
     public static final int INITIAL_HEALTH = 200;
-    public static final int INITIAL_DEFENSE = 0;
+    public static final int INITIAL_DEFENSE = 20;
     public static final int INITIAL_ATTACK = 20;
     public static final int TICKS_UNTIL_MOVEMENT = 10;
 

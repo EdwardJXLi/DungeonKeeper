@@ -13,7 +13,7 @@ import model.graphics.SpriteID;
 public class Whisper extends Enemy {
     public static final int INITIAL_HEALTH = 10;
     public static final int INITIAL_DEFENSE = 0;
-    public static final int INITIAL_ATTACK = 25;
+    public static final int INITIAL_ATTACK = 40;
     public static final int TICKS_UNTIL_MOVEMENT = 4;
 
     // EFFECTS: Creates a whisper enemy
