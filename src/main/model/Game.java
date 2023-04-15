@@ -107,6 +107,17 @@ public class Game implements Writable {
         // Next tick for player
         getPlayer().handleNextTick(tick);
 
+        // Next tick for level
+        getLevel().handleNextTick(tick);
+
+        /*
+        for (Enemy e : getLevel().getEnemies()) {
+            if (e.isDead()) {
+                e.onDeath();
+            }
+        }
+        */
+
         // TODO: Dirty Hack to fix ConcurrentModificationException!
         for (int i = 0; i < getLevel().getEnemies().size(); i++) {
             if (getLevel().getEnemies().get(i).isDead()) {

@@ -4,6 +4,7 @@ import model.enemies.Guard;
 import model.enemies.Mage;
 import model.enemies.Vampire;
 import model.enemies.Wisp;
+import model.items.HealingPotion;
 import model.tiles.Trap;
 import model.tiles.Wall;
 import org.json.JSONArray;
@@ -182,6 +183,35 @@ public class Level implements Writable {
                         break;
                 }
             }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Sets up next tick logic
+    public void handleNextTick(int tick) {
+        // Every 400 ticks, spawn a new guard enemy
+        if (tick % 400 == 0) {
+            this.spawnEnemy(new Guard(game),
+                    game.getRandom().nextInt(sizeX - 2) + 1,
+                    game.getRandom().nextInt(sizeY - 2) + 1
+            );
+        }
+
+        // Every 1000 ticks, spawn a new wisp enemy
+        if (tick % 1000 == 0) {
+            this.spawnEnemy(new Wisp(game),
+                    game.getRandom().nextInt(sizeX - 2) + 1,
+                    game.getRandom().nextInt(sizeY - 2) + 1
+            );
+        }
+
+        // Every 100 ticks, spawn a health potion at a random location
+        if (tick % 100 == 0) {
+            this.dropItem(
+                    game.getRandom().nextInt(sizeX - 2) + 1,
+                    game.getRandom().nextInt(sizeY - 2) + 1,
+                    new HealingPotion()
+            );
         }
     }
 
