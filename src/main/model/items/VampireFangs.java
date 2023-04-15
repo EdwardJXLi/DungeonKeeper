@@ -15,7 +15,7 @@ public class VampireFangs extends Weapon {
     // EFFECTS: Creates a vampire fang weapon.
     public VampireFangs() {
         super(
-                "Vampire Gangs", Arrays.asList("Sharp Looking Sword"),
+                "Vampire Fangs", Arrays.asList("Sharp Vampire Fangs."),
                 'V', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT, SpriteID.ITEM_VAMPIRE_FANGS,
                 FANG_DAMAGE
         );

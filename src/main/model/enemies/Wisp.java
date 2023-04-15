@@ -13,11 +13,10 @@ import model.items.*;
  */
 
 public class Wisp extends Enemy {
-    public static final int INITIAL_HEALTH = 140;
+    public static final int INITIAL_HEALTH = 200;
     public static final int INITIAL_DEFENSE = 0;
-    public static final int INITIAL_ATTACK = 0;
+    public static final int INITIAL_ATTACK = 20;
     public static final int TICKS_UNTIL_MOVEMENT = 10;
-    public static final int MOVES_UNTIL_WHISPER_SPAWN = 3;
 
     // EFFECTS: Creates a wisp to fight
     public Wisp(Game game) {

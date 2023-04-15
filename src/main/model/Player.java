@@ -15,13 +15,9 @@ import java.util.List;
 
 public class Player extends Entity implements Writable {
     // Player Constants
-//    public static final int INITIAL_HEALTH = 200;
-//    public static final int INITIAL_DEFENSE = 0;
-//    public static final int INITIAL_ATTACK = 20;
-    // TODO: TEMPORARY VALUES FOR TESTING
-    public static final int INITIAL_HEALTH = 500;
-    public static final int INITIAL_DEFENSE = 500;
-    public static final int INITIAL_ATTACK = 500;
+    public static final int INITIAL_HEALTH = 200;
+    public static final int INITIAL_DEFENSE = 0;
+    public static final int INITIAL_ATTACK = 20;
 
     // Player Information
     private int kills;
