@@ -99,7 +99,7 @@ public class Game implements Writable {
             e.handleNextTick(tick);
         }
         */
-        // TODO: Dirty Hack to fix spawning issue!
+        // TODO: Dirty Hack to fix ConcurrentModificationException!
         for (int i = 0; i < getLevel().getEnemies().size(); i++) {
             getLevel().getEnemies().get(i).handleNextTick(tick);
         }
@@ -107,10 +107,10 @@ public class Game implements Writable {
         // Next tick for player
         getPlayer().handleNextTick(tick);
 
-        // Handle and Remove Dead Enemies
-        for (Enemy e : getLevel().getEnemies()) {
-            if (e.isDead()) {
-                e.onDeath();
+        // TODO: Dirty Hack to fix ConcurrentModificationException!
+        for (int i = 0; i < getLevel().getEnemies().size(); i++) {
+            if (getLevel().getEnemies().get(i).isDead()) {
+                getLevel().getEnemies().get(i).onDeath();
             }
         }
         getLevel().getEnemies().removeIf(Entity::isDead);

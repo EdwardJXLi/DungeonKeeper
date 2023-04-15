@@ -157,11 +157,22 @@ public class Level implements Writable {
     // MODIFIES: this
     // EFFECTS: Places random walls and traps to decorate map
     private void generateRandomMap() {
+        // Place Random Lines of Walls. Only place horizontal walls
+        for (int i = 0; i < 8; i++) {
+            int y = game.getRandom().nextInt(sizeY - 4) + 2;
+            int x1 = game.getRandom().nextInt(sizeX - 4) + 2;
+            int x2 = game.getRandom().nextInt(sizeX - 4) + 2;
+            for (int j = Math.min(x1, x2); j < Math.max(x1, x2); j++) {
+                addTile(new Wall(j, y));
+            }
+        }
+
+        // Place Random Elements
         for (int y = 2; y < sizeY - 2; y++) {
             for (int x = 2; x < sizeX - 2; x++) {
                 // 1 in 40 chance of solid wall,
                 // 2 in 40 chance of spikes
-                switch (game.getRandom().nextInt(40)) {
+                switch (game.getRandom().nextInt(100)) {
                     case 0:
                         addTile(new Wall(x, y));
                         break;

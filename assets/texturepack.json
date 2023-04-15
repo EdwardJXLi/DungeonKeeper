@@ -935,6 +935,130 @@
           "transparent": true
         }
       ]
+    },
+    "DECORATION_TORCH": {
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 0,
+          "y": 9,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 1,
+          "y": 9,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 2,
+          "y": 9,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
+    },
+    "DECORATION_WEB": {
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 4,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 3,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 2,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 5,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
+    },
+    "DECORATION_BONE": {
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 8,
+          "y": 6,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 7,
+          "y": 7,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
+    },
+    "DECORATION_BANNER": {
+      "type": "sprite",
+      "source": "TILES",
+      "x": 4,
+      "y": 7,
+      "sprite_size": 16,
+      "transparent": true
+    },
+    "DECORATION_CHAIN": {
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 5,
+          "y": 7,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 6,
+          "y": 7,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
+    },
+    "DECORATION_ROCK": {
+      "type": "varied",
+      "sprites": [
+        {
+          "source": "TILES",
+          "x": 9,
+          "y": 4,
+          "sprite_size": 16,
+          "transparent": false
+        },
+        {
+          "source": "TILES",
+          "x": 9,
+          "y": 5,
+          "sprite_size": 16,
+          "transparent": false
+        }
+      ]
     }
   },
   "fonts": {

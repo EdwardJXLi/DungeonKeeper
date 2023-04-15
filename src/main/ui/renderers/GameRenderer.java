@@ -1,8 +1,7 @@
 package ui.renderers;
 
 import model.*;
-import model.decorations.FancyWall;
-import model.decorations.Rock;
+import model.decorations.*;
 import model.graphics.SpriteID;
 import model.tiles.Wall;
 import ui.GameWindow;
@@ -50,68 +49,184 @@ public class GameRenderer extends Renderer {
     private void initializeLevelDecorations(Level level) {
         // Check if dynamic walls are supported
         if (textureManager.getFlags().contains("DYNAMIC_WALLS")) {
-            // If walls have other walls next to them on both sides, draw a connecting wall.
-            // Else, if they have another wall at a 90 degree angle, draw an edge wall.
-            initializeConnectingWalls(level);
+            // If dynamic walls are supported, add border walls to the level.
+            initializeBorderWall(level);
+        }
 
-            // If walls is in a corner, draw a corner wall.
-            initializeCornerWalls(level);
+        // Next, check if decorations are supported
+        if (textureManager.getFlags().contains("DECORATIONS")) {
+            // If decorations are supported, add decorations to the level.
+            initializeTorches(level);
+            initializeWebs(level);
+            initializeBones(level);
+            initializeBanners(level);
+            initializeChains(level);
+            initializeRocks(level);
         }
     }
 
     // MODIFIES: this, level
-    // EFFECTS: Initializes Dynamic Walls
-    //          This makes it so that connecting walls are drawn as one wall
-    private void initializeConnectingWalls(Level level) {
-        // Loop through all tiles and check if they are eligible for connecting walls.
-        for (Tile tile : level.getTiles()) {
-            if (tile instanceof Wall) {
-                int tileX = tile.getPosX();
-                int tileY = tile.getPosY();
-                Tile tileAbove = level.getTileAtLocation(tileX, tileY - 1);
-                Tile tileBelow = level.getTileAtLocation(tileX, tileY + 1);
-                Tile tileLeft = level.getTileAtLocation(tileX - 1, tileY);
-                Tile tileRight = level.getTileAtLocation(tileX + 1, tileY);
+    // EFFECTS: Initializes Border Walls
+    //          This makes it so that border walls are drawn as a single wall, instead of a wall and a floor.
+    private void initializeBorderWall(Level level) {
+        // Loop through edges of the map the top and bottom walls
+        for (int x = 1; x < level.getSizeX() - 1; x++) {
+            // Add decoration to top wall
+            if (level.getTileAtLocation(x, 0) instanceof Wall) {
+                level.addDecoration(new FancyWall(x, 0, FancyWall.FancyWallType.TOP));
+            }
 
-                if (tileY < level.getSizeY() - 1
-                        && tileLeft instanceof Wall && tileRight instanceof Wall && tileBelow == null) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP));
-                } else if (tileY > 0
-                        && tileLeft instanceof Wall && tileRight instanceof Wall && tileAbove == null) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.BOTTOM));
-                } else if (tileX < level.getSizeX() - 1
-                        && tileAbove instanceof Wall && tileBelow instanceof Wall && tileRight == null) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.LEFT));
-                } else if (tileX > 0
-                        && tileAbove instanceof Wall && tileBelow instanceof Wall && tileLeft == null) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.RIGHT));
+            // Add decoration to bottom wall
+            if (level.getTileAtLocation(x, level.getSizeY() - 1) instanceof Wall) {
+                level.addDecoration(new FancyWall(x, level.getSizeY() - 1, FancyWall.FancyWallType.BOTTOM));
+            }
+        }
+
+        // Set the left and right walls.
+        // Starting from 1 to sizeY-1 to avoid duplication
+        for (int y = 1; y < level.getSizeY() - 1; y++) {
+            // Add decoration to left wall
+            if (level.getTileAtLocation(0, y) instanceof Wall) {
+                level.addDecoration(new FancyWall(0, y, FancyWall.FancyWallType.LEFT));
+            }
+
+            // Add decoration to right wall
+            if (level.getTileAtLocation(level.getSizeX() - 1, y) instanceof Wall) {
+                level.addDecoration(new FancyWall(level.getSizeX() - 1, y, FancyWall.FancyWallType.RIGHT));
+            }
+        }
+
+        // Add borders
+        level.addDecoration(new FancyWall(0, 0, FancyWall.FancyWallType.TOP_LEFT));
+        level.addDecoration(new FancyWall(level.getSizeX() - 1, 0, FancyWall.FancyWallType.TOP_RIGHT));
+        level.addDecoration(new FancyWall(0, level.getSizeY() - 1, FancyWall.FancyWallType.BOTTOM_LEFT));
+        level.addDecoration(
+                new FancyWall(level.getSizeX() - 1, level.getSizeY() - 1, FancyWall.FancyWallType.BOTTOM_RIGHT)
+        );
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Torches
+    private void initializeTorches(Level level) {
+        Random random = getGame().getRandom();
+
+        // Add Torches Randomly. The percent change depends on the type of wall torch is on.
+        for (int y = 1; y < level.getSizeY() - 1; y++) {
+            for (int x = 1; x < level.getSizeX() - 1; x++) {
+                // Left facing torches
+                if (level.getTileAtLocation(x, y) == null
+                        && level.getTileAtLocation(x - 1, y) instanceof Wall) {
+                    if (random.nextInt(100) < 10) {
+                        level.addDecoration(new Torch(x, y, Torch.TorchType.LEFT));
+                    }
+                // Right facing torches
+                } else if (level.getTileAtLocation(x, y) == null
+                        && level.getTileAtLocation(x + 1, y) instanceof Wall) {
+                    if (random.nextInt(100) < 10) {
+                        level.addDecoration(new Torch(x, y, Torch.TorchType.RIGHT));
+                    }
+                // Center facing torches
+                } else if (level.getTileAtLocation(x, y) instanceof Wall) {
+                    if (random.nextInt(100) < 5) {
+                        level.addDecoration(new Torch(x, y, Torch.TorchType.CENTER));
+                    }
                 }
             }
         }
     }
 
     // MODIFIES: this, level
-    // EFFECTS: Initializes Corner Walls
-    //          This makes it so that corner walls are drawn as one wall
-    private void initializeCornerWalls(Level level) {
-        // Loop through all tiles and check if they are eligible for corner walls.
-        for (Tile tile : level.getTiles()) {
-            if (tile instanceof Wall) {
-                int tileX = tile.getPosX();
-                int tileY = tile.getPosY();
-                Tile tileAbove = level.getTileAtLocation(tileX, tileY - 1);
-                Tile tileBelow = level.getTileAtLocation(tileX, tileY + 1);
-                Tile tileLeft = level.getTileAtLocation(tileX - 1, tileY);
-                Tile tileRight = level.getTileAtLocation(tileX + 1, tileY);
+    // EFFECTS: Initializes Webs
+    private void initializeWebs(Level level) {
+        Random random = getGame().getRandom();
 
-                if (tileBelow instanceof Wall && tileRight instanceof Wall) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP_LEFT));
-                } else if (tileBelow instanceof Wall && tileLeft instanceof Wall) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.TOP_RIGHT));
-                } else if (tileAbove instanceof Wall && tileRight instanceof Wall) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.BOTTOM_LEFT));
-                } else if (tileAbove instanceof Wall && tileLeft instanceof Wall) {
-                    level.addDecoration(new FancyWall(tileX, tileY, FancyWall.FancyWallType.BOTTOM_RIGHT));
+        // Add Webs Randomly. Type 1 webs spawn next to walls
+        // Skipping type 2 webs for now...
+        for (int y = 1; y < level.getSizeY() - 1; y++) {
+            for (int x = 1; x < level.getSizeX() - 1; x++) {
+                // Type 1 webs
+                if (level.getTileAtLocation(x, y) == null
+                        && level.getTileAtLocation(x - 1, y) instanceof Wall) {
+                    if (random.nextInt(100) < 10) {
+                        level.addDecoration(new Web(x, y, Web.WebType.TYPE1_LEFT));
+                    }
+                } else if (level.getTileAtLocation(x, y) == null
+                        && level.getTileAtLocation(x + 1, y) instanceof Wall) {
+                    if (random.nextInt(100) < 10) {
+                        level.addDecoration(new Web(x, y, Web.WebType.TYPE1_RIGHT));
+                    }
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Bones
+    private void initializeBones(Level level) {
+        // For each empty floor tile, have a chance of spawning bones
+        for (int y = 1; y < level.getSizeY() - 1; y++) {
+            for (int x = 1; x < level.getSizeX() - 1; x++) {
+                if (level.getTileAtLocation(x, y) == null) {
+                    // Each empty tile has a chance of spawning bones
+                    if (getGame().getRandom().nextInt(100) < 1) {
+                        // Randomly choose a bone type. Normal bones are more likely
+                        if (getGame().getRandom().nextInt(100) < 80) {
+                            level.addDecoration(new Bone(x, y, Bone.BoneType.NORMAL));
+                        } else {
+                            level.addDecoration(new Bone(x, y, Bone.BoneType.SKULL));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Banners
+    private void initializeBanners(Level level) {
+        // Banners spawn in an interval only on the top walls
+        for (int x = 1; x < level.getSizeX() - 1; x++) {
+            if ((x + 1) % 5 == 0) {
+                level.addDecoration(new Banner(x, 0));
+            }
+        }
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Chains
+    private void initializeChains(Level level) {
+        // Each wall has a small percent chance of spawning a chain
+        for (int y = 1; y < level.getSizeY() - 1; y++) {
+            for (int x = 1; x < level.getSizeX() - 1; x++) {
+                if (level.getTileAtLocation(x, y) instanceof Wall) {
+                    if (getGame().getRandom().nextInt(100) < 10) {
+                        // 50 / 50 chance of spawning both types of chains
+                        if (getGame().getRandom().nextInt(100) < 50) {
+                            level.addDecoration(new Chain(x, y, Chain.ChainType.TYPE1));
+                        } else {
+                            level.addDecoration(new Chain(x, y, Chain.ChainType.TYPE2));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this, level
+    // EFFECTS: Initializes Rocks
+    private void initializeRocks(Level level) {
+        Random random = getGame().getRandom();
+
+        // For each empty floor tile, have a chance of spawning bones
+        for (int y = 1; y < level.getSizeY() - 1; y++) {
+            for (int x = 1; x < level.getSizeX() - 1; x++) {
+                if (level.getTileAtLocation(x, y) == null) {
+                    // Each empty tile has a chance of spawning bones
+                    if (random.nextInt(100) < 1) {
+                        // Spawn a small rock
+                        level.addDecoration(new Rock(x, y, Rock.RockType.SMALL));
+                        // Skipping large rocks as they look too much like walls.
+                    }
                 }
             }
         }

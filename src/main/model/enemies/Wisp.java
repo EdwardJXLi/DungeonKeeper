@@ -43,19 +43,14 @@ public class Wisp extends Enemy {
         // Drop Ectoplasm
         getGame().getLevel().dropItem(getPosX(), getPosY(), new Ectoplasm());
 
+        // Spawn Whispers in all four directions
+        getGame().getLevel().spawnEnemy(new Whisper(getGame()), getPosX() - 1, getPosY());
+        getGame().getLevel().spawnEnemy(new Whisper(getGame()), getPosX() + 1, getPosY());
+        getGame().getLevel().spawnEnemy(new Whisper(getGame()), getPosX(), getPosY() - 1);
+        getGame().getLevel().spawnEnemy(new Whisper(getGame()), getPosX(), getPosY() + 1);
+
         // Handle super
         super.onDeath();
-    }
-
-    // EFFECTS: Returns the number of whispers in the level
-    private int getWhispersInLevel() {
-        int count = 0;
-        for (Enemy e : getGame().getLevel().getEnemies()) {
-            if (e instanceof Whisper) {
-                count++;
-            }
-        }
-        return count;
     }
 
     // MODIFIES: this
@@ -79,14 +74,6 @@ public class Wisp extends Enemy {
                 moveUp();
             } else if (getGame().getPlayer().getPosY() > getPosY()) {
                 moveDown();
-            }
-
-            // If the enemy has moved 5 times, spawn a whisper
-            if (tick % (TICKS_UNTIL_MOVEMENT * MOVES_UNTIL_WHISPER_SPAWN) == 0) {
-                // Check if there's enough space to spawn a whisper
-                if (getWhispersInLevel() < 10) {
-                    getGame().getLevel().spawnEnemy(new Whisper(getGame()), getPosX(), getPosY());
-                }
             }
         }
 
