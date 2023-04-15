@@ -18,7 +18,7 @@ public class Game implements Writable {
     // Game Constants
     public static final String VERSION = "v1";
     public static final int TPS = 20;
-    public static final String WELCOME_MESSAGE = "Welcome to Yet Unnamed Dungeon Crawler!";
+    public static final String WELCOME_MESSAGE = "Welcome to Dungeon Keeper!";
     public static final int SPAWN_X = 2;
     public static final int SPAWN_Y = 2;
 

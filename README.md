@@ -1,5 +1,5 @@
 ## What will the application do?
-Yet Unnamed Dungeon Crawler is a project aimed at creating a top-down 
+Dungeon Keeper is a project aimed at creating a top-down 
 sprite and text-based roguelike dungeon crawler similar to Dwarf Fortress and 
 Dungeon Crawl Stone Soup. In short, it is a game about fighting enemies and 
 exploring dungeons, while trying to stay alive.
