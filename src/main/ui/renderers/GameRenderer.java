@@ -23,7 +23,7 @@ import java.util.Random;
 public class GameRenderer extends Renderer {
     // Game Renderer Constants
     private static final int HEARTS_PER_HEART_ICON = 20;
-    private static final int ATTACK_PER_ATTACK_ICON = 5;
+    private static final int ATTACK_PER_ATTACK_ICON = 10;
     private static final int DEFENSE_PER_DEFENSE_ICON = 10;
 
     // Game Renderer Helpers
