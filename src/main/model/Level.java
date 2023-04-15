@@ -21,6 +21,9 @@ import java.util.List;
 public class Level implements Writable {
     // Level Constants
     public static final int INITIAL_GUARDS_SPAWN = 10;
+    public static final int TICKS_UNTIL_GUARD_SPAWN = 200;
+    public static final int TICKS_UNTIL_WISP_SPAWN = 500;
+    public static final int TICKS_UNTIL_HEALTH_SPAWN = 100;
 
     // Information on level
     private final Game game;
@@ -189,24 +192,24 @@ public class Level implements Writable {
     // MODIFIES: this
     // EFFECTS: Sets up next tick logic
     public void handleNextTick(int tick) {
-        // Every 400 ticks, spawn a new guard enemy
-        if (tick % 400 == 0) {
+        // Every couple seconds, spawn a new guard enemy
+        if (tick % TICKS_UNTIL_GUARD_SPAWN == 0) {
             this.spawnEnemy(new Guard(game),
                     game.getRandom().nextInt(sizeX - 2) + 1,
                     game.getRandom().nextInt(sizeY - 2) + 1
             );
         }
 
-        // Every 1000 ticks, spawn a new wisp enemy
-        if (tick % 1000 == 0) {
+        // Every couple seconds, spawn a new wisp enemy
+        if (tick % TICKS_UNTIL_WISP_SPAWN == 0) {
             this.spawnEnemy(new Wisp(game),
                     game.getRandom().nextInt(sizeX - 2) + 1,
                     game.getRandom().nextInt(sizeY - 2) + 1
             );
         }
 
-        // Every 100 ticks, spawn a health potion at a random location
-        if (tick % 100 == 0) {
+        // Every couple seconds, spawn a health potion at a random location
+        if (tick % TICKS_UNTIL_HEALTH_SPAWN == 0) {
             this.dropItem(
                     game.getRandom().nextInt(sizeX - 2) + 1,
                     game.getRandom().nextInt(sizeY - 2) + 1,

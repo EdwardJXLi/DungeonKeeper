@@ -17,7 +17,7 @@ public class Mage extends Enemy {
     public static final int INITIAL_DEFENSE = MageRobe.MAGE_DEFENSE;
     public static final int INITIAL_ATTACK = 20;
     public static final int TICKS_UNTIL_MOVEMENT = 15;
-    public static final int MOVES_UNTIL_FIRE_SPAWN = 2;
+    public static final int MOVES_UNTIL_FIRE_SPAWN = 3;
 
     // EFFECTS: Creates a mage to fight
     public Mage(Game game) {
@@ -51,11 +51,11 @@ public class Mage extends Enemy {
     // EFFECTS: Handle movement for the mage
     private void handleMageMovement(int tick) {
         // Basic Mage AI
-        // If player is within 5 tiles, move towards them
+        // If player is within 10 tiles, move towards them
         // Otherwise, move randomly
         int playerX = getGame().getPlayer().getPosX();
         int playerY = getGame().getPlayer().getPosY();
-        if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
+        if (Math.abs(playerX - getPosX()) <= 10 && Math.abs(playerY - getPosY()) <= 10) {
             // Move towards player
             if (playerX > getPosX()) {
                 moveRight();

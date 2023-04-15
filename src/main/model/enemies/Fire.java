@@ -12,7 +12,7 @@ import model.graphics.SpriteID;
  */
 
 public class Fire extends Enemy {
-    public static final int INITIAL_HEALTH = 100;
+    public static final int INITIAL_HEALTH = 200;
     public static final int INITIAL_DEFENSE = 9999;
     public static final int INITIAL_ATTACK = 30;
 

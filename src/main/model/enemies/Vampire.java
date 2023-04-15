@@ -50,11 +50,11 @@ public class Vampire extends Enemy {
     // EFFECTS: Handle vampire movement
     private void handleVampireMovement(int tick) {
         // Basic Vampire AI
-        // If player is within 5 tiles, move towards them
+        // If player is within 10 tiles, move towards them
         // Otherwise, move randomly
         int playerX = getGame().getPlayer().getPosX();
         int playerY = getGame().getPlayer().getPosY();
-        if (Math.abs(playerX - getPosX()) <= 5 && Math.abs(playerY - getPosY()) <= 5) {
+        if (Math.abs(playerX - getPosX()) <= 10 && Math.abs(playerY - getPosY()) <= 10) {
             // Move towards player
             if (playerX > getPosX()) {
                 moveRight();

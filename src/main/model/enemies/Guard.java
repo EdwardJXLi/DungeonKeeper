@@ -15,7 +15,7 @@ import model.items.*;
 public class Guard extends Enemy {
     // Enemy Constants
     // Public so that tests can access them
-    public static final int INITIAL_HEALTH = 50;
+    public static final int INITIAL_HEALTH = 40;
     public static final int INITIAL_DEFENSE = 5;
     public static final int INITIAL_ATTACK = 20;
     public static final int TICKS_UNTIL_MOVEMENT = 20;

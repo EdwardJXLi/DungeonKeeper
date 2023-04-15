@@ -65,14 +65,15 @@ public class Wisp extends Enemy {
 
             // Very basic entity AI.
             // Always try to move in the direction of the player
-            if (getGame().getPlayer().getPosX() < getPosX()) {
-                moveLeft();
-            } else if (getGame().getPlayer().getPosX() > getPosX()) {
-                moveRight();
-            } else if (getGame().getPlayer().getPosY() < getPosY()) {
+            // Always try to move up and down first
+            if (getGame().getPlayer().getPosY() < getPosY()) {
                 moveUp();
             } else if (getGame().getPlayer().getPosY() > getPosY()) {
                 moveDown();
+            } else if (getGame().getPlayer().getPosX() < getPosX()) {
+                moveLeft();
+            } else if (getGame().getPlayer().getPosX() > getPosX()) {
+                moveRight();
             }
         }
 

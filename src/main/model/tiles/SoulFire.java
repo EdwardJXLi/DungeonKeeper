@@ -15,14 +15,14 @@ import java.util.Arrays;
 
 public class SoulFire extends Tile {
     // SoulFire Constants
-    public static final int SOULFIRE_DAMAGE = 20;
+    public static final int SOULFIRE_DAMAGE = 60;
 
     // EFFECTS: Creates a soul fire tile that only damages players when stepped
     public SoulFire(int posX, int posY) {
         super(
                 posX, posY, false, '#',
                 TextColor.ANSI.CYAN, TextColor.ANSI.BLUE, SpriteID.SOULFIRE, "Soul Fire",
-                Arrays.asList("Only 20 Damage to", "ONLY enemies standing", "on Soul Fire.")
+                Arrays.asList("deals 60 damage to", "ONLY enemies")
         );
     }
 
