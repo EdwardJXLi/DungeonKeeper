@@ -9,12 +9,12 @@
     "flags": ["DYNAMIC_WALLS", "DECORATIONS"]
   },
   "spritesheets": {
-    "TILES": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_tileset.png",
-    "FLOOR": "assets/2DPixelDungeonAssetPack/dungeon_tiles/dungeon_floor_tileset_modified.png",
-    "CHARACTERS": "assets/2DPixelDungeonAssetPack/character_animation/character_tileset.png",
-    "MINECRAFT_ICONS": "assets/MinecraftIcons/icons.png",
-    "MINECRAFT_FIRE": "assets/MinecraftIcons/fire.png",
-    "MINECRAFT_SOULFIRE": "assets/MinecraftIcons/soul_fire.png"
+    "TILES": "2DPixelDungeonAssetPack/dungeon_tiles/dungeon_tileset.png",
+    "FLOOR": "2DPixelDungeonAssetPack/dungeon_tiles/dungeon_floor_tileset_modified.png",
+    "CHARACTERS": "2DPixelDungeonAssetPack/character_animation/character_tileset.png",
+    "MINECRAFT_ICONS": "MinecraftIcons/icons.png",
+    "MINECRAFT_FIRE": "MinecraftIcons/fire.png",
+    "MINECRAFT_SOULFIRE": "MinecraftIcons/soul_fire.png"
   },
   "sprites": {
     "TILE_FLOOR": {
@@ -110,7 +110,7 @@
       "type": "varied",
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/dungeon_tiles/wall_tile.png",
+          "source": "2DPixelDungeonAssetPack/dungeon_tiles/wall_tile.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -249,28 +249,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_1.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_2.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_3.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_4.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/priests_idle/priest1/v1/priest1_v1_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -401,28 +401,28 @@
       "frame_time": 8,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
+          "source": "2DPixelDungeonAssetPack/items/peaks/peaks_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_2.png",
+          "source": "2DPixelDungeonAssetPack/items/peaks/peaks_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_3.png",
+          "source": "2DPixelDungeonAssetPack/items/peaks/peaks_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/peaks/peaks_4.png",
+          "source": "2DPixelDungeonAssetPack/items/peaks/peaks_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -558,7 +558,7 @@
     },
     "ENTITY_DUMMY": {
       "type": "sprite",
-      "source": "assets/2DPixelDungeonAssetPack/items/box_1/box_1_1.png",
+      "source": "2DPixelDungeonAssetPack/items/box_1/box_1_1.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
@@ -569,28 +569,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_1.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_2.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_3.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_4.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton2/v2/skeleton2_v2_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -611,28 +611,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_1.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_2.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_3.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_4.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/vampire/v2/vampire_v2_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -645,28 +645,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_1.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_2.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_3.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_4.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skull/v2/skull_v2_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -687,28 +687,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_1.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_2.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_3.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_4.png",
+          "source": "2DPixelDungeonAssetPack/character_animation/monsters_idle/skeleton1/v1/skeleton_v1_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -721,28 +721,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_1.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_1_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_2.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_1_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_3.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_1_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_1_4.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_1_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -755,28 +755,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_1.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_3_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_2.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_3_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_3.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_3_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_3_4.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_3_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -789,28 +789,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_1.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_4_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_2.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_4_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_3.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_4_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/flasks/flasks_4_4.png",
+          "source": "2DPixelDungeonAssetPack/items/flasks/flasks_4_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -820,7 +820,7 @@
     },
     "ITEM_GUARD_ARMOR":  {
       "type": "sprite",
-      "source": "assets/MinecraftIcons/Iron_Armor.png",
+      "source": "MinecraftIcons/Iron_Armor.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
@@ -828,7 +828,7 @@
     },
     "ITEM_GUARD_SWORD":  {
       "type": "sprite",
-      "source": "assets/MinecraftIcons/Iron_Sword.png",
+      "source": "MinecraftIcons/Iron_Sword.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
@@ -836,7 +836,7 @@
     },
     "ITEM_MAGE_ROBE":  {
       "type": "sprite",
-      "source": "assets/TerrariaIcons/mage_robe.png",
+      "source": "TerrariaIcons/mage_robe.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
@@ -844,7 +844,7 @@
     },
     "ITEM_VAMPIRE_FANGS":  {
       "type": "sprite",
-      "source": "assets/TerrariaIcons/vampire_fangs.png",
+      "source": "TerrariaIcons/vampire_fangs.png",
       "x": 0,
       "y": 0,
       "sprite_size": 16,
@@ -863,28 +863,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_1.png",
+          "source": "2DPixelDungeonAssetPack/items/keys/keys_1_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_2.png",
+          "source": "2DPixelDungeonAssetPack/items/keys/keys_1_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_3.png",
+          "source": "2DPixelDungeonAssetPack/items/keys/keys_1_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/items/keys/keys_1_4.png",
+          "source": "2DPixelDungeonAssetPack/items/keys/keys_1_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -937,14 +937,14 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/select_blue.png",
+          "source": "2DPixelDungeonAssetPack/selection/select_blue.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/select_blue.png",
+          "source": "2DPixelDungeonAssetPack/selection/select_blue.png",
           "x": 1,
           "y": 0,
           "sprite_size": 16,
@@ -957,14 +957,14 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/select_green.png",
+          "source": "2DPixelDungeonAssetPack/selection/select_green.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/select_green.png",
+          "source": "2DPixelDungeonAssetPack/selection/select_green.png",
           "x": 1,
           "y": 0,
           "sprite_size": 16,
@@ -977,14 +977,14 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/select_red.png",
+          "source": "2DPixelDungeonAssetPack/selection/select_red.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/select_red.png",
+          "source": "2DPixelDungeonAssetPack/selection/select_red.png",
           "x": 1,
           "y": 0,
           "sprite_size": 16,
@@ -997,14 +997,14 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/particle_stun.png",
+          "source": "2DPixelDungeonAssetPack/selection/particle_stun.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/selection/particle_stun.png",
+          "source": "2DPixelDungeonAssetPack/selection/particle_stun.png",
           "x": 1,
           "y": 0,
           "sprite_size": 16,
@@ -1017,28 +1017,28 @@
       "frame_time": 4,
       "sprites": [
         {
-          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_1.png",
+          "source": "2DPixelDungeonAssetPack/interface/arrow_1.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_2.png",
+          "source": "2DPixelDungeonAssetPack/interface/arrow_2.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_3.png",
+          "source": "2DPixelDungeonAssetPack/interface/arrow_3.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
           "transparent": true
         },
         {
-          "source": "assets/2DPixelDungeonAssetPack/interface/arrow_4.png",
+          "source": "2DPixelDungeonAssetPack/interface/arrow_4.png",
           "x": 0,
           "y": 0,
           "sprite_size": 16,
@@ -1173,7 +1173,7 @@
   },
   "fonts": {
     "FONT_DEFAULT": {
-      "source": "assets/Fonts/Pixeboy.ttf"
+      "source": "Fonts/Pixeboy.ttf"
     }
   }
 }

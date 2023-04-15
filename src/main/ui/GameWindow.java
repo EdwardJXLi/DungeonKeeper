@@ -59,7 +59,7 @@ public class GameWindow extends JFrame {
 
         // Initialize Graphics and Sprites
         int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
-        textureManager = new TextureManager("assets/texturepack.json", scale, spriteSize);
+        textureManager = new TextureManager("texturepack.json", scale, spriteSize);
 
         // Initialize Main Menu
         initMainMenu();

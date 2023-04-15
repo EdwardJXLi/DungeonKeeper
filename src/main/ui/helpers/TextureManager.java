@@ -8,8 +8,7 @@ import ui.sprites.*;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -46,7 +45,7 @@ public class TextureManager {
     private String description;
     private String license;
     private String homepage;
-    private List<String> flags;
+    private final List<String> flags;
 
     public TextureManager(String texturepack, double scale, int spriteSize) {
         // Setup Base Information
@@ -261,7 +260,7 @@ public class TextureManager {
             // Load Font
             Font font;
             try {
-                font = Font.createFont(Font.TRUETYPE_FONT, new File(fontSource));
+                font = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream(fontSource));
             } catch (FontFormatException e) {
                 throw new IOException(e);
             }
@@ -308,8 +307,11 @@ public class TextureManager {
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
-        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
-            stream.forEach(contentBuilder::append);
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(source);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            contentBuilder.append(line);
         }
 
         return contentBuilder.toString();
@@ -318,7 +320,7 @@ public class TextureManager {
     // EFFECTS: Reads source file as BufferedImage and returns it
     private BufferedImage readImage(String source) throws IOException {
         System.out.println("Reading Source: " + source);
-        return ImageIO.read(new File(source));
+        return ImageIO.read(getClass().getClassLoader().getResourceAsStream(source));
     }
 
     // EFFECTS: Resizes sprite with new size
