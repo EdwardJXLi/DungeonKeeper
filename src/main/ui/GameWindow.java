@@ -31,6 +31,7 @@ public class GameWindow extends JFrame {
     private boolean debug;
 
     // Renderers
+    private LoadingRenderer loadingRenderer;
     private TestRenderer testRenderer;
     private GameRenderer gameRenderer;
     private MainMenuRenderer mainMenuRenderer;
@@ -57,15 +58,11 @@ public class GameWindow extends JFrame {
         this.graphicalGame = graphicalGame;
         this.scale = graphicalGame.getScale();
 
-        // Initialize Graphics and Sprites
-        int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
-        textureManager = new TextureManager("texturepack.json", scale, spriteSize);
+        // Initialize Loading Screen
+        loadingRenderer = new LoadingRenderer(this);
 
-        // Initialize Main Menu
-        initMainMenu();
-
-        // Init mainMenuRenderer and add Input Handling
-        currentRenderer = mainMenuRenderer;
+        // Init loadingRenderer and add Input Handling
+        currentRenderer = loadingRenderer;
         add(currentRenderer, 0);
         currentRenderer.initRenderer();
         currentRenderer.initUserInputHandlers();
@@ -80,15 +77,18 @@ public class GameWindow extends JFrame {
         // Initialize UI and Rendering
         setVisible(true);
 
+        // Initialize Graphics and Sprites
+        int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
+        textureManager = new TextureManager("texturepack.json", scale, spriteSize, loadingRenderer);
+
+        // Initialize Main Menu
+        mainMenuRenderer = new MainMenuRenderer(this);
+
+        // Switch Renderer
+        switchRenderer(mainMenuRenderer, false);
+
         // Setup Window Close Handler
         addWindowListener(getWindowCloseAdapter());
-    }
-
-    // MODIFIES: this
-    // EFFECTS: Initializes Main Menu
-    public void initMainMenu() {
-        // Initialize Main Menu Renderer
-        mainMenuRenderer = new MainMenuRenderer(this);
     }
 
     // MODIFIES: this
@@ -219,6 +219,10 @@ public class GameWindow extends JFrame {
     public int getFPS() {
         // TODO
         return -1;
+    }
+
+    public LoadingRenderer getLoadingRenderer() {
+        return loadingRenderer;
     }
 
     public TestRenderer getTestRenderer() {

@@ -3,6 +3,7 @@ package ui.helpers;
 import model.graphics.SpriteID;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import ui.renderers.LoadingRenderer;
 import ui.sprites.*;
 
 import javax.imageio.ImageIO;
@@ -29,6 +30,8 @@ public class TextureManager {
     // Base TextureManager Information
     private final String texturepack;
     private final double scale;
+    private final LoadingRenderer loadingRenderer;
+    private final boolean isCheerJ;
 
     // Sprite Information
     private final Map<String, SpriteSheet> spritesheets;
@@ -45,12 +48,14 @@ public class TextureManager {
     private String description;
     private String license;
     private String homepage;
-    private final List<String> flags;
+    private final List<String> flags = new ArrayList<>();
 
-    public TextureManager(String texturepack, double scale, int spriteSize) {
+    public TextureManager(String texturepack, double scale, int spriteSize, LoadingRenderer loadingRenderer) {
         // Setup Base Information
         this.texturepack = texturepack;
         this.scale = scale;
+        this.loadingRenderer = loadingRenderer;
+        this.isCheerJ = new File("/app/index.html").exists();
 
         // Setup Sprite Information
         this.spritesheets = new HashMap<>();
@@ -59,9 +64,6 @@ public class TextureManager {
 
         // Setup Font Information
         this.fonts = new HashMap<>();
-
-        // Setup Texturepack Info
-        this.flags = new ArrayList<>();
 
         // Load Textures
         try {
@@ -83,6 +85,15 @@ public class TextureManager {
 
         // Initialize Sprites
         initializeSprites();
+    }
+
+    // EFFECTS: Hack to allow the game to load on the web using CheerJ
+    private InputStream getFileStream(String source) throws FileNotFoundException {
+        if (isCheerJ) {
+            return new FileInputStream("/app/assets/" + source);
+        } else {
+            return getClass().getClassLoader().getResourceAsStream(source);
+        }
     }
 
     // EFFECTS: Returns integer scaled with UI scaling factor
@@ -253,6 +264,8 @@ public class TextureManager {
     private void loadFonts(JSONObject data) throws IOException {
         for (String name : data.keySet()) {
             System.out.println("Loading Font: " + name);
+            loadingRenderer.setCurrentLoadingInfo("Loading Font: " + name);
+
             // Get Information from Texture Pack
             JSONObject fontData = data.getJSONObject(name);
             String fontSource = fontData.getString("source");
@@ -260,13 +273,14 @@ public class TextureManager {
             // Load Font
             Font font;
             try {
-                font = Font.createFont(Font.TRUETYPE_FONT, getClass().getClassLoader().getResourceAsStream(fontSource));
+                font = Font.createFont(
+                        Font.TRUETYPE_FONT,
+                        getFileStream(fontSource)
+                );
             } catch (FontFormatException e) {
                 throw new IOException(e);
             }
-            System.out.println(fonts);
             fonts.put(name, font);
-            System.out.println(fonts);
         }
     }
 
@@ -283,6 +297,8 @@ public class TextureManager {
     // EFFECTS: Takes in JSON Sprite data and returns Sprite Object
     private Sprite parseSprite(String name, JSONObject data) throws IOException {
         System.out.println("Loading Sprite: " + name);
+        loadingRenderer.setCurrentLoadingInfo("Loading Sprite: " + name);
+
         // Get Sprite Information
         String source = data.getString("source");
         int spriteSize = data.getInt("sprite_size");
@@ -307,7 +323,7 @@ public class TextureManager {
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(source);
+        InputStream inputStream = getFileStream(source);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
         String line;
         while ((line = reader.readLine()) != null) {
@@ -320,7 +336,9 @@ public class TextureManager {
     // EFFECTS: Reads source file as BufferedImage and returns it
     private BufferedImage readImage(String source) throws IOException {
         System.out.println("Reading Source: " + source);
-        return ImageIO.read(getClass().getClassLoader().getResourceAsStream(source));
+        loadingRenderer.setCurrentLoadingInfo("Reading Source: " + source);
+
+        return ImageIO.read(getFileStream(source));
     }
 
     // EFFECTS: Resizes sprite with new size
