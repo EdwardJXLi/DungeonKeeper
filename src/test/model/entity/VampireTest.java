@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
 import model.enemies.Fire;
+import model.enemies.Mage;
 import model.enemies.Vampire;
 import model.graphics.SpriteID;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,26 +58,28 @@ public class VampireTest {
                             game.getLevel().getEnemyAtLocation(10, 11) != null
             );
         }
-    }
+    }@Test
+    public void testTickMovementWithPlayer() {
+        // Loop through all possible positions for the vampire to be in.
+        // Keep the player at the same position in the middle of the map
+        player.setCoordinate(game.getLevel().getSizeX() / 2, game.getLevel().getSizeY() / 2);
 
-    @Test
-    public void testTickMovementWithPlayerFar() {
-        //  Move player to a far away location
-        game.getPlayer().setCoordinate(50, 50);
-        // Since movement is random, we try this 1000 ties so that
-        // Every possibility gets tried oyt
-        for (int i = 0; i < 1000; i++) {
-            game.getLevel().spawnEnemy(vampire, 10, 10);
-            vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
-            // Moved Away
-            assertNull(game.getLevel().getEnemyAtLocation(10, 10));
-            // Check if its within bounds
-            assertTrue(
-                    game.getLevel().getEnemyAtLocation(9, 10) != null ||
-                            game.getLevel().getEnemyAtLocation(11, 10) != null ||
-                            game.getLevel().getEnemyAtLocation(10, 9) != null ||
-                            game.getLevel().getEnemyAtLocation(10, 11) != null
-            );
+        // Loop through all possible vampire positions
+        for (int x = 0; x < game.getLevel().getSizeX(); x++) {
+            for (int y = 0; y < game.getLevel().getSizeY(); y++) {
+                // Spawn vampire
+                game.getLevel().spawnEnemy(vampire, x, y);
+                // Move vampire
+                vampire.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+                // Check if it moved towards the player
+                assertTrue(
+                        game.getLevel().getEnemyAtLocation(x - 1, y) != null ||
+                                game.getLevel().getEnemyAtLocation(x + 1, y) != null ||
+                                game.getLevel().getEnemyAtLocation(x, y - 1) != null ||
+                                game.getLevel().getEnemyAtLocation(x, y + 1) != null ||
+                                game.getLevel().getEnemyAtLocation(x, y) != null
+                );
+            }
         }
     }
 
