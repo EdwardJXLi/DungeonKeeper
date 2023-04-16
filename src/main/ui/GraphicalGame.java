@@ -36,7 +36,7 @@ public class GraphicalGame {
     private final boolean isCheerpJ;
 
     // Game Objects
-    private GameWindow gameWindow;
+    private final GameWindow gameWindow;
     private Game game;
 
     // Game Loop
@@ -80,7 +80,7 @@ public class GraphicalGame {
                     tick++;
                     gameWindow.repaint();
                     game.handleNextTick(tick);
-                // Else, just draw the game, but do not tick
+                    // Else, just draw the game, but do not tick
                 } else {
                     // Just draw but do not tick!
                     gameWindow.repaint();

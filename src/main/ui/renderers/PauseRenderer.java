@@ -6,10 +6,6 @@ import ui.helpers.CustomButton;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.util.Arrays;
 
 /*
  * Renderer for the pause menu.

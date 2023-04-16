@@ -19,7 +19,7 @@ import java.util.List;
 
 public abstract class MenuRenderer extends Renderer {
     private BufferedImage background;
-    private List<CustomButton> buttons;
+    private final List<CustomButton> buttons;
 
     // EFFECTS: Creates a menu renderer for a game window.
     public MenuRenderer(GameWindow gameWindow) {

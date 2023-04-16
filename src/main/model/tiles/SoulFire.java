@@ -3,7 +3,6 @@ package model.tiles;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Entity;
-import model.Player;
 import model.Tile;
 import model.graphics.SpriteID;
 

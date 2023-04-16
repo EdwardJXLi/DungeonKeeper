@@ -8,11 +8,19 @@ import model.graphics.SpriteID;
  */
 
 public class Bone extends Decoration {
+    // EFFECTS: Creates a bone decoration
+    public Bone(int posX, int posY, BoneType type) {
+        super(
+                posX, posY, SpriteID.DECORATION_BONE, "Bone", type.getValue()
+        );
+    }
+
     public enum BoneType {
         NORMAL(0),
         SKULL(1);
 
         private final int value;
+
         BoneType(int value) {
             this.value = value;
         }
@@ -20,12 +28,5 @@ public class Bone extends Decoration {
         public int getValue() {
             return value;
         }
-    }
-
-    // EFFECTS: Creates a bone decoration
-    public Bone(int posX, int posY, BoneType type) {
-        super(
-                posX, posY, SpriteID.DECORATION_BONE, "Bone", type.getValue()
-        );
     }
 }

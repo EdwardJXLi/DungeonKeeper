@@ -7,12 +7,11 @@ import model.Player;
 import model.enemies.Dummy;
 import model.graphics.SpriteID;
 import model.tiles.SoulFire;
-import model.tiles.Trap;
-import model.tiles.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class SoulFireTest {
     SoulFire tile;

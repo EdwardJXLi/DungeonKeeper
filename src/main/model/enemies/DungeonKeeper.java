@@ -3,9 +3,8 @@ package model.enemies;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
-import model.Item;
 import model.graphics.SpriteID;
-import model.items.*;
+import model.items.DungeonKey;
 
 /*
  * The dungeon keeper enemy. Drops the dungeon key on death.

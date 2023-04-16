@@ -198,7 +198,7 @@ public class TooltipHelper {
         for (String line : tile.getDescription()) {
             drawHelper.drawString(line);
         }
-        
+
         return tooltip;
     }
 
@@ -214,9 +214,9 @@ public class TooltipHelper {
 
         // Tooltip Parameters
         private final Graphics2D graphics;
+        private final int padding;
         private int offsetX;
         private int offsetY;
-        private final int padding;
 
         // EFFECTS: Creates a new TooltipRenderHelper with the given parameters
         public TooltipRenderHelper(Graphics2D graphics, int offsetX, int offsetY, int padding) {
@@ -298,14 +298,14 @@ public class TooltipHelper {
 
         // MODIFIES: this
         // EFFECTS: Sets the current x offset of text rendering
-        public void addOffsetX(int offsetX) {
-            this.offsetX += offsetX;
+        public void setOffsetX(int offsetX) {
+            this.offsetX = offsetX;
         }
 
         // MODIFIES: this
         // EFFECTS: Sets the current x offset of text rendering
-        public void setOffsetX(int offsetX) {
-            this.offsetX = offsetX;
+        public void addOffsetX(int offsetX) {
+            this.offsetX += offsetX;
         }
 
         // EFFECTS: Returns the current y offset of text rendering

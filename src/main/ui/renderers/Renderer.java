@@ -2,8 +2,8 @@ package ui.renderers;
 
 import model.Game;
 import ui.GameWindow;
-import ui.sprites.Sprite;
 import ui.helpers.TextureManager;
+import ui.sprites.Sprite;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,20 +21,18 @@ import java.util.List;
  */
 
 public abstract class Renderer extends JPanel {
+    // Key and Mouse Handlers
+    private final KeyHandler keyHandler;
+    private final MouseHandler mouseHandler;
     // Game Variables
     protected GameWindow gameWindow;
     protected Game game;
     protected TextureManager textureManager;
-
     // Mouse and Key Variables
     protected int mouseX = 0;
     protected int mouseY = 0;
     protected boolean mouseInFrame = false;
     protected KeyEvent lastKeyPress = null;
-
-    // Key and Mouse Handlers
-    private final KeyHandler keyHandler;
-    private final MouseHandler mouseHandler;
 
     // EFFECTS: Creates a render object for a game window.
     public Renderer(GameWindow gameWindow) {
@@ -123,42 +121,6 @@ public abstract class Renderer extends JPanel {
     public void switchInputHandlers(Renderer other) {
         removeUserInputHandlers();
         other.initUserInputHandlers();
-    }
-
-    // Key Handler
-    private class KeyHandler extends KeyAdapter {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            onKeyPress(e);
-        }
-    }
-
-    // Mouse Handler
-    private class MouseHandler extends MouseAdapter {
-        @Override
-        public void mouseMoved(MouseEvent e) {
-            onMouseMove(e);
-        }
-
-        @Override
-        public void mouseDragged(MouseEvent e) {
-            onMouseDrag(e);
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-            onMouseEnter(e);
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            onMouseLeave(e);
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            onMouseClick(e);
-        }
     }
 
     // MODIFIES: this
@@ -275,5 +237,41 @@ public abstract class Renderer extends JPanel {
 
     public TextureManager getTextureManager() {
         return textureManager;
+    }
+
+    // Key Handler
+    private class KeyHandler extends KeyAdapter {
+        @Override
+        public void keyPressed(KeyEvent e) {
+            onKeyPress(e);
+        }
+    }
+
+    // Mouse Handler
+    private class MouseHandler extends MouseAdapter {
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            onMouseMove(e);
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            onMouseDrag(e);
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            onMouseEnter(e);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            onMouseLeave(e);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            onMouseClick(e);
+        }
     }
 }

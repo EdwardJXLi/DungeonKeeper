@@ -5,6 +5,7 @@ import model.Player;
 import model.graphics.SpriteID;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /*
  * Basic defense potion that increases the player health (up to max)
@@ -17,7 +18,7 @@ public class HealingPotion extends Potion {
     // EFFECTS: Creates a simple potion that increases health
     public HealingPotion() {
         super(
-                "Healing Potion", Arrays.asList("Heals 20 Hearts"),
+                "Healing Potion", Collections.singletonList("Heals 20 Hearts"),
                 TextColor.ANSI.RED, SpriteID.ITEM_HEALING_POTION
         );
     }

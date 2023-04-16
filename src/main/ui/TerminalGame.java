@@ -8,7 +8,10 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
-import model.*;
+import model.DroppedItem;
+import model.Game;
+import model.Item;
+import model.Player;
 import persistence.GameReader;
 import persistence.GameWriter;
 import persistence.SaveGame;
@@ -32,14 +35,13 @@ public class TerminalGame {
     private static final int INV_PREVIEW_BOX_HEIGHT = 4;
     private static final int INV_INSTRUCTION_BOX_HEIGHT = 5;
     private static final String SAVE_LOCATION = "./data/saveGame.json";
-
-    // Game and Screen Variables
-    private Game game;
-    private Screen screen;
     private final int gameSizeX;
     private final int gameSizeY;
     private final int windowSizeX;
     private final int windowSizeY;
+    // Game and Screen Variables
+    private Game game;
+    private Screen screen;
     private int tick;
 
     // Terminal UI Frames
@@ -413,8 +415,8 @@ public class TerminalGame {
             inventoryFrame.setSelected(0);
             inventoryFrame.setFrom(0);
             inventoryFrame.setTo(Math.min(inventory.size(), inventoryFrame.maxItemsInPage()));
-        } else if (stroke.getKeyType() == KeyType.Escape) {
-            return true;
+        } else {
+            return stroke.getKeyType() == KeyType.Escape;
         }
         return false;
     }

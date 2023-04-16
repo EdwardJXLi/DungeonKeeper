@@ -11,10 +11,9 @@ import java.awt.image.BufferedImage;
 
 public class SingleSprite implements Sprite {
     private final BufferedImage rawImage;
-
+    private final boolean transparent;
     // Sprite Information
     private BufferedImage image;
-    private final boolean transparent;
 
     // EFFECTS: Creates a new sprite from the given image
     public SingleSprite(BufferedImage rawImage, boolean transparent) {

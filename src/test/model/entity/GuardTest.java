@@ -47,9 +47,9 @@ public class GuardTest {
             // Check if its within bounds
             assertTrue(
                     game.getLevel().getEnemyAtLocation(9, 10) != null ||
-                    game.getLevel().getEnemyAtLocation(11, 10) != null ||
-                    game.getLevel().getEnemyAtLocation(10, 9) != null ||
-                    game.getLevel().getEnemyAtLocation(10, 11) != null
+                            game.getLevel().getEnemyAtLocation(11, 10) != null ||
+                            game.getLevel().getEnemyAtLocation(10, 9) != null ||
+                            game.getLevel().getEnemyAtLocation(10, 11) != null
             );
         }
     }

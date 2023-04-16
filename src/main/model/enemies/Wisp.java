@@ -3,9 +3,8 @@ package model.enemies;
 import com.googlecode.lanterna.TextColor;
 import model.Enemy;
 import model.Game;
-import model.Item;
 import model.graphics.SpriteID;
-import model.items.*;
+import model.items.Ectoplasm;
 
 /*
  * A Wisp enemy that has no attack and no defense.

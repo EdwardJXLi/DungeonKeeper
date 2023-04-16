@@ -4,6 +4,7 @@ import com.googlecode.lanterna.TextColor;
 import model.graphics.SpriteID;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /*
  * Vampire Fangs - Dropped by vampires when killed
@@ -15,7 +16,7 @@ public class VampireFangs extends Weapon {
     // EFFECTS: Creates a vampire fang weapon.
     public VampireFangs() {
         super(
-                "Vampire Fangs", Arrays.asList("Sharp Vampire Fangs."),
+                "Vampire Fangs", Collections.singletonList("Sharp Vampire Fangs."),
                 'V', TextColor.ANSI.RED, TextColor.ANSI.DEFAULT, SpriteID.ITEM_VAMPIRE_FANGS,
                 FANG_DAMAGE
         );

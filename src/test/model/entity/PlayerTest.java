@@ -3,7 +3,6 @@ package model.entity;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
-import model.enemies.Dummy;
 import model.graphics.SpriteID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

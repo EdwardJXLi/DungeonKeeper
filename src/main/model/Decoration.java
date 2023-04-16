@@ -2,11 +2,6 @@ package model;
 
 import com.googlecode.lanterna.TextColor;
 import model.graphics.SpriteID;
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-import persistence.Writable;
-
-import java.util.List;
 
 /*
  * Abstract class for all Decorations.
@@ -22,7 +17,7 @@ public abstract class Decoration implements ScreenElement {
     private final int posY;
     private final SpriteID spriteID;
     private final String name;
-    private int spriteOffset;
+    private final int spriteOffset;
 
     // EFFECTS: Creates a generic map tile
     public Decoration(

@@ -36,13 +36,11 @@ public class InventoryRenderer extends MenuRenderer {
     final int itemBoxPadding;
     final int itemBoxSize;
     final int itemSize;
-
-    // Inventory GUI Variables
-    private List<ItemBox> inventoryItems;
     private final TooltipHelper tooltipHelper;
-
     // Quick hack to get the animated model to animate items in the inventory
     int internalTick = 0;
+    // Inventory GUI Variables
+    private List<ItemBox> inventoryItems;
 
     // EFFECTS: Creates a new inventory renderer
     public InventoryRenderer(GameWindow gameWindow) {
@@ -55,7 +53,7 @@ public class InventoryRenderer extends MenuRenderer {
         this.itemRenderSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
         this.itemBoxPadding = textureManager.getScaledSize(2);
         this.itemBoxSize = textureManager.getScaledSize(ITEM_RENDER_SIZE);
-        this.itemSize = (int) (itemBoxSize  * (0.75));
+        this.itemSize = (int) (itemBoxSize * (0.75));
     }
 
     // MODIFIES: this
@@ -125,7 +123,7 @@ public class InventoryRenderer extends MenuRenderer {
                 // Get item. If it's out of bounds, item is null
                 int index = y * HORIZONTAL_ITEMS + x;
                 Item item;
-                
+
                 if (index < inventory.size()) {
                     item = inventory.get(index);
                 } else {

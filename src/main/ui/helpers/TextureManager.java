@@ -11,9 +11,9 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -37,7 +37,7 @@ public class TextureManager {
 
     // Font Information
     private final Map<String, Font> fonts;
-
+    private final List<String> flags = new ArrayList<>();
     // Texturepack Info
     private String name;
     private String author;
@@ -45,7 +45,6 @@ public class TextureManager {
     private String description;
     private String license;
     private String homepage;
-    private final List<String> flags = new ArrayList<>();
 
     public TextureManager(
             String texturepack,
@@ -79,15 +78,27 @@ public class TextureManager {
         // Initialize Missing
         sprites.put(
                 "MISSING", new SingleSprite(
-                generateMissingImage(
-                        getSpriteSize(),
-                        getSpriteSize()
-                ), false
-            )
+                        generateMissingImage(
+                                getSpriteSize(),
+                                getSpriteSize()
+                        ), false
+                )
         );
 
         // Initialize Sprites
         initializeSprites();
+    }
+
+    // EFFECTS: Resizes sprite with new size
+    public static BufferedImage resize(BufferedImage img, int newW, int newH, int scaleType) {
+        Image tmp = img.getScaledInstance(newW, newH, scaleType);
+        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2d = dimg.createGraphics();
+        g2d.drawImage(tmp, 0, 0, null);
+        g2d.dispose();
+
+        return dimg;
     }
 
     // EFFECTS: Hack to allow the game to load on the web using CheerpJ
@@ -342,18 +353,6 @@ public class TextureManager {
         loadingRenderer.setCurrentLoadingInfo("Reading Source: " + source);
 
         return ImageIO.read(getFileStream(source));
-    }
-
-    // EFFECTS: Resizes sprite with new size
-    public static BufferedImage resize(BufferedImage img, int newW, int newH, int scaleType) {
-        Image tmp = img.getScaledInstance(newW, newH, scaleType);
-        BufferedImage dimg = new BufferedImage(newW, newH, BufferedImage.TYPE_INT_ARGB);
-
-        Graphics2D g2d = dimg.createGraphics();
-        g2d.drawImage(tmp, 0, 0, null);
-        g2d.dispose();
-
-        return dimg;
     }
 
     // EFFECTS: Returns the calculated sprite size

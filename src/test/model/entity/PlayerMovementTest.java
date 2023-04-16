@@ -2,7 +2,6 @@ package model.entity;
 
 import model.Game;
 import model.Player;
-import model.enemies.Dummy;
 import model.tiles.Trap;
 import model.tiles.Wall;
 import org.junit.jupiter.api.BeforeEach;

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Inventory implements Writable {
-    private List<Item> inventoryItems;
+    private final List<Item> inventoryItems;
     private Armor equippedArmor;
     private Weapon equippedWeapon;
 
@@ -24,7 +24,7 @@ public class Inventory implements Writable {
     public Inventory(List<Item> inventoryItems, Armor equippedArmor, Weapon equippedWeapon) {
         this.inventoryItems = inventoryItems;
         this.equippedArmor = equippedArmor;
-        this. equippedWeapon = equippedWeapon;
+        this.equippedWeapon = equippedWeapon;
     }
 
     // MODIFIES: this

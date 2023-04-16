@@ -35,7 +35,7 @@ public class Level implements Writable {
     private List<Tile> tiles;
     private List<Enemy> enemies;
     private List<DroppedItem> droppedItems;
-    private List<Decoration> decorations;
+    private final List<Decoration> decorations;
     private DungeonExit dungeonExit;
 
     // EFFECTS: Creates a level with size X and Y

@@ -1,8 +1,10 @@
 package model.item;
 
 import com.googlecode.lanterna.TextColor;
-import model.*;
-import model.enemies.Dummy;
+import model.DroppedItem;
+import model.Game;
+import model.Item;
+import model.Player;
 import model.items.HealingPotion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -3,7 +3,6 @@ package model.entity;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
-import model.enemies.Fire;
 import model.enemies.Mage;
 import model.enemies.Vampire;
 import model.graphics.SpriteID;
@@ -58,7 +57,9 @@ public class VampireTest {
                             game.getLevel().getEnemyAtLocation(10, 11) != null
             );
         }
-    }@Test
+    }
+
+    @Test
     public void testTickMovementWithPlayer() {
         // Loop through all possible positions for the vampire to be in.
         // Keep the player at the same position in the middle of the map

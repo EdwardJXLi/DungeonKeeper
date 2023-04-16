@@ -4,7 +4,6 @@ import model.Enemy;
 import model.Game;
 import model.Level;
 import model.Player;
-import model.decorations.Banner;
 import model.enemies.Guard;
 import model.tiles.Trap;
 import model.tiles.Wall;

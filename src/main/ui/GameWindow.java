@@ -4,8 +4,8 @@ import model.Game;
 import model.logging.Event;
 import model.logging.EventLog;
 import ui.helpers.TextureManager;
-import ui.renderers.*;
 import ui.renderers.Renderer;
+import ui.renderers.*;
 
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
@@ -31,10 +31,10 @@ public class GameWindow extends JFrame {
     private boolean debug;
 
     // Renderers
-    private LoadingRenderer loadingRenderer;
+    private final LoadingRenderer loadingRenderer;
     private TestRenderer testRenderer;
     private GameRenderer gameRenderer;
-    private MainMenuRenderer mainMenuRenderer;
+    private final MainMenuRenderer mainMenuRenderer;
     private PauseRenderer pauseRenderer;
     private GameOverRenderer gameOverRenderer;
     private GameWinRenderer gameWinRenderer;
@@ -42,7 +42,7 @@ public class GameWindow extends JFrame {
     private Renderer currentRenderer;
 
     // Texture Manager
-    private TextureManager textureManager;
+    private final TextureManager textureManager;
 
     // TODO: Feature unfinished, but later be able to hotswap textures
     private List<TextureManager> textureManagers;
@@ -90,6 +90,23 @@ public class GameWindow extends JFrame {
 
         // Setup Window Close Handler
         addWindowListener(getWindowCloseAdapter());
+    }
+
+    // EFFECTS: Returns WindowAdapter that handles on window close.
+    private static WindowAdapter getWindowCloseAdapter() {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                // Print out all logs
+                EventLog logger = EventLog.getInstance();
+
+                System.out.println("Game Logs:");
+                for (Event event : logger) {
+                    System.out.println(event);
+                }
+            }
+        };
     }
 
     // MODIFIES: this
@@ -158,23 +175,6 @@ public class GameWindow extends JFrame {
     // EFFECTS: Quits Game
     public void quitGame() {
         graphicalGame.quitGame();
-    }
-
-    // EFFECTS: Returns WindowAdapter that handles on window close.
-    private static WindowAdapter getWindowCloseAdapter() {
-        return new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                super.windowClosing(e);
-                // Print out all logs
-                EventLog logger = EventLog.getInstance();
-
-                System.out.println("Game Logs:");
-                for (Event event : logger) {
-                    System.out.println(event);
-                }
-            }
-        };
     }
 
     public boolean isPaused() {

@@ -9,6 +9,13 @@ import model.graphics.SpriteID;
  */
 
 public class FancyWall extends Decoration {
+    // EFFECTS: Creates a fancy wall decoration
+    public FancyWall(int posX, int posY, FancyWallType type) {
+        super(
+                posX, posY, SpriteID.TILE_WALL, "Wall (Connected)", type.getValue()
+        );
+    }
+
     public enum FancyWallType {
         TOP_LEFT(1),
         TOP_RIGHT(6),
@@ -20,6 +27,7 @@ public class FancyWall extends Decoration {
         RIGHT(7);
 
         private final int value;
+
         FancyWallType(int value) {
             this.value = value;
         }
@@ -27,12 +35,5 @@ public class FancyWall extends Decoration {
         public int getValue() {
             return value;
         }
-    }
-
-    // EFFECTS: Creates a fancy wall decoration
-    public FancyWall(int posX, int posY, FancyWallType type) {
-        super(
-                posX, posY, SpriteID.TILE_WALL, "Wall (Connected)", type.getValue()
-        );
     }
 }

@@ -5,7 +5,6 @@ import model.Enemy;
 import model.Game;
 import model.graphics.SpriteID;
 import model.items.MageRobe;
-import model.items.VampireFangs;
 
 /*
  * A Mage Enemy. Large defense, but low attack.

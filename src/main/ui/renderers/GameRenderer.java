@@ -10,10 +10,10 @@ import ui.GameWindow;
 import ui.helpers.TooltipHelper;
 import ui.sprites.Sprite;
 
-import java.awt.event.KeyEvent;
-import java.util.List;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
@@ -122,13 +122,13 @@ public class GameRenderer extends Renderer {
                     if (random.nextInt(100) < 10) {
                         level.addDecoration(new Torch(x, y, Torch.TorchType.LEFT));
                     }
-                // Right facing torches
+                    // Right facing torches
                 } else if (level.getTileAtLocation(x, y) == null
                         && level.getTileAtLocation(x + 1, y) instanceof Wall) {
                     if (random.nextInt(100) < 10) {
                         level.addDecoration(new Torch(x, y, Torch.TorchType.RIGHT));
                     }
-                // Center facing torches
+                    // Center facing torches
                 } else if (level.getTileAtLocation(x, y) instanceof Wall) {
                     if (random.nextInt(100) < 5) {
                         level.addDecoration(new Torch(x, y, Torch.TorchType.CENTER));

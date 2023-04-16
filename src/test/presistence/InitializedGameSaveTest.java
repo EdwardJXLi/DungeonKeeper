@@ -4,7 +4,6 @@ import model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import persistence.GameReader;
 import persistence.GameWriter;
-import persistence.SaveGame;
 
 import java.io.IOException;
 

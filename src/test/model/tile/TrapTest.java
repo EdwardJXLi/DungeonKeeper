@@ -66,6 +66,6 @@ public class TrapTest {
     @Test
     public void testStepOnTrapWithEnemy() {
         tile.onStep(enemy);
-            assertEquals(Dummy.INITIAL_HEALTH, enemy.getHealth());
+        assertEquals(Dummy.INITIAL_HEALTH, enemy.getHealth());
     }
 }

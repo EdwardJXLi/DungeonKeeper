@@ -6,8 +6,6 @@ import model.items.*;
 import org.json.JSONObject;
 import persistence.Writable;
 
-import java.util.List;
-
 /*
  * Main class for Players
  * Players and attack enemies.
@@ -18,11 +16,10 @@ public class Player extends Entity implements Writable {
     public static final int INITIAL_HEALTH = 200;
     public static final int INITIAL_DEFENSE = 0;
     public static final int INITIAL_ATTACK = 20;
-
+    private final Inventory inventory;
     // Player Information
     private int kills;
     private Enemy lastEnemy;
-    private final Inventory inventory;
     private boolean winGame;
 
     // EFFECTS: Creates a generic player

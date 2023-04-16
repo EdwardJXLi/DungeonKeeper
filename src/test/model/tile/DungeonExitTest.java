@@ -3,12 +3,10 @@ package model.tile;
 import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
-import model.Tile;
 import model.enemies.Dummy;
 import model.graphics.SpriteID;
 import model.items.DungeonKey;
 import model.tiles.DungeonExit;
-import model.tiles.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

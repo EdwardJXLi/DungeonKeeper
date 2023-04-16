@@ -4,7 +4,6 @@ import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
 import model.enemies.Fire;
-import model.enemies.Guard;
 import model.enemies.Mage;
 import model.graphics.SpriteID;
 import org.junit.jupiter.api.BeforeEach;

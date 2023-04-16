@@ -64,7 +64,7 @@ public class EquipmentFrame extends TerminalFrame {
     // EFFECTS: Renders the weapon tooltip
     private void renderWeapon(Weapon weapon) {
         // Print information about Weapon
-        drawText(2, ARMOR_BOX_OFFSET + 0, "[Equipped Weapon]", TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT);
+        drawText(2, ARMOR_BOX_OFFSET, "[Equipped Weapon]", TextColor.ANSI.MAGENTA, TextColor.ANSI.DEFAULT);
 
         // Check if weapon is equipped
         if (weapon != null) {

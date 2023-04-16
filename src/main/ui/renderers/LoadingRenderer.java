@@ -1,11 +1,8 @@
 package ui.renderers;
 
-import model.Player;
 import ui.GameWindow;
 
 import java.awt.*;
-
-import static java.lang.Thread.sleep;
 
 public class LoadingRenderer extends Renderer {
     String currentLoadingInfo;
