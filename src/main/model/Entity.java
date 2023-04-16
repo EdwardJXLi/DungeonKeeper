@@ -87,7 +87,7 @@ public abstract class Entity implements ScreenElement, Writable {
             case 2:
                 moveLeft();
                 break;
-            case 3:
+            default:
                 moveRight();
                 break;
         }

@@ -1,9 +1,11 @@
 package model.tile;
 
 import com.googlecode.lanterna.TextColor;
+import model.Enemy;
 import model.Game;
 import model.Player;
 import model.Tile;
+import model.enemies.Dummy;
 import model.graphics.SpriteID;
 import model.tiles.Trap;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,12 +18,14 @@ public class TrapTest {
     Tile tile;
     Game game;
     Player player;
+    Enemy enemy;
 
     @BeforeEach
     public void setup() {
         tile = new Trap(19, 20);
         game = new Game(32, 24);
         player = new Player(game);
+        enemy = new Dummy(game);
     }
 
     @Test
@@ -57,5 +61,11 @@ public class TrapTest {
         player.addDefense(Trap.TRAP_DAMAGE + 1);
         tile.onStep(player);
         assertEquals(Player.INITIAL_HEALTH, player.getHealth());
+    }
+
+    @Test
+    public void testStepOnTrapWithEnemy() {
+        tile.onStep(enemy);
+            assertEquals(Dummy.INITIAL_HEALTH, enemy.getHealth());
     }
 }

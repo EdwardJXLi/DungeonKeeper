@@ -114,5 +114,38 @@ public class LevelTest {
             }
         }
         assertTrue(numEnemiesSpawned >= 1);
+
+        // Check if dungeon exit is generated correctly
+        assertNotNull(level.getDungeonExit());
+    }
+
+    @Test
+    public void testNextTickSpawnPotion() {
+        game.initEmptyGame();
+        int numPotionsBeforeTick = level.getDroppedItems().size();
+        level.handleNextTick(Level.TICKS_UNTIL_HEALTH_SPAWN);
+
+        // Check if potion spawns
+        assertEquals(numPotionsBeforeTick + 1, level.getDroppedItems().size());
+    }
+
+    @Test
+    public void testNextTickSpawnGuard() {
+        game.initEmptyGame();
+        int numGuardsBeforeTick = level.getEnemies().size();
+        level.handleNextTick(Level.TICKS_UNTIL_GUARD_SPAWN);
+
+        // Check if banner spawns
+        assertEquals(numGuardsBeforeTick + 1, level.getEnemies().size());
+    }
+
+    @Test
+    public void testNextTickSpawnWisp() {
+        game.initEmptyGame();
+        int numWispBeforeTick = level.getEnemies().size();
+        level.handleNextTick(Level.TICKS_UNTIL_WISP_SPAWN);
+
+        // Check if banner spawns
+        assertEquals(numWispBeforeTick + 1, level.getEnemies().size());
     }
 }

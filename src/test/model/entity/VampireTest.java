@@ -4,18 +4,17 @@ import com.googlecode.lanterna.TextColor;
 import model.Game;
 import model.Player;
 import model.enemies.Fire;
-import model.enemies.Guard;
-import model.enemies.Mage;
+import model.enemies.Vampire;
 import model.graphics.SpriteID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MageTest {
+public class VampireTest {
     Game game;
     Player player;
-    Mage mage;
+    Vampire vampire;
 
     @BeforeEach
     public void setup() {
@@ -23,22 +22,22 @@ public class MageTest {
         game.initEmptyGame();
         player = new Player(game);
         game.getLevel().spawnPlayer(player);
-        mage = new Mage(game);
+        vampire = new Vampire(game);
     }
 
     @Test
     public void constructorTest() {
-        assertEquals("Mage", mage.getName());
-        assertEquals('M', mage.getTextSprite());
-        assertEquals(TextColor.ANSI.BLACK, mage.getTextColor());
-        assertEquals(TextColor.ANSI.GREEN, mage.getBackgroundColor());
-        assertEquals(SpriteID.ENTITY_MAGE, mage.getSpriteID());
-        assertEquals(Mage.INITIAL_HEALTH, mage.getMaxHealth());
-        assertEquals(Mage.INITIAL_HEALTH, mage.getHealth());
-        assertEquals(Mage.INITIAL_ATTACK, mage.getAttack());
-        assertEquals(Mage.INITIAL_DEFENSE, mage.getDefense());
-        assertEquals(game, mage.getGame());
-        assertFalse(mage.isStunned());
+        assertEquals("Vampire", vampire.getName());
+        assertEquals('V', vampire.getTextSprite());
+        assertEquals(TextColor.ANSI.BLACK, vampire.getTextColor());
+        assertEquals(TextColor.ANSI.RED, vampire.getBackgroundColor());
+        assertEquals(SpriteID.ENTITY_VAMPIRE, vampire.getSpriteID());
+        assertEquals(Vampire.INITIAL_HEALTH, vampire.getMaxHealth());
+        assertEquals(Vampire.INITIAL_HEALTH, vampire.getHealth());
+        assertEquals(Vampire.INITIAL_ATTACK, vampire.getAttack());
+        assertEquals(Vampire.INITIAL_DEFENSE, vampire.getDefense());
+        assertEquals(game, vampire.getGame());
+        assertFalse(vampire.isStunned());
     }
 
     @Test
@@ -46,8 +45,8 @@ public class MageTest {
         // Since movement is random, we try this 1000 ties so that
         // Every possibility gets tried oyt
         for (int i = 0; i < 1000; i++) {
-            game.getLevel().spawnEnemy(mage, 10, 10);
-            mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+            game.getLevel().spawnEnemy(vampire, 10, 10);
+            vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
             // Moved Away
             assertNull(game.getLevel().getEnemyAtLocation(10, 10));
             // Check if its within bounds
@@ -67,8 +66,8 @@ public class MageTest {
         // Since movement is random, we try this 1000 ties so that
         // Every possibility gets tried oyt
         for (int i = 0; i < 1000; i++) {
-            game.getLevel().spawnEnemy(mage, 10, 10);
-            mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+            game.getLevel().spawnEnemy(vampire, 10, 10);
+            vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
             // Moved Away
             assertNull(game.getLevel().getEnemyAtLocation(10, 10));
             // Check if its within bounds
@@ -86,8 +85,8 @@ public class MageTest {
         // Since movement is random, we try this 1000 ties so that
         // Every possibility gets tried oyt
         for (int i = 0; i < 1000; i++) {
-            game.getLevel().spawnEnemy(mage, 10, 10);
-            mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT - 1);
+            game.getLevel().spawnEnemy(vampire, 10, 10);
+            vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT - 1);
             // Should not move
             assertNotNull(game.getLevel().getEnemyAtLocation(10, 10));
             assertFalse(
@@ -100,36 +99,15 @@ public class MageTest {
     }
 
     @Test
-    public void testSpawnFireTick() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT * Mage.MOVES_UNTIL_FIRE_SPAWN);
-        // Move mage out of the way
-        player.setCoordinate(10, 12);
-        mage.handleNextTick(1);
-        // Should spawn fire
-        assertTrue(game.getLevel().getEnemyAtLocation(10, 10) instanceof Fire);
-    }
-
-    @Test
-    public void testNotFireTick() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT * Mage.MOVES_UNTIL_FIRE_SPAWN - 1);
-        // Move mage out of the way
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
-        // Should spawn fire
-        assertNull(game.getLevel().getEnemyAtLocation(10, 10));
-    }
-
-    @Test
     public void testResetStunOnMovementAttempt() {
-        mage.stun();
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT - 1);
+        vampire.stun();
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT - 1);
         // Should not reset, not movement
-        assertTrue(mage.isStunned());
+        assertTrue(vampire.isStunned());
         // Movement Tick
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
         // Should reset
-        assertFalse(mage.isStunned());
+        assertFalse(vampire.isStunned());
         // Should not move, because it was stunned
     }
 
@@ -137,9 +115,9 @@ public class MageTest {
     public void testOnDeath() {
         // Since movement is random, we try this 1000 ties so that
         // Every possibility gets tried out
-        game.getLevel().spawnEnemy(mage, 10, 10);
+        game.getLevel().spawnEnemy(vampire, 10, 10);
         for (int i = 0; i < 1000; i++) {
-            mage.onDeath();
+            vampire.onDeath();
             // Check if item dropped
             assertNotNull(game.getLevel().getDroppedItemAtLocation(10, 10));
         }
@@ -147,50 +125,50 @@ public class MageTest {
 
     @Test
     public void testDontMoveOntopPlayer() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
+        game.getLevel().spawnEnemy(vampire, 10, 10);
         // Test Move Up
         player.setCoordinate(10, 10);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
         assertNotNull(game.getLevel().getEnemyAtLocation(10, 10));
     }
 
     @Test
     public void testMoveLeftTowardsPlayer() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
+        game.getLevel().spawnEnemy(vampire, 10, 10);
         // Test Move Left
         player.setCoordinate(8, 10);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
         assertNull(game.getLevel().getEnemyAtLocation(10, 10));
-        assertEquals(mage, game.getLevel().getEnemyAtLocation(9, 10));
+        assertEquals(vampire, game.getLevel().getEnemyAtLocation(9, 10));
     }
 
     @Test
     public void testMoveRightTowardsPlayer() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
+        game.getLevel().spawnEnemy(vampire, 10, 10);
         // Test Move Right
         player.setCoordinate(12, 10);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
         assertNull(game.getLevel().getEnemyAtLocation(10, 10));
-        assertEquals(mage, game.getLevel().getEnemyAtLocation(11, 10));
+        assertEquals(vampire, game.getLevel().getEnemyAtLocation(11, 10));
     }
 
     @Test
     public void testMoveUpTowardsPlayer() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
+        game.getLevel().spawnEnemy(vampire, 10, 10);
         // Test Move Up
         player.setCoordinate(10, 8);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
         assertNull(game.getLevel().getEnemyAtLocation(10, 10));
-        assertEquals(mage, game.getLevel().getEnemyAtLocation(10, 9));
+        assertEquals(vampire, game.getLevel().getEnemyAtLocation(10, 9));
     }
 
     @Test
     public void testMoveDownTowardsPlayer() {
-        game.getLevel().spawnEnemy(mage, 10, 10);
+        game.getLevel().spawnEnemy(vampire, 10, 10);
         // Test Move Down
         player.setCoordinate(10, 12);
-        mage.handleNextTick(Mage.TICKS_UNTIL_MOVEMENT);
+        vampire.handleNextTick(Vampire.TICKS_UNTIL_MOVEMENT);
         assertNull(game.getLevel().getEnemyAtLocation(10, 10));
-        assertEquals(mage, game.getLevel().getEnemyAtLocation(10, 11));
+        assertEquals(vampire, game.getLevel().getEnemyAtLocation(10, 11));
     }
 }

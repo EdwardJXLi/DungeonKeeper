@@ -22,7 +22,7 @@ public class SoulFire extends Tile {
         super(
                 posX, posY, false, '#',
                 TextColor.ANSI.CYAN, TextColor.ANSI.BLUE, SpriteID.SOULFIRE, "Soul Fire",
-                Arrays.asList("deals 35 damage to", "ONLY enemies")
+                Arrays.asList("Deals 35 damage to", "ONLY enemies")
         );
     }
 

@@ -83,14 +83,13 @@ public class Mage extends Enemy {
                 return;
             }
 
-            // Handle Mage Movement
-            handleMageMovement(tick);
-
             // If the enemy has moved twice, spawn a fire
             if (tick % (TICKS_UNTIL_MOVEMENT * MOVES_UNTIL_FIRE_SPAWN) == 0) {
                 getGame().getLevel().spawnEnemy(new Fire(getGame()), getPosX(), getPosY());
             }
 
+            // Handle Mage Movement
+            handleMageMovement(tick);
         }
         // Handle super
         super.handleNextTick(tick);

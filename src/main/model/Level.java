@@ -20,7 +20,7 @@ public class Level implements Writable {
     // Level Constants
     public static final int INITIAL_GUARDS_SPAWN = 10;
     public static final int TICKS_UNTIL_GUARD_SPAWN = 200;
-    public static final int TICKS_UNTIL_WISP_SPAWN = 800;
+    public static final int TICKS_UNTIL_WISP_SPAWN = 720;
     public static final int TICKS_UNTIL_HEALTH_SPAWN = 100;
 
     // Information on level
@@ -127,6 +127,11 @@ public class Level implements Writable {
     public void spawnPlayer(Player p) {
         p.setPosX(this.spawnX);
         p.setPosY(this.spawnY);
+
+        // If game's player is not set, set it as this player
+        if (game.getPlayer() == null) {
+            game.setPlayer(p);
+        }
     }
 
     // MODIFIES: this, enemy

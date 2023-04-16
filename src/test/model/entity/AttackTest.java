@@ -4,6 +4,7 @@ import model.Enemy;
 import model.Game;
 import model.Player;
 import model.enemies.Guard;
+import model.tiles.Wall;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -125,6 +126,29 @@ public class AttackTest {
         game.getLevel().spawnPlayer(player);
         game.getLevel().spawnEnemy(enemy, Game.SPAWN_X - 1, Game.SPAWN_Y);
         player.moveLeft();
+        assertEquals(enemy, player.getLastEnemyFought());
+    }
+
+    @Test
+    public void testEnemyInitiatesAttackFirst() {
+        // Initiate map and place player and enemies
+        assertNull(player.getLastEnemyFought());
+        game.initEmptyGame();
+        game.getLevel().spawnPlayer(player);
+        game.getLevel().spawnEnemy(enemy, Game.SPAWN_X, Game.SPAWN_Y + 1);
+        // Create walls around enemy so that it can only attack up
+        game.getLevel().addTile(new Wall(Game.SPAWN_X, Game.SPAWN_Y + 2));
+        game.getLevel().addTile(new Wall(Game.SPAWN_X - 1, Game.SPAWN_Y + 1));
+        game.getLevel().addTile(new Wall(Game.SPAWN_X + 1, Game.SPAWN_Y + 1));
+        game.getLevel().addTile(new Wall(Game.SPAWN_X - 1, Game.SPAWN_Y));
+        game.getLevel().addTile(new Wall(Game.SPAWN_X + 1, Game.SPAWN_Y));
+        // Try to move the enemy about a thousand times.
+        // Eventually, one of those would be one that initiates an attack on a player
+        for (int i = 0; i < 1000; i++) {
+            enemy.handleNextTick(0);
+        }
+        // Check that the player has been attacked
+        assertNotEquals(Player.INITIAL_HEALTH, player.getHealth());
         assertEquals(enemy, player.getLastEnemyFought());
     }
 }
