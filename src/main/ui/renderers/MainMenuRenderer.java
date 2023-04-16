@@ -62,7 +62,8 @@ public class MainMenuRenderer extends MenuRenderer {
         int bs = (gameWindow.getSizeX() / 8) * 3;
 
         // Check if save file exists
-        boolean saveFileExists = new File(GraphicalGame.SAVE_LOCATION).exists();
+        boolean saveFileExists = new File(GraphicalGame.SAVE_LOCATION).exists()
+                || new File(GraphicalGame.CHEERPJ_SAVE_LOCATION).exists();
 
         // Add New Game Button
         addButton(new CustomButton(this, posX, posY, "NEW GAME", 32, new ActionListener() {
@@ -227,6 +228,15 @@ public class MainMenuRenderer extends MenuRenderer {
             g.drawString(
                     extraInfo.get(extraInfo.size() - i - 1),
                     fontSize, gameWindow.getSizeY() - (fontSize + 4) * (i + 1)
+            );
+        }
+
+        // Render Web Mode Watermark
+        g.setColor(Color.GRAY);
+        if (gameWindow.getGraphicalGame().isCheerpJ()) {
+            g.drawString(
+                    "Running in Web Mode (CheerpJ)",
+                    fontSize, fontSize * 2
             );
         }
     }

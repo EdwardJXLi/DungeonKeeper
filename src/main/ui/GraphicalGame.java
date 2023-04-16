@@ -10,7 +10,7 @@ import persistence.SaveGame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -24,6 +24,8 @@ public class GraphicalGame {
     // Game Constants
     public static final double DEFAULT_SCALE = 1.5;
     public static final String SAVE_LOCATION = "./data/saveGame.json";
+    // This is supposed to be in the root folder
+    public static final String CHEERPJ_SAVE_LOCATION = "/files/saveGame.json";
 
     // Game Variables
     private final int gameSizeX;
@@ -31,6 +33,7 @@ public class GraphicalGame {
     private final int windowSizeX;
     private final int windowSizeY;
     private final double scale;
+    private final boolean isCheerpJ;
 
     // Game Objects
     private GameWindow gameWindow;
@@ -48,6 +51,7 @@ public class GraphicalGame {
         this.scale = scale;
         this.windowSizeX = (int) (sizeX * GameWindow.BASE_SPRITE_SIZE * scale);
         this.windowSizeY = (int) (sizeY * GameWindow.BASE_SPRITE_SIZE * scale);
+        this.isCheerpJ = new File("/app/index.html").exists();
 
         // Initialize UI
         gameWindow = new GameWindow(windowSizeX, windowSizeY, this);
@@ -97,7 +101,15 @@ public class GraphicalGame {
 
     // EFFECTS: Saves the game to file
     public void saveGame() throws FileNotFoundException {
-        GameWriter gameWriter = new GameWriter(SAVE_LOCATION);
+        // Determine if it should save to cheerpJ's IndexedDB-based filesystem
+        GameWriter gameWriter;
+        if (!isCheerpJ) {
+            gameWriter = new GameWriter(SAVE_LOCATION);
+        } else {
+            gameWriter = new GameWriter(CHEERPJ_SAVE_LOCATION);
+        }
+
+        // Save game to file
         SaveGame saveGame = gameWriter.createSaveGame(game, tick);
         gameWriter.open();
         gameWriter.write(saveGame);
@@ -108,8 +120,15 @@ public class GraphicalGame {
     // MODIFIES: this
     // EFFECTS: Loads The Game from File
     public void loadGame() throws IOException {
+        // Determine if it should load from cheerpJ's IndexedDB-based filesystem
+        GameReader gameReader;
+        if (!isCheerpJ) {
+            gameReader = new GameReader(SAVE_LOCATION);
+        } else {
+            gameReader = new GameReader(CHEERPJ_SAVE_LOCATION);
+        }
+
         // Load game from file
-        GameReader gameReader = new GameReader(SAVE_LOCATION);
         SaveGame saveGame = gameReader.read();
         game = saveGame.getGame();
         tick = saveGame.getTick();
@@ -171,5 +190,9 @@ public class GraphicalGame {
 
     public int getWindowSizeY() {
         return windowSizeY;
+    }
+
+    public boolean isCheerpJ() {
+        return isCheerpJ;
     }
 }

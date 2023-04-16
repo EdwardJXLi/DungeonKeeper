@@ -50,7 +50,7 @@ public class GameWindow extends JFrame {
     // EFFECTS: Creates and Initializes Game of size X and Y
     public GameWindow(int sizeX, int sizeY, GraphicalGame graphicalGame) {
         // Create UI
-        super("Untitled Roguelike");
+        super("Dungeon Keeper - V1.0.0");
 
         // Set up window variables
         this.sizeX = sizeX;
@@ -79,7 +79,8 @@ public class GameWindow extends JFrame {
 
         // Initialize Graphics and Sprites
         int spriteSize = (int) (BASE_SPRITE_SIZE * scale);
-        textureManager = new TextureManager("texturepack.json", scale, spriteSize, loadingRenderer);
+        textureManager = new TextureManager("texturepack.json", scale, spriteSize,
+                loadingRenderer, graphicalGame.isCheerpJ());
 
         // Initialize Main Menu
         mainMenuRenderer = new MainMenuRenderer(this);
@@ -210,6 +211,10 @@ public class GameWindow extends JFrame {
 
     public Game getGame() {
         return graphicalGame.getGame();
+    }
+
+    public GraphicalGame getGraphicalGame() {
+        return graphicalGame;
     }
 
     public double getScale() {

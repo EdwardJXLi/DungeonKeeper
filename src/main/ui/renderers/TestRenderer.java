@@ -25,7 +25,7 @@ public class TestRenderer extends Renderer {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Test", Font.PLAIN, 24));
         g.drawString(
-                "Rendering and Graphics Test! - Press BACKSLASH To Exit " + gameWindow.getTick(),
+                "Rendering and Graphics Test! - Press ESC To Exit " + gameWindow.getTick(),
                 textureManager.getSpriteSize(),
                 textureManager.getSpriteSize() - 8
         );

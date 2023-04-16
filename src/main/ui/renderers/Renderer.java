@@ -11,7 +11,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,6 +77,7 @@ public abstract class Renderer extends JPanel {
             debugInfo.add("Mouse Position: " + mouseX + ", " + mouseY);
             debugInfo.add("Mouse In Frame: " + mouseInFrame);
             debugInfo.add("Current Renderer: " + gameWindow.getCurrentRenderer().getClass().getSimpleName());
+            debugInfo.add("Web Mode (CheerpJ): " + gameWindow.getGraphicalGame().isCheerpJ());
             debugInfo.add("");
             debugInfo.add("== RENDERING DEBUG ==");
             debugInfo.add("FPS: " + gameWindow.getFPS());
@@ -200,7 +200,7 @@ public abstract class Renderer extends JPanel {
                 game.getPlayer().addAttack(9999);
                 break;
             // Toggle Test Mode
-            case KeyEvent.VK_BACK_SLASH:
+            case KeyEvent.VK_F11:
                 gameWindow.switchRenderer(gameWindow.getTestRenderer(), false);
                 break;
         }

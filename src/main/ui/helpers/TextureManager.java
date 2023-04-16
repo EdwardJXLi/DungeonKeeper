@@ -11,13 +11,10 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 /*
  * Main class for loading and managing all textures, sprites, and fonts in the game.
@@ -31,7 +28,7 @@ public class TextureManager {
     private final String texturepack;
     private final double scale;
     private final LoadingRenderer loadingRenderer;
-    private final boolean isCheerJ;
+    private final boolean isCheerpJ;
 
     // Sprite Information
     private final Map<String, SpriteSheet> spritesheets;
@@ -50,12 +47,18 @@ public class TextureManager {
     private String homepage;
     private final List<String> flags = new ArrayList<>();
 
-    public TextureManager(String texturepack, double scale, int spriteSize, LoadingRenderer loadingRenderer) {
+    public TextureManager(
+            String texturepack,
+            double scale,
+            int spriteSize,
+            LoadingRenderer loadingRenderer,
+            boolean isCheerpJ
+    ) {
         // Setup Base Information
         this.texturepack = texturepack;
         this.scale = scale;
         this.loadingRenderer = loadingRenderer;
-        this.isCheerJ = new File("/app/index.html").exists();
+        this.isCheerpJ = isCheerpJ;
 
         // Setup Sprite Information
         this.spritesheets = new HashMap<>();
@@ -87,9 +90,9 @@ public class TextureManager {
         initializeSprites();
     }
 
-    // EFFECTS: Hack to allow the game to load on the web using CheerJ
+    // EFFECTS: Hack to allow the game to load on the web using CheerpJ
     private InputStream getFileStream(String source) throws FileNotFoundException {
-        if (isCheerJ) {
+        if (isCheerpJ) {
             return new FileInputStream("/app/assets/" + source);
         } else {
             return getClass().getClassLoader().getResourceAsStream(source);
