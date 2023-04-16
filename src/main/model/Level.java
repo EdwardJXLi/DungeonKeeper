@@ -255,8 +255,8 @@ public class Level implements Writable {
     // MODIFIES: this
     // EFFECTS: Drops item at location
     public DroppedItem dropItem(int posX, int posY, Item item) {
-        // Don't drop item if there is a tile at the location
-        if (getTileAtLocation(posX, posY) != null) {
+        // Don't drop item if there is a solid tile at the location
+        if (isSolidTileAtLocation(posX, posY)) {
             return null;
         }
 
