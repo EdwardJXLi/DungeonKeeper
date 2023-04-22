@@ -59,6 +59,8 @@ public class TerminalGame {
     // Menu Inventory Frames
     private PauseMenuFrame pauseMenuFrame;
     private MainMenuFrame mainMenuFrame;
+    private GameOverFrame gameOverFrame;
+    private GameWinFrame gameWinFrame;
 
     // EFFECTS: Creates and Initializes Game of size X and Y
     public TerminalGame(int sizeX, int sizeY) {
@@ -98,22 +100,23 @@ public class TerminalGame {
             // Setup Inventory Frames
             initInventoryFrames();
 
-            // Start up the main menu
-            boolean startGame = handleMainMenu();
-
+            // Setup up the main menu
             // Start the game as necessary
-            if (startGame) {
+            if (handleMainMenu()) {
                 startGameLoop();
+            }
+
+            // Game exited. Either player won or lost.
+            if (game.isGameWon()) {
+                handleGameWin();
+            } else {
+                handleGameOver();
             }
         } catch (IOException e) {
             System.out.println("Game Unexpectedly Closed");
         } catch (InterruptedException e) {
             System.out.println("Game Interrupted");
         }
-
-        // Print out goodbye message
-        System.out.println("You Died!");
-        System.out.println("Thank you for playing!");
 
         System.exit(0);
     }
@@ -239,6 +242,16 @@ public class TerminalGame {
                 screen, game
         );
         mainMenuFrame = new MainMenuFrame(
+                0, 0,
+                windowSizeX - 1, windowSizeY - 1,
+                screen, game
+        );
+        gameOverFrame = new GameOverFrame(
+                0, 0,
+                windowSizeX - 1, windowSizeY - 1,
+                screen, game
+        );
+        gameWinFrame = new GameWinFrame(
                 0, 0,
                 windowSizeX - 1, windowSizeY - 1,
                 screen, game
@@ -433,7 +446,7 @@ public class TerminalGame {
             screen.setCursorPosition(new TerminalPosition(0, 0));
             screen.clear();
 
-            // Render the current inventory
+            // Render the pause menu
             pauseMenuFrame.renderPauseMenu(saveFileExists);
 
             // Refresh Screen
@@ -455,6 +468,62 @@ public class TerminalGame {
                 } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'l' && saveFileExists) {
                     loadGame();
                     return;
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Renders and handles the game over screen
+    private void handleGameOver() throws IOException {
+        // Wait for user input
+        while (true) {
+            // Initialize the screen
+            screen.setCursorPosition(new TerminalPosition(0, 0));
+            screen.clear();
+
+            // Render the game over screen
+            gameOverFrame.renderGameOver();
+
+            // Refresh Screen
+            screen.refresh();
+
+            // Launch a thread blocking read
+            KeyStroke stroke = screen.readInput();
+
+            if (stroke != null) {
+                if (stroke.getKeyType() == KeyType.Escape) {
+                    quitGame(false);
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'q') {
+                    quitGame(false);
+                }
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: Renders and handles the game win screen
+    private void handleGameWin() throws IOException {
+        // Wait for user input
+        while (true) {
+            // Initialize the screen
+            screen.setCursorPosition(new TerminalPosition(0, 0));
+            screen.clear();
+
+            // Render the game win screen
+            gameWinFrame.renderGameWin();
+
+            // Refresh Screen
+            screen.refresh();
+
+            // Launch a thread blocking read
+            KeyStroke stroke = screen.readInput();
+
+            if (stroke != null) {
+                if (stroke.getKeyType() == KeyType.Escape) {
+                    quitGame(false);
+                } else if (stroke.getKeyType() == KeyType.Character && stroke.getCharacter() == 'q') {
+                    quitGame(false);
                 }
             }
         }

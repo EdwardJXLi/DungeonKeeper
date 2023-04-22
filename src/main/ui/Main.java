@@ -7,7 +7,7 @@ package ui;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Starting Game...");
-//        new TerminalGame(32, 24);
-        new GraphicalGame(32, 24);
+        new TerminalGame(32, 24);
+//        new GraphicalGame(32, 24);
     }
 }
