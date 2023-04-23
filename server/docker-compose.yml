@@ -1,0 +1,8 @@
+version: '3.2'
+services:
+  dungeonkeeper:
+    build: .
+    container_name: dungeonkeeper
+    restart: unless-stopped
+    ports:
+      - 80:80

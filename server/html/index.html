@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Dungeon Keeper</title>
+    <script src="https://cjrtnc.leaningtech.com/2.3/loader.js"></script>
+  </head>
+  <body>
+  </body>
+  <h1>Dungeon Keeper</h1>
+  <h2>Created by Edward Li</h2>
+  <p>NOTE: The game may take a minute or two to load, depending on your internet speed.</p>
+  <script>
+      cheerpjInit();
+      cheerpjCreateDisplay(768,576);
+      cheerpjRunMain("ui.Main", "/app/DungeonKeeper.jar"); 
+  </script>
+  <h2><a href="https://github.com/EdwardJXLi/DungeonKeeper">Check out the source code on Github</a></h2>
+  <h2><a href="DungeonKeeper.jar">Download the game</a> (or download <a href="DungeonKeeperTerminal.jar">the terminal version</a>)</h2>
+  <h2>Controls:</h2>
+  <ul>
+    <li>[W] [A] [S] [D] to move</li>
+    <li>Hover hover elements on screen to see details</li>
+    <li>Walk into enemies to attack</li>
+    <li>Walk over an item and press [Q] to pick up or [X] to delete</li>
+    <li>Press [E] to open your inventory</li>
+    <li>Once in inventory, click on an item to click/use, or press [Q] to drop or [X] to delete</li>
+    <li>Press [E] or [ESC] to leave the inventory</li>
+  </ul>
+  <h2>Instructions:</h2>
+  <p>Kill the dungeon keeper, obtain the dungeon key, and leave the dungeon!</p>
+  <h2>Enemies:</h2>
+  <ul>
+    <li>Guards do basic attack and defense. They have chance of dropping armor, weapon, or potions.</li>
+    <li>Wisps always tries to follow the player. On death, they drop ectoplasm and spawn whispers.</li>
+    <li>Whispers have fast movement and decent attack.</li>
+    <li>Mages have small attack, but have large defense and spawns damaging fire. They drop the mage's robe.</li>
+    <li>Vampires have large attack and health, but little defense. They drop vampire fangs.</li>
+    <li>Dungeon Keepers are the final bosses. They have large attack, health, and defense. They drop the dungeon key.</li>
+  </ul>
+  <h2>Items:</h2>
+  <ul>
+    <li>Potions give various permanent buffs, such as health, defense, or attack.</li>
+    <li>Guard's weapons and swords are the basic armors and weapons.</li>
+    <li>Guard's weapons and swords are the basic armors and weapons.</li>
+    <li>Ectoplasm spawns Soul Fire, which do not despawn and only damages enemies.</li>
+    <li>Dungeon key unlocks the dungeon exit, finishing the game.</li>
+  </ul>
+  <h2>Tiles:</h2>
+  <ul>
+    <li>Spikes damage you when stepped on.</li>
+    <li>Fire only damages players.</li>
+    <li>Soul Fire only damages enemies.</li>
+  </ul>
+  <h2>Cheats + Debug:</h2>
+  <ul>
+    <li>Press [F10] to enable god mode</li>
+    <li>Press [F11] to enable rendering test mode</li>
+    <li>Press [F12] to enable debug mode</li>
+  </ul>
+
+  <h4>Dungeon Keeper is ported to the web using <a href="https://docs.leaningtech.com/cheerpj/">CheerpJ</a>.</h4>
+</html>
+
