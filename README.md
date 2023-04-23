@@ -36,3 +36,8 @@ exploring dungeons, while trying to stay alive.
 
 ## Intellij-generated UML diagram of the project
 ![UML Diagram](UML.png)
+
+## Assets and Sprites Credit
+- [2D Pixel Dungeon Asset Pack](https://pixel-poem.itch.io/dungeon-assetpuck)
+- Minecraft
+- Terraria
