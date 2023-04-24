@@ -4,6 +4,7 @@ import model.Game;
 import model.Inventory;
 import model.Level;
 import model.Player;
+import model.tiles.DungeonExit;
 import org.junit.jupiter.api.Test;
 import persistence.SaveGame;
 
@@ -201,5 +202,14 @@ public abstract class SaveGameTest {
                     newLevel.getDroppedItems().get(i).getPosY()
             );
         }
+    }
+
+    @Test
+    void testDungeonExit() {
+        DungeonExit exit = game.getLevel().getDungeonExit();
+        DungeonExit newExit = newGame.getLevel().getDungeonExit();
+
+        assertEquals(exit.getPosX(), newExit.getPosX());
+        assertEquals(exit.getPosY(), newExit.getPosY());
     }
 }

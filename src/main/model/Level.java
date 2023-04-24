@@ -57,11 +57,13 @@ public class Level implements Writable {
     public void setGameElements(
             List<Tile> tiles,
             List<Enemy> enemies,
-            List<DroppedItem> droppedItems
+            List<DroppedItem> droppedItems,
+            DungeonExit dungeonExit
     ) {
         this.tiles = tiles;
         this.enemies = enemies;
         this.droppedItems = droppedItems;
+        this.dungeonExit = dungeonExit;
     }
 
     // MODIFIES: this

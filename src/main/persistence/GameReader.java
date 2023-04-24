@@ -187,13 +187,21 @@ public class GameReader {
                 json.getInt("spawnY")
         );
 
+        List<Tile> tiles = parseTilesArray(json.getJSONArray("tiles"));
+        List<Enemy> enemies = parseEnemiesArray(json.getJSONArray("enemies"));
+        List<DroppedItem> droppedItems = parseDroppedItemsArray(json.getJSONArray("droppedItems"));
+
+        // Search for the dungeon exit
+        DungeonExit dungeonExit = new DungeonExit(0, 0);
+        for (Tile t: tiles) {
+            if (t instanceof DungeonExit) {
+                dungeonExit = (DungeonExit) t;
+                break;
+            }
+        }
 
         // Load, Parse, and Set Tile, Enemy, and Dropped Item data.
-        level.setGameElements(
-                parseTilesArray(json.getJSONArray("tiles")),
-                parseEnemiesArray(json.getJSONArray("enemies")),
-                parseDroppedItemsArray(json.getJSONArray("droppedItems"))
-        );
+        level.setGameElements(tiles, enemies, droppedItems, dungeonExit);
 
         return level;
     }
